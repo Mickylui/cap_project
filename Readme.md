@@ -40,7 +40,7 @@ Group Member : Tina, Harry, Jade, Micky
 │   │   └── userService.ts
 │   └── controllers
 │       └── userController.ts
-└── Frontend
+└── my-app
     ├── public
     ├── src
     │   ├── App.tsx
