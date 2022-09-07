@@ -3,7 +3,7 @@ This is the capstone project of C21-group-7.
 Project：to create a website including　skateboard shop & community. 
 
 Group Member : Tina, Harry, Jade, Micky
-&nbsp
+
 ## folder structure
 ```
 ├── README.md
@@ -67,9 +67,9 @@ Group Member : Tina, Harry, Jade, Micky
     ├── Dockerfile
     └── yarn.lock
 ```
-&nbsp
+
 ## install workflow
-- [ ] yarn init
+- [ ] yarn init -y
 - [ ] yarn install  ts-node typescript @types/node
 - [ ] yarn install express @types/express
 - [ ] yarn install -D ts-node-dev
@@ -85,7 +85,6 @@ Group Member : Tina, Harry, Jade, Micky
 - [ ] yarn install bcryptjs @types/bcryptjs
 - [ ] yarn install grant  dotenv @types/dotenv
 - [ ] yarn install cross-fetch
-- [ ] yarn init -y
 - [ ] yarn add --dev jest
 - [ ] yarn add --dev typescript ts-jest @types/jest @types/node ts-node ts-node-dev
 - [ ] yarn ts-jest config:init
@@ -94,7 +93,7 @@ Group Member : Tina, Harry, Jade, Micky
 - [ ] yarn add --dev playwright 
 - [ ] yarn add redis @types/redis
 
-&nbsp
+
 ## Configs
 ### Prettier
 ### Prettier
