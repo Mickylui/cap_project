@@ -13,7 +13,6 @@ Group Member : Tina, Harry, Jade, Micky
 ├── Project_Info
 ├── .gitignore
 ├── .dockerignore
-├── package.json
 ├── tsconfig.json
 ├── Backend
 │   ├── migrations
@@ -32,6 +31,7 @@ Group Member : Tina, Harry, Jade, Micky
 │   ├── env.example
 │   ├── server.ts
 │   ├── knexfile.ts
+│   ├── package.json
 │   ├── docker-compose.yml
 │   ├── Dockerfile
 │   ├── middlewares
@@ -41,6 +41,7 @@ Group Member : Tina, Harry, Jade, Micky
 │   └── controllers
 │       └── userController.ts
 └── my-app
+    ├── package.json
     ├── public
     ├── src
     │   ├── App.tsx
