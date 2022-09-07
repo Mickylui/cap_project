@@ -94,6 +94,7 @@ Group Member : Tina, Harry, Jade, Micky
 - [ ] yarn knex init -x ts
 - [ ] yarn add --dev playwright 
 - [ ] yarn add redis @types/redis
+
 (frontend)
 - [ ] npx create-react-app my-app --template typescript   /   npm init react-ts-template
 - [ ] yarn add @testing-library/react @testing-library/jest-dom
