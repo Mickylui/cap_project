@@ -13,6 +13,8 @@ Group Member : Tina, Harry, Jade, Micky
 ├── Project_Info
 ├── .gitignore
 ├── .dockerignore
+├── package.json
+├── tsconfig.json
 ├── Backend
 │   ├── migrations
 │   │   └── setUpTables.ts
@@ -42,6 +44,7 @@ Group Member : Tina, Harry, Jade, Micky
     ├── public
     ├── src
     │   ├── App.tsx
+    │   ├── App.css
     │   ├── index.css
     │   ├── index.tsx
     │   ├── test
@@ -61,30 +64,29 @@ Group Member : Tina, Harry, Jade, Micky
     │        ├── actions.ts
     │        ├── reducer.ts
     │        └── state.ts
-    ├── package.json
-    ├── tsconfig.json
     ├── docker-compose.yml
     ├── Dockerfile
     └── yarn.lock
 ```
 
 ## install workflow
+(backend)
 - [ ] yarn init -y
-- [ ] yarn install  ts-node typescript @types/node
-- [ ] yarn install express @types/express
-- [ ] yarn install -D ts-node-dev
-- [ ] yarn install express-session
-- [ ] yarn install -D @types/express-session
-- [ ] yarn install jsonfile @types/jsonfile
-- [ ] yarn install formidable @types/formidable
-- [ ] yarn install winston
-- [ ] yarn install --save-dev --save-exact prettier
-- [ ] yarn install pg @types/pg dotenv 
-- [ ] yarn install xlsx
-- [ ] yarn install socket.io
-- [ ] yarn install bcryptjs @types/bcryptjs
-- [ ] yarn install grant  dotenv @types/dotenv
-- [ ] yarn install cross-fetch
+- [ ] yarn add  ts-node typescript @types/node
+- [ ] yarn add express @types/express
+- [ ] yarn add -D ts-node-dev
+- [ ] yarn add express-session
+- [ ] yarn add -D @types/express-session
+- [ ] yarn add jsonfile @types/jsonfile
+- [ ] yarn add formidable @types/formidable
+- [ ] yarn add winston
+- [ ] yarn add --save-dev --save-exact prettier
+- [ ] yarn add pg @types/pg dotenv 
+- [ ] yarn add xlsx
+- [ ] yarn add socket.io
+- [ ] yarn add bcryptjs @types/bcryptjs
+- [ ] yarn add grant  dotenv @types/dotenv
+- [ ] yarn add cross-fetch
 - [ ] yarn add --dev jest
 - [ ] yarn add --dev typescript ts-jest @types/jest @types/node ts-node ts-node-dev
 - [ ] yarn ts-jest config:init
@@ -92,8 +94,20 @@ Group Member : Tina, Harry, Jade, Micky
 - [ ] yarn knex init -x ts
 - [ ] yarn add --dev playwright 
 - [ ] yarn add redis @types/redis
-
-
+(frontend)
+- [ ] npx create-react-app my-app --template typescript   /   npm init react-ts-template
+- [ ] yarn add @testing-library/react @testing-library/jest-dom
+- [ ] yarn add redux react-redux @types/react-redux
+- [ ] yarn add redux-logger @types/redux-logger
+- [ ] yarn add react-router-dom @types/react-router-dom react-router @types/react-router
+- [ ] yarn add @reduxjs/toolkit
+- [ ] yarn add redux-thunk
+- [ ] yarn add --dev fetch-mock redux-mock-store @types/fetch-mock @types/redux-mock-store node-fetch@2
+- [ ] yarn add immer
+- [ ] yarn add map.prototype.tojson
+- [ ] yarn add jwt-simple @types/jwt-simple permit @types/permit
+- [ ] yarn add react-facebook-login @types/react-facebook-login
+    
 ## Configs
 ### Prettier
 ### Prettier
