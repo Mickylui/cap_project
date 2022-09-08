@@ -109,6 +109,7 @@ Group Member : Tina, Harry, Jade, Micky
 - [ ] yarn add map.prototype.tojson
 - [ ] yarn add jwt-simple @types/jwt-simple permit @types/permit
 - [ ] yarn add react-facebook-login @types/react-facebook-login
+- [ ] yarn add @chakra-ui/react @emotion/react @emotion/styled framer-motion
     
 ## Configs
 ### Prettier
