@@ -47,23 +47,23 @@ Group Member : Tina, Harry, Jade, Micky
     │   ├── App.css
     │   ├── index.css
     │   ├── index.tsx
-    │   ├── test
+    │   ├── Test
     │   │   └── App.test.tsx
-    │   ├── api
-    │   │   ├── utils.ts
-    │   │   └── user.ts
-    │   ├── component
+    │   ├── Api
+    │   │   ├── Utils.ts
+    │   │   └── User.ts
+    │   ├── Component
     │   │   ├── Navbar.tsx
-    │   │   └── footer.tsx
-    │   ├── pages
+    │   │   └── Footer.tsx
+    │   ├── Pages
     │   │    ├── User.tsx
     │   │    └── Admin.tsx
-    │   └── redux
-    │        ├── store.ts
-    │        └── user
-    │             ├── actions.ts
-    │             ├── reducer.ts
-    │             └── state.ts
+    │   └── Redux
+    │        ├── Store.ts
+    │        └── User
+    │             ├── Actions.ts
+    │             ├── Reducer.ts
+    │             └── State.ts
     ├── docker-compose.yml
     ├── Dockerfile
     └── yarn.lock
