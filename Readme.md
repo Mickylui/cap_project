@@ -55,15 +55,15 @@ Group Member : Tina, Harry, Jade, Micky
     │   ├── component
     │   │   ├── Navbar.tsx
     │   │   └── footer.tsx
-    │   └── pages
-    │        ├── User.tsx
-    │        └── Admin.tsx
-    ├── redux
-    │   ├── store.ts
-    │   └── user
-    │        ├── actions.ts
-    │        ├── reducer.ts
-    │        └── state.ts
+    │   ├── pages
+    │   │    ├── User.tsx
+    │   │    └── Admin.tsx
+    │   └── redux
+    │        ├── store.ts
+    │        └── user
+    │             ├── actions.ts
+    │             ├── reducer.ts
+    │             └── state.ts
     ├── docker-compose.yml
     ├── Dockerfile
     └── yarn.lock
