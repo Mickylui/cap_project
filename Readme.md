@@ -9,7 +9,6 @@ Group Member : Tina, Harry, Jade, Micky
 ├── README.md
 ├── .github/workflows
 │   └── cicd.yml
-├── DAE
 ├── Project_Info
 ├── .gitignore
 ├── .dockerignore
