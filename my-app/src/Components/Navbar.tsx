@@ -18,10 +18,15 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import Login from '../Pages/User/Login';
+import { NavLink } from "react-router-dom";
 
 // default: didn't logIn -> pure component
 // login with user -> user navbar
 // login with admin -> admin navbar
+const Logo = (props: any) => {
+  return <img src="./SkateBoardLogo.png" alt="SkateBoardLogo" />;
+};
+
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
 
@@ -51,8 +56,8 @@ export default function Navbar() {
                     />
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-                    <Box boxSize="50px">
-                        <Image src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
+                    <Box boxSize="4.75rem">
+                        <Logo color={useColorModeValue("gray.700", "white")} />
                     </Box>
                     {/* <Text
               textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
@@ -70,19 +75,21 @@ export default function Navbar() {
                     <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"} href={"/login"}>
                         Log In
                     </Button>
+      
                     <Button
                         display={{ base: "none", md: "inline-flex" }}
                         fontSize={"sm"}
                         fontWeight={600}
                         color={"white"}
                         bg={"pink.400"}
-                        href={"signup"}
+                        href={"/signup"}
                         _hover={{
                             bg: "pink.300",
                         }}
                     >
                         Sign Up
                     </Button>
+                    
                 </Stack>
             </Flex>
 
@@ -99,7 +106,7 @@ const DesktopNav = () => {
     const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
     return (
-        <Stack direction={"row"} spacing={4}>
+        <Stack direction={"row"} spacing={5}>
             {NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label}>
                     <Popover trigger={"hover"} placement={"bottom-start"}>
@@ -107,8 +114,8 @@ const DesktopNav = () => {
                             <Link
                                 p={2}
                                 href={navItem.href ?? "#"}
-                                fontSize={"sm"}
-                                fontWeight={500}
+                                fontSize={"md"}
+                                fontWeight={500}                          
                                 color={linkColor}
                                 _hover={{
                                     textDecoration: "none",
@@ -148,6 +155,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
             href={href}
             role={"group"}
             display={"block"}
+            
             p={2}
             rounded={"md"}
             _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
