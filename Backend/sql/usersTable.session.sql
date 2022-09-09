@@ -1,66 +1,55 @@
+SELECT *
+FROM users;
+DROP TABLE users;
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL primary key,
     name VARCHAR(255) not null,
     email VARCHAR(255) not null,
     password VARCHAR(255) not null,
-    icon VARCHAR(255),
-    district TEXT not null,
-    phone_number INTEGER not null,
-    slogan TEXT,
-    age_range VARCHAR(255),
-    gender VARCHAR(255),
-    reason TEXT,
-    learning_level VARCHAR(255) not null,
+    is_admin BOOLEAN not null,
     created_at TIMESTAMP not null default NOW(),
-    updated_at TIMESTAMP default NOW(),
-    last_login_at TIMESTAMP default NOW(),
-    accumulation INTEGER not null,
-    is_admin BOOLEAN not null
+    updated_at TIMESTAMP not null default NOW(),
+    last_login_at TIMESTAMP not null default NOW()
 );
-
-SELECT * FROM users;
-DROP TABLE users;
+-- create user
 INSERT INTO users(
         name,
         email,
-        icon,
-        district,
-        phone_number,
-        slogan,
-        age_range,
-        gender,
-        reason,
-        learning_level,
-        accumulation,
+        password,
         is_admin
     )
-VALUES   (
+VALUES (
         'jack',
         'jack@1.com',
-        'eee.img',
-        'TW',
-        1234567,
-        'Hi',
-        'below 12',
-        'F',
-        'wanna play with friend',
-        'new',
-        100,
+        '1234',
         false
     );
-
-UPDATE users SET slogan = 'bye';
-
-
-CREATE OR REPLACE FUNCTION trigger_set_timestamp() RETURNS TRIGGER AS $$ BEGIN NEW.updated_at = NOW();
-RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER set_timestamp
-after UPDATE of name,
-    email,
-    icon,
-    district,
-    phone_number,
-    slogan on users FOR EACH ROW EXECUTE PROCEDURE trigger_set_timestamp();
+INSERT INTO users(
+        name,
+        email,
+        password,
+        is_admin
+    )
+VALUES (
+        'mary',
+        'mary@1.com',
+        '1234',
+        false
+    );
+-- create admin
+INSERT INTO users(
+        name,
+        email,
+        password,
+        is_admin
+    )
+VALUES (
+        'admin',
+        'admin@1.com',
+        '1234',
+        true
+    );
+-- can update last_login_at
+UPDATE users
+SET last_login_at = Now()
+WHERE name = 'jack';
