@@ -3,10 +3,19 @@ import express from "express";
 import http from "http";
 import expressSession from "express-session";
 import Knex from "knex";
+import cors from "cors";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+//accept other host
+const allowList = ["http://localhost:3000"];
+app.use(
+    cors({
+        origin: allowList,
+    })
+)
 
 app.use(
     expressSession({
@@ -32,7 +41,9 @@ export const adminController = new AdminController(adminService);
 const userService = new UserService(knex);
 export const userController = new UserController(userService);
 
+import middlewareLogger from "./utils/middlewareLogger"
 // route handling
+app.post("/login",middlewareLogger)
 
 const PORT = 8080;
 const server = http.createServer(app);
