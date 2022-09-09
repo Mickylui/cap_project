@@ -1,4 +1,5 @@
 import { Image } from "@chakra-ui/react";
+
 import {
     Box,
     Flex,
@@ -8,16 +9,16 @@ import {
     Stack,
     Collapse,
     Icon,
-    Link,
     Popover,
     PopoverTrigger,
     PopoverContent,
     useColorModeValue,
+    Link,
     useBreakpointValue,
     useDisclosure,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import Login from '../Pages/User/Login';
+import { Link as RouteLink } from "react-router-dom";
 
 // default: didn't logIn -> pure component
 // login with user -> user navbar
@@ -65,18 +66,19 @@ export default function Navbar() {
                         <DesktopNav />
                     </Flex>
                 </Flex>
-
                 <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
-                    <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"} href={"/login"}>
-                        Log In
-                    </Button>
+                    <RouteLink to="/login">
+                        <Button fontSize={"sm"} fontWeight={400} variant={"link"}>
+                            Log In
+                        </Button>
+                    </RouteLink>
                     <Button
                         display={{ base: "none", md: "inline-flex" }}
                         fontSize={"sm"}
                         fontWeight={600}
                         color={"white"}
                         bg={"pink.400"}
-                        href={"signup"}
+                        // href={"signup"}
                         _hover={{
                             bg: "pink.300",
                         }}
@@ -100,6 +102,7 @@ const DesktopNav = () => {
 
     return (
         <Stack direction={"row"} spacing={4}>
+            {/* Routes */}
             {NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label}>
                     <Popover trigger={"hover"} placement={"bottom-start"}>
