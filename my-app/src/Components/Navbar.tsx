@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Image } from "@chakra-ui/react";
 import {
     Box,
@@ -19,6 +18,9 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
+// default: didn't logIn -> pure component
+// login with user -> user navbar
+// login with admin -> admin navbar
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
 
@@ -283,8 +285,3 @@ const NAV_ITEMS: Array<NavItem> = [
         href: "#",
     },
 ];
-=======
-// default: didn't logIn -> pure component
-// login with user -> user navbar
-// login with admin -> admin navbar
->>>>>>> 802e7ee658d2f0007aa40043414cefb86ff27088
