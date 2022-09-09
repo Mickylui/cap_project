@@ -1,10 +1,11 @@
 import React from 'react';
+
+import LogInCard from "./LogIn"
 // if click logIn button -> login component
 function LogIn(){
+    
     return (
-        <div>
-            <h1>this is login page</h1>
-        </div>
+        <LogInCard/>
     );
 }
 
