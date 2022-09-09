@@ -17,6 +17,7 @@ import {
     useDisclosure,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import Login from '../Pages/User/Login';
 
 // default: didn't logIn -> pure component
 // login with user -> user navbar
@@ -66,8 +67,8 @@ export default function Navbar() {
                 </Flex>
 
                 <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
-                    <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"} href={"#"}>
-                        Sign In
+                    <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"} href={"/login"}>
+                        Log In
                     </Button>
                     <Button
                         display={{ base: "none", md: "inline-flex" }}
@@ -75,7 +76,7 @@ export default function Navbar() {
                         fontWeight={600}
                         color={"white"}
                         bg={"pink.400"}
-                        href={"#"}
+                        href={"signup"}
                         _hover={{
                             bg: "pink.300",
                         }}
@@ -278,10 +279,10 @@ const NAV_ITEMS: Array<NavItem> = [
     // },
     {
         label: "Products",
-        href: "#",
+        href: "/products",
     },
     {
         label: "Activity Platform",
-        href: "#",
+        href: "/posts",
     },
 ];
