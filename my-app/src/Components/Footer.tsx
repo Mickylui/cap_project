@@ -55,36 +55,28 @@ export default function Footer() {
             </Text>
           </Stack>
           <Stack align={'flex-start'}>
-            <ListHeader>Product</ListHeader>
-            <Link href={'#'}>Overview</Link>
-            <Link href={'#'}>Features</Link>
-            <Link href={'#'}>Tutorials</Link>
-            <Link href={'#'}>Pricing</Link>
-            <Link href={'#'}>Releases</Link>
+            <ListHeader>About us</ListHeader>
+            <Text textAlign={'left'}>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet ipsam nesciunt sed aliquam non hic distinctio atque soluta. Ea, sint tempore. Perspiciatis voluptatem sit aliquid quia mollitia necessitatibus qui vitae!
+            </Text>
           </Stack>
           <Stack align={'flex-start'}>
-            <ListHeader>Company</ListHeader>
-            <Link href={'#'}>About</Link>
-            <Link href={'#'}>Press</Link>
-            <Link href={'#'}>Careers</Link>
-            <Link href={'#'}>Contact</Link>
-            <Link href={'#'}>Partners</Link>
+            <ListHeader>Sections</ListHeader>
+            <Link href={'#'}>Products</Link>
+            <Link href={'#'}>Activity Platform</Link>
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Support</ListHeader>
-            <Link href={'#'}>Help Center</Link>
-            <Link href={'#'}>Terms of Service</Link>
-            <Link href={'#'}>Legal</Link>
-            <Link href={'#'}>Privacy Policy</Link>
-            <Link href={'#'}>Status</Link>
+            <Text textAlign={'left'}>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet ipsam nesciunt sed aliquam non hic distinctio atque soluta. Ea, sint tempore. Perspiciatis voluptatem sit aliquid quia mollitia necessitatibus qui vitae!
+            </Text>
           </Stack>
           <Stack align={'flex-start'}>
-            <ListHeader>Follow Us</ListHeader>
-            <Link href={'#'}>Facebook</Link>
-            <Link href={'#'}>Twitter</Link>
-            <Link href={'#'}>Dribbble</Link>
-            <Link href={'#'}>Instagram</Link>
-            <Link href={'#'}>LinkedIn</Link>
+            <ListHeader>Contact Us</ListHeader>
+            <Link href={'#'}>Tina Wu</Link>
+            <Link href={'#'}>Jade Kwun</Link>
+            <Link href={'#'}>Micky Lui</Link>
+            <Link href={'#'}>Harry Tai</Link>
           </Stack>
         </SimpleGrid>
       </Container>
