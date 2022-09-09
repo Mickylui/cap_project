@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 
 import { Box, Container, Link, SimpleGrid, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 
+import styles from "./css/Footer.module.scss";
+
 const Logo = (props: any) => {
     return <img src="./SkateBoardLogo.png" alt="SkateBoardLogo" />;
 };
@@ -38,11 +40,11 @@ export default function Footer() {
                             <Logo color={useColorModeValue("gray.700", "white")} />
                         </Box>
                         <ListHeader>Follow us</ListHeader>
-  
                             <SmallTextContent>
-                                <i className={"fa-brands fa-instagram"}></i>
-                                <i className={"fa-brands fa-facebook"}></i>
-                                <i className={"fa-brands fa-square-twitter"}></i>
+                            {/* <div className={styles.textContent-5rem}>hi</div> */}
+                                <i className={`fa-brands fa-instagram ${styles.textContent}`}></i>
+                                <i className={`fa-brands fa-facebook ${styles.textContent}`}></i>
+                                <i className={`fa-brands fa-square-twitter ${styles.textContent}`}></i>
                             </SmallTextContent>
   
                         <SmallTextContent>
