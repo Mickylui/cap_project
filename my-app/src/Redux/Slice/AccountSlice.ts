@@ -12,46 +12,20 @@ const AccountInitialState = {
     error: undefined,
 } as IAccountState;
 
-interface ICarriage {
-    isSuccess: boolean;
-    body: any;
-}
-interface Error {
-    error: string;
-}
-
-export const LoginFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
-    "@account/logIn",
-    async ({ email, password }, thunkAPI) => {
-        try {
-            console.log("trying login...");
-            const resp = await fetch("http://localhost:8080/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            });
-            const result = await resp.json()
-            return result;
-        } catch (e) {
-            return thunkAPI.rejectWithValue({
-                error: "Failed to log in.",
-            } as Error);
-        }
-    }
-);
 
 const accountSlice = createSlice({
-    name: "account",
+    name: "Account",
     initialState: AccountInitialState,
     reducers: {
         //logIN
         logIn(state, action: PayloadAction<IAccountState>) {
+            state.isLoggedIn = true;
+            console.log("action.payload:",action.payload)
             state.token.push(action.payload);
         },
         //logOut
         logOut(state, action: PayloadAction<IAccountState>) {
+            state.isLoggedIn = false;
             state.token = [];
         },
 
@@ -63,5 +37,6 @@ const accountSlice = createSlice({
 });
 
 export const { logIn, logOut, signUp } = accountSlice.actions;
+// console.log("this is logIn actions:", logIn)
 
 export default accountSlice.reducer;
