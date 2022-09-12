@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { Box, Container, Link, SimpleGrid, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 
-import styles from "./css/Footer.module.scss";
+import "./css/Footer.css";
 
 const Logo = (props: any) => {
     return <img src="./SkateBoardLogo.png" alt="SkateBoardLogo" />;
@@ -41,10 +41,9 @@ export default function Footer() {
                         </Box>
                         <ListHeader>Follow us</ListHeader>
                             <SmallTextContent>
-                            {/* <div className={styles.textContent-5rem}>hi</div> */}
-                                <i className={`fa-brands fa-instagram ${styles.textContent}`}></i>
-                                <i className={`fa-brands fa-facebook ${styles.textContent}`}></i>
-                                <i className={`fa-brands fa-square-twitter ${styles.textContent}`}></i>
+                                <i className={`fa-brands fa-instagram textContent`}></i>
+                                <i className={`fa-brands fa-facebook textContent`}></i>
+                                <i className={`fa-brands fa-square-twitter textContent`}></i>
                             </SmallTextContent>
   
                         <SmallTextContent>

@@ -22,6 +22,7 @@ import { Link as RouteLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState, store } from "../Redux/Store";
 import { useEffect } from "react";
+import "../Components/css/Navbar.css";
 
 // default: didn't logIn -> pure component
 // login with user -> user navbar
@@ -59,8 +60,8 @@ export default function Navbar() {
                     />
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-                    <Box boxSize="50px">
-                        <Image src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
+                    <Box boxSize="80px">
+                        <Image src="./SkateBoardLogo.png" alt="SkateBoardLogo" />
                     </Box>
                     {/* <Text
               textAlign={useBreakpointValue({ base: 'center', md: 'left' })}

@@ -51,12 +51,25 @@ export async function up(knex: Knex): Promise<void> {
         }
         return;
     })
+    await knex.schema.hasTable('accumulation').then(function(exists){
+        if(!exists){
+            return knex.schema.createTable('accumulation',function(t){
+                t.increments('id').primary();
+                t.integer('accumulation').notNullable();
+                t.timestamp('date').defaultTo(knex.fn.now()).notNullable();
+                t.integer('user_id').notNullable();
+                t.foreign('user_id').references('users.id').onDelete('CASCADE').onUpdate('CASCADE');
+            })
+        }
+        return;
+    })
 }
 
 
 export async function down(knex: Knex): Promise<void> {
     await knex.schema.dropTableIfExists('user_info');
     await knex.schema.dropTableIfExists('admin_info');
+    await knex.schema.dropTableIfExists('accumulation');
     await knex.schema.dropTableIfExists('users');
 }
 

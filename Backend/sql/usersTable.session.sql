@@ -4,9 +4,12 @@ SELECT *
 FROM user_info;
 SELECT *
 FROM admin_info;
+SELECT *
+FROM accumulation;
 DROP TABLE users;
 DROP TABLE user_info;
 DROP TABLE admin_info;
+DROP TABLE accumulation;
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL primary key,
     account_name VARCHAR(255) not null,
@@ -31,13 +34,22 @@ CREATE TABLE IF NOT EXISTS user_info(
     last_login_at TIMESTAMP not null default NOW(),
     user_id INTEGER not null,
     FOREIGN KEY(user_id) REFERENCES users(id)
-) CREATE TABLE IF NOT EXISTS admin_info(
+);
+CREATE TABLE IF NOT EXISTS admin_info(
     id SERIAL primary key,
     tier INTEGER not null,
     in_charage VARCHAR(255) not null,
     user_id INTEGER not null,
     FOREIGN KEY(user_id) REFERENCES users(id)
-) -- create user
+);
+CREATE TABLE IF NOT EXISTS accumulation(
+    id SERIAL primary key,
+    accumulation INTEGER not null,
+    date TIMESTAMP not null default NOW(),
+    user_id INTEGER not null,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+-- create user
 INSERT INTO users(
         account_name,
         email,
@@ -111,3 +123,9 @@ VALUES (1, 'hi', 3);
 UPDATE users
 SET last_login_at = Now()
 WHERE name = 'jack';
+-- insert accumulation
+INSERT INTO accumulation(
+        accumulation,
+        user_id
+    )
+VALUES (20,1);

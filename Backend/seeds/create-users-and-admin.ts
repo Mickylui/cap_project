@@ -5,6 +5,7 @@ export async function seed(knex: Knex): Promise<void> {
     await knex("user_info").del();
     await knex("admin_info").del();
     await knex("users").del();
+    await knex("accumulation").del();
 
     // Inserts seed entries
     await knex("users").insert([
@@ -19,6 +20,9 @@ export async function seed(knex: Knex): Promise<void> {
 
     await knex("admin_info").insert([
         {tier:1,in_charage:'hi',user_id:3}
+    ])
+    await knex("accumulation").insert([
+        {accumulation:20,user_id:1}
     ])
 
 };
