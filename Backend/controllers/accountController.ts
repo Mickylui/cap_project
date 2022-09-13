@@ -12,17 +12,20 @@ export class AccountController {
         console.log("(AccountController)this is password:", hashedPassword)
         const result = await this.accountService.signUp(accountName, email, hashedPassword)
         if(result["success"] === false){
-            res.status(400).json(result["message"]);
+            res.status(400).json(result);
             return
         }
-        res.status(200).json(result["body"]);
+        res.status(200).json(result);
         console.log("this is result from accountService login:", result)
     };
     logIn = async (req: Request, res: Response) => {
         const {email,password} = req.body;
-        // console.log("this is email:", email)
-        // console.log("this is password:", password)
         const result = await this.accountService.logIn(email,password)
+        if(result["success"] === false){
+            res.status(400).json(result);
+            return
+        }
+        res.status(200).json(result);
         console.log("this is result from accountService login:", result)
     };
     logOut = async (req: Request, res: Response) => {};

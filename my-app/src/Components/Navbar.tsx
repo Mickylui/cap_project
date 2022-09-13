@@ -16,12 +16,15 @@ import {
     Link,
     useBreakpointValue,
     useDisclosure,
+    LinkBox,
+    LinkOverlay,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Link as RouteLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState, store } from "../Redux/Store";
+import { RootState } from "../Redux/Store";
 import { useEffect } from "react";
+import { LoggedInNav } from "./LoggedInNav";
 import "../Components/css/Navbar.css";
 
 // default: didn't logIn -> pure component
@@ -30,9 +33,12 @@ import "../Components/css/Navbar.css";
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
     let isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
-    console.log("isLoggedIn nav1:", isLoggedIn);
-
-    useEffect(() => {console.log("isLoggedIn nav2:",isLoggedIn)}, [isLoggedIn]);
+    let token = useSelector((state: RootState) => state.account.token);
+    // check if token length > 0 --> is logged in
+    // if isLoggedIn status change --> fetch data: icon and shopping cart length
+    useEffect(() => {
+        console.log("change!", isLoggedIn);
+    }, [isLoggedIn]);
 
     return (
         <Box>
@@ -60,9 +66,11 @@ export default function Navbar() {
                     />
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-                    <Box boxSize="80px">
-                        <Image src="./SkateBoardLogo.png" alt="SkateBoardLogo" />
-                    </Box>
+                    <LinkBox boxSize="80px">
+                        <LinkOverlay href="/">
+                            <Image src="./SkateBoardLogo.png" alt="SkateBoardLogo" />
+                        </LinkOverlay>
+                    </LinkBox>
                     {/* <Text
               textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
               fontFamily={'heading'}
@@ -72,10 +80,11 @@ export default function Navbar() {
 
                     <Flex display={{ base: "none", md: "flex" }} ml={10}>
                         <DesktopNav />
+                        <LoggedInNav />
                     </Flex>
                 </Flex>
-                {isLoggedIn ? (
-                    <div>welcome</div>
+                {/* {isLoggedIn ? (
+                    <LoggedInNav/>
                 ) : (
                     <Stack
                         flex={{ base: 1, md: 0 }}
@@ -104,29 +113,7 @@ export default function Navbar() {
                             </Button>
                         </RouteLink>
                     </Stack>
-                )}
-                {/* <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
-                    <RouteLink to="/logIn">
-                        <Button fontSize={"sm"} fontWeight={400} variant={"link"}>
-                            Log In
-                        </Button>
-                    </RouteLink>
-                    <RouteLink to="/signUp">
-                        <Button
-                            display={{ base: "none", md: "inline-flex" }}
-                            fontSize={"sm"}
-                            fontWeight={600}
-                            color={"white"}
-                            bg={"pink.400"}
-                            // href={"signup"}
-                            _hover={{
-                                bg: "pink.300",
-                            }}
-                        >
-                            Sign Up
-                        </Button>
-                    </RouteLink>
-                </Stack> */}
+                )} */}
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
@@ -142,7 +129,14 @@ const DesktopNav = () => {
     const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
     return (
-        <Stack direction={"row"} spacing={4}>
+        // nav bar width
+        <Stack
+            direction={"row"}
+            spacing={4}
+            width={"80vw"}
+            justifyContent={"center"}
+            alignContent={"center"}
+        >
             {/* Routes */}
             {NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label}>

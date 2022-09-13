@@ -19,13 +19,12 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { LogInFetch } from "../Api/AccountFetch";
 import { useSelector, useDispatch } from "react-redux";
 import { Link as RouteLink } from "react-router-dom";
-import { RootState, store } from "../Redux/Store";
+import { RootState } from "../Redux/Store";
 
 export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
-    let isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
-
+   
     return (
         <Flex
             minH={"100vh"}

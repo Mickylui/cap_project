@@ -1,9 +1,11 @@
-
-import "../Components/css/LandingPage.css"
+import "../Components/css/LandingPage.css";
 export function LandingPage() {
     return (
         <>
-            <div className="slider">
+            <video playsInline autoPlay muted poster="https://ruttl.com/assets/img/index-hero.jpg">
+                <source src="https://ruttl.com/assets/video/index-hero.webm" type="video/mp4" />
+            </video>
+            {/* <div className="slider">
                 <div className="sliderWrapper">
                     <div className="sliderItem">
                         <img src="./img/air.png" alt="" className="sliderImg" />
@@ -72,23 +74,26 @@ export function LandingPage() {
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <div className="features">
+            <div className="features" style={{marginTop:"55px"}}>
                 <div className="feature">
-                    <img src="./img/shipping.png" alt="" className="featureIcon" />
+                    {/* <img src="./img/shipping.png" alt="" className="featureIcon" /> */}
+                    <i className="fa-solid fa-money-check-dollar" style={{fontSize:"90px"}}></i>
                     <span className="featureTitle">FREE SHIPPING</span>
                     <span className="featureDesc">Free worldwide shipping on all orders.</span>
                 </div>
                 <div className="feature">
-                    <img className="featureIcon" src="./img/return.png" alt="" />
+                    {/* <img className="featureIcon" src="./img/return.png" alt="" /> */}
+                    <i className="fa-solid fa-trophy" style={{fontSize:"90px"}}></i>
                     <span className="featureTitle">30 DAYS RETURN</span>
                     <span className="featureDesc">
                         No question return and easy refund in 14 days.
                     </span>
                 </div>
                 <div className="feature">
-                    <img className="featureIcon" src="./img/gift.png" alt="" />
+                    {/* <img className="featureIcon" src="./img/gift.png" alt="" /> */}
+                    <i className="fa-solid fa-truck-fast" style={{fontSize:"90px"}}></i>
                     <span className="featureTitle">GIFT CARDS</span>
                     <span className="featureDesc">Buy gift cards and use coupon codes easily.</span>
                 </div>

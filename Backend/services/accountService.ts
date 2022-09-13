@@ -15,7 +15,7 @@ export class AccountService {
                 .first();
             console.log("existUser:", existUserId);
             if (existUserId) {
-                return false;
+                return {success:false, message:"accountName already exist"};
             }
             await txn("users").insert({
                 account_name: accountName,
@@ -27,11 +27,11 @@ export class AccountService {
             console.log("AccountService-- this is email:", email);
             console.log("AccountService-- this is password:", password);
             await txn.commit();
-            return true;
+            return {success:true};
         } catch (error) {
             await txn.rollback();
             winstonLogger.error(error.toString());
-            return false;
+            return {success:false, message:"error"};
         }
     }
     async logIn(email: string, password: string) {
@@ -46,18 +46,18 @@ export class AccountService {
             }
             const matchPassword = await checkPassword(password,existUserData.password);
             if(!matchPassword){
-                return false;
+                return {success:false, message:"Invalid password"};
             }
-            const payload = {
+            const userData = {
                 id: existUserData["id"],
                 username: existUserData["account_name"]
             }
-            const token = jwtSimple.encode(payload, jwt.jwtSecret);
-            return {success:true, body:{token}};
+            const token = jwtSimple.encode(userData, jwt.jwtSecret);
+            return {success:true, body:{token,userData}};
         } catch (error) {
             await txn.rollback();
             winstonLogger.error(error.toString());
-            return {success:false, message:"Invalid password"};
+            return {success:false, message:"error"};
         }
     }
     async getUserWithJWT(tokenId: any) {

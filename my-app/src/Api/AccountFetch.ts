@@ -1,8 +1,9 @@
 import {  createAsyncThunk } from "@reduxjs/toolkit";
 
 interface ICarriage {
-    isSuccess: boolean;
+    success: boolean;
     body: any;
+    message: string;
 }
 interface Error {
     error: string;
@@ -10,7 +11,7 @@ interface Error {
 
 const DEVELOP_HOST = "http://localhost:8080";
 
-export const LogInFetch = createAsyncThunk<Promise<ICarriage>, any, { rejectValue: Error }>(
+export const LogInFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@Account/logIn" as const,
     async ({ email, password }, thunkAPI) => {
         try {
