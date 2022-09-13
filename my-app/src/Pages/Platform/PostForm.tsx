@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Button, Box, Image, SimpleGrid, Tag, TagLabel, Avatar } from "@chakra-ui/react";
+import { Box, Image, SimpleGrid, Tag, TagLabel, Avatar } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
 // import { PostItem } from './PostItem'
 
@@ -18,18 +18,6 @@ function PostForm() {
     return (
         <div>
             <>
-                <Input
-                    size="lg"
-                    htmlSize={70}
-                    width="auto"
-                    margin="50px"
-                    placeholder="Search keywords or tags"
-                    type="text"
-                    value=""
-                />
-                <Button colorScheme="teal" size="md">
-                    Search
-                </Button>
 
                 {/* Passing `columns={[2, null, 3]}` and `columns={{ sm: 2, md: 3 }}` // will have
                 the same effect. */}

@@ -19,16 +19,20 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Link as RouteLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState, store } from "../Redux/Store";
+import { useEffect } from "react";
+import "../Components/css/Navbar.css";
 
 // default: didn't logIn -> pure component
 // login with user -> user navbar
 // login with admin -> admin navbar
-const Logo = (props: any) => {
-  return <img src="./SkateBoardLogo.png" alt="SkateBoardLogo" />;
-};
-
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
+    let isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
+    console.log("isLoggedIn nav1:", isLoggedIn);
+
+    useEffect(() => {console.log("isLoggedIn nav2:",isLoggedIn)}, [isLoggedIn]);
 
     return (
         <Box>
@@ -56,8 +60,8 @@ export default function Navbar() {
                     />
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-                    <Box boxSize="4.75rem">
-                        <Logo color={useColorModeValue("gray.700", "white")} />
+                    <Box boxSize="80px">
+                        <Image src="./SkateBoardLogo.png" alt="SkateBoardLogo" />
                     </Box>
                     {/* <Text
               textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
@@ -70,27 +74,59 @@ export default function Navbar() {
                         <DesktopNav />
                     </Flex>
                 </Flex>
-                <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
-                    <RouteLink to="/login">
+                {isLoggedIn ? (
+                    <div>welcome</div>
+                ) : (
+                    <Stack
+                        flex={{ base: 1, md: 0 }}
+                        justify={"flex-end"}
+                        direction={"row"}
+                        spacing={6}
+                    >
+                        <RouteLink to="/logIn">
+                            <Button fontSize={"sm"} fontWeight={400} variant={"link"}>
+                                Log In
+                            </Button>
+                        </RouteLink>
+                        <RouteLink to="/signUp">
+                            <Button
+                                display={{ base: "none", md: "inline-flex" }}
+                                fontSize={"sm"}
+                                fontWeight={600}
+                                color={"white"}
+                                bg={"pink.400"}
+                                // href={"signup"}
+                                _hover={{
+                                    bg: "pink.300",
+                                }}
+                            >
+                                Sign Up
+                            </Button>
+                        </RouteLink>
+                    </Stack>
+                )}
+                {/* <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
+                    <RouteLink to="/logIn">
                         <Button fontSize={"sm"} fontWeight={400} variant={"link"}>
                             Log In
                         </Button>
                     </RouteLink>
-                    <Button
-                        display={{ base: "none", md: "inline-flex" }}
-                        fontSize={"sm"}
-                        fontWeight={600}
-                        color={"white"}
-                        bg={"pink.400"}
-                        // href={"signup"}
-                        _hover={{
-                            bg: "pink.300",
-                        }}
-                    >
-                        Sign Up
-                    </Button>
-                    
-                </Stack>
+                    <RouteLink to="/signUp">
+                        <Button
+                            display={{ base: "none", md: "inline-flex" }}
+                            fontSize={"sm"}
+                            fontWeight={600}
+                            color={"white"}
+                            bg={"pink.400"}
+                            // href={"signup"}
+                            _hover={{
+                                bg: "pink.300",
+                            }}
+                        >
+                            Sign Up
+                        </Button>
+                    </RouteLink>
+                </Stack> */}
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
@@ -115,8 +151,8 @@ const DesktopNav = () => {
                             <Link
                                 p={2}
                                 href={navItem.href ?? "#"}
-                                fontSize={"md"}
-                                fontWeight={500}                          
+                                fontSize={"sm"}
+                                fontWeight={500}
                                 color={linkColor}
                                 _hover={{
                                     textDecoration: "none",
@@ -156,7 +192,6 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
             href={href}
             role={"group"}
             display={"block"}
-            
             p={2}
             rounded={"md"}
             _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}

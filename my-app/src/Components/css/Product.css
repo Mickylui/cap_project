@@ -1,0 +1,20 @@
+.product-subtitle{
+    width: 100%;
+    text-align: left;
+}
+.product-key{
+    width: fit-content;
+    display: flex;
+    font-size: 3em;
+}
+
+.product-value{
+    margin-left: 2rem;
+}
+.product-size{
+    display: flex;
+    flex-wrap: wrap;
+}
+.product-size-key{
+    width: 100%;
+}

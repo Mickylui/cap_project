@@ -1,14 +1,19 @@
 import React from 'react';
 
-import LogInCard from "./LogIn"
+import LogInCard from "../../Components/LogIn"
+import SignUpCard from "../../Components/SignUp"
 // if click logIn button -> login component
-function LogIn(){
+export function LogIn(){
     
     return (
         <LogInCard/>
     );
 }
 
-export default LogIn;
+export function SignUp(){
+    return (
+        <SignUpCard/>
+    );
+}
 
 // if click signUp button -> signUp component
