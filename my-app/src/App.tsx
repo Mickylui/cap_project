@@ -11,6 +11,7 @@ import { Products } from "./Pages/Product/Products";
 import LandingPage from "./Pages/LandingPage";
 import SocialPlatform from "./Pages/Platform/SocialPlatform";
 import Profile from "./Pages/User/Profile";
+import CompleteForm from "./Pages/User/CompleteForm";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="logIn" element={<LogIn />} />
                     <Route path="signUp" element={<SignUp />} />
                     <Route path="users" element={<Profile />} />
+                    <Route path="users/form" element={<CompleteForm />} />
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="posts" element={<SocialPlatform />} />

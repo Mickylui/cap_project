@@ -4,6 +4,8 @@ import UserImage from "./UserImage";
 import { Link as ReachLink } from "@reach/router";
 import PostForm from "../Platform/PostForm";
 import Products from "../Product/Products";
+import UsePoints from "./UsePoints";
+import GetPoints from "./GetPoints";
 
 function Profile() {
     const [link, switchLink] = useState("posts");
@@ -29,6 +31,8 @@ function Profile() {
                 Like
             </Link>
             <main>{link === "posts" ? <PostForm /> : <Products />}</main>
+            <UsePoints />
+            <GetPoints />
         </div>
     );
 }
