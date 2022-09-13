@@ -29,4 +29,8 @@ export class AccountController {
         console.log("this is result from accountService login:", result)
     };
     logOut = async (req: Request, res: Response) => {};
+    userDataJWT = async (req: Request, res: Response) => {
+        const decodeJWT = req.body;
+        console.log("this is decodeJWT:",decodeJWT)
+    };
 }

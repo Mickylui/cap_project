@@ -60,7 +60,7 @@ export class AccountService {
             return {success:false, message:"error"};
         }
     }
-    async getUserWithJWT(tokenId: any) {
+    async userDataJWT(tokenId: any) {
         console.log("this is tokenId:", tokenId);
     }
 }

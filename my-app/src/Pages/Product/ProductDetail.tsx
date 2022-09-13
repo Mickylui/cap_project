@@ -3,6 +3,7 @@ import { Button, HStack, Input, useNumberInput } from "@chakra-ui/react";
 import React from "react";
 import "../../Components/css/Product.css";
 import styles from "../../Components/css/leftRightPosition.module.scss";
+import { BackButton } from "../../Components/BackButton";
 
 export function ProductDetail() {
     //useEffect=>fetch data (state: admin-Updated)
@@ -22,9 +23,7 @@ export function ProductDetail() {
         <div>
             <div className="product-singel" style={{ display: "flex" }}>
                 <div className={`left-image-like-box ${styles.leftPosition}`}>
-                    <Button>
-                        <ArrowBackIcon />
-                    </Button>
+                    <BackButton/>
                     <img src="./SkateBoardLogo.png" alt="skateBoard-product" />
                     <div className="product-like">190</div>
                 </div>

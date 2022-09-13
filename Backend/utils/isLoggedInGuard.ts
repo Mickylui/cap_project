@@ -10,6 +10,7 @@ const permit = new Bearer({
 export async function isLoggedInGuard(req: Request, res: Response, next: NextFunction) {
     try{
         const token = permit.check(req);
+        console.log("isLoggedInGuard:",token)
         // no token -> never login
         if(!token){
             return res.status(401).json({message:"Permission Denied"});
@@ -17,17 +18,15 @@ export async function isLoggedInGuard(req: Request, res: Response, next: NextFun
             // has token && has record of this user -> success: loggedIn before
             // has req.session["user"] -> success: status--still loggedIn
             const payload = jwtSimple.decode(token, jwt.jwtSecret);
-
-            const checkUserIdentity = req.session["user"];
-            if (!checkUserIdentity) {
-                console.log("isLoggedInMiddleware - fails");
-                res.redirect("/login");
-                return;
+            console.log("this is JWT:", payload)
+            if(!payload){
+                return {success:false,message:"Permission denied"}
             }
-            console.log("isLoggedInMiddleware - success");
+            console.log("logIn by JWT")
             next();
+            return
         }
     }catch(e){
-
+        return
     }
 }

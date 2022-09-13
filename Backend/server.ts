@@ -45,10 +45,16 @@ export const accountController = new AccountController(accountService);
 // const userService = new UserService(knex);
 // export const userController = new UserController(userService);
 
-import middlewareLogger from "./utils/middlewareLogger";
 import {accountRoutes} from "./routes/accountRoutes";
+import path from "path";
 // route handling
-app.use("/account",middlewareLogger,accountRoutes);
+app.use("/account",accountRoutes);
+
+
+//folder path
+app.use(express.static(path.join(__dirname, "private")));
+
+
 const PORT = 8080;
 const server = http.createServer(app);
 

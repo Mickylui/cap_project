@@ -50,9 +50,9 @@ const accountSlice = createSlice({
                 });
                 state = nextState;
                 console.log("nextState:", state.isLoggedIn);
+                return state;
             })
             .addCase(LogInFetch.fulfilled, (state, action) => {
-                console.log("action:", action.payload.body.userData);
                 if(action.payload.success === true){
                     const nextState = produce(AccountInitialState, (draft) => {
                         draft.token = action.payload.body.token
@@ -62,7 +62,6 @@ const accountSlice = createSlice({
                         draft.error = undefined;
                     });
                     state = nextState;
-                    console.log("token:", state.token);
                 }else{
                     const nextState = produce(AccountInitialState, (draft) => {
                         draft.token = "";
@@ -74,8 +73,7 @@ const accountSlice = createSlice({
                     });
                     state = nextState;
                 }
-                
-                console.log("nextState:", state.isLoggedIn);
+                return state;
             })
             .addCase(LogInFetch.rejected, (state, action) => {
                 const nextState = produce(AccountInitialState, (draft) => {
@@ -85,8 +83,9 @@ const accountSlice = createSlice({
                     draft.userData = [];
                     draft.error = undefined;
                 });
-                console.log("nextState:", state.isLoggedIn);
+                // console.log("nextState:", state.isLoggedIn);
                 state = nextState;
+                return state;
             });
     },
 });

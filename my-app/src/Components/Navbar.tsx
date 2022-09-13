@@ -24,7 +24,7 @@ import { Link as RouteLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/Store";
 import { useEffect } from "react";
-import { LoggedInNav } from "./LoggedInNav";
+import { UserLoggedInNav } from "./LoggedInNav";
 import "../Components/css/Navbar.css";
 
 // default: didn't logIn -> pure component
@@ -36,9 +36,12 @@ export default function Navbar() {
     let token = useSelector((state: RootState) => state.account.token);
     // check if token length > 0 --> is logged in
     // if isLoggedIn status change --> fetch data: icon and shopping cart length
+    // data: if user v.s if admin
     useEffect(() => {
+        window.localStorage.setItem("token", JSON.stringify(token));
         console.log("change!", isLoggedIn);
-    }, [isLoggedIn]);
+        console.log("token!", localStorage.getItem("token"));
+    }, [isLoggedIn, token]);
 
     return (
         <Box>
@@ -80,7 +83,7 @@ export default function Navbar() {
 
                     <Flex display={{ base: "none", md: "flex" }} ml={10}>
                         <DesktopNav />
-                        <LoggedInNav />
+                        <UserLoggedInNav />
                     </Flex>
                 </Flex>
                 {/* {isLoggedIn ? (

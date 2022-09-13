@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Box, Link } from "@chakra-ui/react";
 import UserImage from "../../Components/UserImage";
-import { Link as ReachLink } from "@reach/router";
 import PostForm from "../Platform/PostForm";
 import Products from "../Product/Products";
 
-function Profile() {
+function AdminProfile() {
     const [link, switchLink] = useState("posts");
     return (
         <div>
@@ -17,7 +16,7 @@ function Profile() {
                 fontSize="1.5rem"
                 onClick={() => switchLink("posts")}
             >
-                Post
+                Users
             </Link>
             <Link
                 as={ReachLink}
@@ -26,14 +25,38 @@ function Profile() {
                 fontSize="1.5rem"
                 onClick={() => switchLink("products")}
             >
-                Like
+                Products
+            </Link>
+            <Link
+                as={ReachLink}
+                to="likes"
+                margin="20px"
+                fontSize="1.5rem"
+                onClick={() => switchLink("posts")}
+            >
+                Platforms
+            </Link>
+            <Link
+                as={ReachLink}
+                to="likes"
+                margin="20px"
+                fontSize="1.5rem"
+                onClick={() => switchLink("products")}
+            >
+                Posts
+            </Link>
+            <Link
+                as={ReachLink}
+                to="likes"
+                margin="20px"
+                fontSize="1.5rem"
+                onClick={() => switchLink("posts")}
+            >
+                Banners
             </Link>
             <main>{link === "posts" ? <PostForm /> : <Products />}</main>
         </div>
     );
 }
 
-export default Profile;
-// default -> post component
-
-// click like -> like component
+export default AdminProfile;
