@@ -182,11 +182,13 @@ nav {
   }
   
   .product {
-    height: 160vh;
+    width: 100%;
+    height: fit-content;
     background-color: whitesmoke;
     position: relative;
     clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
-    padding: 100px;
+    padding-top: 100px;
+    padding-bottom: 50px;
   }
   
   .payment {

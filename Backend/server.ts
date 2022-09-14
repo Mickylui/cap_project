@@ -8,6 +8,11 @@ import cors from "cors";
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    next();
+});
 
 //accept other host
 const allowList = ["http://localhost:3000"];
@@ -38,17 +43,23 @@ const knex = Knex(knexConfig);
 // import { UserController } from "./controllers/userController";
 import { AccountService } from "./services/accountService";
 import { AccountController } from "./controllers/accountController";
-const accountService = new AccountService(knex);
+export const accountService = new AccountService(knex);
 export const accountController = new AccountController(accountService);
 // const adminService = new AdminService(knex);
 // export const adminController = new AdminController(adminService);
 // const userService = new UserService(knex);
 // export const userController = new UserController(userService);
 
-import middlewareLogger from "./utils/middlewareLogger";
 import {accountRoutes} from "./routes/accountRoutes";
+import path from "path";
 // route handling
-app.use("/account",middlewareLogger,accountRoutes);
+app.use("/account",accountRoutes);
+
+
+//folder path
+app.use(express.static(path.join(__dirname, "private")));
+
+
 const PORT = 8080;
 const server = http.createServer(app);
 

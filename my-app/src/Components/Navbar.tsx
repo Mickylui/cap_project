@@ -16,12 +16,15 @@ import {
     Link,
     useBreakpointValue,
     useDisclosure,
+    LinkBox,
+    LinkOverlay,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Link as RouteLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState, store } from "../Redux/Store";
+import { RootState } from "../Redux/store";
 import { useEffect } from "react";
+import { UserLoggedInNav } from "./LoggedInNav";
 import "../Components/css/Navbar.css";
 
 // default: didn't logIn -> pure component
@@ -30,9 +33,17 @@ import "../Components/css/Navbar.css";
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
     let isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
-    console.log("isLoggedIn nav1:", isLoggedIn);
+    // data: if user v.s if admin
+    // useEffect(() => {
+    //     window.localStorage.setItem("token", JSON.stringify(token));
+    //     console.log("change!", isLoggedIn);
+    //     console.log("token!", localStorage.getItem("token"));
+    // }, []);
 
-    useEffect(() => {console.log("isLoggedIn nav2:",isLoggedIn)}, [isLoggedIn]);
+    useEffect(() => {
+        console.log("triggered", isLoggedIn);
+        console.log("token!", localStorage.getItem("token"));
+    }, [isLoggedIn]);
 
     return (
         <Box>
@@ -60,22 +71,17 @@ export default function Navbar() {
                     />
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-                    <Box boxSize="80px">
-                        <Image src="./SkateBoardLogo.png" alt="SkateBoardLogo" />
+                    <Box as={RouteLink} to="/" boxSize="80px">
+                            <Image src="./SkateBoardLogo.png" alt="SkateBoardLogo" />
                     </Box>
-                    {/* <Text
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              fontFamily={'heading'}
-              color={useColorModeValue('gray.800', 'white')}>
-              Logo
-            </Text> */}
+       
 
                     <Flex display={{ base: "none", md: "flex" }} ml={10}>
                         <DesktopNav />
                     </Flex>
                 </Flex>
                 {isLoggedIn ? (
-                    <div>welcome</div>
+                    <UserLoggedInNav />
                 ) : (
                     <Stack
                         flex={{ base: 1, md: 0 }}
@@ -105,28 +111,6 @@ export default function Navbar() {
                         </RouteLink>
                     </Stack>
                 )}
-                {/* <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
-                    <RouteLink to="/logIn">
-                        <Button fontSize={"sm"} fontWeight={400} variant={"link"}>
-                            Log In
-                        </Button>
-                    </RouteLink>
-                    <RouteLink to="/signUp">
-                        <Button
-                            display={{ base: "none", md: "inline-flex" }}
-                            fontSize={"sm"}
-                            fontWeight={600}
-                            color={"white"}
-                            bg={"pink.400"}
-                            // href={"signup"}
-                            _hover={{
-                                bg: "pink.300",
-                            }}
-                        >
-                            Sign Up
-                        </Button>
-                    </RouteLink>
-                </Stack> */}
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
@@ -142,15 +126,23 @@ const DesktopNav = () => {
     const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
     return (
-        <Stack direction={"row"} spacing={4}>
+        // nav bar width
+        <Stack
+            direction={"row"}
+            spacing={4}
+            width={"80vw"}
+            justifyContent={"center"}
+            alignContent={"center"}
+        >
             {/* Routes */}
             {NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label}>
                     <Popover trigger={"hover"} placement={"bottom-start"}>
                         <PopoverTrigger>
-                            <Link
+                            <Box
+                                as={RouteLink}
+                                to={`${navItem.href}`}
                                 p={2}
-                                href={navItem.href ?? "#"}
                                 fontSize={"sm"}
                                 fontWeight={500}
                                 color={linkColor}
@@ -160,7 +152,7 @@ const DesktopNav = () => {
                                 }}
                             >
                                 {navItem.label}
-                            </Link>
+                            </Box>
                         </PopoverTrigger>
 
                         {navItem.children && (
@@ -188,8 +180,9 @@ const DesktopNav = () => {
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
     return (
-        <Link
-            href={href}
+        <Box
+            as={RouteLink}
+            to={`${href}`}
             role={"group"}
             display={"block"}
             p={2}
@@ -219,7 +212,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
                     <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
                 </Flex>
             </Stack>
-        </Link>
+        </Box>
     );
 };
 
@@ -238,29 +231,29 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 
     return (
         <Stack spacing={4} onClick={children && onToggle}>
-            <Flex
-                py={2}
-                as={Link}
-                href={href ?? "#"}
-                justify={"space-between"}
-                align={"center"}
-                _hover={{
-                    textDecoration: "none",
-                }}
-            >
-                <Text fontWeight={600} color={useColorModeValue("gray.600", "gray.200")}>
-                    {label}
-                </Text>
-                {children && (
-                    <Icon
-                        as={ChevronDownIcon}
-                        transition={"all .25s ease-in-out"}
-                        transform={isOpen ? "rotate(180deg)" : ""}
-                        w={6}
-                        h={6}
-                    />
-                )}
-            </Flex>
+            <RouteLink to={`${href}`}>
+                <Flex
+                    py={2}
+                    justify={"space-between"}
+                    align={"center"}
+                    _hover={{
+                        textDecoration: "none",
+                    }}
+                >
+                    <Text fontWeight={600} color={useColorModeValue("gray.600", "gray.200")}>
+                        {label}
+                    </Text>
+                    {children && (
+                        <Icon
+                            as={ChevronDownIcon}
+                            transition={"all .25s ease-in-out"}
+                            transform={isOpen ? "rotate(180deg)" : ""}
+                            w={6}
+                            h={6}
+                        />
+                    )}
+                </Flex>
+            </RouteLink>
 
             <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
                 <Stack
@@ -273,9 +266,9 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                 >
                     {children &&
                         children.map((child) => (
-                            <Link key={child.label} py={2} href={child.href}>
+                            <Box as={RouteLink} to={`${child.href}`} key={child.label} py={2}>
                                 {child.label}
-                            </Link>
+                            </Box>
                         ))}
                 </Stack>
             </Collapse>
@@ -291,36 +284,6 @@ interface NavItem {
 }
 
 const NAV_ITEMS: Array<NavItem> = [
-    // {
-    //     label: "Inspiration",
-    //     children: [
-    //         {
-    //             label: "Explore Design Work",
-    //             subLabel: "Trending Design to inspire you",
-    //             href: "#",
-    //         },
-    //         {
-    //             label: "New & Noteworthy",
-    //             subLabel: "Up-and-coming Designers",
-    //             href: "#",
-    //         },
-    //     ],
-    // },
-    // {
-    //     label: "Find Work",
-    //     children: [
-    //         {
-    //             label: "Job Board",
-    //             subLabel: "Find your dream design job",
-    //             href: "#",
-    //         },
-    //         {
-    //             label: "Freelance Projects",
-    //             subLabel: "An exclusive list for contract work",
-    //             href: "#",
-    //         },
-    //     ],
-    // },
     {
         label: "Products",
         href: "/products",

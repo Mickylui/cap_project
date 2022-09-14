@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { Box, Container, Link, SimpleGrid, Stack, Text, useColorModeValue } from "@chakra-ui/react";
 
 import "./css/Footer.css";
+import { Link as RouteLink } from "react-router-dom";
 
 const Logo = (props: any) => {
     return <img src="./SkateBoardLogo.png" alt="SkateBoardLogo" />;
@@ -61,8 +62,8 @@ export default function Footer() {
                     </Stack>
                     <Stack align={"flex-start"}>
                         <ListHeader>Sections</ListHeader>
-                        <Link href={"#"}>Products</Link>
-                        <Link href={"#"}>Activity Platform</Link>
+                        <RouteLink to="/products"> Products</RouteLink>
+                        <RouteLink to="/posts"> Activity Platform</RouteLink>
                     </Stack>
                     <Stack align={"flex-start"}>
                         <ListHeader>Support</ListHeader>

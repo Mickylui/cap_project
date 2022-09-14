@@ -14,17 +14,34 @@ import {
     useColorModeValue,
     Link,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { FormEvent, useEffect, useState } from "react";
+import { ViewIcon, ViewOffIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { LogInFetch } from "../Api/AccountFetch";
 import { useSelector, useDispatch } from "react-redux";
 import { Link as RouteLink } from "react-router-dom";
-import { RootState, store } from "../Redux/Store";
+import { AppDispatch, RootState } from "../Redux/store";
+import { BackButton } from "./BackButton";
 
 export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
-    const dispatch = useDispatch();
-    let isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
+    const dispatch:AppDispatch = useDispatch();
+    async function logInSubmit(e:FormEvent) {
+        // need to fetch logIn time
+        e.preventDefault();
+        const form = e.target as HTMLInputElement;
+        const email = form.email.value;
+        const password = form.password.value;
+        if (email.length === 0 || password.length === 0) {
+            //need sweet Alert!!
+            alert("empty input!");
+            return;
+        }
+        console.log("this is data:", email.length, password.length);
+        const logInResponse = await dispatch(LogInFetch({ email, password }));
+        const userData = logInResponse.payload.body.existUserData;
+        console.log("this is login result:", userData);
+        console.log("this is localStorage:", localStorage.getItem("token"));
+    }
 
     return (
         <Flex
@@ -33,6 +50,8 @@ export default function LogInCard() {
             justify={"center"}
             bg={useColorModeValue("gray.50", "gray.800")}
         >
+            <BackButton />
+            <RouteLink to="/"><button>Click me </button></RouteLink>
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Stack align={"center"}>
                     <Heading fontSize={"4xl"} textAlign={"center"}>
@@ -48,22 +67,7 @@ export default function LogInCard() {
                     boxShadow={"lg"}
                     padding={20}
                 >
-                    <form
-                        onSubmit={async (e) => {
-                            e.preventDefault();
-                            const form = e.target;
-                            const email = form.email.value;
-                            const password = form.password.value;
-                            if(email.length ===0 || password.length === 0){
-                                //need sweet Alert!!
-                                alert("empty input!")
-                                return
-                            }
-                            console.log("this is data:", email.length, password.length);
-                            const logInResponse = await dispatch(LogInFetch({ email, password }));
-                            console.log("this is login result:",logInResponse)
-                        }}
-                    >
+                    <form onSubmit={logInSubmit}>
                         <Stack spacing={7}>
                             <FormControl isRequired>
                                 <FormLabel>Email address</FormLabel>

@@ -1,8 +1,9 @@
-import {  createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 interface ICarriage {
-    isSuccess: boolean;
+    success: boolean;
     body: any;
+    message: string;
 }
 interface Error {
     error: string;
@@ -10,7 +11,7 @@ interface Error {
 
 const DEVELOP_HOST = "http://localhost:8080";
 
-export const LogInFetch = createAsyncThunk<Promise<ICarriage>, any, { rejectValue: Error }>(
+export const LogInFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@Account/logIn" as const,
     async ({ email, password }, thunkAPI) => {
         try {
@@ -27,6 +28,42 @@ export const LogInFetch = createAsyncThunk<Promise<ICarriage>, any, { rejectValu
         } catch (e) {
             return thunkAPI.rejectWithValue({
                 error: "Failed to log in.",
+            } as Error);
+        }
+    }
+);
+
+export const getUserDataJWTFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
+    "@Account/userDataJWT" as const,
+    async ({ token }, thunkAPI) => {
+        try {
+            console.log("trying getUserDataJWTFetch...");
+            const resp = await fetch(`${DEVELOP_HOST}/account/userDataJWT`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            const result = await resp.json();
+            return result;
+        } catch (e) {
+            return thunkAPI.rejectWithValue({
+                error: "Failed to log in.",
+            } as Error);
+        }
+    }
+);
+
+export const logOutFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
+    "@Account/logOut" as const,
+    async ({ token }, thunkAPI) => {
+        try {
+            console.log("trying log out...");
+            const resp = await fetch(`${DEVELOP_HOST}/account/logOut`);
+            const result = await resp.json();
+            return result;
+        } catch (e) {
+            return thunkAPI.rejectWithValue({
+                error: "Failed to logOut.",
             } as Error);
         }
     }

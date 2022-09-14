@@ -1,7 +1,7 @@
 import { Knex } from "knex";
 import { winstonLogger } from "../utils/winstonLogger";
 import { checkPassword } from "../utils/hash";
-import jwtSimple from 'jwt-simple';
+import jwtSimple from "jwt-simple";
 import jwt from "../jwt";
 
 export class AccountService {
@@ -15,7 +15,7 @@ export class AccountService {
                 .first();
             console.log("existUser:", existUserId);
             if (existUserId) {
-                return false;
+                return { success: false, message: "accountName already exist" };
             }
             await txn("users").insert({
                 account_name: accountName,
@@ -27,11 +27,11 @@ export class AccountService {
             console.log("AccountService-- this is email:", email);
             console.log("AccountService-- this is password:", password);
             await txn.commit();
-            return true;
+            return { success: true };
         } catch (error) {
             await txn.rollback();
             winstonLogger.error(error.toString());
-            return false;
+            return { success: false, message: "error" };
         }
     }
     async logIn(email: string, password: string) {
@@ -39,28 +39,41 @@ export class AccountService {
         try {
             console.log("AccountService-- this is email:", email);
             console.log("AccountService-- this is password:", password);
-            const existUserData = await txn("users").select("*").where("email",email).first();
+            const existUserData = await txn("users").select("*").where("email", email).first();
             console.log("AccountService--this is userData:", existUserData);
-            if(!existUserData){
-                return {success:false, message:"Invalid email"};
+            if (!existUserData) {
+                return { success: false, message: "Invalid email" };
             }
-            const matchPassword = await checkPassword(password,existUserData.password);
-            if(!matchPassword){
-                return false;
+            const matchPassword = await checkPassword(password, existUserData.password);
+            if (!matchPassword) {
+                return { success: false, message: "Invalid password" };
             }
-            const payload = {
+            const userData = {
                 id: existUserData["id"],
-                username: existUserData["account_name"]
-            }
-            const token = jwtSimple.encode(payload, jwt.jwtSecret);
-            return {success:true, body:{token}};
+                username: existUserData["account_name"],
+            };
+            const token = jwtSimple.encode(userData, jwt.jwtSecret);
+            return { success: true, body: { token, existUserData } };
         } catch (error) {
             await txn.rollback();
             winstonLogger.error(error.toString());
-            return {success:false, message:"Invalid password"};
+            return { success: false, message: "Internal Server Error" };
         }
     }
-    async getUserWithJWT(tokenId: any) {
-        console.log("this is tokenId:", tokenId);
+    async userDataJWT(tokenId: number, tokenUsername: string) {
+        try {
+            const userData = await this.knex("users")
+                .select("*")
+                .where("id", tokenId)
+                .andWhere("account_name", tokenUsername)
+                .first();
+            if (!userData) {
+                return { success: false, message: "Invalid token" };
+            }
+            return { success: true, body: userData };
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            return { success: false, message: "Internal Server Error" };
+        }
     }
 }

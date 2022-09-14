@@ -1,4 +1,5 @@
 import { Knex } from "knex";
+import { hashPassword } from "../utils/hash";
 
 export async function seed(knex: Knex): Promise<void> {
     // Deletes ALL existing entries
@@ -7,11 +8,12 @@ export async function seed(knex: Knex): Promise<void> {
     await knex("users").del();
     await knex("accumulation").del();
 
+    const hashedPassword = await hashPassword("1234")
     // Inserts seed entries
     await knex("users").insert([
-        {account_name: "jack",email:"jack@1.com",password:"1234",is_admin:false},
-        {account_name: "mary",email:"mary@1.com",password:"1234",is_admin:false},
-        {account_name: "admin",email:"admin@1.com",password:"1234",is_admin:true}
+        {account_name: "jack",email:"jack@1.com",password:hashedPassword,is_admin:false},
+        {account_name: "mary",email:"mary@1.com",password:hashedPassword,is_admin:false},
+        {account_name: "admin",email:"admin@1.com",password:hashedPassword,is_admin:true}
     ]);
 
     await knex("user_info").insert([
