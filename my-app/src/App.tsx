@@ -12,8 +12,17 @@ import LandingPage from "./Pages/LandingPage";
 import SocialPlatform from "./Pages/Platform/SocialPlatform";
 import Profile from "./Pages/User/Profile";
 import CompleteForm from "./Pages/User/CompleteForm";
+import ReportUser from "./Pages/User/ReportUser";
+import PostDetail from "./Pages/Platform/PostDetail";
 
 function App() {
+
+    const routes = {
+        postlist: '/posts',
+        postitem: (options: {item_id: number | string}) => `/item/${options.item_id}`,
+        
+    }
+
     return (
         <div className="App">
             <Router>
@@ -24,10 +33,11 @@ function App() {
                     <Route path="signUp" element={<SignUp />} />
                     <Route path="users" element={<Profile />} />
                     <Route path="users/form" element={<CompleteForm />} />
+                    <Route path="users/report" element={<ReportUser />} />
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="posts" element={<SocialPlatform />} />
-                    {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}
+                    <Route path={routes.postitem({item_id:':item_id'})} element={ <PostDetail /> }/>
                     <Route path="*" element={<>404 : Page Not Found</>}/>
                 </Routes>
                 <Footer />

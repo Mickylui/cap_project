@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Box, Link } from "@chakra-ui/react";
+import { Box, Button, Link } from "@chakra-ui/react";
 import UserImage from "./UserImage";
 import { Link as ReachLink } from "@reach/router";
 import PostForm from "../Platform/PostForm";
 import Products from "../Product/Products";
 import UsePoints from "./UsePoints";
 import GetPoints from "./GetPoints";
+import {WarningTwoIcon} from "@chakra-ui/icons"
+import { Link as RouteLink } from "react-router-dom";
 
 function Profile() {
     const [link, switchLink] = useState("posts");
@@ -30,6 +32,12 @@ function Profile() {
             >
                 Like
             </Link>
+            <RouteLink to='report'>
+                <Button>
+                    <WarningTwoIcon />
+                </Button>
+            </RouteLink>
+            
             <main>{link === "posts" ? <PostForm /> : <Products />}</main>
             <UsePoints />
             <GetPoints />
