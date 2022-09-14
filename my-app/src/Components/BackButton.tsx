@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export function BackButton() {
     const navigate = useNavigate();
     return (
-        <Button onClick={()=>navigate(-1)}>
+        <Button onClick={()=>navigate("/",{replace:false})}>
             <ArrowBackIcon />
         </Button>
     );

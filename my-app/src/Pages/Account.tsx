@@ -1,7 +1,7 @@
 import React from 'react';
 
-import LogInCard from "../../Components/LogIn"
-import SignUpCard from "../../Components/SignUp"
+import LogInCard from "../Components/LogIn"
+import SignUpCard from "../Components/SignUp"
 // if click logIn button -> login component
 export function LogIn(){
     

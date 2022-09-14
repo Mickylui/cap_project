@@ -1,32 +1,32 @@
 import { Request, Response, NextFunction } from "express";
-import {Bearer} from 'permit';
-import jwtSimple from 'jwt-simple';
+import { Bearer } from "permit";
+import jwtSimple from "jwt-simple";
 import jwt from "../jwt";
+import { winstonLogger } from "./winstonLogger";
+import { accountService } from "../server";
 
 const permit = new Bearer({
-    query: "access_token"
-})
+    query: "access_token",
+});
 
-export async function isLoggedInGuard(req: Request, res: Response, next: NextFunction) {
-    try{
+export async function isLoggedIn(req: Request, res: Response, next: NextFunction) {
+    try {
         const token = permit.check(req);
-        console.log("isLoggedInGuard:",token)
-        // no token -> never login
-        if(!token){
-            return res.status(401).json({message:"Permission Denied"});
-        }else{
-            // has token && has record of this user -> success: loggedIn before
-            // has req.session["user"] -> success: status--still loggedIn
-            const payload = jwtSimple.decode(token, jwt.jwtSecret);
-            console.log("this is JWT:", payload)
-            if(!payload){
-                return {success:false,message:"Permission denied"}
-            }
-            console.log("logIn by JWT")
-            next();
-            return
+        console.log("isLoggedIn:",token)
+        if (!token) {
+            return res.status(401).json({ message: "Permission Denied" });
         }
-    }catch(e){
-        return
+        const payload = jwtSimple.decode(token, jwt.jwtSecret);
+        const result = await accountService.userDataJWT(payload.id, payload.username);
+        if (result["success"] === true) {
+            const { password, ...others } = result.body;
+            req.body.user = { ...others };
+            return next();
+        } else {
+            return res.status(401).json({ message: "Permission Denied" });
+        }
+    } catch (err) {
+        winstonLogger.error(err.message);
+        return res.status(401).json({ message: "Permission Denied" });
     }
 }
