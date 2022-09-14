@@ -1,4 +1,4 @@
-export type Posts = PostItem[]
+export type PostListState = PostItem[]
 
 export type PostItem =  {
     id: number;

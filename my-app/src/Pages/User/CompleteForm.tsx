@@ -91,9 +91,9 @@ function CompleteForm() {
                             <FormLabel as="legend">District</FormLabel>
                             <RadioGroup defaultValue="Hong Kong">
                                 <HStack spacing="24px">
-                                    <Radio value="Sasuke">Hong Kong</Radio>
-                                    <Radio value="Nagato">Kowloon</Radio>
-                                    <Radio value="Itachi">New Territories</Radio>
+                                    <Radio value="hongKong">Hong Kong</Radio>
+                                    <Radio value="kowloon">Kowloon</Radio>
+                                    <Radio value="newTerritories">New Territories</Radio>
                                 </HStack>
                             </RadioGroup>
                         </FormControl>

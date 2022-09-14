@@ -1,11 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import { Box, Image, SimpleGrid, Tag, TagLabel, Avatar } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
-// import { PostItem } from './PostItem'
+import PostItem from "./PostItem";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../Redux/state";
+import { addPostListAction } from "../../Redux/activity-platform/action";
 
 
-
+ 
 function PostForm() {
+// function PostForm({ children }: React.PropsWithChildren) {
+//     const postIdList = useSelector((state: RootState) => state.postList.map(item => item.id));
+
+//     const [newPost, setNewPost] = useState('')
+//     const dispatch = useDispatch()
+
+//     function addPost() {
+//         dispatch(addPostListAction(newPost))
+//         setNewPost('')
+//     }
     const postItem = {
         imageUrl: "./SkateBoardLogo.png",
         imageAlt: "SkateBoardLogo",
@@ -15,12 +28,12 @@ function PostForm() {
     const userName = "Jason";
     const numLikes = 190;
 
+
     return (
         <div>
             <>
-
-                {/* Passing `columns={[2, null, 3]}` and `columns={{ sm: 2, md: 3 }}` // will have
-                the same effect. */}
+                
+                {/* <PostItem /> */}
 
                 <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
                     
@@ -119,3 +132,5 @@ function PostForm() {
 }
 
 export default PostForm;
+
+
