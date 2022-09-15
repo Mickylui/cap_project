@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./Redux/store";
 import { getUserDataJWTFetch } from "./Api/AccountFetch";
 import { Slideshow } from "./Components/AutoSlider";
+import CompleteForm from "./Pages/User/CompleteForm";
+import ReportUser from "./Pages/User/ReportUser";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);

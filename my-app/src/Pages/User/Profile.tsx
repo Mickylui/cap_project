@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Button, Link } from "@chakra-ui/react";
-import UserImage from "./UserImage";
+import UserImage from "../../Components/UserImage";
 import { Link as ReachLink } from "@reach/router";
 import PostForm from "../Platform/PostForm";
 import Products from "../Product/Products";
