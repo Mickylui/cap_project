@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Box, Button, Link } from "@chakra-ui/react";
-import UserImage from "./UserImage";
+import UserImage from "../../Components/UserImage";
 import { Link as ReachLink } from "@reach/router";
 import PostForm from "../Platform/PostForm";
 import Products from "../Product/Products";
 import UsePoints from "./UsePoints";
 import GetPoints from "./GetPoints";
 import {WarningTwoIcon} from "@chakra-ui/icons"
-import { Link as RouteLink } from "react-router-dom";
+import { Link as RouteLink, Outlet } from "react-router-dom";
 
 function Profile() {
     const [link, switchLink] = useState("posts");
@@ -41,6 +41,7 @@ function Profile() {
             <main>{link === "posts" ? <PostForm /> : <Products />}</main>
             <UsePoints />
             <GetPoints />
+            {/* <Outlet/> */}
         </div>
     );
 }

@@ -58,7 +58,7 @@ export function UserLoggedInNav() {
             </MenuButton>
             <MenuList marginTop={"-20px"}>
                 {/* href: get user id(req.session?) and go to his profile */}
-                <RouteLink to="/products">
+                <RouteLink to="/user">
                     <MenuItem>Profile</MenuItem>
                 </RouteLink>
                 <RouteLink to="/products">

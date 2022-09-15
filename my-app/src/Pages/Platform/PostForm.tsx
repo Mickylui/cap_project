@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import { Box, Image, SimpleGrid, Tag, TagLabel, Avatar } from "@chakra-ui/react";
+import { Box, Image, SimpleGrid, Tag, TagLabel, Avatar, Stack } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
 import PostItem from "./PostItem";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../Redux/state";
-import { addPostListAction } from "../../Redux/activity-platform/action";
+import { addPostListAction } from "../../Redux/platform/action";
 
 
  
@@ -31,11 +31,9 @@ function PostForm() {
 
     return (
         <div>
-            <>
                 
                 {/* <PostItem /> */}
-
-                <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
+                <SimpleGrid columns={[2, null, 3]} spacing="40px" paddingLeft={"auto"} paddingRight={"auto"} width={"100%"} display={"flex"} justifyContent={"center"}>
                     
                     <Box maxW="sm"  borderRadius="lg" overflow="hidden">
                         <Image src={postItem.imageUrl} alt={postItem.imageAlt} border="1px" borderRadius="lg"/>
@@ -126,7 +124,6 @@ function PostForm() {
 
                     
                 </SimpleGrid>
-            </>
         </div>
     );
 }

@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 
-import { Box, Container, Link, SimpleGrid, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Container, Link, SimpleGrid, Stack, Text, useColorModeValue, Image } from "@chakra-ui/react";
 
 import "./css/Footer.css";
 import { Link as RouteLink } from "react-router-dom";
 
 const Logo = (props: any) => {
-    return <img src="./SkateBoardLogo.png" alt="SkateBoardLogo" />;
+    return <Image src="../SkateBoardLogo.png" alt="SkateBoardLogo" boxSize='200px'/>;
 };
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
@@ -37,8 +37,8 @@ export default function Footer() {
                     spacing={10}
                 >
                     <Stack spacing={2}>
-                        <Box>
-                            <Logo color={useColorModeValue("gray.700", "white")} />
+                        <Box display={"flex"} justifyContent={"center"}>
+                            <Logo color={useColorModeValue("gray.700", "white")}/>
                         </Box>
                         <ListHeader>Follow us</ListHeader>
                             <SmallTextContent>

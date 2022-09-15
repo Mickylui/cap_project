@@ -80,19 +80,17 @@ export function LandingPage() {
     ];
     return (
         <>
-            <video playsInline autoPlay muted poster="https://ruttl.com/assets/img/index-hero.jpg">
-                <source src="https://ruttl.com/assets/video/index-hero.webm" type="video/mp4" />
+            <video className="landingVideo" muted autoPlay loop width={"100%"} >
+                <source src="./landingVideo.mp4" type="video/mp4" />
             </video>
 
             <div className="features" style={{ marginTop: "55px" }}>
                 <div className="feature">
-                    {/* <img src="./img/shipping.png" alt="" className="featureIcon" /> */}
                     <i className="fa-solid fa-money-check-dollar" style={{ fontSize: "90px" }}></i>
                     <span className="featureTitle">FREE SHIPPING</span>
                     <span className="featureDesc">Free worldwide shipping on all orders.</span>
                 </div>
                 <div className="feature">
-                    {/* <img className="featureIcon" src="./img/return.png" alt="" /> */}
                     <i className="fa-solid fa-trophy" style={{ fontSize: "90px" }}></i>
                     <span className="featureTitle">30 DAYS RETURN</span>
                     <span className="featureDesc">
@@ -100,7 +98,6 @@ export function LandingPage() {
                     </span>
                 </div>
                 <div className="feature">
-                    {/* <img className="featureIcon" src="./img/gift.png" alt="" /> */}
                     <i className="fa-solid fa-truck-fast" style={{ fontSize: "90px" }}></i>
                     <span className="featureTitle">GIFT CARDS</span>
                     <span className="featureDesc">Buy gift cards and use coupon codes easily.</span>
@@ -152,8 +149,9 @@ export function LandingPage() {
                 </div> */}
             </div>
             <div className="gallery">
+                <h1 className="galleryTitle">Join Us</h1>
                 <div className="galleryItem">
-                    <h1 className="galleryTitle">Show Yourself!</h1>
+                    <h1 className="gallerySubTitle">Show Yourself!</h1>
                     <img
                         src="https://images.pexels.com/photos/9295809/pexels-photo-9295809.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
                         alt=""
@@ -166,10 +164,10 @@ export function LandingPage() {
                         alt=""
                         className="galleryImg"
                     />
-                    <h1 className="galleryTitle">Tight bond with other</h1>
+                    <h1 className="gallerySubTitle">Tight bond with other</h1>
                 </div>
                 <div className="galleryItem">
-                    <h1 className="galleryTitle">Just Do it!</h1>
+                    <h1 className="gallerySubTitle">Just Do it!</h1>
                     <img
                         src="https://images.pexels.com/photos/7856965/pexels-photo-7856965.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
                         alt=""

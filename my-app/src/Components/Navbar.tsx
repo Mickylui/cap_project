@@ -58,7 +58,7 @@ export default function Navbar() {
                 borderColor={useColorModeValue("gray.200", "gray.900")}
                 align={"center"}
             >
-                <Flex
+                {/* <Flex
                     flex={{ base: 1, md: "auto" }}
                     ml={{ base: -2 }}
                     display={{ base: "flex", md: "none" }}
@@ -69,18 +69,46 @@ export default function Navbar() {
                         variant={"ghost"}
                         aria-label={"Toggle Navigation"}
                     />
-                </Flex>
-                <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-                    <Box as={RouteLink} to="/" boxSize="80px">
-                            <Image src="./SkateBoardLogo.png" alt="SkateBoardLogo" />
+                </Flex> */}
+                <Flex justifyContent={"space-between"} width={"100%"}>
+                    <Box as={RouteLink} to="/" boxSize={"6vw"} minWidth={"80px"}>
+                        <Image src="../SkateBoardLogo.png" alt="SkateBoardLogo" />
                     </Box>
-       
 
-                    <Flex display={{ base: "none", md: "flex" }} ml={10}>
+                    <Flex display={{ base: "none", md: "flex" }}>
                         <DesktopNav />
                     </Flex>
+                    {isLoggedIn ? (
+                        <UserLoggedInNav />
+                    ) : (
+                        <Stack
+                            direction={"row"}
+                            spacing={6}
+                        >
+                            <RouteLink to="/logIn" style={{display:"flex"}}>
+                                <Button fontSize={"sm"} fontWeight={400} variant={"link"}>
+                                    Log In
+                                </Button>
+                            </RouteLink>
+                            <RouteLink to="/signUp" style={{display:"flex", alignItems:"center"}}>
+                                <Button
+                                    display={{ base: "none", md: "inline-flex" }}
+                                    fontSize={"sm"}
+                                    fontWeight={600}
+                                    color={"white"}
+                                    bg={"pink.400"}
+                                    // href={"signup"}
+                                    _hover={{
+                                        bg: "pink.300",
+                                    }}
+                                >
+                                    Sign Up
+                                </Button>
+                            </RouteLink>
+                        </Stack>
+                    )}
                 </Flex>
-                {isLoggedIn ? (
+                {/* {isLoggedIn ? (
                     <UserLoggedInNav />
                 ) : (
                     <Stack
@@ -110,7 +138,7 @@ export default function Navbar() {
                             </Button>
                         </RouteLink>
                     </Stack>
-                )}
+                )} */}
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
@@ -129,21 +157,22 @@ const DesktopNav = () => {
         // nav bar width
         <Stack
             direction={"row"}
-            spacing={4}
-            width={"80vw"}
-            justifyContent={"center"}
+            width={"45rem"}
+            justifyContent={"space-around"}
             alignContent={"center"}
         >
             {/* Routes */}
             {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label}>
-                    <Popover trigger={"hover"} placement={"bottom-start"}>
+                <Box key={navItem.label} display={"flex"}>
+                    <Popover trigger={"hover"} placement={"bottom-end"}>
                         <PopoverTrigger>
                             <Box
+                                display={"flex"}
+                                alignItems={"end"}
                                 as={RouteLink}
                                 to={`${navItem.href}`}
-                                p={2}
-                                fontSize={"sm"}
+                                p={5}
+                                fontSize={"1.5em"}
                                 fontWeight={500}
                                 color={linkColor}
                                 _hover={{
@@ -151,7 +180,7 @@ const DesktopNav = () => {
                                     color: linkHoverColor,
                                 }}
                             >
-                                {navItem.label}
+                                <Text letterSpacing={"1px"}>{navItem.label}</Text>
                             </Box>
                         </PopoverTrigger>
 

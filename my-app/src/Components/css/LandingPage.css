@@ -342,6 +342,11 @@ nav {
   .gallery {
     padding: 50px;
     display: flex;
+    flex-wrap: wrap;
+  }
+  .galleryTitle{
+    font-size: 5em;
+    width: 100%;
   }
   
   .galleryItem {

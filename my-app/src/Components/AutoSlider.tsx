@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Wrap, WrapItem } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Wrap, WrapItem, Text, Stack } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
@@ -69,20 +69,28 @@ export function Slideshow() {
                 {productItem.map((product) => (
                     // <Wrap className="slide" key={product.id}>
                     <Wrap className="slide" key={product.id}>
-                        <WrapItem>
-                            <Image src={product.imageUrl} alt={product.imageAlt} width={"20em"} />
+                        <WrapItem className="imageTitle">
+                            <Image src={product.imageUrl} alt={product.imageAlt} width={"30em"} />
                         </WrapItem>
-                        <WrapItem display={"flex"} flexWrap={"wrap"}>
-                            <Box className="productTitle" width={"100%"}>
+                        <WrapItem className="productInfo" display={"flex"} flexWrap={"wrap"}>
+                            <Box className="productTitle" width={"100%"} textAlign={"start"}>
                                 {product.title}
                             </Box>
-                            <Box className="productPrice" width={"100%"}>
+                            <Box className="productPrice" width={"100%"} textAlign={"start"}>
                                 {product.formattedPrice}
                             </Box>
+                            <Stack className="productIntro">
+                                <Text noOfLines={[1, 2, 3]} textAlign={"start"} >
+                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam
+                                    reiciendis beatae, dolore voluptates ea quas blanditiis
+                                    laboriosam autem sed necessitatibus exercitationem quasi dolor
+                                    numquam soluta temporibus ex veritatis recusandae reprehenderit.
+                                </Text>
+                            </Stack>
                             <Box className="productPrice" width={"100%"}>
-                            <Button className="productButton" backgroundColor={"purple"} >
-                                BUY NOW!
-                            </Button>
+                                <Button className="productButton" backgroundColor={"black"}>
+                                    BUY NOW!
+                                </Button>
                             </Box>
                         </WrapItem>
                         {/* </WrapItem> */}

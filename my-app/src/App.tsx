@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./Redux/store";
 import { getUserDataJWTFetch } from "./Api/AccountFetch";
 import { Slideshow } from "./Components/AutoSlider";
+import CompleteForm from "./Pages/User/CompleteForm";
+import ReportUser from "./Pages/User/ReportUser";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -41,9 +43,13 @@ function App() {
                     <Route path="/" element={<LandingPage />} />
                     <Route path="logIn" element={<LogIn />} />
                     <Route path="signUp" element={<SignUp />} />
-                    <Route path="users" element={<Profile />} />
-                    <Route path="users/form" element={<CompleteForm />} />
-                    <Route path="users/report" element={<ReportUser />} />
+                    {/* <Route path="user" element={<Profile />}>
+                        <Route path="report" element={<ReportUser />} />
+                        <Route path="form" element={<ReportUser />} />
+                    </Route> */}
+                    <Route path="user" element={<Profile />}/>
+                    <Route path="user/form" element={<CompleteForm />} />
+                    <Route path="user/report" element={<ReportUser />} />
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="posts" element={<SocialPlatform />} />
