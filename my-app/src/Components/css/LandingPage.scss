@@ -388,6 +388,7 @@ label {
 
 .newSeason {
     display: flex;
+    height: 50em;
 }
 
 .nsItem {
@@ -403,7 +404,7 @@ label {
 
 .nsImg {
     width: 100%;
-    height: 500px;
+    height: 100%;
 }
 
 .nsTitle {
@@ -566,6 +567,7 @@ footer {
   }
     .newSeason {
         flex-direction: column;
+        height: fit-content;
     }
 
     .nsItem:nth-child(2) {

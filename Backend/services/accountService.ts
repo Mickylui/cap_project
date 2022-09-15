@@ -53,6 +53,7 @@ export class AccountService {
                 username: existUserData["account_name"],
             };
             const token = jwtSimple.encode(userData, jwt.jwtSecret);
+            await txn.commit();
             return { success: true, body: { token, existUserData } };
         } catch (error) {
             await txn.rollback();

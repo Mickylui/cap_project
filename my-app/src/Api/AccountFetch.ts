@@ -55,7 +55,7 @@ export const getUserDataJWTFetch = createAsyncThunk<ICarriage, any, { rejectValu
 
 export const logOutFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@Account/logOut" as const,
-    async ({ token }, thunkAPI) => {
+    async (logOutTime, thunkAPI) => {
         try {
             console.log("trying log out...");
             const resp = await fetch(`${DEVELOP_HOST}/account/logOut`);
@@ -69,24 +69,24 @@ export const logOutFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error
     }
 );
 
-export const SignUpFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
-    "@Account/signUp" as const,
-    async ({ accountName, email, password }, thunkAPI) => {
-        try {
-            console.log("trying sign up...");
-            const resp = await fetch(`${DEVELOP_HOST}/account/signUp`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ accountName, email, password }),
-            });
-            const result = await resp.json();
-            return result;
-        } catch (e) {
-            return thunkAPI.rejectWithValue({
-                error: "Failed to sign up.",
-            } as Error);
-        }
-    }
-);
+// export const SignUpFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
+//     "@Account/signUp" as const,
+//     async ({ accountName, email, password }, thunkAPI) => {
+//         try {
+//             console.log("trying sign up...");
+//             const resp = await fetch(`${DEVELOP_HOST}/account/signUp`, {
+//                 method: "POST",
+//                 headers: {
+//                     "Content-Type": "application/json",
+//                 },
+//                 body: JSON.stringify({ accountName, email, password }),
+//             });
+//             const result = await resp.json();
+//             return result;
+//         } catch (e) {
+//             return thunkAPI.rejectWithValue({
+//                 error: "Failed to sign up.",
+//             } as Error);
+//         }
+//     }
+// );

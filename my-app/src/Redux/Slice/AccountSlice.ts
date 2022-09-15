@@ -19,7 +19,7 @@ const AccountInitialState = {
 } as IAccountState;
 
 const accountSlice = createSlice({
-    name: "Account",
+    name: "@Account",
     initialState: AccountInitialState,
     reducers: {
         //logIN
@@ -29,10 +29,11 @@ const accountSlice = createSlice({
         //logOut
         logOut(state, action: PayloadAction<IAccountState>) {
             state = AccountInitialState;
+            window.localStorage.clear();
+            return state;
         },
         userDataJWT(state, action: PayloadAction<IAccountState>) {},
         //signUp
-        signUp(state, action: PayloadAction<IAccountState>) {},
     },
     extraReducers(builder) {
         builder

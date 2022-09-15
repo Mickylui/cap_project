@@ -18,29 +18,74 @@ import { FormEvent, useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { LogInFetch } from "../Api/AccountFetch";
 import { useSelector, useDispatch } from "react-redux";
-import { Link as RouteLink } from "react-router-dom";
+import { Link as RouteLink, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../Redux/store";
 import { BackButton } from "./BackButton";
+import Swal from "sweetalert2";
 
 export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
-    const dispatch:AppDispatch = useDispatch();
-    async function logInSubmit(e:FormEvent) {
+    const status = useSelector((state: RootState) => state.account.status);
+    const dispatch: AppDispatch = useDispatch();
+    const navigate = useNavigate();
+
+    // if (status === "loading") {
+    //     return (
+    //         <Spinner
+    //             thickness="4px"
+    //             speed="0.65s"
+    //             emptyColor="gray.200"
+    //             color="blue.500"
+    //             size="xl"
+    //         />
+    //     );
+    // }
+
+    async function logInSubmit(e: FormEvent) {
         // need to fetch logIn time
         e.preventDefault();
         const form = e.target as HTMLInputElement;
         const email = form.email.value;
         const password = form.password.value;
         if (email.length === 0 || password.length === 0) {
-            //need sweet Alert!!
-            alert("empty input!");
+            Swal.fire({
+                title: "Please input all the fields",
+                showClass: {
+                    popup: "animate__animated animate__fadeInDown",
+                },
+                hideClass: {
+                    popup: "animate__animated animate__fadeOutUp",
+                },
+            });
             return;
         }
         console.log("this is data:", email.length, password.length);
         const logInResponse = await dispatch(LogInFetch({ email, password }));
-        const userData = logInResponse.payload.body.existUserData;
-        console.log("this is login result:", userData);
-        console.log("this is localStorage:", localStorage.getItem("token"));
+        console.log("logInResponse:", logInResponse);
+
+        if (logInResponse.payload.success === true) {
+            Swal.fire({
+                title: "Log In",
+                showClass: {
+                    popup: "animate__animated animate__fadeInDown",
+                },
+                hideClass: {
+                    popup: "animate__animated animate__fadeOutUp",
+                },
+            }).then(() => {
+                navigate("/");
+            });
+        } else {
+            Swal.fire({
+                title: `${logInResponse.payload.message}`,
+                showClass: {
+                    popup: "animate__animated animate__fadeInDown",
+                },
+                hideClass: {
+                    popup: "animate__animated animate__fadeOutUp",
+                },
+            });
+        }
     }
 
     return (
@@ -51,7 +96,6 @@ export default function LogInCard() {
             bg={useColorModeValue("gray.50", "gray.800")}
         >
             <BackButton />
-            <RouteLink to="/"><button>Click me </button></RouteLink>
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Stack align={"center"}>
                     <Heading fontSize={"4xl"} textAlign={"center"}>
@@ -105,13 +149,16 @@ export default function LogInCard() {
                                     Log In
                                 </Button>
                             </Stack>
-                            <RouteLink to="/signUp">
-                                <Stack pt={6}>
-                                    <Text align={"center"}>
-                                        Not a user? <Link color={"blue.400"}>signUp</Link>
-                                    </Text>
-                                </Stack>
-                            </RouteLink>
+                            {/* <RouteLink to="/signUp"> */}
+                            <Stack pt={6}>
+                                <Text align={"center"}>
+                                    Not a user?{" "}
+                                    <Link as={RouteLink} to="/signUp" color={"blue.400"}>
+                                        signUp
+                                    </Link>
+                                </Text>
+                            </Stack>
+                            {/* </RouteLink> */}
                         </Stack>
                     </form>
                 </Box>

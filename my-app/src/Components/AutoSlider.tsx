@@ -65,35 +65,62 @@ export function Slideshow() {
             <Box
                 className="slideshowSlider"
                 style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
+                
             >
                 {productItem.map((product) => (
-                    // <Wrap className="slide" key={product.id}>
-                    <Wrap className="slide" key={product.id}>
-                        <WrapItem className="imageTitle">
-                            <Image src={product.imageUrl} alt={product.imageAlt} width={"30em"} />
+                    <Wrap
+                        className="slide"
+                        key={product.id}
+                        align={"center"}
+                        justify={"center"}
+                        height={{ml:"50em"}}
+                        
+                    >
+                        <WrapItem className="imageTitle"   paddingRight={{md:"10em"}} >
+                            <Image src={product.imageUrl} alt={product.imageAlt} width={"50em"} />
                         </WrapItem>
-                        <WrapItem className="productInfo" display={"flex"} flexWrap={"wrap"}>
-                            <Box className="productTitle" width={"100%"} textAlign={"start"}>
+                        <WrapItem className="productInfo" display={"box"}  width={"30vw"} minWidth={"300px"} >
+                            <Box
+                                className="productTitle"
+                                width={"100%"}
+                                textAlign={"start"}
+                                marginTop={"2em"}
+                                w="30"
+                            >
                                 {product.title}
                             </Box>
-                            <Box className="productPrice" width={"100%"} textAlign={"start"}>
+                            <Box
+                                className="productPrice"
+                                width={"100%"}
+                                textAlign={"start"}
+                                
+                            >
                                 {product.formattedPrice}
                             </Box>
-                            <Stack className="productIntro">
-                                <Text noOfLines={[1, 2, 3]} textAlign={"start"} >
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam
-                                    reiciendis beatae, dolore voluptates ea quas blanditiis
-                                    laboriosam autem sed necessitatibus exercitationem quasi dolor
-                                    numquam soluta temporibus ex veritatis recusandae reprehenderit.
+                            <Stack className="productIntro"  width={{md:"30vw"}} >
+                                <Text
+                                    noOfLines={[4, 7, 9]}
+                                    textAlign={"start"}
+                                    
+                                    width={{ml:"40rem"}}
+
+                                    height={"15em"}
+                                    whiteSpace={"break-spaces"}
+                                    marginTop={"20px"}
+                                    marginBottom={"20px"}
+                                    
+                                >
+                                  ritatis recusandae reprehenderit.
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quam dolore voluptatum aperiam officia, porro harum voluptatem quae nihil, neque nobis asperiores facere blanditiis velit, in alias ipsum quaerat dolorum.
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nam minima ipsam itaque id sit quibusdam sed velit odio, in reiciendis earum necessitatibus laudantium cumque non omnis! Fugiat, vitae? Quo?
                                 </Text>
                             </Stack>
-                            <Box className="productPrice" width={"100%"}>
-                                <Button className="productButton" backgroundColor={"black"}>
+                            <Box className="productPrice" width={{ml:"40rem"}} >
+                                <Button className="productButton" backgroundColor={"black"} >
                                     BUY NOW!
                                 </Button>
                             </Box>
                         </WrapItem>
-                        {/* </WrapItem> */}
                     </Wrap>
                 ))}
             </Box>

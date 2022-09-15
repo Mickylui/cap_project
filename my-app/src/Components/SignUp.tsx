@@ -16,13 +16,15 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { Link as RouteLink } from "react-router-dom";
+import { Link as RouteLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { SignUpFetch } from "../Api/AccountFetch";
+import Swal from "sweetalert2";
+import { BackButton } from "./BackButton";
 
 export default function SignUpCard() {
     const [showPassword, setShowPassword] = useState(false);
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    // const dispatch = useDispatch();
 
     return (
         <Flex
@@ -31,6 +33,7 @@ export default function SignUpCard() {
             justify={"center"}
             bg={useColorModeValue("gray.50", "gray.800")}
         >
+            <BackButton />
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Stack align={"center"}>
                     <Heading fontSize={"4xl"} textAlign={"center"}>
@@ -48,7 +51,7 @@ export default function SignUpCard() {
                 >
                     <Stack spacing={4}>
                         <form
-                            onSubmit={(e) => {
+                            onSubmit={async (e) => {
                                 e.preventDefault();
                                 const form = e.target;
                                 //need some checking...name, phoneNumb
@@ -60,10 +63,40 @@ export default function SignUpCard() {
                                 const accountName = form.accountName.value;
                                 const email = form.email.value;
                                 const password = form.password.value;
-                                console.log("this is data:",accountName,email, password);
-                                dispatch(
-                                    SignUpFetch({ accountName, email, password })
-                                );
+                                console.log("this is data:", accountName, email, password);
+
+                                const resp = await fetch("http://localhost:8080/account/signUp", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({ accountName, email, password }),
+                                });
+                                const signUpResult = await resp.json();
+                                console.log("this is signUpResult:", signUpResult);
+                                if (signUpResult.success === true) {
+                                    Swal.fire({
+                                        title: "Sign Up",
+                                        showClass: {
+                                            popup: "animate__animated animate__fadeInDown",
+                                        },
+                                        hideClass: {
+                                            popup: "animate__animated animate__fadeOutUp",
+                                        },
+                                    }).then(() => {
+                                        navigate("/logIn");
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: `${signUpResult.message}`,
+                                        showClass: {
+                                            popup: "animate__animated animate__fadeInDown",
+                                        },
+                                        hideClass: {
+                                            popup: "animate__animated animate__fadeOutUp",
+                                        },
+                                    });
+                                }
                             }}
                         >
                             {/* <HStack>
@@ -142,13 +175,14 @@ export default function SignUpCard() {
                                     Sign up
                                 </Button>
                             </Stack>
-                            <RouteLink to="/logIn">
-                                <Stack pt={6}>
-                                    <Text align={"center"}>
-                                        Already a user? <Link color={"blue.400"}>Login</Link>
-                                    </Text>
-                                </Stack>
-                            </RouteLink>
+                            <Stack pt={6}>
+                                <Text align={"center"}>
+                                    Already a user?{" "}
+                                    <Link as={RouteLink} to="/logIn" color={"blue.400"}>
+                                        Login
+                                    </Link>
+                                </Text>
+                            </Stack>
                         </form>
                     </Stack>
                 </Box>
