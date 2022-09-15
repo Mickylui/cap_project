@@ -33,17 +33,7 @@ import "../Components/css/Navbar.css";
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
     let isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
-    // data: if user v.s if admin
-    // useEffect(() => {
-    //     window.localStorage.setItem("token", JSON.stringify(token));
-    //     console.log("change!", isLoggedIn);
-    //     console.log("token!", localStorage.getItem("token"));
-    // }, []);
 
-    useEffect(() => {
-        console.log("triggered", isLoggedIn);
-        console.log("token!", localStorage.getItem("token"));
-    }, [isLoggedIn]);
 
     return (
         <Box>
@@ -77,7 +67,7 @@ export default function Navbar() {
                         boxSize={{ ml: "6vw" }}
                         minWidth={"80px"}
                         width={{ base: "3rem" }}
-                        display={{ base:"none", md:"flex"}}
+                        display={{ base: "none", md: "flex" }}
                     >
                         <Image src="../SkateBoardLogo.png" alt="SkateBoardLogo" />
                     </Box>
@@ -224,11 +214,13 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 const MobileNav = () => {
     return (
         <Stack bg={useColorModeValue("white", "gray.800")} p={4} display={{ md: "none" }}>
-            <Box
-                as={RouteLink}
-                to="/"
-            >
-                <Image src="../SkateBoardLogo.png" alt="SkateBoardLogo" width={"20vw"} minWidth={"60px"}/>
+            <Box as={RouteLink} to="/">
+                <Image
+                    src="../SkateBoardLogo.png"
+                    alt="SkateBoardLogo"
+                    width={"20vw"}
+                    minWidth={"60px"}
+                />
             </Box>
             {NAV_ITEMS.map((navItem) => (
                 <MobileNavItem key={navItem.label} {...navItem} />

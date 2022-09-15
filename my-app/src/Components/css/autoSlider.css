@@ -3,13 +3,14 @@
 .slideshow {
     margin: 0 auto;
     overflow: hidden;
-    max-width: 80%;
+    max-width: 100%;
     /* background-color: blue; */
 }
 
 .slideshowSlider {
     white-space: nowrap;
     transition: ease 2000ms;
+    
 }
 
 .slide {
@@ -49,4 +50,15 @@
 
 .slideshowDot.active {
     background-color: black;
+}
+
+
+
+@media screen and (max-width: 480px) {
+    .slide {
+        padding: 0;
+    }
+    .slideshowSlider {
+       margin-bottom: 20px;
+    }
 }
