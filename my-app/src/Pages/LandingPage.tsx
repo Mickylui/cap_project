@@ -1,5 +1,5 @@
 import { Slideshow } from "../Components/AutoSlider";
-import "../Components/css/LandingPage.css";
+import "../Components/css/LandingPage.scss";
 export function LandingPage() {
     const products = [
         {
@@ -80,7 +80,7 @@ export function LandingPage() {
     ];
     return (
         <>
-            <video className="landingVideo" muted autoPlay loop width={"100%"} >
+            <video className="landingVideo" muted autoPlay loop width={"100%"}>
                 <source src="./landingVideo.mp4" type="video/mp4" />
             </video>
 
@@ -151,12 +151,14 @@ export function LandingPage() {
             <div className="gallery">
                 <h1 className="galleryTitle">Join Us</h1>
                 <div className="galleryItem">
-                    <h1 className="gallerySubTitle">Show Yourself!</h1>
                     <img
                         src="https://images.pexels.com/photos/9295809/pexels-photo-9295809.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
                         alt=""
                         className="galleryImg"
                     />
+                    <div className="gallerySubTitle-box">
+                        <h1 className="gallerySubTitle">Show Yourself!</h1>
+                    </div>
                 </div>
                 <div className="galleryItem">
                     <img
@@ -164,15 +166,19 @@ export function LandingPage() {
                         alt=""
                         className="galleryImg"
                     />
-                    <h1 className="gallerySubTitle">Tight bond with other</h1>
+                    <div className="gallerySubTitle-box">
+                        <h1 className="gallerySubTitle">Tight bond with other</h1>
+                    </div>
                 </div>
                 <div className="galleryItem">
-                    <h1 className="gallerySubTitle">Just Do it!</h1>
                     <img
                         src="https://images.pexels.com/photos/7856965/pexels-photo-7856965.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
                         alt=""
                         className="galleryImg"
                     />
+                    <div className="gallerySubTitle-box">
+                        <h1 className="gallerySubTitle">Just Do it!</h1>
+                    </div>
                 </div>
             </div>
             <div className="newSeason">

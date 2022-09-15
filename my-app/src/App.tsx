@@ -53,6 +53,7 @@ function App() {
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="posts" element={<SocialPlatform />} />
+                    {/* temp: */}
                     <Route path="slider" element={<Slideshow />} />
                     {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}
                     <Route path="*" element={<>404 : Page Not Found</>} />
