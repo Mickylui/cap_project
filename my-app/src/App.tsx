@@ -43,12 +43,17 @@ function App() {
                     <Route path="/" element={<LandingPage />} />
                     <Route path="logIn" element={<LogIn />} />
                     <Route path="signUp" element={<SignUp />} />
-                    <Route path="users" element={<Profile />} />
-                    <Route path="users/form" element={<CompleteForm />} />
-                    <Route path="users/report" element={<ReportUser />} />
+                    {/* <Route path="user" element={<Profile />}>
+                        <Route path="report" element={<ReportUser />} />
+                        <Route path="form" element={<ReportUser />} />
+                    </Route> */}
+                    <Route path="user" element={<Profile />}/>
+                    <Route path="user/form" element={<CompleteForm />} />
+                    <Route path="user/report" element={<ReportUser />} />
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="posts" element={<SocialPlatform />} />
+                    {/* temp: */}
                     <Route path="slider" element={<Slideshow />} />
                     {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}
                     <Route path="*" element={<>404 : Page Not Found</>} />

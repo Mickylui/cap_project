@@ -1,7 +1,7 @@
 import React from 'react';
-import { Avatar, Box, Link, SimpleGrid, Tag, TagLabel, Image } from '@chakra-ui/react'
+import { Avatar, Box, Link, SimpleGrid, Tag, TagLabel, Image, Stack } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
-import { PostItem } from '../../Redux/activity-platform/postState'
+import { PostItem } from '../../Redux/platform/postState'
 import { RootState } from '../../Redux/state';
 import { FaHeart } from 'react-icons/fa';
 // import { post } from 'fetch-mock';
@@ -21,7 +21,7 @@ function PostItem() {
 
     
     return (
-        <div>
+        <Stack display={"flex"} justifyContent={"center"}>
             {/* <h2>PostItem #{postItem.id}{' '}
             <Link to={routes.postitem({item_id})}>
                 <button>details</button>
@@ -57,7 +57,7 @@ function PostItem() {
                        
                     </Box>
             </SimpleGrid>
-        </div>
+        </Stack>
     );
 }
 

@@ -20,30 +20,30 @@ import { FormatDate } from "../Utils/timeStamp";
 
 export function UserLoggedInNav() {
     // useSelector: if isAdmin true, return admin; else return user/
-    const isAdmin = useSelector((state:RootState)=>state.account.isAdmin)
-    const userData = useSelector((state:RootState)=>state.account.existUserData)
+    const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
+    const userData = useSelector((state: RootState) => state.account.existUserData);
     // console.log("UserLoggedInNav:",userData[0])
     // const dispatch = useDispatch();
 
-    async function logOut(){
-        console.log("timestamp:",FormatDate(new Date()))
+    async function logOut() {
+        console.log("timestamp:", FormatDate(new Date()));
         // const resp = await dispatch(logOutFetch())
     }
-    if(isAdmin){
+    if (isAdmin) {
         // if admin
         return (
             <Menu>
-            <MenuButton>
-                <Avatar name={`${userData[0]["account_name"]}`} backgroundColor={"black"}/>
-            </MenuButton>
-            <MenuList marginTop={"-20px"}>
-                <RouteLink to="/user">
-                    <MenuItem>Manage</MenuItem>
-                </RouteLink>
-                <MenuItem onClick={()=>logOut()}>Log Out</MenuItem>
-            </MenuList>
-        </Menu>
-        )
+                <MenuButton>
+                    <Avatar name={`${userData[0]["account_name"]}`} backgroundColor={"black"} />
+                </MenuButton>
+                <MenuList marginTop={"-20px"} minWidth={{base:"7em",md:"10em"}}>
+                    <RouteLink to="/user">
+                        <MenuItem>Manage</MenuItem>
+                    </RouteLink>
+                    <MenuItem onClick={() => logOut()}>Log Out</MenuItem>
+                </MenuList>
+            </Menu>
+        );
     }
     // if user
     // useEffect[shopping_cart+userData]: if has item, return number, else return non-number; user data shown
@@ -56,9 +56,9 @@ export function UserLoggedInNav() {
                     </AvatarBadge>
                 </Avatar>
             </MenuButton>
-            <MenuList marginTop={"-20px"}>
+            <MenuList marginTop={"-20px"} minWidth={{base:"7em",md:"10em"}}>
                 {/* href: get user id(req.session?) and go to his profile */}
-                <RouteLink to="/products">
+                <RouteLink to="/user">
                     <MenuItem>Profile</MenuItem>
                 </RouteLink>
                 <RouteLink to="/products">
@@ -79,9 +79,8 @@ export function UserLoggedInNav() {
                     <MenuItem>Setting</MenuItem>
                 </RouteLink>
                 {/* change the state -> re-render */}
-                <MenuItem onClick={()=>logOut()}>Log Out</MenuItem>
+                <MenuItem onClick={() => logOut()}>Log Out</MenuItem>
             </MenuList>
         </Menu>
     );
 }
-

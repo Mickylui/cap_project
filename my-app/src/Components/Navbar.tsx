@@ -70,47 +70,51 @@ export default function Navbar() {
                         aria-label={"Toggle Navigation"}
                     />
                 </Flex>
-                <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-                    <Box as={RouteLink} to="/" boxSize="80px">
-                            <Image src="./SkateBoardLogo.png" alt="SkateBoardLogo" />
+                <Flex justifyContent={"space-between"} width={"100%"}>
+                    <Box
+                        as={RouteLink}
+                        to="/"
+                        boxSize={{ ml: "6vw" }}
+                        minWidth={"80px"}
+                        width={{ base: "3rem" }}
+                        display={{ base:"none", md:"flex"}}
+                    >
+                        <Image src="../SkateBoardLogo.png" alt="SkateBoardLogo" />
                     </Box>
-       
 
-                    <Flex display={{ base: "none", md: "flex" }} ml={10}>
+                    <Flex display={{ base: "none", md: "flex" }}>
                         <DesktopNav />
                     </Flex>
-                </Flex>
-                {isLoggedIn ? (
-                    <UserLoggedInNav />
-                ) : (
-                    <Stack
-                        flex={{ base: 1, md: 0 }}
-                        justify={"flex-end"}
-                        direction={"row"}
-                        spacing={6}
-                    >
-                        <RouteLink to="/logIn">
-                            <Button fontSize={"sm"} fontWeight={400} variant={"link"}>
-                                Log In
-                            </Button>
-                        </RouteLink>
-                        <RouteLink to="/signUp">
-                            <Button
-                                display={{ base: "none", md: "inline-flex" }}
-                                fontSize={"sm"}
-                                fontWeight={600}
-                                color={"white"}
-                                bg={"pink.400"}
-                                // href={"signup"}
-                                _hover={{
-                                    bg: "pink.300",
-                                }}
+                    {isLoggedIn ? (
+                        <UserLoggedInNav />
+                    ) : (
+                        <Stack direction={"row"} spacing={6}>
+                            <RouteLink to="/logIn" style={{ display: "flex" }}>
+                                <Button fontSize={"sm"} fontWeight={400} variant={"link"}>
+                                    Log In
+                                </Button>
+                            </RouteLink>
+                            <RouteLink
+                                to="/signUp"
+                                style={{ display: "flex", alignItems: "center" }}
                             >
-                                Sign Up
-                            </Button>
-                        </RouteLink>
-                    </Stack>
-                )}
+                                <Button
+                                    display={{ base: "none", md: "inline-flex" }}
+                                    fontSize={"sm"}
+                                    fontWeight={600}
+                                    color={"white"}
+                                    bg={"pink.400"}
+                                    // href={"signup"}
+                                    _hover={{
+                                        bg: "pink.300",
+                                    }}
+                                >
+                                    Sign Up
+                                </Button>
+                            </RouteLink>
+                        </Stack>
+                    )}
+                </Flex>
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
@@ -129,21 +133,22 @@ const DesktopNav = () => {
         // nav bar width
         <Stack
             direction={"row"}
-            spacing={4}
-            width={"80vw"}
-            justifyContent={"center"}
+            width={"45rem"}
+            justifyContent={"space-around"}
             alignContent={"center"}
         >
             {/* Routes */}
             {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label}>
-                    <Popover trigger={"hover"} placement={"bottom-start"}>
+                <Box key={navItem.label} display={"flex"}>
+                    <Popover trigger={"hover"} placement={"bottom-end"}>
                         <PopoverTrigger>
                             <Box
+                                display={"flex"}
+                                alignItems={"end"}
                                 as={RouteLink}
                                 to={`${navItem.href}`}
-                                p={2}
-                                fontSize={"sm"}
+                                p={5}
+                                fontSize={"1.5em"}
                                 fontWeight={500}
                                 color={linkColor}
                                 _hover={{
@@ -151,7 +156,7 @@ const DesktopNav = () => {
                                     color: linkHoverColor,
                                 }}
                             >
-                                {navItem.label}
+                                <Text letterSpacing={"1px"}>{navItem.label}</Text>
                             </Box>
                         </PopoverTrigger>
 
@@ -219,6 +224,12 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 const MobileNav = () => {
     return (
         <Stack bg={useColorModeValue("white", "gray.800")} p={4} display={{ md: "none" }}>
+            <Box
+                as={RouteLink}
+                to="/"
+            >
+                <Image src="../SkateBoardLogo.png" alt="SkateBoardLogo" width={"20vw"} minWidth={"60px"}/>
+            </Box>
             {NAV_ITEMS.map((navItem) => (
                 <MobileNavItem key={navItem.label} {...navItem} />
             ))}
