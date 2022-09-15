@@ -1,6 +1,6 @@
-import { PostItem, PostListState } from './activity-platform/postState';
+import { PostItem, PostListState } from './platform/postState';
 
-export * from './activity-platform/postState';
+export * from './platform/postState';
 
 export type RootState = {
   postList: PostListState
