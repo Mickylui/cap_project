@@ -18,6 +18,7 @@ import { getUserDataJWTFetch } from "./Api/AccountFetch";
 import { Slideshow } from "./Components/AutoSlider";
 import CompleteForm from "./Pages/User/CompleteForm";
 import ReportUser from "./Pages/User/ReportUser";
+import PostForm from "./Pages/Platform/PostForm";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -53,6 +54,7 @@ function App() {
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="posts" element={<SocialPlatform />} />
+                    <Route path="posts/form" element={<PostForm />} />
                     {/* temp: */}
                     <Route path="slider" element={<Slideshow />} />
                     {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}
