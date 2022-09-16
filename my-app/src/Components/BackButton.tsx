@@ -8,7 +8,7 @@ export function BackButton() {
     const location = useLocation();
     console.log("this is location:", location)
     return (
-        <Button onClick={()=>navigate("/",{replace:false})}>
+        <Button onClick={()=>navigate(-1)}>
             <ArrowBackIcon />
         </Button>
     );
