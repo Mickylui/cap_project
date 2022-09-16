@@ -1,9 +1,9 @@
-import { Box, Button, ButtonGroup, Flex, Stack, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Flex, Stack, Tfoot, Th, Tr, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 import { BackButton } from '../../Components/BackButton';
 import CartList from './CartList';
 
-function PayWithPoints() {
+function PayWithPoints(props) {
     return (
         <div>
             <Flex
@@ -15,7 +15,16 @@ function PayWithPoints() {
             <BackButton />
             <Box maxW='80vw' borderWidth='1px' borderRadius='lg' overflow='hidden' m="4rem auto" p="6rem">
             <Box mb='4rem' fontSize='2em'>Your point is xxx, you can use it for discount. Do you want to use it?</Box>
-            <CartList />
+            <CartList usePoint={props.usePoint}/>
+            {/* <Tfoot>
+                                    <Tr>
+                                        <Th></Th>
+                                        <Th></Th>
+                                        <Th></Th>
+                                        <Th></Th>
+                                        <Th>{`$ -`}</Th>
+                                    </Tr>
+                                </Tfoot> */}
             <ButtonGroup spacing={4} mt='4rem'>
                 <Button colorScheme='teal'>Yes</Button>
                 <Button colorScheme='teal'>No</Button> 
