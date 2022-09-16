@@ -10,7 +10,7 @@ import { Products } from "./Pages/Product/Products";
 import LandingPage from "./Pages/LandingPage";
 import SocialPlatform from "./Pages/Platform/SocialPlatform";
 import Profile from "./Pages/User/Profile";
-import AdminProfile from "./Pages/Admin/AdminProfile";
+import AdminProfile from "./Pages/Admin/UserManage";
 import CompleteForm from "./Pages/User/CompleteForm";
 import ReportUser from "./Pages/User/ReportUser";
 
@@ -21,6 +21,8 @@ import Table from "./Components/Table";
 import PrivateRoute from "./Components/PrivateRoute";
 
 import { getUserDataJWTFetch } from "./Api/AccountFetch";
+import NotFound from "./Pages/NotFound";
+import { ImageUpload } from "./Components/ImageUpload";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -56,8 +58,9 @@ function App() {
                     <Route path="posts" element={<SocialPlatform />} />
                     <Route path="slider" element={<Slideshow />} />
                     <Route path="table" element={<Table />} />
+                    <Route path="upload" element={<ImageUpload />} />
                     {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}
-                    <Route path="*" element={<>404 : Page Not Found</>} />
+                    <Route path="*" element={<NotFound/>} />
                 </Routes>
                 <Footer />
             </Router>

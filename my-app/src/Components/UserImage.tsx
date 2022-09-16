@@ -1,5 +1,17 @@
 import React from "react";
-import { Container, Image, Center, Heading, Text, VStack, HStack, Tag } from "@chakra-ui/react";
+import {
+    Container,
+    Image,
+    Center,
+    Heading,
+    Text,
+    VStack,
+    HStack,
+    Tag,
+    Avatar,
+} from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/store";
 
 const data = {
     _id: "ats1999",
@@ -17,6 +29,32 @@ const data = {
 };
 
 function UserImage() {
+    const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
+    if (isAdmin) {
+        return (
+            <div>
+                <Avatar name={"admin"} backgroundColor={"black"} size="2xl"/>
+                {/* <Container mt={4}>
+                    <Image
+                        src={
+                            data.pic ||
+                            "https://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
+                        }
+                        alt={data.name}
+                        boxSize="200px"
+                        borderRadius="full"
+                        fallbackSrc="hhttps://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
+                        mx="auto"
+                    />
+                    <Center>
+                        <VStack>
+                            <Heading>{data.name}</Heading>
+                        </VStack>
+                    </Center>
+                </Container> */}
+            </div>
+        );
+    }
     return (
         <div>
             <Container mt={4}>
