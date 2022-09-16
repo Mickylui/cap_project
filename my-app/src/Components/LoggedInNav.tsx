@@ -54,7 +54,7 @@ export function UserLoggedInNav() {
                     <Avatar name={`${userData[0]["account_name"]}`} backgroundColor={"black"} />
                 </MenuButton>
                 <MenuList marginTop={"-20px"} minWidth={{ base: "7em", md: "10em" }}>
-                    <RouteLink to="/user">
+                    <RouteLink to="/admin">
                         <MenuItem>Manage</MenuItem>
                     </RouteLink>
                     <MenuItem onClick={() => dispatch(logOut())}>Log Out</MenuItem>

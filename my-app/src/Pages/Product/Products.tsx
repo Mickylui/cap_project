@@ -48,18 +48,21 @@ export function Products() {
             {productItem.map((product) => 
                 (<Box
                     key={product.id}
-                    maxW="sm"
+                    // maxW="sm"
+                    width={"50em"}
                     borderWidth="1px"
                     borderRadius="lg"
                     overflow="hidden"
                     style={{ margin: "10px" }}
+                    display={"flex"}
+                    flexWrap={"wrap"}
                 >
-                    <Image src={product.imageUrl} alt={product.imageAlt} />
-                    <Box p="6">
-                        <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" noOfLines={1}>
+                    <Image src={product.imageUrl} alt={product.imageAlt} width={"100%"}/>
+                    <Box p="6" display={"flex"} justifyContent={"center"} flexWrap={"wrap"}  width={"100%"}>
+                        <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" noOfLines={1} fontSize={{md:"5rem"}}  width={"100%"}>
                             {product.title}
                         </Box>
-                        <Box>{product.formattedPrice}</Box>
+                        <Box fontSize={{md:"2rem"}}>{product.formattedPrice}</Box>
                     </Box>
                 </Box>)
             )}

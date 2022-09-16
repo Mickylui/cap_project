@@ -18,6 +18,8 @@ import { getUserDataJWTFetch } from "./Api/AccountFetch";
 import { Slideshow } from "./Components/AutoSlider";
 import CompleteForm from "./Pages/User/CompleteForm";
 import ReportUser from "./Pages/User/ReportUser";
+import Table from "./Components/Table";
+
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -43,18 +45,15 @@ function App() {
                     <Route path="/" element={<LandingPage />} />
                     <Route path="logIn" element={<LogIn />} />
                     <Route path="signUp" element={<SignUp />} />
-                    {/* <Route path="user" element={<Profile />}>
-                        <Route path="report" element={<ReportUser />} />
-                        <Route path="form" element={<ReportUser />} />
-                    </Route> */}
-                    <Route path="user" element={<Profile />}/>
+                    <Route path="user" element={<Profile />} />
                     <Route path="user/form" element={<CompleteForm />} />
                     <Route path="user/report" element={<ReportUser />} />
+                    <Route path="admin" element={<Profile />} />
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="posts" element={<SocialPlatform />} />
-                    {/* temp: */}
                     <Route path="slider" element={<Slideshow />} />
+                    <Route path="table" element={<Table />} />
                     {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}
                     <Route path="*" element={<>404 : Page Not Found</>} />
                 </Routes>

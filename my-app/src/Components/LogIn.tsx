@@ -13,6 +13,7 @@ import {
     Text,
     useColorModeValue,
     Link,
+    Spinner,
 } from "@chakra-ui/react";
 import { FormEvent, useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon, ArrowBackIcon } from "@chakra-ui/icons";
@@ -136,7 +137,16 @@ export default function LogInCard() {
                                 </InputGroup>
                             </FormControl>
                             <Stack spacing={10} pt={2}>
-                                <Button
+                                {status === "loading" ? (
+                                    <Spinner
+                                        thickness="4px"
+                                        speed="0.65s"
+                                        emptyColor="gray.200"
+                                        color="blue.500"
+                                        size="xl"
+                                    />
+                                ) : (
+                                    <Button
                                     type="submit"
                                     loadingText="Submitting"
                                     size="lg"
@@ -148,8 +158,8 @@ export default function LogInCard() {
                                 >
                                     Log In
                                 </Button>
+                                )}
                             </Stack>
-                            {/* <RouteLink to="/signUp"> */}
                             <Stack pt={6}>
                                 <Text align={"center"}>
                                     Not a user?{" "}
@@ -158,7 +168,6 @@ export default function LogInCard() {
                                     </Link>
                                 </Text>
                             </Stack>
-                            {/* </RouteLink> */}
                         </Stack>
                     </form>
                 </Box>
