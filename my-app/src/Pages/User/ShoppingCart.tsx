@@ -4,7 +4,6 @@ import { Box, Button, Grid, GridItem, Image } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import CartList from "./CartList";
 
-
 function ShoppingCart() {
     const selectedItem = [
         {
@@ -57,8 +56,10 @@ function ShoppingCart() {
                     <div>
                         <CartList />
                     </div>
-                    <Link to='/cart/contact'>Use default address or click to change address</Link>
-                    <Button mt='6em'>Buy/Save</Button>
+                    <Link to="/cart/contact">Use default address or click to change address</Link>
+                    <Link to="/cart/contact/usePoints">
+                        <Button mt="4em">Buy/Save</Button>
+                    </Link>
                 </GridItem>
 
                 {/* show products */}

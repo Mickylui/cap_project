@@ -1,5 +1,6 @@
-import { FormControl, FormLabel, Input, RadioGroup, HStack, Radio, Select, Button, Box, Flex, useColorModeValue, } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, RadioGroup, HStack, Radio, Select, Button, Box, Flex,  useColorModeValue} from "@chakra-ui/react";
 import React, { useState } from "react";
+import { Link, Link as  RouteLink } from "react-router-dom";
 import { BackButton } from "../../Components/BackButton";
 import CartList from "./CartList";
 
@@ -21,7 +22,7 @@ function DeliveryAddress() {
             bg={useColorModeValue("gray.50", "gray.800")}
         >
             <BackButton />
-            <Box borderWidth='1px' borderRadius='lg' overflow='hidden' m="4rem auto" p="6rem">
+            <Box maxW='80vw' borderWidth='1px' borderRadius='lg' overflow='hidden' m="4rem auto" p="6rem">
             <Box mb='4rem' fontSize='2em'>Cart List</Box>
             <CartList />
             <FormControl id="room" mt='4rem'>
@@ -69,7 +70,9 @@ function DeliveryAddress() {
                     </HStack>
                 </RadioGroup>
             </FormControl>
-            <Button mt='4em'>Buy/Save</Button>
+            <Link to='/cart/contact/usePoints'>
+                <Button mt='4em'>Buy/Save</Button>
+            </Link>
             </Box>
             </Flex>
         </div>

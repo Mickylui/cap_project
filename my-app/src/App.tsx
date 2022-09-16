@@ -23,6 +23,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import { getUserDataJWTFetch } from "./Api/AccountFetch";
 import DeliveryAddress from "./Pages/User/DeliveryAddress";
 import ShoppingCart from "./Pages/User/ShoppingCart";
+import PayWithPoints from "./Pages/User/PayWithPoints";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -57,6 +58,7 @@ function App() {
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="cart" element={<ShoppingCart />} />
                     <Route path="cart/contact" element={<DeliveryAddress />} />
+                    <Route path="cart/contact/usePoints" element={<PayWithPoints />} />
                     <Route path="posts" element={<SocialPlatform />} />
                     <Route path="slider" element={<Slideshow />} />
                     <Route path="table" element={<Table />} />
