@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Box, Button, Link } from "@chakra-ui/react";
 import UserImage from "../../Components/UserImage";
 import { Link as ReachLink } from "@reach/router";
-import PostForm from "../Platform/PostForm";
 import Products from "../Product/Products";
 import UsePoints from "./UsePoints";
 import GetPoints from "./GetPoints";
@@ -10,6 +9,7 @@ import { WarningTwoIcon } from "@chakra-ui/icons";
 import { Link as RouteLink, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
+import SocialPlatform from "../Platform/SocialPlatform";
 
 function Profile() {
     const [link, switchLink] = useState("posts");
@@ -64,7 +64,7 @@ function Profile() {
                 >
                     Banners
                 </Link>
-                <main>{link === "posts" ? <PostForm /> : <Products />}</main>
+                <main>{link === "posts" ? <SocialPlatform /> : <Products />}</main>
             </div>
         );
     }
@@ -94,8 +94,8 @@ function Profile() {
                     <WarningTwoIcon />
                 </Button>
             </RouteLink>
-
-            <main>{link === "posts" ? <PostForm /> : <Products />}</main>
+            
+            <main>{link === "posts" ? <SocialPlatform /> : <Products />}</main>
             <UsePoints />
             <GetPoints />
             {/* <Outlet/> */}
