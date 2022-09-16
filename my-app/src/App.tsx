@@ -21,6 +21,7 @@ import ReportUser from "./Pages/User/ReportUser";
 import PostForm from "./Pages/Platform/PostForm";
 import PostDetail from "./Pages/Platform/PostDetail";
 import ShoppingCart from "./Pages/User/ShoppingCart";
+import DeliveryAddress from "./Pages/User/DeliveryAddress";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -56,6 +57,7 @@ function App() {
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="cart" element={<ShoppingCart />} />
+                    <Route path="cart/contact" element={<DeliveryAddress />} />
                     <Route path="posts" element={<SocialPlatform />} />
                     <Route path="posts/form" element={<PostForm />} />
                     <Route path="detail" element={<PostDetail />} />
