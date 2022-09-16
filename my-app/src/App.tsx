@@ -19,6 +19,8 @@ import { Slideshow } from "./Components/AutoSlider";
 import CompleteForm from "./Pages/User/CompleteForm";
 import ReportUser from "./Pages/User/ReportUser";
 import PostForm from "./Pages/Platform/PostForm";
+import PostDetail from "./Pages/Platform/PostDetail";
+import ShoppingCart from "./Pages/User/ShoppingCart";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -53,8 +55,10 @@ function App() {
                     <Route path="user/report" element={<ReportUser />} />
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
+                    <Route path="cart" element={<ShoppingCart />} />
                     <Route path="posts" element={<SocialPlatform />} />
                     <Route path="posts/form" element={<PostForm />} />
+                    <Route path="detail" element={<PostDetail />} />
                     {/* temp: */}
                     <Route path="slider" element={<Slideshow />} />
                     {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}

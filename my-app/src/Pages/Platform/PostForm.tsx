@@ -10,6 +10,7 @@ import {
     RadioGroup,
     Stack,
     Button,
+    Box,
 } from "@chakra-ui/react";
 import TagsInput from "../../Components/TagsInput";
 
@@ -17,6 +18,11 @@ function PostForm() {
     return (
         <div>
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+            <Box
+                    rounded={"lg"}
+                    boxShadow={"lg"}
+                    padding={20}
+                >
             <FormControl isRequired>
                 <Input placeholder="Title" />
             </FormControl>
@@ -34,22 +40,28 @@ function PostForm() {
             </FormControl>
             <FormControl>
                 <HStack spacing="12px">
-                    <FormLabel>Available Location</FormLabel>
+                    <FormLabel>Location (optional)</FormLabel>
                     <Input type="text" placeholder="optional" />
                 </HStack>
             </FormControl>
             <FormControl>
                 <HStack spacing="12px">
-                    <FormLabel>Available Time</FormLabel>
-                    <Input type="text" placeholder="optional" />
+                    <FormLabel>Date (optional)</FormLabel>
+                    <input type="date"  id="date" name="date"></input>
                 </HStack>
             </FormControl>
             <FormControl>
-                <FormLabel as="legend">Contact</FormLabel>
+                <HStack spacing="12px">
+                    <FormLabel>Time</FormLabel>
+                    <input type="time" id="time" name="time"></input>
+                </HStack>
+            </FormControl>
+            <FormControl>
+                <FormLabel as="legend" >Contact</FormLabel>
                 <RadioGroup defaultValue="default">
                     <HStack spacing="12px">
                         <Radio>
-                            <Input placeholder="optional" />
+                            <Input placeholder="optional"/>
                         </Radio>
                         <Radio value="default">use your default contact</Radio>
                     </HStack>
@@ -74,6 +86,7 @@ function PostForm() {
                     Submit
                 </Button>
             </Stack>
+            </Box>
             </Stack>
         </div>
     );

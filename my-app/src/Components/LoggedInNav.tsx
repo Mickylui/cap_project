@@ -78,7 +78,7 @@ export function UserLoggedInNav() {
                 <RouteLink to="/user">
                     <MenuItem>Profile</MenuItem>
                 </RouteLink>
-                <RouteLink to="/products">
+                <RouteLink to="/cart">
                     <MenuItem>
                         Cart
                         <Box
