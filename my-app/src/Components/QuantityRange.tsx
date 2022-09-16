@@ -1,6 +1,6 @@
 import { Button, HStack, Input, useNumberInput } from "@chakra-ui/react";
 
-export function HookUsage() {
+export function QuantityRange() {
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } = useNumberInput({
         step: 1,
         defaultValue: 1,
@@ -13,11 +13,11 @@ export function HookUsage() {
     const input = getInputProps();
 
     return (
-        <HStack maxW="320px">
-            <Button {...inc}>+</Button>
+        <HStack maxW="320px" border={"solid"}>
+             <Button {...dec}>-</Button>
             <Input {...input} />
-            <Button {...dec}>-</Button>
-            <Button>Add to Cart</Button>
+            <Button {...inc}>+</Button>
+            <Button >Add to Cart</Button>
         </HStack>
     );
 }
