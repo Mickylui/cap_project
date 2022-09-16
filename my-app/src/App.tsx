@@ -58,7 +58,7 @@ function App() {
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="cart" element={<ShoppingCart />} />
                     <Route path="cart/contact" element={<DeliveryAddress />} />
-                    <Route path="cart/contact/usePoints" element={<PayWithPoints />} />
+                    {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
                     <Route path="posts" element={<SocialPlatform />} />
                     <Route path="slider" element={<Slideshow />} />
                     <Route path="table" element={<Table />} />

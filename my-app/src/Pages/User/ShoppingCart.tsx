@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Grid, GridItem, Image } from "@chakra-ui/react";
 // import { Link as ReachLink } from "@reach/router"
-import { Link } from "react-router-dom";
+import { Link as RouteLink} from "react-router-dom";
+import { Link } from '@chakra-ui/react'
 import CartList from "./CartList";
+import PayWithPoints from "./PayWithPoints";
 
 function ShoppingCart() {
+    const [usePoint, setUsePoint] = useState(false);
+    console.log("1:",usePoint)
     const selectedItem = [
         {
             id: 1,
@@ -37,7 +41,7 @@ function ShoppingCart() {
     ];
     return (
         <div>
-            <Grid
+            {usePoint? <PayWithPoints usePoint={usePoint}/>:(<Grid
                 templateAreas={`"header header"
                   "nav main"
                   "nav footer"`}
@@ -54,12 +58,10 @@ function ShoppingCart() {
                 <GridItem pl="2" bg="teal" borderColor="black" border="1px" area={"nav"}>
                     <Box m="2em">Cart List</Box>
                     <div>
-                        <CartList />
+                        <CartList usePoint={usePoint}/>
                     </div>
-                    <Link to="/cart/contact">Use default address or click to change address</Link>
-                    <Link to="/cart/contact/usePoints">
-                        <Button mt="4em">Buy/Save</Button>
-                    </Link>
+                    <Link as={RouteLink} to="/cart/contact">Use default address or click to change address</Link>
+                        <Button mt="4em" onClick={()=>setUsePoint(!usePoint)}>Buy/Save</Button>
                 </GridItem>
 
                 {/* show products */}
@@ -100,7 +102,7 @@ function ShoppingCart() {
                         ))}
                     </div>
                 </GridItem>
-            </Grid>
+            </Grid>)}
         </div>
     );
 }
