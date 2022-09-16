@@ -4,10 +4,11 @@ import { FaHeart } from "react-icons/fa";
 
 function PostDetail() {
     const postItem = {
-        imageUrl: "./SkateBoardLogo.png",
+        imageUrl: "../SkateBoardLogo.png",
         imageAlt: "SkateBoardLogo",
         title: "Fancy Style Design",
         description: "My 1st design when I was 15",
+        location: "Tsuen Wan",
         date: "9/16/2022",
         time: "15:00",
         contact: "123456",
@@ -18,7 +19,8 @@ function PostDetail() {
     return (
         <div>
             {/* box w/ image */}
-            <Box p="2rem" borderWidth="1px" borderRadius="lg" overflow="hidden" m="2rem">
+            
+            <Box p="2rem" borderWidth="1px" borderRadius="lg" overflow="hidden" m="4rem">
                 <HStack>
                     <Image
                         src={postItem.imageUrl}
@@ -35,6 +37,9 @@ function PostDetail() {
                             <Box>{postItem.time}</Box>
                         </HStack>
                         <Box mt="3rem">{postItem.description}</Box>
+                        <Box mt="3rem">Location: {postItem.location}</Box>
+                        <Box mt="1rem">Time: {postItem.time}</Box>
+                        <Box mt="1rem">contact: {postItem.contact}</Box>
                         <Box m='2rem'>
                             <Tag>design</Tag>
                             <Tag>interest</Tag>
@@ -67,6 +72,8 @@ function PostDetail() {
                             {postItem.title}
                         </Box>
                         <HStack>
+                            <Box>Location{postItem.location}</Box>
+                            <Box>{postItem.date}</Box>
                             <Box>{postItem.date}</Box>
                             <Box>{postItem.time}</Box>
                         </HStack>

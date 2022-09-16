@@ -24,6 +24,8 @@ import { getUserDataJWTFetch } from "./Api/AccountFetch";
 import DeliveryAddress from "./Pages/User/DeliveryAddress";
 import ShoppingCart from "./Pages/User/ShoppingCart";
 import PayWithPoints from "./Pages/User/PayWithPoints";
+import ReportPost from "./Pages/Platform/ReportPost";
+import PostDetail from "./Pages/Platform/PostDetail";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -60,6 +62,8 @@ function App() {
                     <Route path="cart/contact" element={<DeliveryAddress />} />
                     {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
                     <Route path="posts" element={<SocialPlatform />} />
+                    <Route path="posts/postDetail" element={<PostDetail />} />
+                    <Route path="posts/reportPost" element={<ReportPost />} />
                     <Route path="slider" element={<Slideshow />} />
                     <Route path="table" element={<Table />} />
                     {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}
