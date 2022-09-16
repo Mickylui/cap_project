@@ -22,6 +22,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 
 import { getUserDataJWTFetch } from "./Api/AccountFetch";
 import DeliveryAddress from "./Pages/User/DeliveryAddress";
+import ShoppingCart from "./Pages/User/ShoppingCart";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
