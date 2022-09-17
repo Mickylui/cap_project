@@ -39,7 +39,6 @@ export class AccountService {
         try {
             // console.log("AccountService-- this is email:", email);
             // console.log("AccountService-- this is password:", password);
-            await txn("users").update({last_login_at:this.knex.fn.now(), has_log_in: true})
             const existUserData = await txn("users").select("*").where("email", email).first();
             // console.log("AccountService--this is userData:", existUserData);
             if (!existUserData) {

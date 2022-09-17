@@ -14,7 +14,7 @@ export async function up(knex: Knex): Promise<void> {
                 t.timestamp('created_at').defaultTo(knex.fn.now());
                 t.timestamp('updated_at').defaultTo(knex.fn.now());
                 t.timestamp('last_login_at').defaultTo(knex.fn.now());
-                t.boolean('has_log_in').notNullable().defaultTo(false);
+                // t.boolean('has_log_in').notNullable().defaultTo(false);
             })
         }
         return;

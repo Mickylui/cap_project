@@ -6,7 +6,6 @@ import { getUserDataJWTFetch, LogInFetch } from "../../Api/AccountFetch";
 export interface IAccountState {
     isLoggedIn: boolean;
     isAdmin: boolean;
-    hasLoggedIn: boolean;
     status: string;
     existUserData: Array<object>;
     error: undefined | string;
@@ -14,7 +13,6 @@ export interface IAccountState {
 const AccountInitialState = {
     isLoggedIn: false,
     isAdmin: false,
-    hasLoggedIn: false,
     status: "",
     existUserData: [],
     error: undefined,
@@ -55,13 +53,11 @@ const accountSlice = createSlice({
                 // need shopping cart data
                 if (action.payload.success === true) {
                     const identity = action.payload.body.existUserData.is_admin;
-                    const hasLoggedIn = action.payload.body.existUserData.has_log_in;
-                    console.log("database:",hasLoggedIn)
+                
                     const nextState = produce(AccountInitialState, (draft) => {
                         const token = action.payload.body.token;
                         draft.isLoggedIn = true;
                         draft.isAdmin = identity;
-                        draft.hasLoggedIn = hasLoggedIn;
                         draft.status = "succeeded";
                         draft.existUserData.push(action.payload.body.existUserData);
 
