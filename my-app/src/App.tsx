@@ -26,6 +26,8 @@ import { ImageUpload } from "./Components/ImageUpload";
 import DeliveryAddress from "./Pages/User/DeliveryAddress";
 import ShoppingCart from "./Pages/User/ShoppingCart";
 import PayWithPoints from "./Pages/User/PayWithPoints";
+import PostForm from "./Pages/Platform/PostForm";
+import { InsertTags } from "./Pages/Platform/InputTags";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -56,6 +58,9 @@ function App() {
                     <Route path="admin" element={<PrivateRoute />}>
                         <Route path="manage" element={<Profile />} />Í
                     </Route>
+                    <Route path="posts/platform" element={<PrivateRoute />}>
+                        <Route path="form" element={<PostForm />} />Í
+                    </Route>
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="cart" element={<ShoppingCart />} />
@@ -64,9 +69,10 @@ function App() {
                     <Route path="posts" element={<SocialPlatform />} />
                     <Route path="slider" element={<Slideshow />} />
                     <Route path="table" element={<Table />} />
-                    <Route path="upload" element={<ImageUpload />} />
+                    <Route path="upload" element={<ImageUpload />} /> 
+                    <Route path="tags" element={<InsertTags />} />
                     {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}
-                    <Route path="*" element={<NotFound/>} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
             </Router>
