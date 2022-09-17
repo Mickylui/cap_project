@@ -26,10 +26,13 @@ import Swal from "sweetalert2";
 
 export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
+    const [firstTimeLogIn, setFirstTimeLogIn] = useState(false);
+
     const status = useSelector((state: RootState) => state.account.status);
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
 
+    console.log("firstTimeLogIn:", firstTimeLogIn)
     // if (status === "loading") {
     //     return (
     //         <Spinner
@@ -48,6 +51,7 @@ export default function LogInCard() {
         const form = e.target as HTMLInputElement;
         const email = form.email.value;
         const password = form.password.value;
+
         if (email.length === 0 || password.length === 0) {
             Swal.fire({
                 title: "Please input all the fields",
@@ -64,9 +68,10 @@ export default function LogInCard() {
         const logInResponse = await dispatch(LogInFetch({ email, password }));
         console.log("logInResponse:", logInResponse);
 
-        if (logInResponse.payload.success === true) {
+        if(logInResponse.payload.success === true && firstTimeLogIn === false){
             Swal.fire({
-                title: "Log In",
+                title: "Good Decision, Welcome To Our Family!",
+                text: "Congratulations! You get 100 points for your registration. Try to get more points by completing your profile.",
                 showClass: {
                     popup: "animate__animated animate__fadeInDown",
                 },
@@ -76,6 +81,20 @@ export default function LogInCard() {
             }).then(() => {
                 navigate("/");
             });
+        } else if (logInResponse.payload.success === true && firstTimeLogIn === false) {
+    
+                Swal.fire({
+                    title: "Log In",
+                    showClass: {
+                        popup: "animate__animated animate__fadeInDown",
+                    },
+                    hideClass: {
+                        popup: "animate__animated animate__fadeOutUp",
+                    },
+                }).then(() => {
+                    navigate("/");
+                });
+            
         } else {
             Swal.fire({
                 title: `${logInResponse.payload.message}`,
@@ -147,17 +166,17 @@ export default function LogInCard() {
                                     />
                                 ) : (
                                     <Button
-                                    type="submit"
-                                    loadingText="Submitting"
-                                    size="lg"
-                                    bg={"blue.400"}
-                                    color={"white"}
-                                    _hover={{
-                                        bg: "blue.500",
-                                    }}
-                                >
-                                    Log In
-                                </Button>
+                                        type="submit"
+                                        loadingText="Submitting"
+                                        size="lg"
+                                        bg={"blue.400"}
+                                        color={"white"}
+                                        _hover={{
+                                            bg: "blue.500",
+                                        }}
+                                    >
+                                        Log In
+                                    </Button>
                                 )}
                             </Stack>
                             <Stack pt={6}>

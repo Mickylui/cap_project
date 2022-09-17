@@ -60,6 +60,7 @@ const accountSlice = createSlice({
                         draft.isAdmin = identity;
                         draft.status = "succeeded";
                         draft.existUserData.push(action.payload.body.existUserData);
+
                         // draft.error = undefined;
                         window.localStorage.setItem("token", token);
                     });
