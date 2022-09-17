@@ -16,9 +16,9 @@ export async function seed(knex: Knex): Promise<void> {
         {account_name: "anonymous",email:"anonymous",password:"anonymous",is_admin:false,is_anonymous:true},
         {account_name: "admin1",email:"admin@1.com",password:hashedPassword,is_admin:true},
         {account_name: "admin2",email:"admin@2.com",password:hashedPassword,is_admin:true},
-        {account_name: "jack",email:"jack@1.com",password:hashedPassword,is_admin:false},
+        {account_name: "jack",email:"jack@1.com",password:hashedPassword,is_admin:false,has_log_in:true},
         {account_name: "mary",email:"mary@1.com",password:hashedPassword,is_admin:false},
-        {account_name: "teddy",email:"teddy@1.com",password:hashedPassword,is_admin:false}   
+        {account_name: "teddy",email:"teddy@1.com",password:hashedPassword,is_admin:false}  
     ])
     .returning("id");
 

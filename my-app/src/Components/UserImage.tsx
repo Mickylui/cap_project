@@ -33,7 +33,7 @@ function UserImage() {
     if (isAdmin) {
         return (
             <div>
-                <Avatar name={"admin"} backgroundColor={"black"} size="2xl"/>
+                <Avatar name={"admin"} backgroundColor={"black"} size="2xl" />
                 {/* <Container mt={4}>
                     <Image
                         src={
@@ -58,7 +58,12 @@ function UserImage() {
     return (
         <div>
             <Container mt={4}>
-                <Image
+                <Avatar
+                    name={`${data.name}`}
+                    src="https://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
+                    size="2xl"
+                />
+                {/* <Image
                     src={
                         data.pic ||
                         "https://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
@@ -68,7 +73,7 @@ function UserImage() {
                     borderRadius="full"
                     fallbackSrc="hhttps://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
                     mx="auto"
-                />
+                /> */}
                 <Center>
                     <VStack>
                         <Heading>{data.name}</Heading>
