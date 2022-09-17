@@ -25,7 +25,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { useEffect } from "react";
 import { UserLoggedInNav } from "./LoggedInNav";
-import "../Components/css/Navbar.css";
+import "../Components/css/navbar.css";
 
 // default: didn't logIn -> pure component
 // login with user -> user navbar

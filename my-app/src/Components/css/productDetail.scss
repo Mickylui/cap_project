@@ -5,7 +5,17 @@
 
 
 
-
+.leftPosition{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 50%;
+    height: fit-content;
+}
+.rightPosition{
+    @extend .leftPosition;
+    margin-top: 3rem;
+}
 .product-single {
     display: flex;
     border: solid gray 1px;

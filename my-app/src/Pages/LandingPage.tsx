@@ -1,5 +1,5 @@
 import { Slideshow } from "../Components/AutoSlider";
-import "../Components/css/LandingPage.scss";
+import "../Components/css/landingPage.scss";
 export function LandingPage() {
     const products = [
         {

@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 import { Box, Container, Link, SimpleGrid, Stack, Text, useColorModeValue, Image } from "@chakra-ui/react";
 
-import "./css/Footer.css";
+import "./css/footer.css";
 import { Link as RouteLink } from "react-router-dom";
 
 const Logo = (props: any) => {
