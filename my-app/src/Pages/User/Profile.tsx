@@ -10,9 +10,11 @@ import { Link as RouteLink, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import SocialPlatform from "../Platform/SocialPlatform";
+import AdminExceptUserManage from "../Admin/AdminExceptUserManage";
 
 function Profile() {
     const [link, switchLink] = useState("posts");
+    const [adminLink, switchAdminLink] = useState("users");
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
 
     if (isAdmin) {
@@ -24,7 +26,7 @@ function Profile() {
                     // to="posts"
                     margin="20px"
                     fontSize="1.5rem"
-                    onClick={() => switchLink("posts")}
+                    onClick={() => switchAdminLink("users")}
                 >
                     Users
                 </Link>
@@ -33,7 +35,7 @@ function Profile() {
                     // to="likes"
                     margin="20px"
                     fontSize="1.5rem"
-                    onClick={() => switchLink("products")}
+                    onClick={() => switchAdminLink("products")}
                 >
                     Products
                 </Link>
@@ -42,16 +44,25 @@ function Profile() {
                     // to="likes"
                     margin="20px"
                     fontSize="1.5rem"
-                    onClick={() => switchLink("posts")}
+                    onClick={() => switchAdminLink("shipping")}
                 >
-                    Platforms
+                    Shipping
                 </Link>
                 <Link
                     // as={ReachLink}
                     // to="likes"
                     margin="20px"
                     fontSize="1.5rem"
-                    onClick={() => switchLink("products")}
+                    onClick={() => switchAdminLink("platform")}
+                >
+                    Platform
+                </Link>
+                <Link
+                    // as={ReachLink}
+                    // to="likes"
+                    margin="20px"
+                    fontSize="1.5rem"
+                    onClick={() => switchAdminLink("posts")}
                 >
                     Posts
                 </Link>
@@ -60,11 +71,11 @@ function Profile() {
                     // to="likes"
                     margin="20px"
                     fontSize="1.5rem"
-                    onClick={() => switchLink("posts")}
+                    onClick={() => switchAdminLink("banners")}
                 >
                     Banners
                 </Link>
-                <main>{link === "posts" ? <SocialPlatform /> : <Products />}</main>
+                <main>{adminLink === "users" ? <SocialPlatform /> : <AdminExceptUserManage link={`${adminLink}`}/>}</main>
             </div>
         );
     }

@@ -10,7 +10,7 @@ import { Products } from "./Pages/Product/Products";
 import LandingPage from "./Pages/LandingPage";
 import SocialPlatform from "./Pages/Platform/SocialPlatform";
 import Profile from "./Pages/User/Profile";
-import AdminProfile from "./Pages/Admin/AdminProfile";
+import AdminProfile from "./Pages/Admin/UserManage";
 import CompleteForm from "./Pages/User/CompleteForm";
 import ReportUser from "./Pages/User/ReportUser";
 
@@ -21,9 +21,13 @@ import Table from "./Components/Table";
 import PrivateRoute from "./Components/PrivateRoute";
 
 import { getUserDataJWTFetch } from "./Api/AccountFetch";
+import NotFound from "./Pages/NotFound";
+import { ImageUpload } from "./Components/ImageUpload";
 import DeliveryAddress from "./Pages/User/DeliveryAddress";
 import ShoppingCart from "./Pages/User/ShoppingCart";
 import PayWithPoints from "./Pages/User/PayWithPoints";
+import PostForm from "./Pages/Platform/PostForm";
+import { InsertTags } from "./Pages/Platform/InputTags";
 import ReportPost from "./Pages/Platform/ReportPost";
 import PostDetail from "./Pages/Platform/PostDetail";
 
@@ -56,6 +60,9 @@ function App() {
                     <Route path="admin" element={<PrivateRoute />}>
                         <Route path="manage" element={<Profile />} />Í
                     </Route>
+                    <Route path="posts/platform" element={<PrivateRoute />}>
+                        <Route path="form" element={<PostForm />} />Í
+                    </Route>
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="cart" element={<ShoppingCart />} />
@@ -66,8 +73,10 @@ function App() {
                     <Route path="posts/reportPost" element={<ReportPost />} />
                     <Route path="slider" element={<Slideshow />} />
                     <Route path="table" element={<Table />} />
+                    <Route path="upload" element={<ImageUpload />} /> 
+                    <Route path="tags" element={<InsertTags />} />
                     {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}
-                    <Route path="*" element={<>404 : Page Not Found</>} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
             </Router>

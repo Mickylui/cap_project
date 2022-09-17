@@ -113,11 +113,6 @@ function SocialPlatform() {
                     <FaPlusCircle />
                 </Button>
             </RouteLink>
-            <HStack display='flex' justifyContent="center">
-                    <Box>#tag1</Box>
-                    <Box>#tag2</Box>
-            </HStack>
-
             <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
                 {postItems.map((postItem)=> 
                 (
@@ -130,16 +125,10 @@ function SocialPlatform() {
                             borderRadius="lg"
                         />
 
-                        <Box p="6">
-                            <Box
-                                mt="1"
-                                fontWeight="semibold"
-                                as="h4"
-                                lineHeight="tight"
-                                noOfLines={1}
-                            >
-                                {postItem.title}
-                            </Box>
+                    <Box p="6">
+                        <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight" noOfLines={1}>
+                            {postItem.title}
+                        </Box>
 
                             <Box>{postItem.description}</Box>
                         </Box>
