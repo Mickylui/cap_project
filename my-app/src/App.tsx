@@ -37,7 +37,7 @@ function App() {
     const dispatch: AppDispatch = useDispatch();
     useEffect(() => {
         GetUserDataJWT();
-    });
+    },[]);
     const GetUserDataJWT = async () => {
         const token = window.localStorage.getItem("token");
         if (!isLoggedIn && token) {

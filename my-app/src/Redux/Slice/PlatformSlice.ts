@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import produce from "immer";
+import { getPostFetch } from "../../Api/PlatformFetch";
 
 export interface PostState {
+    // map(arg0: (postItem: any) => void): import("react").ReactNode;
     id: number;
     title: string;
     description: string;
@@ -15,95 +18,79 @@ export interface PostState {
 
 // export interface PostView {
 //     postList: [{}],
-//     postViews:[{}]    
+//     postViews:[{}]
 // }
 
 export interface IPlatformState {
     list: PostState[];
     currentSelect: number;
-    loading: boolean;
+    status: string;
+    error: string;
 }
 
-type NewPostState = {
-    id: number;
-    title: string;
-    description: string;
-    event_date: Date | null;
-    event_time: string | null;
-    event_location: string | null;
-}
+// type NewPostState = {
+//     id: number;
+//     title: string;
+//     description: string;
+//     event_date: Date | null;
+//     event_time: string | null;
+//     event_location: string | null;
+// }
 
-export type NewPlatformState = {
-    list: NewPostState[];
-    currentSelect: number;
-    loading:boolean;
-}
+// export type NewPlatformState = {
+//     list: PostState[];
+//     currentSelect: number;
+//     loading:boolean;
+// }
 
 export type Error = {
-    error:string
-  }
-  
-  export type Carriage = {
-    isSuccess:boolean;
-    body: any;
-  }
+    error: string;
+};
 
-let PlatformInitialState: NewPlatformState;
+let PlatformInitialState: IPlatformState;
 
 PlatformInitialState = {
     list: [],
     currentSelect: 1,
-    loading: true,
-} 
-
-
-
-export const getPOSTS = createAsyncThunk<Carriage,any,{rejectValue:Error}>(
-    "@posts/get",
-    async(_,thunkAPI)=>{
-    try {
-        const res = await fetch("http://localhost:8080/posts");
-        const posts = await res.json();
-        return posts;
-    } catch {
-        return thunkAPI.rejectWithValue({error:"Cannot get POSTS."} as Error);
-    }
-  });
+    status: "",
+    error: "",
+};
 
 const platformSlice = createSlice({
-    name: "posts",
+    name: "@Posts",
     initialState: PlatformInitialState,
     reducers: {
-        addPost(state, action: PayloadAction<NewPostState>) {
-            state.list.unshift(action.payload)
+        addPost(state, action: PayloadAction<IPlatformState>) {
+            // state.list.unshift(action.payload)
         },
         selectPost(state, action: PayloadAction<number>) {
             state.currentSelect = action.payload;
         },
-        
     },
     extraReducers(builder) {
         builder
-        .addCase(getPOSTS.pending,(state)=>{
-            state.loading = true;
-          })
-          .addCase(getPOSTS.fulfilled,(state,action)=>{
-            state.loading = false;
-            const result = action.payload;
-      
-            console.log(result.body)
-            state.list = result.body
-          })
-          .addCase(getPOSTS.rejected,(state,action)=>{
-            console.log(action.payload?.error)
-          })
-    }
+            .addCase(getPostFetch.pending, (state) => {
+                const nextState = produce(PlatformInitialState, (draft) => {
+                    draft.status = "loading";
+                });
+                state = nextState;
+                return state;
+            })
+            .addCase(getPostFetch.fulfilled, (state, action) => {
+                const postItems = action.payload.body;
+                const nextState = produce(PlatformInitialState, (draft) => {
+                    draft.status = "succeeded";
+                    draft.list = postItems;
+                });
+                state = nextState;
+
+                return state;
+            })
+            .addCase(getPostFetch.rejected, (state, action) => {
+                console.log(action.payload?.error);
+            });
+    },
 });
 
-export const {
-    addPost,
-    selectPost,
-} = platformSlice.actions;
+export const { addPost, selectPost } = platformSlice.actions;
 export default platformSlice.reducer;
-
-

@@ -3,7 +3,10 @@ import { Knex } from "knex";
 
 export class PostService {
     constructor(private knex: Knex) {}
-    async getAllPost() {}
+    async getAllPost() {
+        const allPost = await this.knex("posts").select("*")
+        return allPost
+    }
     async searchPost() {
         //search content or tag (multiple?)
         //click tag

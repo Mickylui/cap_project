@@ -50,10 +50,16 @@ export const accountController = new AccountController(accountService);
 // const userService = new UserService(knex);
 // export const userController = new UserController(userService);
 
+import { PostService } from "./services/postService";
+import { PostController } from "./controllers/postController";
+export const postService = new PostService(knex);
+export const postController = new PostController(postService);
+
 import {accountRoutes} from "./routes/accountRoutes";
 import path from "path";
 // route handling
 app.use("/account",accountRoutes);
+app.use("/posts",postController.getPosts)
 
 
 //folder path
