@@ -26,13 +26,11 @@ import Swal from "sweetalert2";
 
 export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
-    const [firstTimeLogIn, setFirstTimeLogIn] = useState(false);
 
     const status = useSelector((state: RootState) => state.account.status);
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
 
-    console.log("firstTimeLogIn:", firstTimeLogIn)
     // if (status === "loading") {
     //     return (
     //         <Spinner
@@ -68,7 +66,7 @@ export default function LogInCard() {
         const logInResponse = await dispatch(LogInFetch({ email, password }));
         console.log("logInResponse:", logInResponse);
 
-        if(logInResponse.payload.success === true && firstTimeLogIn === false){
+        if(logInResponse.payload.success === true && hasLoggedIn === false && is_admin === false){
             Swal.fire({
                 title: "Good Decision, Welcome To Our Family!",
                 text: "Congratulations! You get 100 points for your registration. Try to get more points by completing your profile.",
@@ -81,7 +79,7 @@ export default function LogInCard() {
             }).then(() => {
                 navigate("/");
             });
-        } else if (logInResponse.payload.success === true && firstTimeLogIn === false) {
+        } else if (logInResponse.payload.success === true && hasLoggedIn === true && is_admin === false) {
     
                 Swal.fire({
                     title: "Log In",
