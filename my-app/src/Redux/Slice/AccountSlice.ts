@@ -56,7 +56,7 @@ const accountSlice = createSlice({
                 if (action.payload.success === true) {
                     const identity = action.payload.body.existUserData.is_admin;
                     const hasLoggedIn = action.payload.body.existUserData.has_log_in;
-                    // console.log("identity:", identity);
+                    console.log("database:",hasLoggedIn)
                     const nextState = produce(AccountInitialState, (draft) => {
                         const token = action.payload.body.token;
                         draft.isLoggedIn = true;
@@ -133,7 +133,7 @@ const accountSlice = createSlice({
     },
 });
 
-export const { logIn, logOut, signUp } = accountSlice.actions;
+export const { logIn, logOut } = accountSlice.actions;
 // console.log("this is logIn actions:", logIn)
 
 export default accountSlice.reducer;

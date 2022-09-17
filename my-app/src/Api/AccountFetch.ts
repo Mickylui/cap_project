@@ -24,6 +24,7 @@ export const LogInFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error 
                 body: JSON.stringify({ email, password }),
             });
             const result = await resp.json();
+            console.log("++++:",result)
             return result;
         } catch (e) {
             return thunkAPI.rejectWithValue({

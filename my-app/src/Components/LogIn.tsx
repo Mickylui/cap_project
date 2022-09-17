@@ -28,6 +28,9 @@ export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
 
     const status = useSelector((state: RootState) => state.account.status);
+    const hasLoggedIn = useSelector((state: RootState) => state.account.hasLoggedIn);
+    const isAdmin = useSelector((state: RootState) => state.account.isAdmin)
+
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -50,6 +53,7 @@ export default function LogInCard() {
         const email = form.email.value;
         const password = form.password.value;
 
+
         if (email.length === 0 || password.length === 0) {
             Swal.fire({
                 title: "Please input all the fields",
@@ -62,11 +66,25 @@ export default function LogInCard() {
             });
             return;
         }
-        console.log("this is data:", email.length, password.length);
         const logInResponse = await dispatch(LogInFetch({ email, password }));
         console.log("logInResponse:", logInResponse);
+        console.log('hasLoggedIn12445', hasLoggedIn)
 
-        if(logInResponse.payload.success === true && hasLoggedIn === false && is_admin === false){
+        if(logInResponse.payload.success === true && hasLoggedIn === true && isAdmin === false){
+            Swal.fire({
+                title: "Log In",
+                showClass: {
+                    popup: "animate__animated animate__fadeInDown",
+                },
+                hideClass: {
+                    popup: "animate__animated animate__fadeOutUp",
+                },
+            }).then(() => {
+                navigate("/");
+            });
+        
+        } else if (logInResponse.payload.success === true && hasLoggedIn === false && isAdmin === false) {
+            console.log("1212123")
             Swal.fire({
                 title: "Good Decision, Welcome To Our Family!",
                 text: "Congratulations! You get 100 points for your registration. Try to get more points by completing your profile.",
@@ -79,20 +97,7 @@ export default function LogInCard() {
             }).then(() => {
                 navigate("/");
             });
-        } else if (logInResponse.payload.success === true && hasLoggedIn === true && is_admin === false) {
-    
-                Swal.fire({
-                    title: "Log In",
-                    showClass: {
-                        popup: "animate__animated animate__fadeInDown",
-                    },
-                    hideClass: {
-                        popup: "animate__animated animate__fadeOutUp",
-                    },
-                }).then(() => {
-                    navigate("/");
-                });
-            
+
         } else {
             Swal.fire({
                 title: `${logInResponse.payload.message}`,

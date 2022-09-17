@@ -30,6 +30,7 @@ import PostForm from "./Pages/Platform/PostForm";
 import { InsertTags } from "./Pages/Platform/InputTags";
 import ReportPost from "./Pages/Platform/ReportPost";
 import PostDetail from "./Pages/Platform/PostDetail";
+import Settings from "./Pages/User/Settings";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -66,6 +67,7 @@ function App() {
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="cart" element={<ShoppingCart />} />
+                    <Route path="settings" element={<Settings />} />
                     <Route path="cart/contact" element={<DeliveryAddress />} />
                     {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
                     <Route path="posts" element={<SocialPlatform />} />

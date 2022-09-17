@@ -3,7 +3,6 @@ import { winstonLogger } from "../utils/winstonLogger";
 import { checkPassword } from "../utils/hash";
 import jwtSimple from "jwt-simple";
 import jwt from "../jwt";
-import { networkInterfaces } from "os";
 
 export class AccountService {
     constructor(private knex: Knex) {}
@@ -14,7 +13,7 @@ export class AccountService {
                 .select("id")
                 .where("account_name", accountName)
                 .first();
-            console.log("existUser:", existUserId);
+            // console.log("existUser:", existUserId);
             if (existUserId) {
                 return { success: false, message: "accountName already exist" };
             }
@@ -24,7 +23,7 @@ export class AccountService {
                 password: password,
                 is_admin: false,
             });
-            console.log("AccountService-- this is accountName:", accountName);
+            // console.log("AccountService-- this is accountName:", accountName);
             console.log("AccountService-- this is email:", email);
             console.log("AccountService-- this is password:", password);
             await txn.commit();
@@ -38,11 +37,11 @@ export class AccountService {
     async logIn(email: string, password: string) {
         const txn = await this.knex.transaction();
         try {
-            console.log("AccountService-- this is email:", email);
-            console.log("AccountService-- this is password:", password);
+            // console.log("AccountService-- this is email:", email);
+            // console.log("AccountService-- this is password:", password);
             await txn("users").update({last_login_at:this.knex.fn.now(), has_log_in: true})
             const existUserData = await txn("users").select("*").where("email", email).first();
-            console.log("AccountService--this is userData:", existUserData);
+            // console.log("AccountService--this is userData:", existUserData);
             if (!existUserData) {
                 console.log("Invalid email")
                 return { success: false, message: "Invalid email" };

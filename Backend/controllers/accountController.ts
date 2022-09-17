@@ -32,7 +32,7 @@ export class AccountController {
                 return;
             }
             res.status(200).json(result);
-            console.log("this is result from accountService login:", result);
+            // console.log("this is result from accountService login:", result);
         } catch (error) {
             winstonLogger.error(error.toString());
             res.status(500).json({ success: false, message: "Internal Server Error" });

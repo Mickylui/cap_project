@@ -92,7 +92,7 @@ export function UserLoggedInNav() {
                         </Box>
                     </MenuItem>
                 </RouteLink>
-                <RouteLink to="/products">
+                <RouteLink to="/settings">
                     <MenuItem>Setting</MenuItem>
                 </RouteLink>
                 {/* change the state -> re-render */}
