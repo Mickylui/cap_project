@@ -4,10 +4,11 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 
-export function ImageUpload() {
-    const [images, setImages] = React.useState([]);
+export function ImageUpload(props) {
     const maxNumber = 69;
 
+    const images = props.images;
+    const setImages = props.setImages;
     const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
         // data for submit
         console.log(imageList, addUpdateIndex);
@@ -16,7 +17,16 @@ export function ImageUpload() {
 
     return (
         <Box className="fileUpload-box" border={"solid"} width={"25rem"}>
-            <ImageUploading multiple value={images} onChange={onChange} maxNumber={maxNumber}>
+            <ImageUploading
+                multiple
+                value={images}
+                onChange={onChange}
+                maxNumber={maxNumber}
+                inputProps={{
+                    name:"fileUpload",
+                    type:"file"
+                }}
+            >
                 {({
                     imageList,
                     onImageUpload,

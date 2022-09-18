@@ -93,7 +93,7 @@ export default function LogInCard() {
                     popup: "animate__animated animate__fadeOutUp",
                 },
             }).then(() => {
-                navigate("/");
+                navigate(-1);
             });
         } else {
             Swal.fire({

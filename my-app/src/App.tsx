@@ -34,15 +34,17 @@ import Settings from "./Pages/User/Settings";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
+    const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
+    console.log("shoppingData:",shoppingData)
     const dispatch: AppDispatch = useDispatch();
     useEffect(() => {
         GetUserDataJWT();
-    },[]);
+    });
     const GetUserDataJWT = async () => {
         const token = window.localStorage.getItem("token");
-        if (!isLoggedIn && token) {
-            const userDataJWT = await dispatch(getUserDataJWTFetch({ token }));
-            console.log("userDataJWT:", userDataJWT);
+        if (isLoggedIn === false && token) {
+            await dispatch(getUserDataJWTFetch({ token }));
+            console.log("isLoggedIn:", isLoggedIn);
         }
     };
     return (
@@ -75,7 +77,7 @@ function App() {
                     <Route path="posts/reportPost" element={<ReportPost />} />
                     <Route path="slider" element={<Slideshow />} />
                     <Route path="table" element={<Table />} />
-                    <Route path="upload" element={<ImageUpload />} /> 
+                    <Route path="upload" element={<ImageUpload />} />
                     <Route path="tags" element={<InsertTags />} />
                     {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}
                     <Route path="*" element={<NotFound />} />

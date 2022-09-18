@@ -40,9 +40,9 @@ export class AccountService {
             // console.log("AccountService-- this is email:", email);
             // console.log("AccountService-- this is password:", password);
             const existUserData = await txn("users").select("*").where("email", email).first();
-            // console.log("AccountService--this is userData:", existUserData);
+            console.log("AccountService--this is userData:", existUserData);
             if (!existUserData) {
-                console.log("Invalid email")
+                console.log("Invalid email");
                 return { success: false, message: "Invalid email" };
             }
             const matchPassword = await checkPassword(password, existUserData.password);
@@ -54,8 +54,20 @@ export class AccountService {
                 username: existUserData["account_name"],
             };
             const token = jwtSimple.encode(userData, jwt.jwtSecret);
+
+            const combineUserData = await txn("users")
+                .select("*")
+                .leftJoin("user_info", "user_info.user_id", "users.id")
+                .where("users.id", existUserData.id);
+            console.log("combineUserData:", combineUserData);
+            const userShoppingDataArr = await txn("shopping_carts")
+                .select("*")
+                .where("shopping_carts.user_id", existUserData.id);
+
+            console.log("userShoppingData:", userShoppingDataArr);
+
             await txn.commit();
-            return { success: true, body: { token, existUserData } };
+            return { success: true, body: { token, combineUserData, userShoppingDataArr } };
         } catch (error) {
             await txn.rollback();
             winstonLogger.error(error.toString());
@@ -64,15 +76,21 @@ export class AccountService {
     }
     async userDataJWT(tokenId: number, tokenUsername: string) {
         try {
-            const userData = await this.knex("users")
+            const txn = await this.knex.transaction();
+            const combineUserData = await txn("users")
                 .select("*")
-                .where("id", tokenId)
-                .andWhere("account_name", tokenUsername)
-                .first();
-            if (!userData) {
+                .leftJoin("user_info", "user_info.user_id", "users.id")
+                .where("users.id", tokenId);
+            console.log("combineUserData:", combineUserData);
+            const userShoppingDataArr = await txn("shopping_carts")
+                .select("*")
+                .where("shopping_carts.user_id", tokenId);
+
+            console.log("userShoppingData:", userShoppingDataArr);
+            if (!combineUserData) {
                 return { success: false, message: "Invalid token" };
             }
-            return { success: true, body: userData };
+            return { success: true, body: { combineUserData, userShoppingDataArr } };
         } catch (error) {
             winstonLogger.error(error.toString());
             return { success: false, message: "Internal Server Error" };

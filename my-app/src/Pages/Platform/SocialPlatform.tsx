@@ -96,7 +96,7 @@ function SocialPlatform() {
             <Button colorScheme="teal" size="md">
                 Search
             </Button>
-            <RouteLink to="form">
+            <RouteLink to="platform/form">
                 <Button size="md">
                     <FaPlusCircle />
                 </Button>

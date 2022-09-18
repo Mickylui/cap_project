@@ -23,8 +23,8 @@ import Swal from "sweetalert2";
 export function UserLoggedInNav() {
     // useSelector: if isAdmin true, return admin; else return user/
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
-    const userData = useSelector((state: RootState) => state.account.existUserData);
-    // console.log("UserLoggedInNav:",userData[0])
+    const userData = useSelector((state: RootState) => state.account.combineUserData);
+    console.log("combineUserData:",userData[0])
     const dispatch = useDispatch();
 
     function logOut() {

@@ -104,6 +104,7 @@ export async function seed(knex: Knex): Promise<void> {
     
     await knex("shopping_carts").insert([
         { size:8.25, quantity:1, user_id:users[3].id, product_id:products[0].id},
+        { size:8.25, quantity:1, user_id:users[3].id, product_id:products[0].id},
         { size:36, quantity:1, user_id:users[4].id, product_id:products[2].id},
     ]);
     

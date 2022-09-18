@@ -13,4 +13,13 @@ export class PostController {
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
+    addPost = async (req: any, res: Response) => {
+        try {
+            console.log("this is addPost:", req.form)
+            console.log("this is form:", req.form)
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+    };
 }

@@ -38,12 +38,12 @@ export class AccountController {
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
-    logOut = async (req: Request, res: Response) => {
-        
-    };
+
     getSelfInfo = async (req: Request, res: Response) => {
         try {
-            const user = req.body.user!;
+            const user = req.body.user;
+            
+            // console.log("this is getSelfInfo:",user)
             res.json({body:user});
         } catch (error) {
             winstonLogger.error(error.toString());
