@@ -75,8 +75,8 @@ export class AccountService {
         }
     }
     async userDataJWT(tokenId: number, tokenUsername: string) {
+        const txn = await this.knex.transaction();
         try {
-            const txn = await this.knex.transaction();
             const combineUserData = await txn("users")
                 .select("*")
                 .leftJoin("user_info", "user_info.user_id", "users.id")
@@ -90,8 +90,10 @@ export class AccountService {
             if (!combineUserData) {
                 return { success: false, message: "Invalid token" };
             }
+            await txn.commit();
             return { success: true, body: { combineUserData, userShoppingDataArr } };
         } catch (error) {
+            await txn.rollback();
             winstonLogger.error(error.toString());
             return { success: false, message: "Internal Server Error" };
         }
