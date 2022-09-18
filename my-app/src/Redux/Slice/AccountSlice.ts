@@ -43,8 +43,8 @@ const accountSlice = createSlice({
             })
             .addCase(LogInFetch.fulfilled, (state, action) => {
                 if (action.payload.success === true) {
-                    const identity = action.payload.body.combineUserData.is_admin;
-                
+                    const identity = action.payload.body.combineUserData[0].is_admin;
+                    console.log("identity:",identity)
                     const nextState = produce(AccountInitialState, (draft) => {
                         const token = action.payload.body.token;
                         draft.isLoggedIn = true;
@@ -85,7 +85,7 @@ const accountSlice = createSlice({
                     console.log("combineUserData:",action.payload.body.combineUserData)
                     console.log("userShoppingDataArr:",action.payload.body.userShoppingDataArr)
                     draft.isLoggedIn = true;
-                    draft.isAdmin = action.payload.body.is_admin;
+                    draft.isAdmin = action.payload.body.combineUserData.is_admin;
                     draft.status = "succeeded";
                     draft.combineUserData.push(action.payload.body.combineUserData);
                     draft.shoppingData = action.payload.body.userShoppingDataArr;
