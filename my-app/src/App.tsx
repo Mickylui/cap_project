@@ -31,6 +31,7 @@ import { InsertTags } from "./Pages/Platform/InputTags";
 import ReportPost from "./Pages/Platform/ReportPost";
 import PostDetail from "./Pages/Platform/PostDetail";
 import Settings from "./Pages/User/Settings";
+import Payment from "./Pages/User/Payment";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -67,6 +68,7 @@ function App() {
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="cart" element={<ShoppingCart />} />
+                    <Route path="cart/payment" element={<Payment />} />
                     <Route path="settings" element={<Settings />} />
                     <Route path="cart/contact" element={<DeliveryAddress />} />
                     {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}

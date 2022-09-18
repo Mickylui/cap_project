@@ -7,6 +7,7 @@ import CartList from "./CartList";
 function DeliveryAddress() {
     const [inputRoom, setRoom] = useState("");
     const [inputBuilding, setBuilding] = useState("");
+    const [usePoint, setUsePoint] = useState(false);
 
     const handleInputChangeRoom = (e: { target: { value: React.SetStateAction<string> } }) =>
         setRoom(e.target.value);
@@ -24,7 +25,7 @@ function DeliveryAddress() {
             <BackButton />
             <Box maxW='80vw' borderWidth='1px' borderRadius='lg' overflow='hidden' m="4rem auto" p="6rem">
             <Box mb='4rem' fontSize='2em'>Cart List</Box>
-            <CartList />
+            <CartList usePoint={usePoint} />
             <FormControl id="room" mt='4rem'>
                 <FormLabel>Please input your Address:</FormLabel>
                 <FormLabel>Room/ Flat</FormLabel>
@@ -71,7 +72,7 @@ function DeliveryAddress() {
                 </RadioGroup>
             </FormControl>
             <Link to='/cart/contact/usePoints'>
-                <Button mt='4em'>Buy/Save</Button>
+                <Button mt='4em' onClick={()=>setUsePoint(!usePoint)}>Buy/Save</Button>
             </Link>
             </Box>
             </Flex>

@@ -10,6 +10,7 @@ import {
     TableCaption,
     TableContainer,
 } from "@chakra-ui/react";
+import { DeleteIcon } from '@chakra-ui/icons';
 
 function CartList(props) {
     const cart = [
@@ -41,6 +42,7 @@ function CartList(props) {
                                             <Th>Qty</Th>
                                             <Th>Size</Th>
                                             <Th>Amount</Th>
+                                            <Th></Th>
                                         </Tr>
                                     </Thead>
                                     {cart.map((item) => (
@@ -53,6 +55,9 @@ function CartList(props) {
                                                 <Td>
                                                     {`$ ${item.unitPrice*item.num}`}
                                                 </Td>
+                                                <Td>
+                                                    <DeleteIcon />
+                                                </Td>
                                             </Tr>
                                         </Tbody>
                                     ))}
@@ -63,6 +68,7 @@ function CartList(props) {
                                             <Th></Th>
                                             <Th></Th>
                                             <Th>{`$no`}</Th>
+                                            <Th></Th>
                                         </Tr>
                                         <Tr>
                                             <Th></Th>
@@ -98,6 +104,7 @@ function CartList(props) {
                                         <Th>Qty</Th>
                                         <Th>Size</Th>
                                         <Th>Amount</Th>
+                                        <Th></Th>
                                     </Tr>
                                 </Thead>
                                 {cart.map((item) => (
@@ -109,6 +116,9 @@ function CartList(props) {
                                             <Td>{item.size}</Td>
                                             <Td>
                                                 {`$ ${item.unitPrice*item.num}`}
+                                            </Td>
+                                            <Td>
+                                                <DeleteIcon />
                                             </Td>
                                         </Tr>
                                     </Tbody>
