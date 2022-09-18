@@ -46,7 +46,7 @@ function PayWithPoints(props) {
                                     </Tr>
                                 </Tfoot> */}
 
-                    <RouteLink to="payment">
+                    <RouteLink to="/cart/payment">
                         <ButtonGroup spacing={4} mt="4rem">
                             <Button colorScheme="teal">Yes</Button>
                             <Button colorScheme="teal">No</Button>

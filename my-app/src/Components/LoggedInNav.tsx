@@ -83,7 +83,7 @@ export function UserLoggedInNav() {
                 <RouteLink to="/user/profile">
                     <MenuItem>Profile</MenuItem>
                 </RouteLink>
-                <RouteLink to="/cart">
+                <RouteLink to="/cart/data">
                     <MenuItem>
                         Cart
                         {shoppingData.length > 0 ? (

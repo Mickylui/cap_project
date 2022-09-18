@@ -70,20 +70,28 @@ function App() {
                     </Route>
                     <Route path="products" element={<Products />} />
                     <Route path="productDetail" element={<ProductDetail />} />
-                    <Route path="cart" element={<ShoppingCart />} />
-                    <Route path="cart/payment" element={<Payment />} />
-                    <Route path="cart/payment/promotion" element={<Promotion />} />
+                    <Route path="cart" element={<PrivateRoute />}>
+                        <Route path="data" element={<ShoppingCart />} />
+                        <Route path="payment" element={<Payment />} />
+                        <Route path="payment/promotion" element={<Promotion />} />
+                        <Route path="contact" element={<DeliveryAddress />} />
+                    </Route>
+
                     <Route path="settings" element={<Settings />} />
-                    <Route path="cart/contact" element={<DeliveryAddress />} />
+
                     {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
                     <Route path="posts" element={<SocialPlatform />} />
                     <Route path="posts/postDetail" element={<PostDetail />} />
-                    <Route path="posts/reportPost" element={<ReportPost />} />
+
+                    <Route path="posts" element={<PrivateRoute />}>
+                        <Route path="reportPost" element={<ReportPost />} />
+                    </Route>
+
+                    {/* temp route */}
                     <Route path="slider" element={<Slideshow />} />
                     <Route path="table" element={<Table />} />
                     <Route path="upload" element={<ImageUpload />} />
                     <Route path="tags" element={<InsertTags />} />
-                    {/* <Route path={routes.postItem({item_id:':item_id'})} element={ <PostDetail /> }/> */}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
