@@ -77,11 +77,13 @@ function App() {
                         <Route path="contact" element={<DeliveryAddress />} />
                     </Route>
 
-                    <Route path="settings" element={<Settings />} />
+                    <Route path="setting" element={<PrivateRoute />}>
+                        <Route path="user" element={<Settings />} />
+                    </Route>
 
                     {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
                     <Route path="posts" element={<SocialPlatform />} />
-                    <Route path="posts/postDetail" element={<PostDetail />} />
+                    <Route path="postDetail" element={<PostDetail />} />
 
                     <Route path="posts" element={<PrivateRoute />}>
                         <Route path="reportPost" element={<ReportPost />} />
