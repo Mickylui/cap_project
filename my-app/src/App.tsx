@@ -37,7 +37,7 @@ import Promotion from "./Pages/User/Promotion";
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
     const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
-    console.log("shoppingData:",shoppingData)
+    console.log("shoppingData:", shoppingData);
     const dispatch: AppDispatch = useDispatch();
     useEffect(() => {
         GetUserDataJWT();

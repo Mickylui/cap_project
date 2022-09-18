@@ -82,10 +82,12 @@ const accountSlice = createSlice({
             .addCase(getUserDataJWTFetch.fulfilled, (state, action) => {
                 // need shopping cart data
                 const nextState = produce(AccountInitialState, (draft) => {
+                    console.log("combineUserData:",action.payload.body.combineUserData)
+                    console.log("userShoppingDataArr:",action.payload.body.userShoppingDataArr)
                     draft.isLoggedIn = true;
-                    draft.isAdmin = action.payload.body.combineUserData.is_admin;
+                    draft.isAdmin = action.payload.body.is_admin;
                     draft.status = "succeeded";
-                    draft.combineUserData = action.payload.body.combineUserData;
+                    draft.combineUserData.push(action.payload.body.combineUserData);
                     draft.shoppingData = action.payload.body.userShoppingDataArr;
                 });
                 state = nextState;

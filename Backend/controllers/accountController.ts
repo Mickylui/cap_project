@@ -42,9 +42,10 @@ export class AccountController {
     getSelfInfo = async (req: Request, res: Response) => {
         try {
             const user = req.body.user;
-            
-            // console.log("this is getSelfInfo:",user)
-            res.json({body:user});
+            const shoppingCartArr = req.body.shoppingCartArr;
+
+            console.log("this is getSelfInfo:", user);
+            res.json({ body: { combineUserData: user, userShoppingDataArr: shoppingCartArr } });
         } catch (error) {
             winstonLogger.error(error.toString());
             res.status(500).json({ success: false, message: "Internal Server Error" });

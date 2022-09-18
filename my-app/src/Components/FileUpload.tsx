@@ -1,13 +1,14 @@
 import { Box, Button } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 
-export function ImageUpload(props) {
+export function FileUpload() {
     const maxNumber = 69;
-    const images = props.images;
-    const setImages = props.setImages;
+
+    const [images, setImages] = useState([]);
+
     const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
         // data for submit
         console.log(imageList, addUpdateIndex);
@@ -22,8 +23,8 @@ export function ImageUpload(props) {
                 onChange={onChange}
                 maxNumber={maxNumber}
                 inputProps={{
-                    name:"fileUpload",
-                    type:"file"
+                    name: "fileUpload",
+                    type: "file",
                 }}
             >
                 {({
