@@ -22,8 +22,8 @@ import { InsertTags } from "../Platform/InputTags";
 
 function PostForm() {
     // need to get user default contact!!
-    const existUserData = useSelector((state: RootState) => state.account.existUserData);
-    console.log("this is existUserData:", existUserData[0].email);
+    const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
+    console.log("this is combineUserData:", combineUserData[0].email);
     const [isEvent, setIsEvent] = useState(false);
     const [isDefaultContact, setIsDefaultContact] = useState(true);
     console.log("is Event:", isEvent);
@@ -44,27 +44,24 @@ function PostForm() {
                             const tagItems = tags;
                             const ImageItems = images;
 
-
-                            console.log("form:",form)
+                            console.log("form:", form);
                             // console.log("ImageItems:",ImageItems)
 
                             formData.append("title", form.title.value);
                             formData.append("description", form.description.value);
                             formData.append("tagItems", tagItems);
-                           
-                            for (let i = 0; i < ImageItems.length; i++) { 
-                                console.log("this is files:",ImageItems[i])
-                                console.log("this is files type:",typeof(ImageItems[i]))
+
+                            for (let i = 0; i < ImageItems.length; i++) {
+                                console.log("this is files:", ImageItems[i]);
+                                console.log("this is files type:", typeof ImageItems[i]);
                                 formData.append("files", ImageItems[i]);
-                              }
-                              
+                            }
 
                             // console.log("form:", form);
                             // console.log("title:", form.title.value);
                             // console.log("description:", form.description.value);
                             // console.log("tagItems:", tagItems);
 
-                
                             // for (var key of formData.entries()) {
                             //     console.log(key[0] + ', ' + key[1]);
                             // }
@@ -165,7 +162,7 @@ function PostForm() {
                                                 onChange={() =>
                                                     setIsDefaultContact(!isDefaultContact)
                                                 }
-                                                value={`${existUserData[0].email}`}
+                                                value={`${combineUserData[0].email}`}
                                             >
                                                 use your default contact
                                             </Checkbox>

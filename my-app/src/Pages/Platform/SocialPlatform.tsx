@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 function SocialPlatform() {
     const dispatch: AppDispatch = useDispatch();
     const postList = useSelector((state: RootState) => state.platform.list);
+    console.log("postList:",postList)
 
     async function getPost() {
         const getPostResponse = await dispatch(getPostFetch());
@@ -25,63 +26,8 @@ function SocialPlatform() {
         getPost();
     }, []);
 
-    // const postItems = [
-    //     {
-    //         id: 1,
-    //         imageUrl: "./SkateBoardLogo.png",
-    //         imageAlt: "SkateBoardLogo",
-    //         title: "Fancy Style Design",
-    //         description: "My 1st design when I was 15",
-    //         userName: "Jason",
-    //         numLikes: 190,
-    //     },
-    //     {
-    //         id: 2,
-    //         imageUrl: "./SkateBoardLogo.png",
-    //         imageAlt: "SkateBoardLogo",
-    //         title: "Fancy Style Design",
-    //         description: "My 1st design when I was 15",
-    //         userName: "Jason",
-    //         numLikes: 190,
-    //     },
-    //     {
-    //         id: 3,
-    //         imageUrl: "./SkateBoardLogo.png",
-    //         imageAlt: "SkateBoardLogo",
-    //         title: "Fancy Style Design",
-    //         description: "My 1st design when I was 15",
-    //         userName: "Jason",
-    //         numLikes: 190,
-    //     },
-    //     {
-    //         id: 4,
-    //         imageUrl: "./SkateBoardLogo.png",
-    //         imageAlt: "SkateBoardLogo",
-    //         title: "Fancy Style Design",
-    //         description: "My 1st design when I was 15",
-    //         userName: "Jason",
-    //         numLikes: 190,
-    //     },
-    //     {
-    //         id: 5,
-    //         imageUrl: "./SkateBoardLogo.png",
-    //         imageAlt: "SkateBoardLogo",
-    //         title: "Fancy Style Design",
-    //         description: "My 1st design when I was 15",
-    //         userName: "Jason",
-    //         numLikes: 190,
-    //     },
-    //     {
-    //         id: 6,
-    //         imageUrl: "./SkateBoardLogo.png",
-    //         imageAlt: "SkateBoardLogo",
-    //         title: "Fancy Style Design",
-    //         description: "My 1st design when I was 15",
-    //         userName: "Jason",
-    //         numLikes: 190,
-    //     },
-    // ];
     return (
+        // postList.is_ordinary === true -> admin post
         <div>
             <Input
                 size="lg"
@@ -134,7 +80,7 @@ function SocialPlatform() {
                                     ml={-1}
                                     mr={2}
                                 />
-                                <TagLabel>{postItem.id}</TagLabel> <FaHeart color="red" />{" "}
+                                <TagLabel>{postItem.account_name}</TagLabel> <FaHeart color="red" />{" "}
                                 {postItem.contact}
                             </Tag>
                             <RouteLink to="reportPost">

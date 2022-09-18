@@ -24,7 +24,8 @@ export function UserLoggedInNav() {
     // useSelector: if isAdmin true, return admin; else return user/
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const userData = useSelector((state: RootState) => state.account.combineUserData);
-    console.log("combineUserData:",userData[0])
+    const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
+    console.log("combineUserData:", userData[0]);
     const dispatch = useDispatch();
 
     function logOut() {
@@ -68,9 +69,13 @@ export function UserLoggedInNav() {
         <Menu>
             <MenuButton>
                 <Avatar name={`${userData[0]["account_name"]}`} src="https://bit.ly/ryan-florence">
-                    <AvatarBadge boxSize="1.25em" bg="green.500" textColor={"white"}>
-                        1
-                    </AvatarBadge>
+                    {shoppingData.length > 0 ? (
+                        <AvatarBadge boxSize="1.25em" bg="green.500" textColor={"white"}>
+                            {shoppingData.length}
+                        </AvatarBadge>
+                    ) : (
+                        <></>
+                    )}
                 </Avatar>
             </MenuButton>
             <MenuList marginTop={"-20px"} minWidth={{ base: "7em", md: "10em" }}>
@@ -81,15 +86,19 @@ export function UserLoggedInNav() {
                 <RouteLink to="/cart">
                     <MenuItem>
                         Cart
-                        <Box
-                            boxSize="1.25em"
-                            bg="green.500"
-                            textColor={"white"}
-                            borderRadius={"10px"}
-                            textAlign={"center"}
-                        >
-                            1
-                        </Box>
+                        {shoppingData.length > 0 ? (
+                            <Box
+                                boxSize="1.25em"
+                                bg="green.500"
+                                textColor={"white"}
+                                borderRadius={"10px"}
+                                textAlign={"center"}
+                            >
+                                {shoppingData.length}
+                            </Box>
+                        ) : (
+                            <></>
+                        )}
                     </MenuItem>
                 </RouteLink>
                 <RouteLink to="/settings">

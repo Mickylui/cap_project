@@ -74,9 +74,10 @@ export class AccountService {
             return { success: false, message: "Internal Server Error" };
         }
     }
-    async userDataJWT(tokenId: number, tokenUsername: string) {
+    async userDataJWT(tokenId: number) {
         const txn = await this.knex.transaction();
         try {
+            console.log("tokenId:",tokenId)
             const combineUserData = await txn("users")
                 .select("*")
                 .leftJoin("user_info", "user_info.user_id", "users.id")
