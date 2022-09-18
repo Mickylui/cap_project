@@ -15,7 +15,6 @@ export const LogInFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error 
     "@Account/logIn" as const,
     async ({ email, password }, thunkAPI) => {
         try {
-            console.log("trying login...");
             const resp = await fetch(`${DEVELOP_HOST}/account/logIn`, {
                 method: "POST",
                 headers: {
@@ -24,7 +23,6 @@ export const LogInFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error 
                 body: JSON.stringify({ email, password }),
             });
             const result = await resp.json();
-            console.log("++++:",result)
             return result;
         } catch (e) {
             return thunkAPI.rejectWithValue({
@@ -38,7 +36,6 @@ export const getUserDataJWTFetch = createAsyncThunk<ICarriage, any, { rejectValu
     "@Account/userDataJWT" as const,
     async ({ token }, thunkAPI) => {
         try {
-            console.log("trying getUserDataJWTFetch...");
             const resp = await fetch(`${DEVELOP_HOST}/account/userDataJWT`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -58,7 +55,6 @@ export const logOutFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error
     "@Account/logOut" as const,
     async (logOutTime, thunkAPI) => {
         try {
-            console.log("trying log out...");
             const resp = await fetch(`${DEVELOP_HOST}/account/logOut`);
             const result = await resp.json();
             return result;
