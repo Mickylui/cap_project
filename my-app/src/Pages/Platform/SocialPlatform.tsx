@@ -3,7 +3,7 @@ import { Box, Image, SimpleGrid, Tag, TagLabel, Avatar } from "@chakra-ui/react"
 import { FaHeart, FaPlusCircle } from "react-icons/fa";
 import { Link as RouteLink } from "react-router-dom";
 import React, { useEffect } from "react";
-import PostForm from "./PostForm";
+// import PostForm from "./PostForm";
 import { WarningTwoIcon } from "@chakra-ui/icons";
 import ScrollToTopButton from "../../Components/ScrollToTopButton";
 import { useDispatch } from "react-redux";
@@ -96,7 +96,7 @@ function SocialPlatform() {
             <Button colorScheme="teal" size="md">
                 Search
             </Button>
-            <RouteLink to="form">
+            <RouteLink to="platform/form">
                 <Button size="md">
                     <FaPlusCircle />
                 </Button>

@@ -4,6 +4,7 @@ import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import "./payment.module.css";
 import { Box } from "@chakra-ui/react";
+import { Link as RouteLink } from "react-router-dom";
 
 const CreditCard = () => {
   const [number, SetNumber] = useState("");
@@ -145,11 +146,14 @@ const CreditCard = () => {
           </div>
         </div>
         <br />
-        <input
+        <RouteLink to='promotion'>
+          <input
           type="submit"
           className="btn btn-secondary form-control"
           value="Submit"
         />
+        </RouteLink>
+        
       </form>
       </Box>
     </>
