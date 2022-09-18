@@ -126,6 +126,7 @@ export function ProductDetail() {
                                     )}
                                 </span>
                             </div>
+                            <Divider orientation='horizontal' />
                             <div className="product-subtitle product-size-box">
                                 {isEdit ? (
                                     <span className="product-size">
@@ -222,6 +223,7 @@ export function ProductDetail() {
                                 <div className="product-value product-introduction">demo</div>
                             </span>
                         </div>
+                        <Divider orientation='horizontal' />
                         <div className="product-subtitle product-size-box">
                             <span className="product-size">
                                 <h2 className="product-key product-size-key">Size</h2>
