@@ -1,8 +1,8 @@
-import { Button, Center, HStack, Input } from "@chakra-ui/react";
+import { Button, Center, HStack, Input, TagCloseButton } from "@chakra-ui/react";
 import { Box, Image, SimpleGrid, Tag, TagLabel, Avatar } from "@chakra-ui/react";
 import { FaHeart, FaPlusCircle } from "react-icons/fa";
 import { Link as RouteLink } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import PostForm from "./PostForm";
 import { WarningTwoIcon } from "@chakra-ui/icons";
 import ScrollToTopButton from "../../Components/ScrollToTopButton";
@@ -11,14 +11,29 @@ import { getPostFetch } from "../../Api/PlatformFetch";
 import { AppDispatch, RootState, store } from "../../Redux/store";
 import { useSelector } from "react-redux";
 
+const suggestedTags = [
+    { id: 1, tag: "a" },
+    { id: 2, tag: "b" },
+];
+
 function SocialPlatform() {
     const dispatch: AppDispatch = useDispatch();
     const postList = useSelector((state: RootState) => state.platform.list);
-    console.log("postList:",postList)
+    const [searchTag, setSearchTag] = useState("");
+    const [searchContent, setSearchContent] = useState("");
+    console.log("postList:", postList);
+
+    // Search Tags: if searchTag.length > 0 -> fetch this tag and replace state.platform.list;
+    // Search Content: form submit -> fetch this content and replace state.platform.list;
 
     async function getPost() {
         const getPostResponse = await dispatch(getPostFetch());
         console.log("this is getPostResponse:", getPostResponse);
+        return;
+    }
+    async function handleSearch(e) {
+        const form = e.target;
+        console.log("this is form:", form);
         return;
     }
     useEffect(() => {
@@ -29,24 +44,55 @@ function SocialPlatform() {
     return (
         // postList.is_ordinary === true -> admin post
         <div>
-            <Input
-                size="lg"
-                htmlSize={70}
-                width="auto"
-                m="4rem 2rem 1rem"
-                placeholder="Search keywords or tags"
-                type="text"
-                value=""
-                onChange={(e) => e.target.value}
-            />
-            <Button colorScheme="teal" size="md">
-                Search
-            </Button>
+            {searchTag.length > 0 ? (
+                <HStack spacing={4}>
+                    <Tag borderRadius="full" variant="solid" colorScheme="green">
+                        <TagLabel>{searchTag}</TagLabel>
+                        <TagCloseButton onClick={() => setSearchTag("")} />
+                    </Tag>
+                </HStack>
+            ) : (
+                <form
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                        const form = e.target;
+                        console.log("form:",form.searchContent.value)
+                    }}
+                >
+                    <Input
+                        size="lg"
+                        htmlSize={70}
+                        width="auto"
+                        m="4rem 2rem 1rem"
+                        placeholder="Search keywords or tags"
+                        type="text"
+                        name="searchContent"
+                    />
+                    <Button colorScheme="teal" size="md" type="submit">
+                        Search
+                    </Button>
+                </form>
+            )}
+
             <RouteLink to="platform/form">
                 <Button size="md">
                     <FaPlusCircle />
                 </Button>
             </RouteLink>
+            <HStack spacing={4}>
+                {suggestedTags.map((suggestedTag, index) => (
+                    <Tag
+                        key={suggestedTag.id}
+                        borderRadius="full"
+                        variant="solid"
+                        colorScheme="green"
+                    >
+                        <TagLabel onClick={() => setSearchTag(suggestedTag.tag)}>
+                            {suggestedTag.tag}
+                        </TagLabel>
+                    </Tag>
+                ))}
+            </HStack>
             <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
                 {postList.map((postItem) => (
                     <div key={`postItem_${postItem.id}`}>

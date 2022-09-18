@@ -67,21 +67,33 @@ function PostForm() {
                             // }
 
                             if (isEvent === true) {
-                                formData.append("eventLocation", form.eventLocation.value);
-                                formData.append("eventDate", form.eventDate.value);
-                                formData.append("startingTime", form.startingTime.value);
-                                formData.append("endingTime", form.endingTime.value);
-                                formData.append("useDefaultContact", form.useDefaultContact.value);
-                                // const eventLocation = form.eventLocation.value;
-                                // const eventDate = form.eventDate.value;
-                                // const startingTime = form.startingTime.value;
-                                // const endingTime = form.endingTime.value;
-                                // const useDefaultContact = form.useDefaultContact.value;
-                                // console.log("eventLocation:", eventLocation);
-                                // console.log("eventDate:", eventDate);
-                                // console.log("startingTime:", startingTime);
-                                // console.log("endingTime:", endingTime);
-                                // console.log("useDefaultContact:", useDefaultContact);
+                                if (isDefaultContact) {
+                                    formData.append("eventLocation", form.eventLocation.value);
+                                    formData.append("eventDate", form.eventDate.value);
+                                    formData.append("startingTime", form.startingTime.value);
+                                    formData.append("endingTime", form.endingTime.value);
+                                    formData.append(
+                                        "eventContact",
+                                        form.useDefaultContact.value
+                                    );
+                                    // const eventLocation = form.eventLocation.value;
+                                    // const eventDate = form.eventDate.value;
+                                    // const startingTime = form.startingTime.value;
+                                    // const endingTime = form.endingTime.value;
+                                    // const useDefaultContact = form.useDefaultContact.value;
+                                    // console.log("eventLocation:", eventLocation);
+                                    // console.log("eventDate:", eventDate);
+                                    // console.log("startingTime:", startingTime);
+                                    // console.log("endingTime:", endingTime);
+                                    // console.log("useDefaultContact:", useDefaultContact);
+                                } else {
+                                    formData.append("eventLocation", form.eventLocation.value);
+                                    formData.append("eventDate", form.eventDate.value);
+                                    formData.append("startingTime", form.startingTime.value);
+                                    formData.append("endingTime", form.endingTime.value);
+                                    formData.append("eventContact", form.eventContact.value);
+                                    console.log("eventContact:", form.eventContact.value);
+                                }
                                 const resp = await fetch("http://localhost:8080/posts/addPost", {
                                     method: "POST",
                                     body: formData,
