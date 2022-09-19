@@ -33,6 +33,7 @@ export function formidableMiddleware(req:Request,res:Response,next:NextFunction)
     form.parse(req,(err, fields, files)=>{
         if(err){
             winstonLogger.error(err.toString())
+
         }
         req.form = {fields, files};
 

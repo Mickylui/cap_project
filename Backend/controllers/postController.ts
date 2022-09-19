@@ -21,6 +21,11 @@ export class PostController {
 
             const addPostResult = await this.postService.addPost(fields, files);
             console.log("addPostResult:", addPostResult);
+            if (addPostResult?.success) {
+                res.status(200).json({ success: true });
+            } else {
+                res.status(400).json({ success: false, message: "Failed to insert" });
+            }
 
             // console.log("this is fields:", fields);
             // console.log("this is file:", files);

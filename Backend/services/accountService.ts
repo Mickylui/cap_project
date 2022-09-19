@@ -22,7 +22,7 @@ export class AccountService {
                 email: email,
                 password: password,
                 is_admin: false,
-                default_contact: email
+                default_contact: email,
             });
             // console.log("AccountService-- this is accountName:", accountName);
             console.log("AccountService-- this is email:", email);
@@ -57,7 +57,28 @@ export class AccountService {
             const token = jwtSimple.encode(userData, jwt.jwtSecret);
 
             const combineUserData = await txn("users")
-                .select("*")
+                .select(
+                    "users.id",
+                    "users.account_name",
+                    "users.email",
+                    "users.is_admin",
+                    "users.created_at",
+                    "users.updated_at",
+                    "users.last_login_at",
+                    "users.default_contact",
+                    "user_info.first_name",
+                    "user_info.last_name",
+                    "user_info.icon",
+                    "user_info.slogan",
+                    "user_info.area",
+                    "user_info.district",
+                    "user_info.location",
+                    "user_info.contact",
+                    "user_info.gender",
+                    "user_info.age_range",
+                    "user_info.reason",
+                    "user_info.learning_level"
+                )
                 .leftJoin("user_info", "user_info.user_id", "users.id")
                 .where("users.id", existUserData.id);
             console.log("combineUserData:", combineUserData);
@@ -78,9 +99,30 @@ export class AccountService {
     async userDataJWT(tokenId: number) {
         const txn = await this.knex.transaction();
         try {
-            console.log("tokenId:",tokenId)
+            console.log("tokenId:", tokenId);
             const combineUserData = await txn("users")
-                .select("*")
+            .select(
+                "users.id",
+                "users.account_name",
+                "users.email",
+                "users.is_admin",
+                "users.created_at",
+                "users.updated_at",
+                "users.last_login_at",
+                "users.default_contact",
+                "user_info.first_name",
+                "user_info.last_name",
+                "user_info.icon",
+                "user_info.slogan",
+                "user_info.area",
+                "user_info.district",
+                "user_info.location",
+                "user_info.contact",
+                "user_info.gender",
+                "user_info.age_range",
+                "user_info.reason",
+                "user_info.learning_level"
+            )
                 .leftJoin("user_info", "user_info.user_id", "users.id")
                 .where("users.id", tokenId);
             console.log("combineUserData:", combineUserData);
