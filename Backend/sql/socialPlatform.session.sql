@@ -82,3 +82,27 @@ CREATE TABLE IF NOT EXISTS complaints(
     complained_at TIMESTAMP not null default NOW(),
     solved_at TIMESTAMP
 );
+
+
+SELECT posts.id,
+    posts.title,
+    posts.event_date,
+    posts.event_time,
+    posts.event_location,
+    posts.description,
+    posts.contact,
+    posts.created_at,
+    posts.updated_at,
+    posts.is_ordinary,
+    posts.is_event,
+    posts.display_push,
+    users.account_name,
+    json_agg(post_images.image) image,
+    json_agg(tags.tag) tag
+FROM posts
+    LEFT JOIN users ON users.id = posts.user_id
+    LEFT JOIN post_images ON post_images.post_id = posts.id
+    LEFT JOIN post_tags ON post_tags.post_id = posts.id
+    LEFT JOIN tags ON tags.id = post_tags.tag_id
+GROUP BY (posts.id, users.account_name)
+ORDER BY posts.display_push DESC

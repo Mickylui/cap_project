@@ -5,28 +5,34 @@ export class PostService {
     constructor(private knex: Knex) {}
     async getAllPost() {
         try {
-            const allPost = await this.knex("posts")
-                .select(
-                    "posts.id",
-                    "posts.title",
-                    "posts.event_date",
-                    "posts.event_time",
-                    "posts.event_location",
-                    "posts.description",
-                    "posts.description",
-                    "posts.description",
-                    "posts.description",
-                    "posts.description",
-                    "posts.description",
-                    "posts.description",
-                    "users.account_name",
-                    "post_images.image",
-                    "tags.tag"
-                )
-                .leftJoin("users", "users.id", "posts.user_id")
-                .leftJoin("post_images", "post_images.post_id", "posts.id")
-                .leftJoin("post_tags", "post_tags.post_id", "posts.id")
-                .leftJoin("tags", "tags.id", "post_tags.tag_id").orderBy("display_push","desc")
+            const allPost = (
+                await this.knex.raw(`
+            SELECT posts.id,
+                    posts.title,
+                    posts.event_date,
+                    posts.event_time,
+                    posts.event_location,
+                    posts.description,
+                    posts.contact,
+                    posts.created_at,
+                    posts.updated_at,
+                    posts.is_ordinary,
+                    posts.is_event,
+                    posts.display_push,
+                    users.account_name,
+                    json_agg(post_images.image) image,
+                    json_agg(tags.tag) tag
+            FROM posts
+                LEFT JOIN users ON users.id = posts.user_id
+                LEFT JOIN post_images ON post_images.post_id = posts.id
+                LEFT JOIN post_tags ON post_tags.post_id = posts.id
+                LEFT JOIN tags ON tags.id = post_tags.tag_id
+            GROUP BY (posts.id, users.account_name)
+            ORDER BY posts.display_push DESC
+                        `)
+            ).rows;
+
+
             console.log("allPost:", allPost);
             return allPost;
         } catch (error) {
