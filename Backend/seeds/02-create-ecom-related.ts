@@ -110,11 +110,14 @@ export async function seed(knex: Knex): Promise<void> {
     
     await knex("order_history").insert([
         { total_amount:300 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[3].id},
+        { total_amount:600 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[3].id}
     ]);
 
     const order_historys = (await knex.raw(`SELECT * FROM order_history`)).rows
     await knex("order_details").insert([
-        { product_id:products[0].id , order_quantity:1, order_unit_price:300, order_history_id:order_historys[0].id}
+        { product_id:products[0].id , order_quantity:1, order_unit_price:300, order_size:8.25,order_history_id:order_historys[0].id},
+        { product_id:products[1].id, order_quantity:1, order_unit_price:300,order_size:18, order_history_id:order_historys[1].id},
+        { product_id:products[0].id, order_quantity:1, order_unit_price:300,order_size:8.25, order_history_id:order_historys[1].id}
     ]);
 
 }

@@ -14,7 +14,7 @@ export async function up(knex: Knex): Promise<void> {
                 t.timestamp('created_at').defaultTo(knex.fn.now());
                 t.timestamp('updated_at').defaultTo(knex.fn.now());
                 t.timestamp('last_login_at').defaultTo(knex.fn.now());
-                // t.boolean('has_log_in').notNullable().defaultTo(false);
+                t.string('default_contact');
             })
         }
         return;
@@ -83,9 +83,6 @@ export async function up(knex: Knex): Promise<void> {
     })
 
 }
-
-
-
 
 export async function down(knex: Knex): Promise<void> {
     await knex.schema.dropTableIfExists('login_records');
