@@ -28,8 +28,10 @@ export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
 
     const status = useSelector((state: RootState) => state.account.status);
-    const hasLoggedIn = useSelector((state: RootState) => state.account.hasLoggedIn);
+    const hasLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
+    const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
+    console.log("login:",combineUserData)
 
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();

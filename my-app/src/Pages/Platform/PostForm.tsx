@@ -16,6 +16,8 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 import { ImageUpload } from "../../Components/ImageUpload";
 import { RootState } from "../../Redux/store";
 import { InsertTags } from "../Platform/InputTags";
@@ -23,10 +25,12 @@ import { InsertTags } from "../Platform/InputTags";
 function PostForm() {
     // need to get user default contact!!
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
-    console.log("this is combineUserData:", combineUserData[0].email);
+    const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
+    console.log("this is combineUserData:", combineUserData);
     const [isEvent, setIsEvent] = useState(false);
     const [isDefaultContact, setIsDefaultContact] = useState(true);
     console.log("is Event:", isEvent);
+    const navigate = useNavigate();
 
     const [tags, setTags] = useState([]);
     const [images, setImages] = useState([]);
@@ -41,20 +45,20 @@ function PostForm() {
                             const form = e.target;
                             const formData = new FormData();
 
-                            const tagItems = tags;
-                            const ImageItems = images;
+                            let isEventPost = "false";
+                            // console.log("user_id:", combineUserData[0].id);
+                            // console.log("form:", form);
+                            // console.log("tags:", tags);
 
-                            console.log("form:", form);
-                            // console.log("ImageItems:",ImageItems)
+                            formData.append("user_id", combineUserData[0].id);
 
                             formData.append("title", form.title.value);
                             formData.append("description", form.description.value);
-                            formData.append("tagItems", tagItems);
+                            formData.append("tagItems", tags);
 
-                            for (let i = 0; i < ImageItems.length; i++) {
-                                console.log("this is files:", ImageItems[i]);
-                                console.log("this is files type:", typeof ImageItems[i]);
-                                formData.append("files", ImageItems[i]);
+                            for (let i = 0; i < images.length; i++) {
+                                console.log("this is files:", images[i].file);
+                                formData.append("files", images[i].file);
                             }
 
                             // console.log("form:", form);
@@ -67,6 +71,9 @@ function PostForm() {
                             // }
 
                             if (isEvent === true) {
+                                isEventPost = "true";
+                                // console.log("isEventPost:",isEventPost)
+                                formData.append("isEventPost", isEventPost);
                                 if (isDefaultContact) {
                                     formData.append("eventLocation", form.eventLocation.value);
                                     formData.append("eventDate", form.eventDate.value);
@@ -74,41 +81,80 @@ function PostForm() {
                                     formData.append("endingTime", form.endingTime.value);
                                     formData.append(
                                         "eventContact",
-                                        form.useDefaultContact.value
+                                        combineUserData[0].default_contact
                                     );
                                     // const eventLocation = form.eventLocation.value;
                                     // const eventDate = form.eventDate.value;
                                     // const startingTime = form.startingTime.value;
                                     // const endingTime = form.endingTime.value;
                                     // const useDefaultContact = form.useDefaultContact.value;
-                                    // console.log("eventLocation:", eventLocation);
-                                    // console.log("eventDate:", eventDate);
-                                    // console.log("startingTime:", startingTime);
-                                    // console.log("endingTime:", endingTime);
-                                    // console.log("useDefaultContact:", useDefaultContact);
+
+                                    console.log(
+                                        "useDefaultContact:",
+                                        combineUserData[0].default_contact
+                                    );
                                 } else {
                                     formData.append("eventLocation", form.eventLocation.value);
                                     formData.append("eventDate", form.eventDate.value);
                                     formData.append("startingTime", form.startingTime.value);
                                     formData.append("endingTime", form.endingTime.value);
                                     formData.append("eventContact", form.eventContact.value);
-                                    console.log("eventContact:", form.eventContact.value);
+                                    // console.log("eventContact:", form.eventContact.value);
                                 }
                                 const resp = await fetch("http://localhost:8080/posts/addPost", {
                                     method: "POST",
                                     body: formData,
                                 });
                                 const addPostResponse = await resp.json();
-                                console.log("this is addPostResponse(event):", addPostResponse);
+                                if (addPostResponse.success) {
+                                    Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: "Your Post has posted",
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                    }).then(() => {
+                                        navigate(-1);
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        position: "center",
+                                        icon: "error",
+                                        title: `${addPostResponse.message}`,
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                    });
+                                }
+                                // console.log("addPostResponse:", addPostResponse);
                                 return;
                             }
 
+                            formData.append("isEventPost", isEventPost);
                             const resp = await fetch("http://localhost:8080/posts/addPost", {
                                 method: "POST",
                                 body: formData,
                             });
                             const addPostResponse = await resp.json();
-                            console.log("this is addPostResponse(other):", addPostResponse);
+                            if (addPostResponse.success) {
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "success",
+                                    title: "Your Post has posted",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                }).then(() => {
+                                    navigate(-1);
+                                });
+                            } else {
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "error",
+                                    title: `${addPostResponse.message}`,
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                });
+                            }
+                            // console.log("addPostResponse:", addPostResponse);
                         }}
                     >
                         <FormControl isRequired>
@@ -167,17 +213,23 @@ function PostForm() {
                                                     name="eventContact"
                                                 />
                                             )}
-
-                                            <Checkbox
-                                                defaultChecked
-                                                name="useDefaultContact"
-                                                onChange={() =>
-                                                    setIsDefaultContact(!isDefaultContact)
-                                                }
-                                                value={`${combineUserData[0].email}`}
-                                            >
-                                                use your default contact
-                                            </Checkbox>
+                                            {isAdmin ? (
+                                                <Input
+                                                    placeholder="eventContact"
+                                                    name="eventContact"
+                                                />
+                                            ) : (
+                                                <Checkbox
+                                                    defaultChecked
+                                                    name="useDefaultContact"
+                                                    onChange={() =>
+                                                        setIsDefaultContact(!isDefaultContact)
+                                                    }
+                                                    value={`${combineUserData[0].email}`}
+                                                >
+                                                    use your default contact
+                                                </Checkbox>
+                                            )}
                                         </HStack>
                                     </RadioGroup>
                                 </FormControl>
