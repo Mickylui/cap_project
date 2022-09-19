@@ -7,11 +7,13 @@ export class ProductService {
     async getAllProduct() {
         const allProduct = await this.knex("products")
             .select(
-                "products.id",
+                "id",
                 // "products.image",
-                "products.name",
-                "products.description",
-                "products.unit_price",
+                "name",
+                "description",
+                // "size",
+                "unit_price",
+                "quantity",
             )
             
         console.log("allProduct:", allProduct);
