@@ -56,11 +56,20 @@ import { PostController } from "./controllers/postController";
 export const postService = new PostService(knex);
 export const postController = new PostController(postService);
 
+import  { ProductService } from "./services/productService";
+import { ProductController } from "./controllers/productController";
+export const productService = new ProductService(knex)
+export const productController = new ProductController(productService)
+
 import {accountRoutes} from "./routes/accountRoutes";
 import {postRoutes} from "./routes/postRoutes";
+import { productRoutes } from "./routes/productRoutes";
+
+
 // route handling
 app.use("/account",accountRoutes);
 app.use("/posts",postRoutes);
+app.use("/products", productRoutes)
 
 
 //folder path

@@ -4,9 +4,10 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import accountReducer from "./Slice/AccountSlice";
 import postsReducer from "./Slice/PlatformSlice";
+import productsReducer from "./Slice/ProductSlice"
 
 export const store = configureStore({
-    reducer: { account: accountReducer, platform: postsReducer},
+    reducer: { account: accountReducer, platform: postsReducer, product :productsReducer},
 });
 export type RootState = ReturnType<typeof store.getState>;
 
