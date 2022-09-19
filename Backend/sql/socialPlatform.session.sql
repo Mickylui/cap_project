@@ -82,3 +82,76 @@ CREATE TABLE IF NOT EXISTS complaints(
     complained_at TIMESTAMP not null default NOW(),
     solved_at TIMESTAMP
 );
+SELECT posts.id,
+    posts.title,
+    posts.event_date,
+    posts.event_time,
+    posts.event_location,
+    posts.description,
+    posts.contact,
+    posts.created_at,
+    posts.updated_at,
+    posts.is_ordinary,
+    posts.is_event,
+    posts.display_push,
+    users.account_name,
+    json_agg(DISTINCT post_images.image) image,
+    json_agg(DISTINCT tags.tag) tag
+FROM posts
+    LEFT JOIN users ON users.id = posts.user_id
+    LEFT JOIN post_images ON post_images.post_id = posts.id
+    LEFT JOIN post_tags ON post_tags.post_id = posts.id
+    LEFT JOIN tags ON tags.id = post_tags.tag_id
+GROUP BY (posts.id, users.account_name)
+ORDER BY posts.display_push DESC;
+SELECT posts.id,
+    posts.title,
+    posts.event_date,
+    posts.event_time,
+    posts.event_location,
+    posts.description,
+    posts.contact,
+    posts.created_at,
+    posts.updated_at,
+    posts.is_ordinary,
+    posts.is_event,
+    posts.display_push,
+    users.account_name,
+    json_agg(DISTINCT post_images.image) image,
+    json_agg(DISTINCT tags.tag) tag
+FROM posts
+    LEFT JOIN users ON users.id = posts.user_id
+    LEFT JOIN post_images ON post_images.post_id = posts.id
+    LEFT JOIN post_tags ON post_tags.post_id = posts.id
+    LEFT JOIN tags ON tags.id = post_tags.tag_id
+WHERE tags.tag = "asad"
+GROUP BY (posts.id, users.account_name)
+ORDER BY posts.display_push DESC;
+
+WITH tmp AS (
+    SELECT *
+    FROM tags
+    WHERE tags.tag LIKE '%q%'
+)
+SELECT posts.id,
+    posts.title,
+    posts.event_date,
+    posts.event_time,
+    posts.event_location,
+    posts.description,
+    posts.contact,
+    posts.created_at,
+    posts.updated_at,
+    posts.is_ordinary,
+    posts.is_event,
+    posts.display_push,
+    users.account_name,
+    json_agg(DISTINCT post_images.image) image,
+    json_agg(DISTINCT tmp.tag) tag
+FROM posts
+    LEFT JOIN users ON users.id = posts.user_id
+    LEFT JOIN post_images ON post_images.post_id = posts.id
+    LEFT JOIN post_tags ON post_tags.post_id = posts.id
+    RIGHT JOIN tmp ON tmp.id = post_tags.tag_id
+GROUP BY (posts.id, users.account_name)
+ORDER BY posts.display_push DESC;

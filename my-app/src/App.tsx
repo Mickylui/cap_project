@@ -83,8 +83,10 @@ function App() {
                     </Route>
 
                     {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
-                    <Route path="posts" element={<SocialPlatform />} />
-                    <Route path="postDetail" element={<PostDetail />} />
+                    <Route path="posts" element={<SocialPlatform />}>
+                        <Route path="postDetail/:postId" element={<PostDetail />} />
+                    </Route>
+                    {/* <Route path="postDetail/:postId" element={<PostDetail />} /> */}
 
                     <Route path="posts" element={<PrivateRoute />}>
                         <Route path="reportPost" element={<ReportPost />} />
