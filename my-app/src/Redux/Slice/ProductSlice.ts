@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import produce from "immer";
-import { getProductFetch } from "../../Api/ProductFetch";
+import { getProductFetch } from "../../Api/productFetch";
 
 export interface ProductState {
     id: number;

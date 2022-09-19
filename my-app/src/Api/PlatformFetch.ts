@@ -9,7 +9,7 @@ interface Error {
     error: string;
 }
 
-const DEVELOP_HOST = "http://localhost:8080";
+const DEVELOP_HOST = process.env.REACT_APP_API_URL;
 export const getPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@posts/get",
     async (_, thunkAPI) => {

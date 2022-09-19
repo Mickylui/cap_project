@@ -15,7 +15,7 @@ import { createAction } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link as RouteLink } from "react-router-dom";
-import { logOutFetch } from "../Api/AccountFetch";
+import { logOutFetch } from "../Api/accountFetch";
 import { RootState } from "../Redux/store";
 import { FormatDate } from "../Utils/timeStamp";
 import Swal from "sweetalert2";

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import produce from "immer";
-import { getPostFetch, getSearchTagPostFetch } from "../../Api/PlatformFetch";
+import { getPostFetch, getSearchTagPostFetch } from "../../Api/platformFetch";
 
 export interface PostState {
     // map(arg0: (postItem: any) => void): import("react").ReactNode;

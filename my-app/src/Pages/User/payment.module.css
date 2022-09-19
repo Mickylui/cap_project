@@ -62,7 +62,7 @@
     position: relative;
     flex-wrap: wrap;
     justify-content: space-between;
-    background-image: url(./images/6.jpeg);
+    background-image: url(http:localhost:3000/6.jpeg);
   }
   /* rccs-signature-background: repeating-linear-gradient(
     0.1deg,
@@ -78,6 +78,6 @@
   rccs-animate-background: true; */
   
   .rccs__card--unknown > div {
-    background-image: url(./images/6.jpeg);
+    background-image: url(http:localhost:3000/6.jpeg);
   }
   

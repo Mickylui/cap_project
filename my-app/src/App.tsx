@@ -20,7 +20,7 @@ import { Slideshow } from "./Components/AutoSlider";
 import Table from "./Components/Table";
 import PrivateRoute from "./Components/PrivateRoute";
 
-import { getUserDataJWTFetch } from "./Api/AccountFetch";
+import { getUserDataJWTFetch } from "./Api/accountFetch";
 import NotFound from "./Pages/NotFound";
 import { ImageUpload } from "./Components/ImageUpload";
 import DeliveryAddress from "./Pages/User/DeliveryAddress";
@@ -39,16 +39,19 @@ function App() {
     const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
     console.log("shoppingData:", shoppingData);
     const dispatch: AppDispatch = useDispatch();
+    
     useEffect(() => {
+        const GetUserDataJWT = async () => {
+            const token = window.localStorage.getItem("token");
+            if (!isLoggedIn && token) {
+                await dispatch(getUserDataJWTFetch({ token }));
+                console.log("isLoggedIn:", isLoggedIn);
+            }
+        };
+        
         GetUserDataJWT();
-    });
-    const GetUserDataJWT = async () => {
-        const token = window.localStorage.getItem("token");
-        if (isLoggedIn === false && token) {
-            await dispatch(getUserDataJWTFetch({ token }));
-            console.log("isLoggedIn:", isLoggedIn);
-        }
-    };
+    }, []);
+
     return (
         <div className="App">
             <Router>
