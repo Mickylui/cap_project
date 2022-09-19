@@ -13,6 +13,7 @@ import {
     Text,
     useColorModeValue,
     Link,
+    Spinner,
 } from "@chakra-ui/react";
 import { FormEvent, useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon, ArrowBackIcon } from "@chakra-ui/icons";
@@ -25,7 +26,11 @@ import Swal from "sweetalert2";
 
 export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
+
     const status = useSelector((state: RootState) => state.account.status);
+    const hasLoggedIn = useSelector((state: RootState) => state.account.hasLoggedIn);
+    const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
+
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -47,6 +52,7 @@ export default function LogInCard() {
         const form = e.target as HTMLInputElement;
         const email = form.email.value;
         const password = form.password.value;
+
         if (email.length === 0 || password.length === 0) {
             Swal.fire({
                 title: "Please input all the fields",
@@ -59,9 +65,23 @@ export default function LogInCard() {
             });
             return;
         }
-        console.log("this is data:", email.length, password.length);
         const logInResponse = await dispatch(LogInFetch({ email, password }));
         console.log("logInResponse:", logInResponse);
+
+
+        // never log in before && not admin
+        // Swal.fire({
+        //     title: "Good Decision, Welcome To Our Family!",
+        //     text: "Congratulations! You get 100 points for your registration. Try to get more points by completing your profile.",
+        //     showClass: {
+        //         popup: "animate__animated animate__fadeInDown",
+        //     },
+        //     hideClass: {
+        //         popup: "animate__animated animate__fadeOutUp",
+        //     },
+        // }).then(() => {
+        //     navigate("/");
+        // });
 
         if (logInResponse.payload.success === true) {
             Swal.fire({
@@ -73,7 +93,7 @@ export default function LogInCard() {
                     popup: "animate__animated animate__fadeOutUp",
                 },
             }).then(() => {
-                navigate("/");
+                navigate(-1);
             });
         } else {
             Swal.fire({
@@ -136,20 +156,29 @@ export default function LogInCard() {
                                 </InputGroup>
                             </FormControl>
                             <Stack spacing={10} pt={2}>
-                                <Button
-                                    type="submit"
-                                    loadingText="Submitting"
-                                    size="lg"
-                                    bg={"blue.400"}
-                                    color={"white"}
-                                    _hover={{
-                                        bg: "blue.500",
-                                    }}
-                                >
-                                    Log In
-                                </Button>
+                                {status === "loading" ? (
+                                    <Spinner
+                                        thickness="4px"
+                                        speed="0.65s"
+                                        emptyColor="gray.200"
+                                        color="blue.500"
+                                        size="xl"
+                                    />
+                                ) : (
+                                    <Button
+                                        type="submit"
+                                        loadingText="Submitting"
+                                        size="lg"
+                                        bg={"blue.400"}
+                                        color={"white"}
+                                        _hover={{
+                                            bg: "blue.500",
+                                        }}
+                                    >
+                                        Log In
+                                    </Button>
+                                )}
                             </Stack>
-                            {/* <RouteLink to="/signUp"> */}
                             <Stack pt={6}>
                                 <Text align={"center"}>
                                     Not a user?{" "}
@@ -158,7 +187,6 @@ export default function LogInCard() {
                                     </Link>
                                 </Text>
                             </Stack>
-                            {/* </RouteLink> */}
                         </Stack>
                     </form>
                 </Box>

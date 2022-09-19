@@ -13,7 +13,7 @@ export class AccountService {
                 .select("id")
                 .where("account_name", accountName)
                 .first();
-            console.log("existUser:", existUserId);
+            // console.log("existUser:", existUserId);
             if (existUserId) {
                 return { success: false, message: "accountName already exist" };
             }
@@ -23,7 +23,7 @@ export class AccountService {
                 password: password,
                 is_admin: false,
             });
-            console.log("AccountService-- this is accountName:", accountName);
+            // console.log("AccountService-- this is accountName:", accountName);
             console.log("AccountService-- this is email:", email);
             console.log("AccountService-- this is password:", password);
             await txn.commit();
@@ -37,11 +37,12 @@ export class AccountService {
     async logIn(email: string, password: string) {
         const txn = await this.knex.transaction();
         try {
-            console.log("AccountService-- this is email:", email);
-            console.log("AccountService-- this is password:", password);
+            // console.log("AccountService-- this is email:", email);
+            // console.log("AccountService-- this is password:", password);
             const existUserData = await txn("users").select("*").where("email", email).first();
             console.log("AccountService--this is userData:", existUserData);
             if (!existUserData) {
+                console.log("Invalid email");
                 return { success: false, message: "Invalid email" };
             }
             const matchPassword = await checkPassword(password, existUserData.password);
@@ -53,26 +54,47 @@ export class AccountService {
                 username: existUserData["account_name"],
             };
             const token = jwtSimple.encode(userData, jwt.jwtSecret);
+
+            const combineUserData = await txn("users")
+                .select("*")
+                .leftJoin("user_info", "user_info.user_id", "users.id")
+                .where("users.id", existUserData.id);
+            console.log("combineUserData:", combineUserData);
+            const userShoppingDataArr = await txn("shopping_carts")
+                .select("*")
+                .where("shopping_carts.user_id", existUserData.id);
+
+            console.log("userShoppingData:", userShoppingDataArr);
+
             await txn.commit();
-            return { success: true, body: { token, existUserData } };
+            return { success: true, body: { token, combineUserData, userShoppingDataArr } };
         } catch (error) {
             await txn.rollback();
             winstonLogger.error(error.toString());
             return { success: false, message: "Internal Server Error" };
         }
     }
-    async userDataJWT(tokenId: number, tokenUsername: string) {
+    async userDataJWT(tokenId: number) {
+        const txn = await this.knex.transaction();
         try {
-            const userData = await this.knex("users")
+            console.log("tokenId:",tokenId)
+            const combineUserData = await txn("users")
                 .select("*")
-                .where("id", tokenId)
-                .andWhere("account_name", tokenUsername)
-                .first();
-            if (!userData) {
+                .leftJoin("user_info", "user_info.user_id", "users.id")
+                .where("users.id", tokenId);
+            console.log("combineUserData:", combineUserData);
+            const userShoppingDataArr = await txn("shopping_carts")
+                .select("*")
+                .where("shopping_carts.user_id", tokenId);
+
+            console.log("userShoppingData:", userShoppingDataArr);
+            if (!combineUserData) {
                 return { success: false, message: "Invalid token" };
             }
-            return { success: true, body: userData };
+            await txn.commit();
+            return { success: true, body: { combineUserData, userShoppingDataArr } };
         } catch (error) {
+            await txn.rollback();
             winstonLogger.error(error.toString());
             return { success: false, message: "Internal Server Error" };
         }

@@ -23,8 +23,9 @@ import Swal from "sweetalert2";
 export function UserLoggedInNav() {
     // useSelector: if isAdmin true, return admin; else return user/
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
-    const userData = useSelector((state: RootState) => state.account.existUserData);
-    // console.log("UserLoggedInNav:",userData[0])
+    const userData = useSelector((state: RootState) => state.account.combineUserData);
+    const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
+    console.log("combineUserData:", userData[0]);
     const dispatch = useDispatch();
 
     function logOut() {
@@ -54,7 +55,7 @@ export function UserLoggedInNav() {
                     <Avatar name={`${userData[0]["account_name"]}`} backgroundColor={"black"} />
                 </MenuButton>
                 <MenuList marginTop={"-20px"} minWidth={{ base: "7em", md: "10em" }}>
-                    <RouteLink to="/user">
+                    <RouteLink to="admin/manage">
                         <MenuItem>Manage</MenuItem>
                     </RouteLink>
                     <MenuItem onClick={() => dispatch(logOut())}>Log Out</MenuItem>
@@ -68,31 +69,39 @@ export function UserLoggedInNav() {
         <Menu>
             <MenuButton>
                 <Avatar name={`${userData[0]["account_name"]}`} src="https://bit.ly/ryan-florence">
-                    <AvatarBadge boxSize="1.25em" bg="green.500" textColor={"white"}>
-                        1
-                    </AvatarBadge>
+                    {shoppingData.length > 0 ? (
+                        <AvatarBadge boxSize="1.25em" bg="green.500" textColor={"white"}>
+                            {shoppingData.length}
+                        </AvatarBadge>
+                    ) : (
+                        <></>
+                    )}
                 </Avatar>
             </MenuButton>
             <MenuList marginTop={"-20px"} minWidth={{ base: "7em", md: "10em" }}>
                 {/* href: get user id(req.session?) and go to his profile */}
-                <RouteLink to="/user">
+                <RouteLink to="/user/profile">
                     <MenuItem>Profile</MenuItem>
                 </RouteLink>
-                <RouteLink to="/products">
+                <RouteLink to="/cart/data">
                     <MenuItem>
                         Cart
-                        <Box
-                            boxSize="1.25em"
-                            bg="green.500"
-                            textColor={"white"}
-                            borderRadius={"10px"}
-                            textAlign={"center"}
-                        >
-                            1
-                        </Box>
+                        {shoppingData.length > 0 ? (
+                            <Box
+                                boxSize="1.25em"
+                                bg="green.500"
+                                textColor={"white"}
+                                borderRadius={"10px"}
+                                textAlign={"center"}
+                            >
+                                {shoppingData.length}
+                            </Box>
+                        ) : (
+                            <></>
+                        )}
                     </MenuItem>
                 </RouteLink>
-                <RouteLink to="/products">
+                <RouteLink to="/setting/user">
                     <MenuItem>Setting</MenuItem>
                 </RouteLink>
                 {/* change the state -> re-render */}

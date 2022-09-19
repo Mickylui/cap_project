@@ -4,6 +4,7 @@ import http from "http";
 import expressSession from "express-session";
 import Knex from "knex";
 import cors from "cors";
+import path from "path";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -50,10 +51,16 @@ export const accountController = new AccountController(accountService);
 // const userService = new UserService(knex);
 // export const userController = new UserController(userService);
 
+import { PostService } from "./services/postService";
+import { PostController } from "./controllers/postController";
+export const postService = new PostService(knex);
+export const postController = new PostController(postService);
+
 import {accountRoutes} from "./routes/accountRoutes";
-import path from "path";
+import {postRoutes} from "./routes/postRoutes";
 // route handling
 app.use("/account",accountRoutes);
+app.use("/posts",postRoutes);
 
 
 //folder path

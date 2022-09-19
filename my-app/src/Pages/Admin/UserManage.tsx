@@ -3,14 +3,15 @@ import { Box, Link } from "@chakra-ui/react";
 import UserImage from "../../Components/UserImage";
 import PostForm from "../Platform/PostForm";
 import Products from "../Product/Products";
+import { Link as RouteLink } from "react-router-dom";
 
-function AdminProfile() {
+export function AdminProfile() {
     const [link, switchLink] = useState("posts");
     return (
         <div>
             <UserImage />
             <Link
-                as={ReachLink}
+                as={RouteLink}
                 to="posts"
                 margin="20px"
                 fontSize="1.5rem"
@@ -19,7 +20,7 @@ function AdminProfile() {
                 Users
             </Link>
             <Link
-                as={ReachLink}
+                as={RouteLink}
                 to="likes"
                 margin="20px"
                 fontSize="1.5rem"
@@ -28,7 +29,7 @@ function AdminProfile() {
                 Products
             </Link>
             <Link
-                as={ReachLink}
+                as={RouteLink}
                 to="likes"
                 margin="20px"
                 fontSize="1.5rem"
@@ -37,7 +38,7 @@ function AdminProfile() {
                 Platforms
             </Link>
             <Link
-                as={ReachLink}
+                as={RouteLink}
                 to="likes"
                 margin="20px"
                 fontSize="1.5rem"
@@ -46,7 +47,7 @@ function AdminProfile() {
                 Posts
             </Link>
             <Link
-                as={ReachLink}
+                as={RouteLink}
                 to="likes"
                 margin="20px"
                 fontSize="1.5rem"

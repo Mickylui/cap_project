@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Image, Wrap, WrapItem, Text, Stack } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 import "./css/autoSlider.css";
@@ -42,13 +42,16 @@ export function Slideshow() {
     const [index, setIndex] = React.useState(0);
     const timeoutRef: any = React.useRef(null);
 
+    const pathName = window.location.pathname;
+
     function resetTimeout() {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
     }
 
-    React.useEffect(() => {
+    // different page: fetch diff image src
+    useEffect(() => {
         resetTimeout();
         timeoutRef.current = setTimeout(
             () => setIndex((prevIndex) => (prevIndex === colors.length - 1 ? 0 : prevIndex + 1)),
@@ -60,12 +63,11 @@ export function Slideshow() {
         };
     }, [index]);
 
-    return (
+    return pathName === "/" ? (
         <Box className="slideshow">
             <Box
                 className="slideshowSlider"
                 style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
-                
             >
                 {productItem.map((product) => (
                     <Wrap
@@ -73,13 +75,17 @@ export function Slideshow() {
                         key={product.id}
                         align={"center"}
                         justify={"center"}
-                        height={{ml:"50em"}}
-                        
+                        height={{ ml: "50em" }}
                     >
-                        <WrapItem className="imageTitle"   paddingRight={{md:"10em"}} >
+                        <WrapItem className="imageTitle" paddingRight={{ md: "10em" }}>
                             <Image src={product.imageUrl} alt={product.imageAlt} width={"50em"} />
                         </WrapItem>
-                        <WrapItem className="productInfo" display={"box"}  width={"30vw"} minWidth={"300px"} >
+                        <WrapItem
+                            className="productInfo"
+                            display={"box"}
+                            width={"30vw"}
+                            minWidth={"300px"}
+                        >
                             <Box
                                 className="productTitle"
                                 width={"100%"}
@@ -89,34 +95,31 @@ export function Slideshow() {
                             >
                                 {product.title}
                             </Box>
-                            <Box
-                                className="productPrice"
-                                width={"100%"}
-                                textAlign={"start"}
-                                
-                            >
+                            <Box className="productPrice" width={"100%"} textAlign={"start"}>
                                 {product.formattedPrice}
                             </Box>
-                            <Stack className="productIntro"  width={{md:"30vw"}} >
+                            <Stack className="productIntro" width={{ md: "30vw" }}>
                                 <Text
                                     noOfLines={[4, 7, 9]}
                                     textAlign={"start"}
-                                    
-                                    width={{ml:"40rem"}}
-
+                                    width={{ ml: "40rem" }}
                                     height={"15em"}
                                     whiteSpace={"break-spaces"}
                                     marginTop={"20px"}
                                     marginBottom={"20px"}
-                                    
                                 >
-                                  ritatis recusandae reprehenderit.
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Qui quam dolore voluptatum aperiam officia, porro harum voluptatem quae nihil, neque nobis asperiores facere blanditiis velit, in alias ipsum quaerat dolorum.
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa nam minima ipsam itaque id sit quibusdam sed velit odio, in reiciendis earum necessitatibus laudantium cumque non omnis! Fugiat, vitae? Quo?
+                                    ritatis recusandae reprehenderit. Lorem ipsum dolor sit, amet
+                                    consectetur adipisicing elit. Qui quam dolore voluptatum aperiam
+                                    officia, porro harum voluptatem quae nihil, neque nobis
+                                    asperiores facere blanditiis velit, in alias ipsum quaerat
+                                    dolorum. Lorem ipsum dolor sit amet consectetur adipisicing
+                                    elit. Culpa nam minima ipsam itaque id sit quibusdam sed velit
+                                    odio, in reiciendis earum necessitatibus laudantium cumque non
+                                    omnis! Fugiat, vitae? Quo?
                                 </Text>
                             </Stack>
-                            <Box className="productPrice" width={{ml:"40rem"}} >
-                                <Button className="productButton" backgroundColor={"black"} >
+                            <Box className="productPrice" width={{ ml: "40rem" }}>
+                                <Button className="productButton" backgroundColor={"black"}>
                                     BUY NOW!
                                 </Button>
                             </Box>
@@ -134,6 +137,27 @@ export function Slideshow() {
                             setIndex(idx);
                         }}
                     ></div>
+                ))}
+            </Box>
+        </Box>
+    ) : (
+        <Box className="auto-Slider" height={"20em"} backgroundColor={"aliceblue"} overflow={"hidden"}>
+            <Box
+                className="slideshowSlider"
+                style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
+            >
+                {productItem.map((product) => (
+                    <Wrap
+                        className="slide"
+                        key={product.id}
+                        align={"center"}
+                        justify={"center"}
+                        height={{ ml: "50em" }}
+                    >
+                        <WrapItem className="imageTitle">
+                            <Image src={product.imageUrl} alt={product.imageAlt}/>
+                        </WrapItem>
+                    </Wrap>
                 ))}
             </Box>
         </Box>

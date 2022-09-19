@@ -1,0 +1,24 @@
+* {
+    border: solid 1px black;
+}
+.user-control-box {
+    display: flex;
+    flex-wrap: wrap;
+    /* background-color: beige; */
+}
+.user-image-box , .user-basic-info-box{
+    /* background-color: blue; */
+    width: 100%;
+}
+
+.user-report-data-box{
+    display: flex;
+    flex-wrap: wrap;
+    /* background-color: rebeccapurple; */
+}
+
+.user-report-number-box{
+    /* background-color: aliceblue; */
+    width: 100%;
+    padding: 20px;
+}

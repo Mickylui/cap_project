@@ -17,10 +17,11 @@ export async function isLoggedIn(req: Request, res: Response, next: NextFunction
             return res.status(401).json({ message: "Permission Denied" });
         }
         const payload = jwtSimple.decode(token, jwt.jwtSecret);
-        const result = await accountService.userDataJWT(payload.id, payload.username);
+        const result = await accountService.userDataJWT(payload.id);
         if (result["success"] === true) {
-            const { password, ...others } = result.body;
+            const { password, ...others } = result.body?.combineUserData[0];
             req.body.user = { ...others };
+            req.body.shoppingCartArr = result.body?.userShoppingDataArr;
             return next();
         } else {
             return res.status(401).json({ message: "Permission Denied" });

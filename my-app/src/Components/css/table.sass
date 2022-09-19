@@ -1,0 +1,80 @@
+$row-height: 50px
+$primary-color: darkgreen
+$secondary-color: green
+$tertiary-color: #F6FFF0
+
+#container
+	max-width: 90%
+	width: 800px
+	margin: 0 auto
+	> a
+		text-align: center
+		font-family: Consolas
+		display: block
+		margin-bottom: 60px
+
+h1
+	text-align: center
+	font-size: 3em
+	font-family: Consolas
+	margin: 50px 0 20px 0
+	
+input[type="text"]
+	width: 400px
+	display: block
+	margin: 40px auto
+	text-align: center
+	font-size: 1.5em
+	outline-color: $primary-color
+	box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, .25)
+	padding: 10px
+	border: none
+
+a
+	color: $primary-color
+	text-decoration: none
+	font-weight: bold
+
+table
+	width: 100%
+	border: 1px solid $primary-color
+	font-family: sans-serif
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, .25)
+
+table.recent th:nth-of-type(3), table.alltime th:nth-of-type(4)
+	box-shadow: inset 0 0 10px rgba(0, 0, 9, .5)
+	background: $secondary-color
+	
+thead
+	background: $primary-color
+	color: white	
+
+th
+	padding: 10px
+	font-weight: bold
+	&:nth-of-type(3), &:nth-of-type(4)
+		cursor: pointer
+
+tbody tr
+	&:nth-child(even)
+		background: #F8F8F8
+	&:hover
+		background: $tertiary-color
+
+
+td
+	line-height: $row-height
+	vertical-align: top
+
+	&:not(:nth-child(2))
+		text-align: center
+	a
+		padding-left: 30px
+		vertical-align: top
+		line-height: $row-height
+	&:not(:last-of-type)
+		border-right: 3px solid #EEE
+
+img
+	vertical-align: top
+	width: $row-height

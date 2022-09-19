@@ -7,14 +7,16 @@ export interface IAccountState {
     isLoggedIn: boolean;
     isAdmin: boolean;
     status: string;
-    existUserData: Array<object>;
+    combineUserData: Array<object>;
+    shoppingData: Array<object>;
     error: undefined | string;
 }
 const AccountInitialState = {
     isLoggedIn: false,
     isAdmin: false,
     status: "",
-    existUserData: [],
+    combineUserData: [],
+    shoppingData:[],
     error: undefined,
 } as IAccountState;
 
@@ -22,54 +24,41 @@ const accountSlice = createSlice({
     name: "@Account",
     initialState: AccountInitialState,
     reducers: {
-        //logIN
-        logIn(state, action: PayloadAction<IAccountState>) {
-            // console.log("this is state:",current(state))
-        },
         //logOut
         logOut(state, action: PayloadAction<IAccountState>) {
             state = AccountInitialState;
             window.localStorage.clear();
             return state;
         },
-        userDataJWT(state, action: PayloadAction<IAccountState>) {},
-        //signUp
+
     },
     extraReducers(builder) {
         builder
             .addCase(LogInFetch.pending, (state, action) => {
                 const nextState = produce(AccountInitialState, (draft) => {
-                    // draft.isLoggedIn = false;
-                    // draft.isAdmin = false;
                     draft.status = "loading";
-                    // draft.existUserData = [];
-                    // draft.error = undefined;
                 });
                 state = nextState;
-                // console.log("nextState:", state.isLoggedIn);
                 return state;
             })
             .addCase(LogInFetch.fulfilled, (state, action) => {
-                // need shopping cart data
                 if (action.payload.success === true) {
-                    const identity = action.payload.body.existUserData.is_admin;
-                    // console.log("identity:", identity);
+                    const identity = action.payload.body.combineUserData[0].is_admin;
+                    console.log("identity:",identity)
                     const nextState = produce(AccountInitialState, (draft) => {
                         const token = action.payload.body.token;
                         draft.isLoggedIn = true;
                         draft.isAdmin = identity;
                         draft.status = "succeeded";
-                        draft.existUserData.push(action.payload.body.existUserData);
-                        // draft.error = undefined;
+                        draft.combineUserData = action.payload.body.combineUserData;
+                        draft.shoppingData = action.payload.body.userShoppingDataArr;
+
                         window.localStorage.setItem("token", token);
                     });
                     state = nextState;
                 } else {
                     const nextState = produce(AccountInitialState, (draft) => {
-                        // draft.isLoggedIn = false;
-                        // draft.isAdmin = false;
                         draft.status = "succeeded";
-                        // draft.existUserData = [];
                         draft.error = action.payload.message;
                     });
                     state = nextState;
@@ -78,57 +67,43 @@ const accountSlice = createSlice({
             })
             .addCase(LogInFetch.rejected, (state, action) => {
                 const nextState = produce(AccountInitialState, (draft) => {
-                    // draft.isLoggedIn = false;
-                    // draft.isAdmin = false;
                     draft.status = "failed";
-                    // draft.existUserData = [];
-                    // draft.error = undefined;
                 });
                 state = nextState;
                 return state;
             })
             .addCase(getUserDataJWTFetch.pending, (state, action) => {
                 const nextState = produce(AccountInitialState, (draft) => {
-                    // draft.isLoggedIn = false;
-                    // draft.isAdmin = false;
                     draft.status = "loading";
-                    // draft.existUserData = [];
-                    // draft.error = undefined;
                 });
                 state = nextState;
-                // console.log("nextState:", state.isLoggedIn);
                 return state;
             })
             .addCase(getUserDataJWTFetch.fulfilled, (state, action) => {
                 // need shopping cart data
                 const nextState = produce(AccountInitialState, (draft) => {
-                    const data = action.payload.body;
+                    console.log("combineUserData:",action.payload.body.combineUserData)
+                    console.log("userShoppingDataArr:",action.payload.body.userShoppingDataArr)
                     draft.isLoggedIn = true;
-                    draft.isAdmin = data.is_admin;
+                    draft.isAdmin = action.payload.body.combineUserData.is_admin;
                     draft.status = "succeeded";
-                    draft.existUserData.push(data);
-                    // draft.error = undefined;
+                    draft.combineUserData.push(action.payload.body.combineUserData);
+                    draft.shoppingData = action.payload.body.userShoppingDataArr;
                 });
                 state = nextState;
-                // console.log("error:", state.error);
                 return state;
             })
             .addCase(getUserDataJWTFetch.rejected, (state, action) => {
                 const nextState = produce(AccountInitialState, (draft) => {
-                    // draft.isLoggedIn = false;
-                    // draft.isAdmin = false;
                     draft.status = "failed";
-                    // draft.existUserData = [];
-                    // draft.error = undefined;
                 });
                 state = nextState;
-                // console.log("nextState:", state.isLoggedIn);
                 return state;
             });
     },
 });
 
-export const { logIn, logOut, signUp } = accountSlice.actions;
+export const { logIn, logOut } = accountSlice.actions;
 // console.log("this is logIn actions:", logIn)
 
 export default accountSlice.reducer;

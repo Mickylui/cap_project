@@ -32,19 +32,20 @@ export class AccountController {
                 return;
             }
             res.status(200).json(result);
-            console.log("this is result from accountService login:", result);
+            // console.log("this is result from accountService login:", result);
         } catch (error) {
             winstonLogger.error(error.toString());
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
-    logOut = async (req: Request, res: Response) => {
-        
-    };
+
     getSelfInfo = async (req: Request, res: Response) => {
         try {
-            const user = req.body.user!;
-            res.json({body:user});
+            const user = req.body.user;
+            const shoppingCartArr = req.body.shoppingCartArr;
+
+            console.log("this is getSelfInfo:", user);
+            res.json({ body: { combineUserData: user, userShoppingDataArr: shoppingCartArr } });
         } catch (error) {
             winstonLogger.error(error.toString());
             res.status(500).json({ success: false, message: "Internal Server Error" });
