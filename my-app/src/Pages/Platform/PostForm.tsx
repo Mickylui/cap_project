@@ -44,17 +44,17 @@ function PostForm() {
                             const tagItems = tags;
                             const ImageItems = images;
 
+                            let isEventPost = "false";
                             console.log("form:", form);
                             // console.log("ImageItems:",ImageItems)
-
+                            formData.append("user_id", combineUserData[0].user_id);
                             formData.append("title", form.title.value);
                             formData.append("description", form.description.value);
                             formData.append("tagItems", tagItems);
 
                             for (let i = 0; i < ImageItems.length; i++) {
-                                console.log("this is files:", ImageItems[i]);
-                                console.log("this is files type:", typeof ImageItems[i]);
-                                formData.append("files", ImageItems[i]);
+                                console.log("this is files:", ImageItems[i].file);
+                                formData.append("files", ImageItems[i].file);
                             }
 
                             // console.log("form:", form);
@@ -67,15 +67,14 @@ function PostForm() {
                             // }
 
                             if (isEvent === true) {
+                                isEventPost = "true";
+                                formData.append("isEventPost", isEventPost);
                                 if (isDefaultContact) {
                                     formData.append("eventLocation", form.eventLocation.value);
                                     formData.append("eventDate", form.eventDate.value);
                                     formData.append("startingTime", form.startingTime.value);
                                     formData.append("endingTime", form.endingTime.value);
-                                    formData.append(
-                                        "eventContact",
-                                        form.useDefaultContact.value
-                                    );
+                                    formData.append("eventContact", form.useDefaultContact.value);
                                     // const eventLocation = form.eventLocation.value;
                                     // const eventDate = form.eventDate.value;
                                     // const startingTime = form.startingTime.value;
@@ -103,6 +102,7 @@ function PostForm() {
                                 return;
                             }
 
+                            formData.append("isEventPost", isEventPost);
                             const resp = await fetch("http://localhost:8080/posts/addPost", {
                                 method: "POST",
                                 body: formData,

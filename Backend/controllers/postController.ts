@@ -15,8 +15,15 @@ export class PostController {
     };
     addPost = async (req: any, res: Response) => {
         try {
-            console.log("this is addPost:", req.form)
-            console.log("this is form:", req.form)
+            const form = req.form;
+            const fields = form.fields;
+            const files = form.files.files;
+
+            const addPostResult = await this.postService.addPost(fields, files);
+            console.log("addPostResult:", addPostResult);
+
+            // console.log("this is fields:", fields);
+            // console.log("this is file:", files);
         } catch (error) {
             winstonLogger.error(error.toString());
             res.status(500).json({ success: false, message: "Internal Server Error" });

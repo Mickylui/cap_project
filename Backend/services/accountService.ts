@@ -22,6 +22,7 @@ export class AccountService {
                 email: email,
                 password: password,
                 is_admin: false,
+                default_contact: email
             });
             // console.log("AccountService-- this is accountName:", accountName);
             console.log("AccountService-- this is email:", email);

@@ -30,15 +30,12 @@ const form = formidable({
 })
 
 export function formidableMiddleware(req:Request,res:Response,next:NextFunction){
-    // console.log("this is formidableMiddleware:", req.body)
     form.parse(req,(err, fields, files)=>{
         if(err){
             winstonLogger.error(err.toString())
         }
         req.form = {fields, files};
-        console.log("formidable fields:", fields)
-        console.log("formidable files:", files)
-        console.log("formidable req.form:", req.form)
+
         next();
     })
 }
