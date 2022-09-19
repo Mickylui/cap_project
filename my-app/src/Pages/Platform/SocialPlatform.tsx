@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { WarningTwoIcon } from "@chakra-ui/icons";
 import ScrollToTopButton from "../../Components/ScrollToTopButton";
 import { useDispatch } from "react-redux";
-import { getPostFetch } from "../../Api/PlatformFetch";
+import { getPostFetch, getSearchTagPostFetch } from "../../Api/PlatformFetch";
 import { AppDispatch, RootState, store } from "../../Redux/store";
 import { useSelector } from "react-redux";
 
@@ -22,6 +22,7 @@ function SocialPlatform() {
     const [searchTag, setSearchTag] = useState("");
     const [searchContent, setSearchContent] = useState("");
     console.log("postList:", postList);
+    console.log("searchTag:", searchTag);
 
     // Search Tags: if searchTag.length > 0 -> fetch this tag and replace state.platform.list;
     // Search Content: form submit -> fetch this content and replace state.platform.list;
@@ -41,6 +42,16 @@ function SocialPlatform() {
         getPost();
     }, []);
 
+    if (searchTag.length > 0) {
+        getSearchTagPost();
+    }
+    async function getSearchTagPost() {
+        console.log("search!");
+
+        const getSearchTagPostResp = await dispatch(getSearchTagPostFetch(searchTag));
+        console.log("getSearchTagPostResp:", getSearchTagPostResp);
+        return;
+    }
     return (
         // postList.is_ordinary === true -> admin post
         <div>
@@ -56,7 +67,7 @@ function SocialPlatform() {
                     onSubmit={(e) => {
                         e.preventDefault();
                         const form = e.target;
-                        console.log("form:",form.searchContent.value)
+                        console.log("form:", form.searchContent.value);
                     }}
                 >
                     <Input
@@ -97,14 +108,14 @@ function SocialPlatform() {
                 {postList.map((postItem) => (
                     <div key={`postItem_${postItem.id}`}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
-                            {/* <RouteLink to="postDetail">
+                            <RouteLink to={`postDetail?postId=${postItem.id}`}>
                                 <Image
-                                    src={postItem.imageUrl}
-                                    alt={postItem.imageAlt}
+                                    src={"./skateBoardLogo.png"}
+                                    alt={""}
                                     border="1px"
                                     borderRadius="lg"
                                 />
-                            </RouteLink> */}
+                            </RouteLink>
                             <Box p="6">
                                 <Box
                                     mt="1"
