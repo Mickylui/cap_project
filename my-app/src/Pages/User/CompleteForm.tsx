@@ -18,15 +18,11 @@ import React, { useState } from "react";
 
 function CompleteForm() {
     const [inputBio, setBio] = useState("");
-    const [inputRoom, setRoom] = useState("");
-    const [inputBuilding, setBuilding] = useState("");
+
 
     const handleInputChangeBio = (e: { target: { value: React.SetStateAction<string> } }) =>
         setBio(e.target.value);
-    const handleInputChangeRoom = (e: { target: { value: React.SetStateAction<string> } }) =>
-        setRoom(e.target.value);
-    const handleInputChangeBuilding = (e: { target: { value: React.SetStateAction<string> } }) =>
-        setBuilding(e.target.value);
+    
     return (
         <Flex
             minH={"100vh"}
@@ -62,12 +58,14 @@ function CompleteForm() {
                             </Select>
                         </FormControl>
                         <FormControl id="reason">
-                            <FormLabel>Reason for joining</FormLabel>
+                            <FormLabel>Reason for learning skateboard</FormLabel>
                             <Select placeholder="Select one">
                                 <option>Sport</option>
                                 <option>It's fun</option>
+                                <option>Make friends</option>
                                 <option>Because it's cool</option>
                                 <option>Because of friends</option>
+                                <option>Build up confidence</option>
                             </Select>
                         </FormControl>
                         <FormControl id="level">
@@ -78,25 +76,7 @@ function CompleteForm() {
                                 <option>Advanced</option>
                             </Select>
                         </FormControl>
-                        <FormControl id="room">
-                            <FormLabel>Address:</FormLabel>
-                            <FormLabel>Room/ Flat</FormLabel>
-                            <Input type="text" value={inputRoom} onChange={handleInputChangeRoom} />
-                        </FormControl>
-                        <FormControl id="building">
-                            <FormLabel>Building</FormLabel>
-                            <Input type="text" value={inputBuilding} onChange={handleInputChangeBuilding} />
-                        </FormControl>
-                        <FormControl id="district">
-                            <FormLabel as="legend">District</FormLabel>
-                            <RadioGroup defaultValue="Hong Kong">
-                                <HStack spacing="24px">
-                                    <Radio value="hongKong">Hong Kong</Radio>
-                                    <Radio value="kowloon">Kowloon</Radio>
-                                    <Radio value="newTerritories">New Territories</Radio>
-                                </HStack>
-                            </RadioGroup>
-                        </FormControl>
+               
                         <Stack spacing={10} pt={2}>
                                 <Button
                                     type="submit"
