@@ -29,7 +29,8 @@ export function ProductDetail(
 // }
 ) {
     //useEffect=>fetch data (state: admin-Updated), isEdited-->Editable, if like --> <Icon as={FcLike} fontSize={{md:"2rem"}}/>
-    const {id}: {id: number} = useParams();
+    const params = useParams();
+    const product_id = 
     // const dispatch: AppDispatch = useDispatch()
     // const selectedProduct = useSelector((state: RootState) => state.product.currentSelect);
 

@@ -86,7 +86,7 @@ export function Products() {
                         flexWrap={"wrap"}
                         width={"100%"}
                     >
-                        {/* <RouteLink to="/:id${product.id}"> */}
+                        <RouteLink to="productDetailPage">
                         <Image 
                         src={product.image} 
                         // src="./SkateBoardLogo.png"
@@ -107,7 +107,7 @@ export function Products() {
                             <Box fontSize={{ md: "2rem" }}>Description: {product.description}</Box>
                             <Box fontSize={{ md: "2rem" }}>Price: HKD {product.unit_price}</Box>
                         </VStack>
-                        {/* </RouteLink> */}
+                        </RouteLink>
                     </Box>
                     
                 </Box>
