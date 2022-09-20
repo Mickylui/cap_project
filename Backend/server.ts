@@ -9,9 +9,12 @@ import path from "path";
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
     next();
 });
 
@@ -56,25 +59,28 @@ import { PostController } from "./controllers/postController";
 export const postService = new PostService(knex);
 export const postController = new PostController(postService);
 
-import  { ProductService } from "./services/productService";
+import { ProductService } from "./services/productService";
 import { ProductController } from "./controllers/productController";
-export const productService = new ProductService(knex)
-export const productController = new ProductController(productService)
+export const productService = new ProductService(knex);
+export const productController = new ProductController(productService);
 
-import {accountRoutes} from "./routes/accountRoutes";
-import {postRoutes} from "./routes/postRoutes";
+import { UserService } from "./services/userService";
+import { UserController } from "./controllers/userController";
+export const userService = new UserService(knex);
+export const userController = new UserController(userService);
+
+import { accountRoutes } from "./routes/accountRoutes";
+import { postRoutes } from "./routes/postRoutes";
 import { productRoutes } from "./routes/productRoutes";
-
-
+import { userRoutes } from "./routes/userRoutes";
 // route handling
-app.use("/account",accountRoutes);
-app.use("/posts",postRoutes);
-app.use("/products", productRoutes)
-
+app.use("/account", accountRoutes);
+app.use("/posts", postRoutes);
+app.use("/products", productRoutes);
+app.use("/user", userRoutes);
 
 //folder path
 app.use(express.static(path.join(__dirname, "private")));
-
 
 const PORT = 8080;
 const server = http.createServer(app);

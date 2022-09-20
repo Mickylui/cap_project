@@ -9,7 +9,7 @@ interface Error {
     error: string;
 }
 
-const DEVELOP_HOST = "http://localhost:8080";
+const DEVELOP_HOST = process.env.REACT_APP_API_URL;
 
 export const LogInFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@Account/logIn" as const,
@@ -66,24 +66,4 @@ export const logOutFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error
     }
 );
 
-// export const SignUpFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
-//     "@Account/signUp" as const,
-//     async ({ accountName, email, password }, thunkAPI) => {
-//         try {
-//             console.log("trying sign up...");
-//             const resp = await fetch(`${DEVELOP_HOST}/account/signUp`, {
-//                 method: "POST",
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                 },
-//                 body: JSON.stringify({ accountName, email, password }),
-//             });
-//             const result = await resp.json();
-//             return result;
-//         } catch (e) {
-//             return thunkAPI.rejectWithValue({
-//                 error: "Failed to sign up.",
-//             } as Error);
-//         }
-//     }
-// );
+

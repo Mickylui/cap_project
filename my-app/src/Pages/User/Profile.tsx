@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Link } from "@chakra-ui/react";
 import UserImage from "../../Components/UserImage";
 import { Link as ReachLink } from "@reach/router";
@@ -7,15 +7,38 @@ import UsePoints from "./UsePoints";
 import GetPoints from "./GetPoints";
 import { WarningTwoIcon } from "@chakra-ui/icons";
 import { Link as RouteLink, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import SocialPlatform from "../Platform/SocialPlatform";
 import AdminExceptUserManage from "../Admin/AdminExceptUserManage";
+import UserPost from "./UserPost";
+import { getUserLikePostFetch, getUserPostFetch } from "../../Api/userFetch";
+import UserLikePost from "./UserLikePost";
 
 function Profile() {
     const [link, switchLink] = useState("posts");
     const [adminLink, switchAdminLink] = useState("users");
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
+    const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
+    const likeData = useSelector((state: RootState) => state.user.likeData);
+    console.log("Profile:",likeData)
+
+    const userId = combineUserData[0].id;
+    console.log("userId:", userId);
+    const dispatch: AppDispatch = useDispatch();
+
+    useEffect(() => {
+        const getUserPost = async () => {
+            console.log("getting post !");
+            await dispatch(getUserPostFetch(userId));
+        };
+        getUserPost();
+        const getUserLikePost = async () => {
+            console.log("getting post !");
+            await dispatch(getUserLikePostFetch(userId));
+        };
+        getUserLikePost();
+    },[]);
 
     if (isAdmin) {
         return (
@@ -75,7 +98,13 @@ function Profile() {
                 >
                     Banners
                 </Link>
-                <main>{adminLink === "users" ? <SocialPlatform /> : <AdminExceptUserManage link={`${adminLink}`}/>}</main>
+                <main>
+                    {adminLink === "users" ? (
+                        <SocialPlatform />
+                    ) : (
+                        <AdminExceptUserManage link={`${adminLink}`} />
+                    )}
+                </main>
             </div>
         );
     }
@@ -105,8 +134,8 @@ function Profile() {
                     <WarningTwoIcon />
                 </Button>
             </RouteLink>
-            
-            <main>{link === "posts" ? <SocialPlatform /> : <Products />}</main>
+
+            <main>{link === "posts" ? <UserPost /> : <UserLikePost likeData={likeData}/>}</main>
             <UsePoints />
             <GetPoints />
             {/* <Outlet/> */}

@@ -35,6 +35,7 @@ function PostForm() {
     const [tags, setTags] = useState([]);
     const [images, setImages] = useState([]);
 
+
     return (
         <div>
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
@@ -101,7 +102,8 @@ function PostForm() {
                                     formData.append("eventContact", form.eventContact.value);
                                     // console.log("eventContact:", form.eventContact.value);
                                 }
-                                const resp = await fetch("http://localhost:8080/posts/addPost", {
+                                const DEVELOP_HOST = process.env.REACT_APP_API_URL;
+                                const resp = await fetch(`${DEVELOP_HOST}/posts/addPost`, {
                                     method: "POST",
                                     body: formData,
                                 });

@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { FormEvent, useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon, ArrowBackIcon } from "@chakra-ui/icons";
-import { LogInFetch } from "../Api/AccountFetch";
+import { LogInFetch } from "../Api/accountFetch";
 import { useSelector, useDispatch } from "react-redux";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../Redux/store";
