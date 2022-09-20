@@ -20,7 +20,7 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom"
-import { getProductFetch } from "../../Api/productFetch";
+import { getProductDetailByProductIdFetch } from "../../Api/productFetch";
 
 export function ProductDetail(
     // props: {product_id: number}
@@ -30,25 +30,51 @@ export function ProductDetail(
     // }
 // }
 ) {
-    //useEffect=>fetch data (state: admin-Updated), isEdited-->Editable, if like --> <Icon as={FcLike} fontSize={{md:"2rem"}}/>
-    // const params = useParams();
-    // const product_id = 
-    // const {product_id} = props;
-    const dispatch = useDispatch()
-    // const selectedProduct = useSelector((state: RootState) => state.product.list.find(item=> item.id === product_id));
-    const productList = useSelector((state: RootState) => state.product.list);
-    console.log('list', productList)
+    const productDetail = useSelector((state: RootState) => state.product.productDetail)
+    const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
+    // const [images, setImages] = useState<Array<any>>([]);
+    const pathName = window.location.pathname;
+    const productId = pathName.split("/")[3];
+    console.log('productDetail', productDetail)
 
-    // useEffect(() => {
-    //     dispatch(getProductFetch({}));
-    // }, []);
+   const dispatch: AppDispatch = useDispatch();
 
-    async function getProduct() {
-        // @ts-ignore
-        const getProductResponse = await dispatch(getProductFetch());
-        console.log("this is getProductResponse:", getProductResponse);
-        return;
-    }
+   let userId: number | string;
+   console.log("combineUserData:", combineUserData);
+   if (combineUserData.length > 0) {
+       userId = combineUserData[0].id as number;
+   } else {
+       userId = 1;
+   }
+   console.log('size', productDetail.size)
+   const sizes = productDetail.size as Array<number>;
+
+   useEffect(() => {
+    const getProductDetailByProductId = async () => {
+        await dispatch(getProductDetailByProductIdFetch(productId));
+    };
+    getProductDetailByProductId();
+}, []);
+
+// useEffect(() => {
+//     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
+//     const getPostImages = () => {
+//         const productImagesArr = productDetail["image"] as unknown as Array<string>;
+//         console.log("this is productImagesArr:", productImagesArr);
+//         for (let i = 0; i < productImagesArr.length; i++) {
+//             setImages((prevState) => [
+//                 ...prevState,
+//                 {
+//                     original: `${DEVELOP_IMAGE_URL}/${productImagesArr[i]}`,
+//                     thumbnail: `${DEVELOP_IMAGE_URL}/${productImagesArr[i]}`,
+//                 },
+//             ]);
+//             console.log("this is images:", productImagesArr[i]);
+//         }
+//     };
+//     getPostImages();
+// }, [productDetail]);
+    
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const [isEdit, setIsEdit] = useState(false);
     if (isAdmin === true) {
@@ -235,30 +261,31 @@ export function ProductDetail(
                     </div>
                     <div className={"right-information-box"}>
                         <div className="product-subtitle product-title-box">
-                            <h2 className="product-key">PAIRS SKATING</h2>
+                            <h2 className="product-key">{productDetail.name}</h2>
                         </div>
                         <div className="product-subtitle product-cost-box">
-                            <h6 className="product-key">$0.00</h6>
+                            <h6 className="product-key">${productDetail.unit_price}</h6>
                         </div>
                         <div className="product-subtitle product-availability-box">
                             <span className="product-availability">
                                 <h2 className="product-key">Availability</h2>
-                                <div className="product-value product-availability">Many</div>
+                                <div className="product-value product-availability">{productDetail.quantity}</div>
                             </span>
                         </div>
                         <div className="product-subtitle product-introduction-box">
                             <span className="product-introduction">
                                 <h2 className="product-key">Product</h2>
-                                <div className="product-value product-introduction">demo</div>
+                                <div className="product-value product-introduction">{productDetail.description}</div>
                             </span>
                         </div>
                         <Divider orientation='horizontal' />
                         <div className="product-subtitle product-size-box">
                             <span className="product-size">
                                 <h2 className="product-key product-size-key">Size</h2>
-                                <Button colorScheme='teal' className="product-value product-sizes">7.0</Button>
-                                <Button colorScheme='teal' className="product-value product-sizes">7.3</Button>
-                                <Button colorScheme='teal' className="product-value product-sizes">7.5</Button>
+
+                        {sizes.map((size) => (
+                            <Button colorScheme='teal' className="product-value product-sizes">{size}</Button>
+                        ))}
                             </span>
                         </div>
                         
@@ -274,5 +301,6 @@ export function ProductDetail(
         </>
     );
 }
+
 
 export default ProductDetail;

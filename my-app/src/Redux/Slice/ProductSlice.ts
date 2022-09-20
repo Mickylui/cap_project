@@ -1,43 +1,57 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import produce from "immer";
-import { getProductFetch } from "../../Api/productFetch";
+import { getProductFetch, getProductDetailByProductIdFetch } from "../../Api/productFetch";
 
 export interface ProductState {
-    id: number;
-    image: string;
-    size: number;
-    name: string;
-    description: string;
-    unit_price: number;
-    quantity: number;
+    id: number | null;
+    image: string | null;
+    size: number[];
+    name: string | null;
+    description: string | null;
+    unit_price: number | null;
+    quantity: number | null;
+    product_likes: number | null;
 }
 
-export interface IProductState {
+export interface IProductListState {
     list: ProductState[];
     currentSelect: number;
     status: string;
     error: string;
+    productDetail: ProductState;
+}
+
+const ProductStateInitialState = {
+    id: null,
+    image: null,
+    size: [],
+    name: null,
+    description: null,
+    unit_price: null,
+    quantity: null,
+    product_likes: null,
 }
 
 export type Error = {
     error: string;
 };
 
-let ProductInitialState: IProductState;
+let ProductListInitialState: IProductListState;
 
-ProductInitialState = {
+ProductListInitialState = {
     list: [],
     currentSelect: 1,
     status: "",
     error: "",
+    productDetail: ProductStateInitialState,
 };
 
 const productSlice = createSlice({
     name: "@Products",
-    initialState: ProductInitialState,
+    initialState: ProductListInitialState,
     reducers: {
-        addProduct(state, action: PayloadAction<IProductState>) {
+        addProduct(state, action: PayloadAction<IProductListState>) {
             // state.list.push(action.payload)
         },
         selectProduct(state, action: PayloadAction<number>) {
@@ -57,7 +71,7 @@ const productSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(getProductFetch.pending, (state) => {
-                const nextState = produce(ProductInitialState, (draft) => {
+                const nextState = produce(ProductListInitialState, (draft) => {
                     draft.status = "loading";
                 });
                 state = nextState;
@@ -65,7 +79,7 @@ const productSlice = createSlice({
             })
             .addCase(getProductFetch.fulfilled, (state, action) => {
                 const products = action.payload.body;
-                const nextState = produce(ProductInitialState, (draft) => {
+                const nextState = produce(ProductListInitialState, (draft) => {
                     draft.status = "succeeded";
                     draft.list = products;
                 });
@@ -75,9 +89,34 @@ const productSlice = createSlice({
             })
             .addCase(getProductFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
+            })
+            .addCase(getProductDetailByProductIdFetch.pending, (state) => {
+                const nextState = produce(ProductListInitialState, (draft) => {
+                    draft.status = "loading";
+                });
+                state = nextState;
+                return state;
+            })
+            .addCase(getProductDetailByProductIdFetch.fulfilled, (state, action) => {
+                const productItems = action.payload.body;
+                const nextState = produce(ProductListInitialState, (draft) => {
+                    draft.status = "succeeded";
+                    draft.productDetail = productItems;
+                });
+                state = nextState;
+
+                return state;
+            })
+            .addCase(getProductDetailByProductIdFetch.rejected, (state, action) => {
+                console.log(action.payload?.error);
             });
     },
 });
 
-export const { addProduct, selectProduct } = productSlice.actions;
+export const { 
+    addProduct, 
+    selectProduct, 
+    updateProduct, 
+    updateProductDesc 
+} = productSlice.actions;
 export default productSlice.reducer;

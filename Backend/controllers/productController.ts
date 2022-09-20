@@ -13,6 +13,19 @@ export class ProductController {
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
+    
+    productDetailByProductId = async (req: Request, res: Response) => {
+        try {
+            const productId = req.query.productId as string;
+            console.log("productId:",productId)
+            const getProductDetailByProductIdData = await this.productService.productDetailByProductId(productId);
+
+            res.status(200).json({ success: true, body: getProductDetailByProductIdData });
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+    };
     addProduct = async (req: any, res: Response) => {
         try {
             console.log("this is addProduct:", req.form)

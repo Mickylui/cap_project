@@ -22,3 +22,16 @@ export const getProductFetch = createAsyncThunk<ICarriage, any, { rejectValue: E
         }
     }
 );
+
+export const getProductDetailByProductIdFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
+    "@products/getProductDetailByProductIdFetch",
+    async (productId, thunkAPI) => {
+        try {
+            const res = await fetch(`${DEVELOP_HOST}/products/getProductDetailByProductIdFetch?productId=${productId}`);
+            const products = await res.json();
+            return products;
+        } catch {
+            return thunkAPI.rejectWithValue({ error: "Cannot get PRODUCTS." } as Error);
+        }
+    }
+);

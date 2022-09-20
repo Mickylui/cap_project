@@ -11,9 +11,9 @@ export function Products() {
     const dispatch: AppDispatch = useDispatch();
     const productList = useSelector((state: RootState) => state.product.list);
     
-    const selectedProduct = (id: number) => {
-        dispatch(selectProduct(id))
-    }
+    // const selectedProduct = (id: number) => {
+    //     dispatch(selectProduct(id))
+    // }
     useEffect(() => {
         dispatch(getProductFetch({}));
     }, []);
@@ -44,7 +44,7 @@ export function Products() {
                 >
                     {/* <Image src={product.imageUrl} alt={product.imageAlt} width={"100%"}/> */}
                     
-                    <Box onClick={()=> selectProduct(product.id)}
+                    <Box 
                         p="6"
                         display={"flex"}
                         justifyContent={"center"}

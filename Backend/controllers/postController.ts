@@ -6,7 +6,9 @@ export class PostController {
     constructor(private postService: PostService) {}
     getPosts = async (req: Request, res: Response) => {
         try {
-            const allPostData = await this.postService.getAllPost();
+            const userId = req.query.userId as string;
+            console.log("getPosts:", userId);
+            const allPostData = await this.postService.getAllPost(userId);
             res.status(200).json({ success: true, body: allPostData });
         } catch (error) {
             winstonLogger.error(error.toString());
@@ -16,7 +18,11 @@ export class PostController {
     postDetailByPostId = async (req: Request, res: Response) => {
         try {
             const postId = req.query.postId as string;
-            const getPostDetailByPostIdData = await this.postService.postDetailByPostId(postId);
+            const userId = req.query.userId as string;
+            const getPostDetailByPostIdData = await this.postService.postDetailByPostId(
+                postId,
+                userId
+            );
 
             res.status(200).json({ success: true, body: getPostDetailByPostIdData });
         } catch (error) {
@@ -27,8 +33,9 @@ export class PostController {
     getSearchTagPost = async (req: Request, res: Response) => {
         try {
             const tag = req.query.tag as string;
+            const userId = req.query.userId as string;
             console.log("getSearchTagPost!", tag);
-            const allPostData = await this.postService.getSearchTagPost(tag);
+            const allPostData = await this.postService.getSearchTagPost(tag, userId);
             res.status(200).json({ success: true, body: allPostData });
         } catch (error) {
             winstonLogger.error(error.toString());
