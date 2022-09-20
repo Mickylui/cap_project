@@ -116,41 +116,78 @@ function SocialPlatform() {
                     {adminPostList.map((postItem) => (
                         <div key={`postItem_${postItem.id}`}>
                             <Box maxW="sm" borderRadius="lg" overflow="hidden">
-                                <RouteLink to={`postDetail/${postItem.id}`}>
-                                    <Image
-                                        src={`${DEVELOP_IMAGE_URL}/${postItem.image[0]}`}
-                                        alt={""}
-                                        border="1px"
-                                        borderRadius="lg"
-                                    />
-                                </RouteLink>
-                                <Box p="6">
-                                    <Box
-                                        mt="1"
-                                        fontWeight="semibold"
-                                        as="h4"
-                                        lineHeight="tight"
-                                        noOfLines={1}
-                                    >
-                                        {postItem.title}
-                                    </Box>
-                                </Box>
-                                <Tag size="lg" colorScheme="none" borderRadius="full">
-                                    <Avatar
-                                        src="https://bit.ly/sage-adebayo"
-                                        size="md"
-                                        name="Segun Adebayo"
-                                        ml={-1}
-                                        mr={2}
-                                    />
-                                    <TagLabel>{postItem.account_name}</TagLabel>{" "}
-                                    <FaHeart color="red" /> {postItem.count}
-                                </Tag>
-                                <RouteLink to="reportPost">
-                                    <Button>
-                                        <WarningTwoIcon />
-                                    </Button>
-                                </RouteLink>
+                                {postItem.image[0] !== null ? (
+                                    <>
+                                        {" "}
+                                        <RouteLink to={`postDetail/${postItem.id}`}>
+                                            <Image
+                                                src={`${DEVELOP_IMAGE_URL}/${postItem.image[0]}`}
+                                                alt={""}
+                                                border="1px"
+                                                borderRadius="lg"
+                                            />
+                                        </RouteLink>
+                                        <Box p="6">
+                                            <Box
+                                                mt="1"
+                                                fontWeight="semibold"
+                                                as="h4"
+                                                lineHeight="tight"
+                                                noOfLines={1}
+                                            >
+                                                {postItem.title}
+                                            </Box>
+                                        </Box>
+                                        <Tag size="lg" colorScheme="none" borderRadius="full">
+                                            <Avatar
+                                                src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}
+                                                size="md"
+                                                name={`${postItem.account_name}`}
+                                                ml={-1}
+                                                mr={2}
+                                            />
+                                            <TagLabel>{postItem.account_name}</TagLabel>{" "}
+                                            <FaHeart color="red" /> {postItem.count}
+                                        </Tag>
+                                        <RouteLink to="reportPost">
+                                            <Button>
+                                                <WarningTwoIcon />
+                                            </Button>
+                                        </RouteLink>
+                                    </>
+                                ) : (
+                                    <>
+                                        <RouteLink to={`postDetail/${postItem.id}`}>
+                                            <Box p="6">
+                                                <Box
+                                                    mt="1"
+                                                    fontWeight="semibold"
+                                                    as="h4"
+                                                    lineHeight="tight"
+                                                    noOfLines={1}
+                                                >
+                                                    {postItem.title}
+                                                </Box>
+                                            </Box>
+                                        </RouteLink>
+                                        <Tag size="lg" colorScheme="none" borderRadius="full">
+                                            <Avatar
+                                                src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}
+                                                size="md"
+                                                name={`${postItem.account_name}`}
+                                                ml={-1}
+                                                mr={2}
+                                            />
+                                            <TagLabel>{postItem.account_name}</TagLabel>{" "}
+                                            <FaHeart color="red" /> {postItem.count}
+                                        </Tag>
+                                        <RouteLink to="reportPost">
+                                            <Button>
+                                                <WarningTwoIcon />
+                                            </Button>
+                                        </RouteLink>
+                                    </>
+                                )}
                             </Box>
                         </div>
                     ))}
@@ -184,9 +221,9 @@ function SocialPlatform() {
                                 </Box>
                                 <Tag size="lg" colorScheme="none" borderRadius="full">
                                     <Avatar
-                                        src="https://bit.ly/sage-adebayo"
+                                        src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}
                                         size="md"
-                                        name="Segun Adebayo"
+                                        name={`${postItem.account_name}`}
                                         ml={-1}
                                         mr={2}
                                     />

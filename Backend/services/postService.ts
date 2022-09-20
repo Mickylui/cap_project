@@ -20,6 +20,7 @@ export class PostService {
                 posts.is_event,
                 posts.display_push,
                 users.account_name,
+                user_info.icon,
                 json_agg(DISTINCT post_images.image) image,
                 json_agg(DISTINCT tags.tag) tag,
                 COUNT(post_likes.id)
@@ -63,6 +64,7 @@ export class PostService {
                     posts.is_event,
                     posts.display_push,
                     users.account_name,
+                    user_info.icon,
                     json_agg(DISTINCT post_images.image) image,
                     json_agg(DISTINCT tmp.tag) tag,
                     COUNT(post_likes.id)
@@ -335,6 +337,7 @@ export class PostService {
                 posts.is_event,
                 posts.display_push,
                 users.account_name,
+                user_info.icon,
                 json_agg(DISTINCT post_images.image) image,
                 json_agg(DISTINCT tags.tag) tag,
                 COUNT(post_likes.id)

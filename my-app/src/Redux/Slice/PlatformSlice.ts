@@ -24,6 +24,7 @@ export interface PostState {
     tag: string[];
     title: string | null;
     updated_at: string;
+    icon: string | null;
 }
 
 // export interface PostView {
@@ -77,6 +78,7 @@ const PostStateInitialState = {
     tag: [],
     title: null,
     updated_at: "",
+    icon: null,
 };
 
 PlatformInitialState = {
