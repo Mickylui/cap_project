@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { Input, Button, Box, Image, flexbox, VStack } from "@chakra-ui/react";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductFetch } from "../../Api/productFetch";
+import { getProductFetch } from "../../Api/ProductFetch";
+import ScrollToTopButton from "../../Components/ScrollToTopButton";
 
 export function Products() {
     //auto slider
@@ -40,18 +41,14 @@ export function Products() {
     // ];
     const dispatch: AppDispatch = useDispatch();
     const productList = useSelector((state: RootState) => state.product.list);
-    console.log(productList);
 
     async function getProduct() {
+        // @ts-ignore
         const getProductResponse = await dispatch(getProductFetch());
         console.log("this is getProductResponse:", getProductResponse);
         return;
     }
-    // async function handleSearch(e) {
-    //     const form = e.target;
-    //     console.log("this is form:", form);
-    //     return;
-    // }
+    
     useEffect(() => {
         // console.log("state:", store.getState());
         getProduct();
@@ -110,6 +107,7 @@ export function Products() {
                     </Box>
                 </Box>
             ))}
+            <ScrollToTopButton />
         </div>
     );
 }

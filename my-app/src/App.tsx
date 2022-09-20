@@ -72,6 +72,7 @@ function App() {
                         <Route path="form" element={<PostForm />} />Í
                     </Route>
                     <Route path="products" element={<Products />} />
+                    {/* <Route path="products/id:" element={<ProductDetail />} /> */}
                     <Route path="productDetail" element={<ProductDetail />} />
                     <Route path="cart" element={<PrivateRoute />}>
                         <Route path="data" element={<ShoppingCart />} />
