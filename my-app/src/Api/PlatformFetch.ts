@@ -48,3 +48,16 @@ export const addPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Erro
         }
     }
 );
+
+export const getPostDetailByPostIdFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
+    "@posts/getPostDetailByPostIdFetch",
+    async (postId, thunkAPI) => {
+        try {
+            const res = await fetch(`${DEVELOP_HOST}/posts/getPostDetailByPostIdFetch?postId=${postId}`);
+            const posts = await res.json();
+            return posts;
+        } catch {
+            return thunkAPI.rejectWithValue({ error: "Cannot get POSTS." } as Error);
+        }
+    }
+);

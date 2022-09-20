@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Input, Button, Box, Image, flexbox, VStack } from "@chakra-ui/react";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { Link as RouteLink } from "react-router-dom";
 import { getProductFetch } from "../../Api/productFetch";
 import ScrollToTopButton from "../../Components/ScrollToTopButton";
+import {Link as RouteLink} from "react-router-dom";
 
 export function Products() {
     

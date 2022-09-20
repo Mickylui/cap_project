@@ -101,6 +101,9 @@ function App() {
                     <Route path="table" element={<Table />} />
                     <Route path="upload" element={<ImageUpload />} />
                     <Route path="tags" element={<InsertTags />} />
+
+
+
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />

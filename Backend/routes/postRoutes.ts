@@ -8,3 +8,4 @@ export const postRoutes = express.Router();
 postRoutes.get("/",middlewareLogger, postController.getPosts);
 postRoutes.post("/addPost", middlewareLogger,formidableMiddleware, postController.addPost);
 postRoutes.get("/getSearchTagPost", middlewareLogger, postController.getSearchTagPost);
+postRoutes.get("/getPostDetailByPostIdFetch", middlewareLogger, postController.postDetailByPostId);

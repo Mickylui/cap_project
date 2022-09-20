@@ -25,7 +25,7 @@ export function UserLoggedInNav() {
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const userData = useSelector((state: RootState) => state.account.combineUserData);
     const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
-    console.log("combineUserData:", userData[0]);
+    // console.log("combineUserData:", userData[0]);
     const dispatch = useDispatch();
 
     function logOut() {

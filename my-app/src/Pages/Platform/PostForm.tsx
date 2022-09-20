@@ -26,7 +26,7 @@ function PostForm() {
     // need to get user default contact!!
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
-    console.log("this is combineUserData:", combineUserData);
+    // console.log("this is combineUserData:", combineUserData);
     const [isEvent, setIsEvent] = useState(false);
     const [isDefaultContact, setIsDefaultContact] = useState(true);
     console.log("is Event:", isEvent);

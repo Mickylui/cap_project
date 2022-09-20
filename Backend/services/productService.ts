@@ -19,7 +19,7 @@ export class ProductService {
         console.log("allProduct:", allProduct);
         return allProduct;
     }
-    
+
     async addProduct() {}
 
     // async deleteProduct(id:number) {
@@ -38,5 +38,3 @@ export class ProductService {
         // .returning("id")
     }
 }
-
-

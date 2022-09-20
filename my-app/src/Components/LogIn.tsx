@@ -31,7 +31,7 @@ export default function LogInCard() {
     const hasLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
-    console.log("login:",combineUserData)
+    // console.log("login:",combineUserData)
 
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
