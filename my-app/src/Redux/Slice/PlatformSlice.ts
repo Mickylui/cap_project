@@ -17,11 +17,11 @@ export interface PostState {
     event_date: string | null;
     event_location: string | null;
     event_time: string | null;
-    id: number;
-    image: [];
-    is_event: boolean;
-    is_ordinary: boolean;
-    tag: [];
+    id: number | null;
+    image: string[];
+    is_event: boolean | null;
+    is_ordinary: boolean | null;
+    tag: string[];
     title: string | null;
     updated_at: string;
 }
@@ -36,6 +36,7 @@ export interface IPlatformState {
     currentSelect: number;
     status: string;
     error: string;
+    postDetail: PostState;
 }
 
 // type NewPostState = {
@@ -59,11 +60,31 @@ export type Error = {
 
 let PlatformInitialState: IPlatformState;
 
+const PostStateInitialState = {
+    account_name: "",
+    contact: null,
+    count: "",
+    created_at: "",
+    description: null,
+    display_push: "",
+    event_date: null,
+    event_location: null,
+    event_time: null,
+    id: null,
+    image: [],
+    is_event: null,
+    is_ordinary: null,
+    tag: [],
+    title: null,
+    updated_at: "",
+};
+
 PlatformInitialState = {
     list: [],
     currentSelect: 1,
     status: "",
     error: "",
+    postDetail: PostStateInitialState,
 };
 
 const platformSlice = createSlice({
@@ -130,7 +151,7 @@ const platformSlice = createSlice({
                 const postItems = action.payload.body;
                 const nextState = produce(PlatformInitialState, (draft) => {
                     draft.status = "succeeded";
-                    draft.list = postItems;
+                    draft.postDetail = postItems;
                 });
                 state = nextState;
 

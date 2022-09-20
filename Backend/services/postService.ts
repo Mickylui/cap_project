@@ -348,7 +348,7 @@ export class PostService {
             GROUP BY (posts.id, users.account_name)
             ORDER BY posts.display_push DESC;
                         `)
-            ).rows;
+            ).rows[0];
 
             console.log("allPost:", allPost);
             return allPost;
