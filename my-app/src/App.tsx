@@ -39,7 +39,7 @@ function App() {
     const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
     console.log("shoppingData:", shoppingData);
     const dispatch: AppDispatch = useDispatch();
-    
+
     useEffect(() => {
         const GetUserDataJWT = async () => {
             const token = window.localStorage.getItem("token");
@@ -48,7 +48,7 @@ function App() {
                 console.log("isLoggedIn:", isLoggedIn);
             }
         };
-        
+
         GetUserDataJWT();
     }, []);
 
@@ -85,9 +85,8 @@ function App() {
                     </Route>
 
                     {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
-                    <Route path="posts" element={<SocialPlatform />}>
-                        <Route path="postDetail/:postId" element={<PostDetail />} />
-                    </Route>
+                    <Route path="posts" element={<SocialPlatform />} />
+                    <Route path="posts/postDetail/:postId" element={<PostDetail />} />
                     {/* <Route path="postDetail/:postId" element={<PostDetail />} /> */}
 
                     <Route path="posts" element={<PrivateRoute />}>

@@ -131,7 +131,7 @@ ORDER BY posts.display_push DESC;
 WITH tmp AS (
     SELECT *
     FROM tags
-    WHERE tags.tag LIKE '%q%'
+    WHERE tags.tag SIMILAR TO 'b'
 )
 SELECT posts.id,
     posts.title,
@@ -162,7 +162,7 @@ ORDER BY posts.display_push DESC;
 WITH tmp AS (
     SELECT *
     FROM tags
-    WHERE tags.tag LIKE '%q%'
+    WHERE tags.tag SIMILAR TO 'q'
 )
 SELECT posts.id,
     posts.title,
