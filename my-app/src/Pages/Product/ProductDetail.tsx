@@ -8,7 +8,7 @@ import {
     TagCloseButton,
     Tag,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../Components/css/productDetail.scss";
 import { BackButton } from "../../Components/BackButton";
 import { QuantityRange } from "../../Components/QuantityRange";
@@ -20,8 +20,10 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom"
+import { getProductFetch } from "../../Api/productFetch";
 
 export function ProductDetail(
+    // props: {product_id: number}
     // {
     // match: {
     //     params: {id}
@@ -29,10 +31,17 @@ export function ProductDetail(
 // }
 ) {
     //useEffect=>fetch data (state: admin-Updated), isEdited-->Editable, if like --> <Icon as={FcLike} fontSize={{md:"2rem"}}/>
-    const params = useParams();
-    const product_id = 
-    // const dispatch: AppDispatch = useDispatch()
-    // const selectedProduct = useSelector((state: RootState) => state.product.currentSelect);
+    // const params = useParams();
+    // const product_id = 
+    // const {product_id} = props;
+    const dispatch = useDispatch()
+    // const selectedProduct = useSelector((state: RootState) => state.product.list.find(item=> item.id === product_id));
+    const productList = useSelector((state: RootState) => state.product.list);
+    console.log('list', productList)
+
+    // useEffect(() => {
+    //     dispatch(getProductFetch({}));
+    // }, []);
 
     async function getProduct() {
         // @ts-ignore
@@ -40,7 +49,6 @@ export function ProductDetail(
         console.log("this is getProductResponse:", getProductResponse);
         return;
     }
-    console.log('hi')
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const [isEdit, setIsEdit] = useState(false);
     if (isAdmin === true) {
@@ -207,6 +215,7 @@ export function ProductDetail(
                         <div className="backButton-box">
                             <BackButton />
                         </div>
+                        
                         <div className="productImage-box">
                             <img
                                 className="productImage"
@@ -252,6 +261,7 @@ export function ProductDetail(
                                 <Button colorScheme='teal' className="product-value product-sizes">7.5</Button>
                             </span>
                         </div>
+                        
                         <div className="product-subtitle product-quantity-box">
                             <QuantityRange />
                         </div>

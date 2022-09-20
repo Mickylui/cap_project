@@ -5,6 +5,6 @@ import { formidableMiddleware } from "../utils/formidableMiddleware";
 
 export const postRoutes = express.Router();
 
-postRoutes.get("/", postController.getPosts);
-postRoutes.post("/addPost", formidableMiddleware, postController.addPost);
+postRoutes.get("/",middlewareLogger, postController.getPosts);
+postRoutes.post("/addPost", middlewareLogger,formidableMiddleware, postController.addPost);
 postRoutes.get("/getSearchTagPost", middlewareLogger, postController.getSearchTagPost);
