@@ -12,8 +12,8 @@ import { AppDispatch, RootState, store } from "../../Redux/store";
 import { useSelector } from "react-redux";
 
 const suggestedTags = [
-    { id: 1, tag: "a" },
-    { id: 2, tag: "b" },
+    { tag: "a" },
+    { tag: "b" },
 ];
 
 function SocialPlatform() {

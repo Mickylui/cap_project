@@ -48,7 +48,7 @@ export class PostService {
                 WITH tmp AS (
                     SELECT *
                     FROM tags
-                    WHERE tags.tag LIKE '%${tag}%'
+                    WHERE tags.tag SIMILAR TO '${tag}'
                 )
                 SELECT posts.id,
                     posts.title,
