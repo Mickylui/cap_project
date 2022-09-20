@@ -76,7 +76,8 @@ export default function SignUpCard() {
                                 console.log("this is signUpResult:", signUpResult);
                                 if (signUpResult.success === true) {
                                     Swal.fire({
-                                        title: "Sign Up",
+                                        title: "Good Decision, Welcome To Our Family",
+                                        text: "Congratulations! You get 100 points for your registration. Try to get more points by completing your profile.",
                                         showClass: {
                                             popup: "animate__animated animate__fadeInDown",
                                         },

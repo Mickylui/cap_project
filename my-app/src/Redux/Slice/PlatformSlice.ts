@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import produce from "immer";
-import { getPostFetch } from "../../Api/PlatformFetch";
+import { getPostFetch, getSearchTagPostFetch } from "../../Api/platformFetch";
 
 export interface PostState {
     // map(arg0: (postItem: any) => void): import("react").ReactNode;
@@ -87,6 +87,26 @@ const platformSlice = createSlice({
                 return state;
             })
             .addCase(getPostFetch.rejected, (state, action) => {
+                console.log(action.payload?.error);
+            })
+            .addCase(getSearchTagPostFetch.pending, (state) => {
+                const nextState = produce(PlatformInitialState, (draft) => {
+                    draft.status = "loading";
+                });
+                state = nextState;
+                return state;
+            })
+            .addCase(getSearchTagPostFetch.fulfilled, (state, action) => {
+                const postItems = action.payload.body;
+                const nextState = produce(PlatformInitialState, (draft) => {
+                    draft.status = "succeeded";
+                    draft.list = postItems;
+                });
+                state = nextState;
+
+                return state;
+            })
+            .addCase(getSearchTagPostFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             });
     },

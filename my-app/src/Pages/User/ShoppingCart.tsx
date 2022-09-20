@@ -41,7 +41,7 @@ function ShoppingCart() {
     ];
     return (
         <div>
-            {usePoint? <PayWithPoints usePoint={usePoint}/>:(<Grid
+            {usePoint? <PayWithPoints usePoint={usePoint} backToCart={() => setUsePoint(false)}/>:(<Grid
                 templateAreas={`"header header"
                   "nav main"
                   "nav footer"`}

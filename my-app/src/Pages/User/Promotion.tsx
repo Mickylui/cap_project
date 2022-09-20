@@ -1,15 +1,18 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
 import SocialPlatform from "../Platform/SocialPlatform";
+import PromoSlider from "./PromoSlider";
 
 function Promotion() {
     return (
         <div>
-            <Box p='2rem' fontSize='2rem' mt='2rem' fontWeight='bold'>
+            <Box m='2rem' >
+            <Box p='2rem' fontSize='2rem' fontWeight='bold'>
                 Here are some posts you may be interested           
             </Box>
 
-            <SocialPlatform />
+            <PromoSlider />
+            </Box>
         </div>
     );
 }

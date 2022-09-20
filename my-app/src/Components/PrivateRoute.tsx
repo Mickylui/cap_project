@@ -8,6 +8,10 @@ function PrivateRoute() {
 
   console.log("this is isL: ",isLoggedIn)
 
+  if (isLoggedIn === null) {
+    return null
+  }
+
   if (!isLoggedIn) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }

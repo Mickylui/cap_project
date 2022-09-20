@@ -14,7 +14,12 @@ import { BackButton } from "../../Components/BackButton";
 import { Link as RouteLink } from "react-router-dom";
 import CartList from "./CartList";
 
-function PayWithPoints(props) {
+interface Props {
+    usePoint: boolean;
+    backToCart: () => void;
+}
+
+function PayWithPoints(props: Props) {
     return (
         <div>
             <Flex
@@ -23,7 +28,7 @@ function PayWithPoints(props) {
                 justify={"center"}
                 bg={useColorModeValue("gray.50", "gray.800")}
             >
-                <BackButton />
+                <BackButton back={props.backToCart}/>
                 <Box
                     maxW="80vw"
                     borderWidth="1px"

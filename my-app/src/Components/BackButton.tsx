@@ -3,12 +3,16 @@ import { Button } from "@chakra-ui/react";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router-dom";
 
-export function BackButton() {
+interface Props {
+    back ?: () => void
+}
+
+export function BackButton({back}:Props) {
     const navigate = useNavigate();
     const location = useLocation();
     console.log("this is location:", location)
     return (
-        <Button onClick={()=>navigate(-1)}>
+        <Button onClick={()=> back ? back() : navigate(-1)}>
             <ArrowBackIcon />
         </Button>
     );

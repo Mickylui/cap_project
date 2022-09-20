@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { FormEvent, useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon, ArrowBackIcon } from "@chakra-ui/icons";
-import { LogInFetch } from "../Api/AccountFetch";
+import { LogInFetch } from "../Api/accountFetch";
 import { useSelector, useDispatch } from "react-redux";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../Redux/store";
@@ -28,8 +28,10 @@ export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
 
     const status = useSelector((state: RootState) => state.account.status);
-    const hasLoggedIn = useSelector((state: RootState) => state.account.hasLoggedIn);
+    const hasLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
+    const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
+    console.log("login:",combineUserData)
 
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();

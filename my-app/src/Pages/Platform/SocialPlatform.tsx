@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { WarningTwoIcon } from "@chakra-ui/icons";
 import ScrollToTopButton from "../../Components/ScrollToTopButton";
 import { useDispatch } from "react-redux";
-import { getPostFetch } from "../../Api/PlatformFetch";
+import { getPostFetch, getSearchTagPostFetch } from "../../Api/platformFetch";
 import { AppDispatch, RootState, store } from "../../Redux/store";
 import { useSelector } from "react-redux";
 
@@ -21,7 +21,9 @@ function SocialPlatform() {
     const postList = useSelector((state: RootState) => state.platform.list);
     const [searchTag, setSearchTag] = useState("");
     const [searchContent, setSearchContent] = useState("");
+    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
     console.log("postList:", postList);
+    console.log("searchTag:", searchTag);
 
     // Search Tags: if searchTag.length > 0 -> fetch this tag and replace state.platform.list;
     // Search Content: form submit -> fetch this content and replace state.platform.list;
@@ -41,6 +43,15 @@ function SocialPlatform() {
         getPost();
     }, []);
 
+    useEffect(() => {
+        const fetchSearchTag = async () => {
+            await dispatch(getSearchTagPostFetch(searchTag));
+        };
+        if (searchTag !== "") {
+            fetchSearchTag();
+        }
+    }, [searchTag]);
+
     return (
         // postList.is_ordinary === true -> admin post
         <div>
@@ -56,7 +67,7 @@ function SocialPlatform() {
                     onSubmit={(e) => {
                         e.preventDefault();
                         const form = e.target;
-                        console.log("form:",form.searchContent.value)
+                        console.log("form:", form.searchContent.value);
                     }}
                 >
                     <Input
@@ -97,14 +108,14 @@ function SocialPlatform() {
                 {postList.map((postItem) => (
                     <div key={`postItem_${postItem.id}`}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
-                            {/* <RouteLink to="postDetail">
+                            <RouteLink to={`postDetail/${postItem.id}`}>
                                 <Image
-                                    src={postItem.imageUrl}
-                                    alt={postItem.imageAlt}
+                                    src={`${DEVELOP_IMAGE_URL}/${postItem.image[0]}`}
+                                    alt={""}
                                     border="1px"
                                     borderRadius="lg"
                                 />
-                            </RouteLink> */}
+                            </RouteLink>
                             <Box p="6">
                                 <Box
                                     mt="1"
@@ -115,8 +126,6 @@ function SocialPlatform() {
                                 >
                                     {postItem.title}
                                 </Box>
-
-                                <Box>{postItem.description}</Box>
                             </Box>
                             <Tag size="lg" colorScheme="none" borderRadius="full">
                                 <Avatar
@@ -127,7 +136,7 @@ function SocialPlatform() {
                                     mr={2}
                                 />
                                 <TagLabel>{postItem.account_name}</TagLabel> <FaHeart color="red" />{" "}
-                                {postItem.contact}
+                                {postItem.count}
                             </Tag>
                             <RouteLink to="reportPost">
                                 <Button>

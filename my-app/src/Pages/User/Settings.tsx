@@ -1,5 +1,5 @@
 import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
-import { Box, FormControl, FormLabel, Input, HStack, Flex, IconButton } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, HStack, Flex, IconButton, Radio, RadioGroup } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FileUpload } from "../../Components/FileUpload";
 function Settings() {
@@ -19,6 +19,13 @@ function Settings() {
     const [isEditable, setEditable] = useState(false);
     console.log("isEditable:", isEditable);
     const [userName, setUsername] = useState("");
+    const [inputRoom, setRoom] = useState("");
+    const [inputBuilding, setBuilding] = useState("");
+
+    const handleInputChangeRoom = (e: { target: { value: React.SetStateAction<string> } }) =>
+        setRoom(e.target.value);
+    const handleInputChangeBuilding = (e: { target: { value: React.SetStateAction<string> } }) =>
+        setBuilding(e.target.value);
 
     if (isEditable) {
         return (
@@ -72,8 +79,27 @@ function Settings() {
                     </FormControl>
                     <FormControl>
                         <HStack spacing="2rem">
-                            <FormLabel>Address</FormLabel>
-                            <Input type="string" placeholder={userProfile.address} />
+                            {/* <FormLabel>Address</FormLabel>
+                            <Input type="string" placeholder={userProfile.address} /> */}
+                                     <FormControl id="room">
+                            <FormLabel>Address:</FormLabel>
+                            <FormLabel>Room/ Flat</FormLabel>
+                            <Input type="text" value={inputRoom} onChange={handleInputChangeRoom} />
+                        </FormControl>
+                        <FormControl id="building">
+                            <FormLabel>Building</FormLabel>
+                            <Input type="text" value={inputBuilding} onChange={handleInputChangeBuilding} />
+                        </FormControl>
+                        <FormControl id="district">
+                            <FormLabel as="legend">District</FormLabel>
+                            <RadioGroup defaultValue="Hong Kong">
+                                <HStack spacing="24px">
+                                    <Radio value="hongKong">Hong Kong</Radio>
+                                    <Radio value="kowloon">Kowloon</Radio>
+                                    <Radio value="newTerritories">New Territories</Radio>
+                                </HStack>
+                            </RadioGroup>
+                        </FormControl>
                         </HStack>
                     </FormControl>
                     <FormControl>

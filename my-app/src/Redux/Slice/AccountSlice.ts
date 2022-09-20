@@ -1,10 +1,10 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import produce from "immer";
-import { getUserDataJWTFetch, LogInFetch } from "../../Api/AccountFetch";
+import { getUserDataJWTFetch, LogInFetch } from "../../Api/accountFetch";
 
 export interface IAccountState {
-    isLoggedIn: boolean;
+    isLoggedIn: boolean | null;
     isAdmin: boolean;
     status: string;
     combineUserData: Array<object>;
@@ -12,7 +12,7 @@ export interface IAccountState {
     error: undefined | string;
 }
 const AccountInitialState = {
-    isLoggedIn: false,
+    isLoggedIn: null,
     isAdmin: false,
     status: "",
     combineUserData: [],
@@ -103,7 +103,7 @@ const accountSlice = createSlice({
     },
 });
 
-export const { logIn, logOut } = accountSlice.actions;
+export const { logOut } = accountSlice.actions;
 // console.log("this is logIn actions:", logIn)
 
 export default accountSlice.reducer;

@@ -2,12 +2,9 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import {
     Button,
     Divider,
-    HStack,
     Icon,
     IconButton,
-    Input,
     Stack,
-    useNumberInput,
     TagCloseButton,
     Tag,
 } from "@chakra-ui/react";
@@ -20,10 +17,30 @@ import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { GrAddCircle } from "react-icons/gr";
 import { Slideshow } from "../../Components/AutoSlider";
 import { useSelector } from "react-redux";
-import { RootState } from "../../Redux/store";
+import { AppDispatch, RootState } from "../../Redux/store";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom"
 
-export function ProductDetail() {
+export function ProductDetail(
+    // {
+    // match: {
+    //     params: {id}
+    // }
+// }
+) {
     //useEffect=>fetch data (state: admin-Updated), isEdited-->Editable, if like --> <Icon as={FcLike} fontSize={{md:"2rem"}}/>
+    const params = useParams();
+    const product_id = 
+    // const dispatch: AppDispatch = useDispatch()
+    // const selectedProduct = useSelector((state: RootState) => state.product.currentSelect);
+
+    async function getProduct() {
+        // @ts-ignore
+        const getProductResponse = await dispatch(getProductFetch());
+        console.log("this is getProductResponse:", getProductResponse);
+        return;
+    }
+    console.log('hi')
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const [isEdit, setIsEdit] = useState(false);
     if (isAdmin === true) {
@@ -134,6 +151,7 @@ export function ProductDetail() {
                                         <IconButton aria-label={""}>
                                             <GrAddCircle />
                                         </IconButton>
+                                    
                                         <Tag className="product-value product-sizes">
                                             7.0
                                             <TagCloseButton />
@@ -150,6 +168,7 @@ export function ProductDetail() {
                                 ) : (
                                     <span className="product-size">
                                         <h2 className="product-key product-size-key">Size</h2>
+            
                                         <div className="product-value product-sizes">7.0</div>
                                         <div className="product-value product-sizes">7.3</div>
                                         <div className="product-value product-sizes">7.5</div>
@@ -196,6 +215,7 @@ export function ProductDetail() {
                             />
                         </div>
                         <div className="like-box">
+                            
                             <Icon
                                 className="like"
                                 as={FcLikePlaceholder}
@@ -227,9 +247,9 @@ export function ProductDetail() {
                         <div className="product-subtitle product-size-box">
                             <span className="product-size">
                                 <h2 className="product-key product-size-key">Size</h2>
-                                <div className="product-value product-sizes">7.0</div>
-                                <div className="product-value product-sizes">7.3</div>
-                                <div className="product-value product-sizes">7.5</div>
+                                <Button colorScheme='teal' className="product-value product-sizes">7.0</Button>
+                                <Button colorScheme='teal' className="product-value product-sizes">7.3</Button>
+                                <Button colorScheme='teal' className="product-value product-sizes">7.5</Button>
                             </span>
                         </div>
                         <div className="product-subtitle product-quantity-box">
