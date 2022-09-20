@@ -22,4 +22,15 @@ export class ProductController {
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
+    // deleteProduct = async (req: any, res: Response) => {
+    //     try {
+    //         const id = req.params.id;
+    //         await this.productService.deleteProduct(id)
+    //     } catch (error) {
+    //         winstonLogger.error(error.toString());
+    //         res.status(500).json({ success: false, message: "Internal Server Error" });
+    //     }
+    // };
+
+
 }

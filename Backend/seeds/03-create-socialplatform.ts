@@ -32,8 +32,12 @@ export async function seed(knex: Knex): Promise<void> {
         {tag:"lesson information"},
         {tag:"product promotion"},
         {tag:"skateboard design"},
-        {tag:"art related workshop"},{tag:"skateboard maintenance"},{tag:"competition"},
-        {tag:"skateboard performance"}
+        {tag:"art related workshop"},
+        {tag:"skateboard maintenance"},
+        {tag:"competition"},
+        {tag:"skateboard performance"},
+        {tag:"question"},
+        {tag:"sharing"}
     ])
     
     const tags = (await knex.raw(`SELECT * FROM tags`)).rows

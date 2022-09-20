@@ -19,6 +19,7 @@ import { Slideshow } from "../../Components/AutoSlider";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom"
 
 export function ProductDetail(
     // {
@@ -28,9 +29,10 @@ export function ProductDetail(
 // }
 ) {
     //useEffect=>fetch data (state: admin-Updated), isEdited-->Editable, if like --> <Icon as={FcLike} fontSize={{md:"2rem"}}/>
-    
-    const dispatch: AppDispatch = useDispatch()
-    const selectedProduct = useSelector((state: RootState) => state.product.currentSelect);
+    const params = useParams();
+    const product_id = 
+    // const dispatch: AppDispatch = useDispatch()
+    // const selectedProduct = useSelector((state: RootState) => state.product.currentSelect);
 
     async function getProduct() {
         // @ts-ignore

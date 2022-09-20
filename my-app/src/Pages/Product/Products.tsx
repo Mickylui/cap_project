@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductFetch } from "../../Api/productFetch";
 import ScrollToTopButton from "../../Components/ScrollToTopButton";
+import {Link as RouteLink} from "react-router-dom";
 
 export function Products() {
     //auto slider
@@ -77,6 +78,7 @@ export function Products() {
                     flexWrap={"wrap"}
                 >
                     {/* <Image src={product.imageUrl} alt={product.imageAlt} width={"100%"}/> */}
+                    
                     <Box
                         p="6"
                         display={"flex"}
@@ -84,9 +86,10 @@ export function Products() {
                         flexWrap={"wrap"}
                         width={"100%"}
                     >
+                        <RouteLink to="productDetailPage">
                         <Image 
-                        // src={product.image} ||
-                        src="./SkateBoardLogo.png"
+                        src={product.image} 
+                        // src="./SkateBoardLogo.png"
                         />
                         <Box
                             mt="1"
@@ -104,7 +107,9 @@ export function Products() {
                             <Box fontSize={{ md: "2rem" }}>Description: {product.description}</Box>
                             <Box fontSize={{ md: "2rem" }}>Price: HKD {product.unit_price}</Box>
                         </VStack>
+                        </RouteLink>
                     </Box>
+                    
                 </Box>
             ))}
             <ScrollToTopButton />

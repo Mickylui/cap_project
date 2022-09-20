@@ -9,8 +9,8 @@ export async function up(knex: Knex): Promise<void> {
                 t.string('account_name').unique().notNullable();
                 t.string('email').unique().notNullable();
                 t.string('password').notNullable();
-                t.boolean('is_admin');
-                t.boolean('is_anonymous');
+                t.boolean('is_admin').defaultTo(false);
+                t.boolean('is_anonymous').defaultTo(false);
                 t.timestamp('created_at').defaultTo(knex.fn.now());
                 t.timestamp('updated_at').defaultTo(knex.fn.now());
                 t.timestamp('last_login_at').defaultTo(knex.fn.now());

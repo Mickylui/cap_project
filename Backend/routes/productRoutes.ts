@@ -7,3 +7,4 @@ export const productRoutes = express.Router();
 
 productRoutes.get("/", productController.getProducts);
 productRoutes.post("/addProduct", formidableMiddleware, productController.addProduct);
+// productRoutes.post("/delete", productController.deleteProduct);
