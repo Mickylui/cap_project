@@ -11,12 +11,36 @@ import { getPostFetch, getSearchTagPostFetch } from "../../Api/platformFetch";
 import { AppDispatch, RootState, store } from "../../Redux/store";
 import { useSelector } from "react-redux";
 import { PostState } from "../../Redux/Slice/platformSlice";
+import { FcLikePlaceholder } from "react-icons/fc";
 
-const suggestedTags = [{ tag: "a" }, { tag: "b" }];
+const suggestedTags = [
+    { tag: "practice" },
+    { tag: "gathering" },
+    { tag: "talk" },
+    { tag: "recruitment" },
+    { tag: "lesson-information" },
+    { tag: "product-promotion" },
+    { tag: "skateboard-design" },
+    { tag: "art-related-workshop" },
+    { tag: "skateboard-maintenance" },
+    { tag: "competition" },
+    { tag: "skateboard-performance" },
+    { tag: "question" },
+    { tag: "sharing" },
+];
 
 function SocialPlatform() {
     const dispatch: AppDispatch = useDispatch();
     const postList = useSelector((state: RootState) => state.platform.list);
+    const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
+    let userId: number | string;
+    console.log("combineUserData:", combineUserData);
+    if (combineUserData.length > 0) {
+        userId = combineUserData[0].id as number;
+    } else {
+        userId = 1;
+    }
+
     const [searchTag, setSearchTag] = useState("");
     const [searchContent, setSearchContent] = useState("");
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
@@ -44,19 +68,22 @@ function SocialPlatform() {
     useEffect(() => {
         // console.log("state:", store.getState());
         const getPost = async () => {
-            await dispatch(getPostFetch());
+            // console.log("combineUserData:", combineUserData[0].id);
+            await dispatch(getPostFetch(userId as number));
         };
         getPost();
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [combineUserData]);
 
     useEffect(() => {
         const fetchSearchTag = async () => {
-            await dispatch(getSearchTagPostFetch(searchTag));
+            await dispatch(getSearchTagPostFetch({ tag: searchTag, userId: userId }));
         };
 
         if (searchTag !== "") {
             fetchSearchTag();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTag]);
 
     return (
@@ -147,7 +174,12 @@ function SocialPlatform() {
                                                 mr={2}
                                             />
                                             <TagLabel>{postItem.account_name}</TagLabel>{" "}
-                                            <FaHeart color="red" /> {postItem.count}
+                                            {postItem.is_liked_by_user ? (
+                                                <FaHeart color="red" />
+                                            ) : (
+                                                <FcLikePlaceholder />
+                                            )}
+                                            {postItem.count}
                                         </Tag>
                                         <RouteLink to="reportPost">
                                             <Button>
@@ -179,7 +211,12 @@ function SocialPlatform() {
                                                 mr={2}
                                             />
                                             <TagLabel>{postItem.account_name}</TagLabel>{" "}
-                                            <FaHeart color="red" /> {postItem.count}
+                                            {postItem.is_liked_by_user ? (
+                                                <FaHeart color="red" />
+                                            ) : (
+                                                <FcLikePlaceholder />
+                                            )}
+                                            {postItem.count}
                                         </Tag>
                                         <RouteLink to="reportPost">
                                             <Button>
@@ -228,7 +265,12 @@ function SocialPlatform() {
                                         mr={2}
                                     />
                                     <TagLabel>{postItem.account_name}</TagLabel>{" "}
-                                    <FaHeart color="red" /> {postItem.count}
+                                    {postItem.is_liked_by_user ? (
+                                        <FaHeart color="red" />
+                                    ) : (
+                                        <FcLikePlaceholder />
+                                    )}{" "}
+                                    {postItem.count}
                                 </Tag>
                                 <RouteLink to="reportPost">
                                     <Button>

@@ -68,8 +68,8 @@ export class AccountService {
                     "users.default_contact",
                     "user_info.first_name",
                     "user_info.last_name",
-                    "user_info.icon",
-                    "user_info.slogan",
+                    "users.icon",
+                    "users.slogan",
                     "user_info.area",
                     "user_info.district",
                     "user_info.location",
@@ -101,28 +101,28 @@ export class AccountService {
         try {
             console.log("tokenId:", tokenId);
             const combineUserData = await txn("users")
-            .select(
-                "users.id",
-                "users.account_name",
-                "users.email",
-                "users.is_admin",
-                "users.created_at",
-                "users.updated_at",
-                "users.last_login_at",
-                "users.default_contact",
-                "user_info.first_name",
-                "user_info.last_name",
-                "user_info.icon",
-                "user_info.slogan",
-                "user_info.area",
-                "user_info.district",
-                "user_info.location",
-                "user_info.contact",
-                "user_info.gender",
-                "user_info.age_range",
-                "user_info.reason",
-                "user_info.learning_level"
-            )
+                .select(
+                    "users.id",
+                    "users.account_name",
+                    "users.email",
+                    "users.is_admin",
+                    "users.created_at",
+                    "users.updated_at",
+                    "users.last_login_at",
+                    "users.default_contact",
+                    "user_info.first_name",
+                    "user_info.last_name",
+                    "users.icon",
+                    "users.slogan",
+                    "user_info.area",
+                    "user_info.district",
+                    "user_info.location",
+                    "user_info.contact",
+                    "user_info.gender",
+                    "user_info.age_range",
+                    "user_info.reason",
+                    "user_info.learning_level"
+                )
                 .leftJoin("user_info", "user_info.user_id", "users.id")
                 .where("users.id", tokenId);
             // console.log("combineUserData:", combineUserData);
