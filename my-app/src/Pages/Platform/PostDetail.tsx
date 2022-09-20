@@ -1,14 +1,41 @@
 import { Box, Tag, Avatar, TagLabel, Image, HStack, VStack } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { RootState } from "../../Redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../Redux/store";
+import ImageGallery from "react-image-gallery";
+import "../css/postDetail.css";
+import { getPostDetailByPostIdFetch } from "../../Api/platformFetch";
 
 function PostDetail() {
     const postList = useSelector((state: RootState) => state.platform.list);
-    console.log("this is postList:", postList);
+    const [images, setImages] = useState([]) as Array<Object>;
     // need to dispatch post list by postId
-    // need to do image slider and image viewer
+    const pathName = window.location.pathname;
+    const postId = pathName.split("/")[3];
+    console.log("postId:", postId);
+    const dispatch: AppDispatch = useDispatch();
+
+    useEffect(() => {
+        const getPostDetailByPostId = async () => {
+            await dispatch(getPostDetailByPostIdFetch(postId));
+        };
+        getPostDetailByPostId();
+        const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
+        if (postList.length > 0) {
+            const postImagesArr = postList[0] as unknown as Array<string>;
+            for (let i = 0; i < postImagesArr.length; i++) {
+                setImages({
+                    original: `${DEVELOP_IMAGE_URL}/${postImagesArr[i]}`,
+                    thumbnail: `${DEVELOP_IMAGE_URL}/${postImagesArr[i]}`,
+                });
+            }
+            console.log("this is images:", images);
+        }
+    }, []);
+
+    console.log("this is postList:", postList);
+
     const postItem = {
         imageUrl: "../SkateBoardLogo.png",
         imageAlt: "SkateBoardLogo",
@@ -22,18 +49,41 @@ function PostDetail() {
         numLikes: 190,
     };
 
+    // let images = [];
+    // const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
+    // const imageDataArr = postList[0]["image"];
+    // console.log("imageDataArr:", imageDataArr);
+    // for (let i = 0; i < imageDataArr.length; i++) {
+    //     images.push({
+    //         original: `${DEVELOP_IMAGE_URL}/${imageDataArr[i]}`,
+    //         thumbnail: `${DEVELOP_IMAGE_URL}/${imageDataArr[i]}`,
+    //     });
+    // }
+    // console.log("images:", images);
+
+    // need to seperate the style : isOwner / isAdmin, hasImage / noImage
     return (
         <div>
             {/* box w/ image */}
 
             <Box p="2rem" borderWidth="1px" borderRadius="lg" overflow="hidden" m="4rem">
                 <HStack>
-                    <Image
+                    {/* <Image
                         src={postItem.imageUrl}
                         alt={postItem.imageAlt}
                         border="1px"
                         borderRadius="lg"
-                    />
+                    /> */}
+                    <Box className="image-gallery-box">
+                        {/* <ImageGallery
+                            items={images}
+                            showBullets={true}
+                            showIndex={true}
+                            showThumbnails={false}
+                            lazyLoad={true}
+                            showPlayButton={false}
+                        /> */}
+                    </Box>
                     <Box p="6">
                         <Box mt="1" fontWeight="bold" as="h4" lineHeight="tight" noOfLines={1}>
                             {postItem.title}

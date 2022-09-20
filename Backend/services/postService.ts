@@ -104,14 +104,15 @@ export class PostService {
         }
         console.log("imageFiles:", imageFiles);
         try {
-            const isAdmin = await txn("users")
+            const isAdmin: object = await txn("users")
                 .select("is_admin")
                 .where("id", parseInt(fields.user_id));
+            console.log("isAdmin", isAdmin);
             let databaseTagsArr = [];
             // if field.isEventPost false
             // console.log("isEventPost:", fields.isEventPost);
             if (fields.isEventPost === "false") {
-                if (isAdmin) {
+                if (isAdmin["is_admin"]) {
                     let postId = await txn("posts")
                         .insert({
                             user_id: fields.user_id,
@@ -208,7 +209,7 @@ export class PostService {
                 }
             } else {
                 const time = `${fields.startingTime}-${fields.endingTime}`;
-                if (isAdmin) {
+                if (isAdmin["is_admin"]) {
                     let postId = await txn("posts")
                         .insert({
                             user_id: fields.user_id,
@@ -317,6 +318,44 @@ export class PostService {
             return { success: false };
         }
     }
-    async likePost() {}
+    async postDetailByPostId(postId: string) {
+        try {
+            const allPost = (
+                await this.knex.raw(`
+                SELECT posts.id ,
+                posts.title,
+                posts.event_date,
+                posts.event_time,
+                posts.event_location,
+                posts.description,
+                posts.contact,
+                posts.created_at,
+                posts.updated_at,
+                posts.is_ordinary,
+                posts.is_event,
+                posts.display_push,
+                users.account_name,
+                json_agg(DISTINCT post_images.image) image,
+                json_agg(DISTINCT tags.tag) tag,
+                COUNT(post_likes.id)
+            FROM posts
+                LEFT JOIN users ON users.id = posts.user_id
+                LEFT JOIN post_images ON post_images.post_id = posts.id
+                LEFT JOIN post_tags ON post_tags.post_id = posts.id
+                LEFT JOIN tags ON tags.id = post_tags.tag_id
+                LEFT JOIN post_likes ON post_likes.post_id = posts.id
+            WHERE posts.id = '${postId}'
+            GROUP BY (posts.id, users.account_name)
+            ORDER BY posts.display_push DESC;
+                        `)
+            ).rows;
+
+            console.log("allPost:", allPost);
+            return allPost;
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            return;
+        }
+    }
     async reportPost() {}
 }

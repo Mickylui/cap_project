@@ -81,12 +81,12 @@ export class AccountService {
                 )
                 .leftJoin("user_info", "user_info.user_id", "users.id")
                 .where("users.id", existUserData.id);
-            console.log("combineUserData:", combineUserData);
+            // console.log("combineUserData:", combineUserData);
             const userShoppingDataArr = await txn("shopping_carts")
                 .select("*")
                 .where("shopping_carts.user_id", existUserData.id);
 
-            console.log("userShoppingData:", userShoppingDataArr);
+            // console.log("userShoppingData:", userShoppingDataArr);
 
             await txn.commit();
             return { success: true, body: { token, combineUserData, userShoppingDataArr } };
@@ -125,7 +125,7 @@ export class AccountService {
             )
                 .leftJoin("user_info", "user_info.user_id", "users.id")
                 .where("users.id", tokenId);
-            console.log("combineUserData:", combineUserData);
+            // console.log("combineUserData:", combineUserData);
             const userShoppingDataArr = await txn("shopping_carts")
                 .select("*")
                 .where("shopping_carts.user_id", tokenId);

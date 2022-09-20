@@ -2,7 +2,7 @@ import { Button, Center, HStack, Input, TagCloseButton } from "@chakra-ui/react"
 import { Box, Image, SimpleGrid, Tag, TagLabel, Avatar } from "@chakra-ui/react";
 import { FaHeart, FaPlusCircle } from "react-icons/fa";
 import { Link as RouteLink } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 // import PostForm from "./PostForm";
 import { WarningTwoIcon } from "@chakra-ui/icons";
 import ScrollToTopButton from "../../Components/ScrollToTopButton";
@@ -10,11 +10,9 @@ import { useDispatch } from "react-redux";
 import { getPostFetch, getSearchTagPostFetch } from "../../Api/platformFetch";
 import { AppDispatch, RootState, store } from "../../Redux/store";
 import { useSelector } from "react-redux";
+import { PostState } from "../../Redux/Slice/platformSlice";
 
-const suggestedTags = [
-    { tag: "a" },
-    { tag: "b" },
-];
+const suggestedTags = [{ tag: "a" }, { tag: "b" }];
 
 function SocialPlatform() {
     const dispatch: AppDispatch = useDispatch();
@@ -25,21 +23,29 @@ function SocialPlatform() {
     console.log("postList:", postList);
     console.log("searchTag:", searchTag);
 
-    // Search Tags: if searchTag.length > 0 -> fetch this tag and replace state.platform.list;
     // Search Content: form submit -> fetch this content and replace state.platform.list;
-
-    async function getPost() {
-        const getPostResponse = await dispatch(getPostFetch());
-        console.log("this is getPostResponse:", getPostResponse);
-        return;
-    }
+    // need Infinite scroll!!
     async function handleSearch(e) {
         const form = e.target;
         console.log("this is form:", form);
         return;
     }
+    const adminPostList = useMemo(
+        () => postList.filter((postItem) => postItem.is_ordinary === true),
+        [postList]
+    );
+    const userPostList = useMemo(
+        () => postList.filter((postItem) => postItem.is_ordinary === false),
+        [postList]
+    );
+    // console.log("adminPostList:", adminPostList);
+    // console.log("userPostList:", userPostList);
+
     useEffect(() => {
         // console.log("state:", store.getState());
+        const getPost = async () => {
+            await dispatch(getPostFetch());
+        };
         getPost();
     }, []);
 
@@ -47,6 +53,7 @@ function SocialPlatform() {
         const fetchSearchTag = async () => {
             await dispatch(getSearchTagPostFetch(searchTag));
         };
+
         if (searchTag !== "") {
             fetchSearchTag();
         }
@@ -104,49 +111,101 @@ function SocialPlatform() {
                     </Tag>
                 ))}
             </HStack>
-            <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
-                {postList.map((postItem) => (
-                    <div key={`postItem_${postItem.id}`}>
-                        <Box maxW="sm" borderRadius="lg" overflow="hidden">
-                            <RouteLink to={`postDetail/${postItem.id}`}>
-                                <Image
-                                    src={`${DEVELOP_IMAGE_URL}/${postItem.image[0]}`}
-                                    alt={""}
-                                    border="1px"
-                                    borderRadius="lg"
-                                />
-                            </RouteLink>
-                            <Box p="6">
-                                <Box
-                                    mt="1"
-                                    fontWeight="semibold"
-                                    as="h4"
-                                    lineHeight="tight"
-                                    noOfLines={1}
-                                >
-                                    {postItem.title}
+            {adminPostList.length > 0 ? (
+                <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
+                    {adminPostList.map((postItem) => (
+                        <div key={`postItem_${postItem.id}`}>
+                            <Box maxW="sm" borderRadius="lg" overflow="hidden">
+                                <RouteLink to={`postDetail/${postItem.id}`}>
+                                    <Image
+                                        src={`${DEVELOP_IMAGE_URL}/${postItem.image[0]}`}
+                                        alt={""}
+                                        border="1px"
+                                        borderRadius="lg"
+                                    />
+                                </RouteLink>
+                                <Box p="6">
+                                    <Box
+                                        mt="1"
+                                        fontWeight="semibold"
+                                        as="h4"
+                                        lineHeight="tight"
+                                        noOfLines={1}
+                                    >
+                                        {postItem.title}
+                                    </Box>
                                 </Box>
+                                <Tag size="lg" colorScheme="none" borderRadius="full">
+                                    <Avatar
+                                        src="https://bit.ly/sage-adebayo"
+                                        size="md"
+                                        name="Segun Adebayo"
+                                        ml={-1}
+                                        mr={2}
+                                    />
+                                    <TagLabel>{postItem.account_name}</TagLabel>{" "}
+                                    <FaHeart color="red" /> {postItem.count}
+                                </Tag>
+                                <RouteLink to="reportPost">
+                                    <Button>
+                                        <WarningTwoIcon />
+                                    </Button>
+                                </RouteLink>
                             </Box>
-                            <Tag size="lg" colorScheme="none" borderRadius="full">
-                                <Avatar
-                                    src="https://bit.ly/sage-adebayo"
-                                    size="md"
-                                    name="Segun Adebayo"
-                                    ml={-1}
-                                    mr={2}
-                                />
-                                <TagLabel>{postItem.account_name}</TagLabel> <FaHeart color="red" />{" "}
-                                {postItem.count}
-                            </Tag>
-                            <RouteLink to="reportPost">
-                                <Button>
-                                    <WarningTwoIcon />
-                                </Button>
-                            </RouteLink>
-                        </Box>
-                    </div>
-                ))}
-            </SimpleGrid>
+                        </div>
+                    ))}
+                </SimpleGrid>
+            ) : (
+                <></>
+            )}
+            {userPostList.length > 0 ? (
+                <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
+                    {userPostList.map((postItem) => (
+                        <div key={`postItem_${postItem.id}`}>
+                            <Box maxW="sm" borderRadius="lg" overflow="hidden">
+                                <RouteLink to={`postDetail/${postItem.id}`}>
+                                    <Image
+                                        src={`${DEVELOP_IMAGE_URL}/${postItem.image[0]}`}
+                                        alt={""}
+                                        border="1px"
+                                        borderRadius="lg"
+                                    />
+                                </RouteLink>
+                                <Box p="6">
+                                    <Box
+                                        mt="1"
+                                        fontWeight="semibold"
+                                        as="h4"
+                                        lineHeight="tight"
+                                        noOfLines={1}
+                                    >
+                                        {postItem.title}
+                                    </Box>
+                                </Box>
+                                <Tag size="lg" colorScheme="none" borderRadius="full">
+                                    <Avatar
+                                        src="https://bit.ly/sage-adebayo"
+                                        size="md"
+                                        name="Segun Adebayo"
+                                        ml={-1}
+                                        mr={2}
+                                    />
+                                    <TagLabel>{postItem.account_name}</TagLabel>{" "}
+                                    <FaHeart color="red" /> {postItem.count}
+                                </Tag>
+                                <RouteLink to="reportPost">
+                                    <Button>
+                                        <WarningTwoIcon />
+                                    </Button>
+                                </RouteLink>
+                            </Box>
+                        </div>
+                    ))}
+                </SimpleGrid>
+            ) : (
+                <></>
+            )}
+
             <ScrollToTopButton />
         </div>
     );

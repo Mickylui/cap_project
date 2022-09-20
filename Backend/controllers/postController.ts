@@ -13,6 +13,17 @@ export class PostController {
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
+    postDetailByPostId = async (req: Request, res: Response) => {
+        try {
+            const postId = req.query.postId as string;
+            const getPostDetailByPostIdData = await this.postService.postDetailByPostId(postId);
+
+            res.status(200).json({ success: true, body: getPostDetailByPostIdData });
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+    };
     getSearchTagPost = async (req: Request, res: Response) => {
         try {
             const tag = req.query.tag as string;
