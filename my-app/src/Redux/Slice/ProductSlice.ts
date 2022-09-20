@@ -5,6 +5,8 @@ import { getProductFetch } from "../../Api/ProductFetch";
 
 export interface ProductState {
     id: number;
+    image: string;
+    size: number;
     name: string;
     description: string;
     unit_price: number;
