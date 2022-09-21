@@ -7,53 +7,18 @@ import ScrollToTopButton from "../../Components/ScrollToTopButton";
 import {Link as RouteLink} from "react-router-dom";
 
 export function Products() {
-    //auto slider
-    //fetch data
-    //link the card
-    // const productItem = [
-    //     {
-    //         id:1,
-    //         imageUrl: "./SkateBoardLogo.png",
-    //         imageAlt: "SkateBoardLogo",
-    //         title: "Airwind",
-    //         formattedPrice: "$190",
-    //     },
-    //     {
-    //         id:2,
-    //         imageUrl: "./SkateBoardLogo.png",
-    //         imageAlt: "SkateBoardLogo",
-    //         title: "Airwind",
-    //         formattedPrice: "$190",
-    //     },
-    //     {
-    //         id:3,
-    //         imageUrl: "./SkateBoardLogo.png",
-    //         imageAlt: "SkateBoardLogo",
-    //         title: "Airwind",
-    //         formattedPrice: "$190",
-    //     },
-    //     {
-    //         id:4,
-    //         imageUrl: "./SkateBoardLogo.png",
-    //         imageAlt: "SkateBoardLogo",
-    //         title: "Airwind",
-    //         formattedPrice: "$190",
-    //     },
-    // ];
+    
     const dispatch: AppDispatch = useDispatch();
     const productList = useSelector((state: RootState) => state.product.list);
-
-    async function getProduct() {
-        // @ts-ignore
-        const getProductResponse = await dispatch(getProductFetch());
-        console.log("this is getProductResponse:", getProductResponse);
-        return;
-    }
     
+    // const selectedProduct = (id: number) => {
+    //     dispatch(selectProduct(id))
+    // }
     useEffect(() => {
-        // console.log("state:", store.getState());
-        getProduct();
+        dispatch(getProductFetch({}));
     }, []);
+
+   
 
     return (
         <div
@@ -79,14 +44,14 @@ export function Products() {
                 >
                     {/* <Image src={product.imageUrl} alt={product.imageAlt} width={"100%"}/> */}
                     
-                    <Box
+                    <Box 
                         p="6"
                         display={"flex"}
                         justifyContent={"center"}
                         flexWrap={"wrap"}
                         width={"100%"}
                     >
-                        <RouteLink to="productDetailPage">
+                        <RouteLink to={`productDetail/${product.id}`}>
                         <Image 
                         src={product.image} 
                         // src="./SkateBoardLogo.png"

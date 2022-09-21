@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from "./Redux/store";
 import "./App.css";
 
 import { LogIn, SignUp } from "./Pages/Account";
-import { ProductDetail } from "./Pages/Product/ProductDetail";
+// import { ProductDetail } from "./Pages/Product/ProductDetail";
 import { Products } from "./Pages/Product/Products";
 import LandingPage from "./Pages/LandingPage";
 import SocialPlatform from "./Pages/Platform/SocialPlatform";
@@ -33,6 +33,7 @@ import PostDetail from "./Pages/Platform/PostDetail";
 import Settings from "./Pages/User/Settings";
 import Payment from "./Pages/User/Payment";
 import Promotion from "./Pages/User/Promotion";
+import ProductDetail from "./Pages/Product/ProductDetail";
 import { Scroll } from "./Components/scroll";
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
 
         GetUserDataJWT();
     }, []);
+
 
     return (
         <div className="App">
@@ -74,7 +76,7 @@ function App() {
                     </Route>
                     <Route path="products" element={<Products />} />
                     {/* <Route path="products/id:" element={<ProductDetail />} /> */}
-                    <Route path="productDetail" element={<ProductDetail />} />
+                    <Route path="products/productDetail/:productId" element={<ProductDetail/>} />
                     <Route path="cart" element={<PrivateRoute />}>
                         <Route path="data" element={<ShoppingCart />} />
                         <Route path="payment" element={<Payment />} />

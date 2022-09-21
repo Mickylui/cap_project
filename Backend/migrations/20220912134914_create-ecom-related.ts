@@ -12,6 +12,7 @@ export async function up(knex: Knex): Promise<void> {
                 t.integer('quantity');
                 t.timestamp('created_at').defaultTo(knex.fn.now());
                 t.timestamp('updated_at').defaultTo(knex.fn.now());
+                t.boolean('is_delete').defaultTo(false)
             })
         }
         return;

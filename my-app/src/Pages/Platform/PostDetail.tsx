@@ -14,6 +14,7 @@ function PostDetail() {
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     const [images, setImages] = useState<Array<any>>([]);
     // need to dispatch post list by postId
+
     const pathName = window.location.pathname;
     const postId = pathName.split("/")[3];
     const dispatch: AppDispatch = useDispatch();
