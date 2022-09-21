@@ -15,6 +15,9 @@ export async function up(knex: Knex): Promise<void> {
                 t.timestamp('updated_at').defaultTo(knex.fn.now());
                 t.timestamp('last_login_at').defaultTo(knex.fn.now());
                 t.string('default_contact');
+                t.string('icon');
+                t.text('slogan');
+                t.boolean('is_delete').defaultTo(false)
             })
         }
         return;
@@ -26,8 +29,6 @@ export async function up(knex: Knex): Promise<void> {
                 t.increments('id').primary();
                 t.string('first_name');
                 t.string('last_name');
-                t.string('icon');
-                t.text('slogan');
                 t.string('area');
                 t.string('district');
                 t.string('location');
@@ -40,6 +41,7 @@ export async function up(knex: Knex): Promise<void> {
                 t.timestamp('updated_at').defaultTo(knex.fn.now());
                 t.integer('user_id');
                 t.foreign('user_id').references('users.id').onDelete('CASCADE').onUpdate('CASCADE');
+                t.boolean('is_delete').defaultTo(false)
             })
         }
         return;
@@ -53,6 +55,7 @@ export async function up(knex: Knex): Promise<void> {
                 t.string('in_charge');
                 t.integer('user_id');
                 t.foreign('user_id').references('users.id').onDelete('CASCADE').onUpdate('CASCADE');
+                t.boolean('is_delete').defaultTo(false)
             })
         }
         return;
