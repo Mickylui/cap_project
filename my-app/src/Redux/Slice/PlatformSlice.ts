@@ -25,6 +25,8 @@ export interface PostState {
     title: string | null;
     updated_at: string;
     icon: string | null;
+    is_liked_by_user: boolean | null;
+    user_id: number | null;
 }
 
 // export interface PostView {
@@ -79,6 +81,8 @@ const PostStateInitialState = {
     title: null,
     updated_at: "",
     icon: null,
+    is_liked_by_user: null,
+    user_id: null,
 };
 
 PlatformInitialState = {

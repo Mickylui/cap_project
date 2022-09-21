@@ -12,9 +12,9 @@ interface Error {
 const DEVELOP_HOST = process.env.REACT_APP_API_URL;
 export const getPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@posts/get",
-    async (_, thunkAPI) => {
+    async (userId, thunkAPI) => {
         try {
-            const res = await fetch(`${DEVELOP_HOST}/posts/`);
+            const res = await fetch(`${DEVELOP_HOST}/posts?userId=${userId}`);
             const posts = await res.json();
             return posts;
         } catch {
@@ -24,10 +24,12 @@ export const getPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Erro
 );
 export const getSearchTagPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@posts/getSearchTagPost",
-    async (tag, thunkAPI) => {
-        console.log("getSearchTagPostFetch:",tag)
+    async ({tag,userId} , thunkAPI) => {
+        console.log("getSearchTagPostFetch:", tag);
         try {
-            const res = await fetch(`${DEVELOP_HOST}/posts/getSearchTagPost?tag=${tag}`);
+            const res = await fetch(
+                `${DEVELOP_HOST}/posts/getSearchTagPost?tag=${tag}&userId=${userId}`
+            );
             const posts = await res.json();
             return posts;
         } catch {
@@ -51,9 +53,11 @@ export const addPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Erro
 
 export const getPostDetailByPostIdFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@posts/getPostDetailByPostIdFetch",
-    async (postId, thunkAPI) => {
+    async ({postId,userId}, thunkAPI) => {
         try {
-            const res = await fetch(`${DEVELOP_HOST}/posts/getPostDetailByPostIdFetch?postId=${postId}`);
+            const res = await fetch(
+                `${DEVELOP_HOST}/posts/getPostDetailByPostIdFetch?postId=${postId}&userId=${userId}`
+            );
             const posts = await res.json();
             return posts;
         } catch {
