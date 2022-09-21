@@ -100,6 +100,56 @@ export class PostService {
             return;
         }
     }
+    async contentPost(keyword: string, userId: string) {
+        try {
+            console.log("keyword:", keyword);
+            console.log("userId:", userId);
+            const allPost = (
+                await this.knex.raw(
+                    `
+                    SELECT posts.id,
+                    posts.title,
+                    posts.event_date,
+                    posts.event_time,
+                    posts.event_location,
+                    posts.description,
+                    posts.contact,
+                    posts.created_at,
+                    posts.updated_at,
+                    posts.is_ordinary,
+                    posts.is_event,
+                    posts.display_push,
+                    users.account_name,
+                    json_agg(DISTINCT users.icon) icon,
+                    json_agg(DISTINCT post_images.image) image,
+                    json_agg(DISTINCT tags.tag) tag,
+                    post_likes.like_by_user_id = ? AS is_liked_by_user,
+                    COUNT(post_likes.id)
+                FROM posts
+                    LEFT JOIN users ON users.id = posts.user_id
+                    LEFT JOIN post_images ON post_images.post_id = posts.id
+                    LEFT JOIN post_tags ON post_tags.post_id = posts.id
+                    LEFT JOIN tags ON tags.id = post_tags.tag_id
+                    LEFT JOIN post_likes ON post_likes.post_id = posts.id
+                WHERE posts.description = ?
+                GROUP BY (
+                        posts.id,
+                        users.account_name,
+                        post_likes.like_by_user_id
+                    )
+                ORDER BY posts.display_push DESC;
+                        `,
+                    [userId, keyword]
+                )
+            ).rows;
+
+            console.log("getSearchTagPost:", allPost);
+            return allPost;
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            return;
+        }
+    }
     async addPost(fields: any, files: any) {
         const txn = await this.knex.transaction();
         const tagsArr = fields.tagItems.split(",");

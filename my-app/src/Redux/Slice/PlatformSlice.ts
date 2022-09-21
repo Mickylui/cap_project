@@ -4,6 +4,7 @@ import produce from "immer";
 import {
     getPostDetailByPostIdFetch,
     getPostFetch,
+    getSearchContentPostFetch,
     getSearchTagPostFetch,
 } from "../../Api/platformFetch";
 
@@ -164,6 +165,26 @@ const platformSlice = createSlice({
                 return state;
             })
             .addCase(getPostDetailByPostIdFetch.rejected, (state, action) => {
+                console.log(action.payload?.error);
+            })
+            .addCase(getSearchContentPostFetch.pending, (state) => {
+                const nextState = produce(PlatformInitialState, (draft) => {
+                    draft.status = "loading";
+                });
+                state = nextState;
+                return state;
+            })
+            .addCase(getSearchContentPostFetch.fulfilled, (state, action) => {
+                const postItems = action.payload.body;
+                const nextState = produce(PlatformInitialState, (draft) => {
+                    draft.status = "succeeded";
+                    draft.postDetail = postItems;
+                });
+                state = nextState;
+
+                return state;
+            })
+            .addCase(getSearchContentPostFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             });
     },

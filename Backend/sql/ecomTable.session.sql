@@ -116,4 +116,33 @@ GROUP BY (
         users.account_name,
         post_likes.like_by_user_id
     )
+ORDER BY posts.display_push DESC;
+SELECT posts.id,
+    posts.event_date,
+    posts.event_time,
+    posts.event_location,
+    posts.description,
+    posts.contact,
+    posts.created_at,
+    posts.updated_at,
+    posts.is_ordinary,
+    posts.is_event,
+    posts.display_push,
+    users.account_name,
+    json_agg(DISTINCT users.icon) icon,
+    json_agg(DISTINCT post_images.image) image,
+    json_agg(DISTINCT tags.tag) tag,
+    post_likes.like_by_user_id = '5' AS is_liked_by_user,
+    COUNT(post_likes.id)
+FROM posts
+    LEFT JOIN users ON users.id = posts.user_id
+    LEFT JOIN post_images ON post_images.post_id = posts.id
+    LEFT JOIN post_tags ON post_tags.post_id = posts.id
+    LEFT JOIN tags ON tags.id = post_tags.tag_id
+    LEFT JOIN post_likes ON post_likes.post_id = posts.id
+GROUP BY (
+        posts.id,
+        users.account_name,
+        post_likes.like_by_user_id posts.title,
+    )
 ORDER BY posts.display_push DESC

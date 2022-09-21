@@ -188,7 +188,7 @@ HAVING post.user_id = '28'
     LEFT JOIN post_likes ON post_likes.post_id = posts.id
 GROUP BY (posts.id, users.account_name)
 ORDER BY posts.display_push DESC;
-SELECT posts.id ,
+SELECT posts.id,
     posts.title,
     posts.event_date,
     posts.event_time,
@@ -201,8 +201,10 @@ SELECT posts.id ,
     posts.is_event,
     posts.display_push,
     users.account_name,
+    json_agg(DISTINCT users.icon) icon,
     json_agg(DISTINCT post_images.image) image,
     json_agg(DISTINCT tags.tag) tag,
+    post_likes.like_by_user_id = '1' AS is_liked_by_user,
     COUNT(post_likes.id)
 FROM posts
     LEFT JOIN users ON users.id = posts.user_id
@@ -210,6 +212,10 @@ FROM posts
     LEFT JOIN post_tags ON post_tags.post_id = posts.id
     LEFT JOIN tags ON tags.id = post_tags.tag_id
     LEFT JOIN post_likes ON post_likes.post_id = posts.id
-WHERE posts.id = '130'
-GROUP BY (posts.id, users.account_name)
+WHERE posts.description = '223'
+GROUP BY (
+        posts.id,
+        users.account_name,
+        post_likes.like_by_user_id
+    )
 ORDER BY posts.display_push DESC;

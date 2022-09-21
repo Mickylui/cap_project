@@ -33,6 +33,7 @@ import PostDetail from "./Pages/Platform/PostDetail";
 import Settings from "./Pages/User/Settings";
 import Payment from "./Pages/User/Payment";
 import Promotion from "./Pages/User/Promotion";
+import { Scroll } from "./Components/scroll";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -99,8 +100,7 @@ function App() {
                     <Route path="table" element={<Table />} />
                     <Route path="upload" element={<ImageUpload />} />
                     <Route path="tags" element={<InsertTags />} />
-
-
+                    <Route path="scroll" element={<Scroll />} />
 
                     <Route path="*" element={<NotFound />} />
                 </Routes>

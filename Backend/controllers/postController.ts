@@ -42,6 +42,18 @@ export class PostController {
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
+    searchContentPost = async (req: Request, res: Response) => {
+        try {
+            const keyword = req.query.keyword as string;
+            const userId = req.query.userId as string;
+            console.log("getSearchContentPost!", keyword);
+            const allPostData = await this.postService.contentPost(keyword, userId);
+            res.status(200).json({ success: true, body: allPostData });
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+    };
     addPost = async (req: any, res: Response) => {
         try {
             const form = req.form;
