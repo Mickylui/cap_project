@@ -36,7 +36,14 @@ export async function seed(knex: Knex): Promise<void> {
     ])
     await knex("login_records").insert([
         {user_id:result[4].id},
-        {user_id:result[3].id}
+        {user_id:result[3].id},
+        {user_id:result[5].id},
+        {user_id:result[6].id},
+        {user_id:result[4].id},
+        {user_id:result[7].id},
+        {user_id:result[7].id},
+        {user_id:result[6].id},
+        {user_id:result[5].id}
     ])
 
 };
