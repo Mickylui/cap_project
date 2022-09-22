@@ -21,7 +21,7 @@ function UserPost(props) {
     if (postData.length < 0) {
         return null;
     }
-
+    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
     return (
         // postList.is_ordinary === true -> admin post
         <div>
@@ -29,7 +29,7 @@ function UserPost(props) {
                 {postData.map((postItem) => (
                     <div key={`postItem_${postItem.id}`}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
-                            <RouteLink to={`postDetail?postId=${postItem.id}`}>
+                            <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                 <Image
                                     src={"./skateBoardLogo.png"}
                                     alt={""}
@@ -52,9 +52,9 @@ function UserPost(props) {
                             </Box>
                             <Tag size="lg" colorScheme="none" borderRadius="full">
                                 <Avatar
-                                    src="https://bit.ly/sage-adebayo"
+                                    src={`${DEVELOP_IMAGE_URL}/${postItem.icon}`}
                                     size="md"
-                                    name="Segun Adebayo"
+                                    name={`${postItem.account_name}`}
                                     ml={-1}
                                     mr={2}
                                 />

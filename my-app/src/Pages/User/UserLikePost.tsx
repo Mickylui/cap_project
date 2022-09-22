@@ -19,7 +19,7 @@ function UserLikePost(props) {
     if (likeData.length < 0) {
         return null;
     }
-
+    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
     return (
         // postList.is_ordinary === true -> admin post
         <div>
@@ -27,7 +27,7 @@ function UserLikePost(props) {
                 {likeData.map((postItem) => (
                     <div key={`postItem_${postItem.id}`}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
-                            <RouteLink to={`postDetail?postId=${postItem.id}`}>
+                            <RouteLink to={`/postDetail/${postItem.id}`}>
                                 <Image
                                     src={"./skateBoardLogo.png"}
                                     alt={""}
@@ -50,9 +50,9 @@ function UserLikePost(props) {
                             </Box>
                             <Tag size="lg" colorScheme="none" borderRadius="full">
                                 <Avatar
-                                    src="https://bit.ly/sage-adebayo"
+                                    src={`${DEVELOP_IMAGE_URL}/${postItem.icon}`}
                                     size="md"
-                                    name="Segun Adebayo"
+                                    name={`${postItem.account_name}`}
                                     ml={-1}
                                     mr={2}
                                 />

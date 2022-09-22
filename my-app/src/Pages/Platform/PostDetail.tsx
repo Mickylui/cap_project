@@ -17,7 +17,7 @@ function PostDetail() {
     // need to dispatch post list by postId
 
     const pathName = window.location.pathname;
-    const postId = pathName.split("/")[3];
+    const postId = pathName.split("/")[2];
     const dispatch: AppDispatch = useDispatch();
 
     let userId: number | string;

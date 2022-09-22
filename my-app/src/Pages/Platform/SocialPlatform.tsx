@@ -38,8 +38,9 @@ function SocialPlatform() {
     const dispatch: AppDispatch = useDispatch();
     const postList = useSelector((state: RootState) => state.platform.list);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
+    const [post, setPost] = useState<PostState[]>([]);
     let userId: number | string;
-    // console.log("combineUserData:", combineUserData);
+    console.log("postList:", postList);
     if (combineUserData.length > 0) {
         userId = combineUserData[0].id as number;
     } else {
@@ -47,7 +48,7 @@ function SocialPlatform() {
     }
 
     const [searchTag, setSearchTag] = useState("");
-    const [searchContent, setsearchContent] = useState("");
+    const [searchContent, setSearchContent] = useState("");
 
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
     console.log("postList:", postList);
@@ -66,16 +67,47 @@ function SocialPlatform() {
     );
     // console.log("adminPostList:", adminPostList);
     // console.log("userPostList:", userPostList);
+    const getPost = async () => {
+        // console.log("combineUserData:", combineUserData[0].id);
+        await dispatch(getPostFetch(userId as number));
+    };
 
     useEffect(() => {
         // console.log("state:", store.getState());
-        const getPost = async () => {
-            // console.log("combineUserData:", combineUserData[0].id);
-            await dispatch(getPostFetch(userId as number));
-        };
         getPost();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [combineUserData]);
+
+    // let offset = 0;
+    // const getPost = async () => {
+    //     // console.log("combineUserData:", combineUserData[0].id);
+    //     await dispatch(getPostFetch(userId as number)).then(({ data }) => {
+    //         const newPost: PostState[] = [];
+    //         data.results.forEach((post: PostState) => newPost.push(post as PostState));
+    //         setPost((post: PostState[]) => [...post, ...newPost]);
+    //     });
+    //     offset += 10;
+    // };
+    // useEffect(() => {
+    //     // console.log("state:", store.getState());
+    //     getPost();
+    //     window.addEventListener("scroll", handleScroll);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [combineUserData]);
+
+    // const handleScroll = (e) => {
+    //     console.log(e.target.documentElement.scrollTop);
+    //     console.log(window.innerHeight);
+    //     console.log(e.target.documentElement.scrollHeight);
+    //     // console.log(
+    //     //   Math.ceil(e.target.documentElement.scrollTop + window.innerHeight)
+    //     // );
+    //     const scrollHeight = e.target.documentElement.scrollHeight;
+    //     const currentHeight = Math.ceil(e.target.documentElement.scrollTop + window.innerHeight);
+    //     if (currentHeight + 1 >= scrollHeight) {
+    //         getPost();
+    //     }
+    // };
 
     useEffect(() => {
         const fetchSearchTag = async () => {
@@ -84,7 +116,10 @@ function SocialPlatform() {
 
         if (searchTag !== "") {
             fetchSearchTag();
+            return
         }
+        console.log("no tag!")
+        getPost()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTag]);
 
@@ -95,6 +130,7 @@ function SocialPlatform() {
         if (searchContent !== "") {
             fetchContent();
         }
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchContent]);
 
@@ -118,7 +154,7 @@ function SocialPlatform() {
                             // await dispatch(
                             //     getSearchContentPostFetch({ keyword: keyword, userId: userId })
                             // );
-                            setsearchContent(keyword);
+                            setSearchContent(keyword);
                             // console.log("form:", form.searchContent.value);
                         } else {
                             const getPost = async () => {
@@ -171,7 +207,10 @@ function SocialPlatform() {
                                 <>
                                     {postItem.image[0] !== null ? (
                                         <>
-                                            <RouteLink to={`postDetail/${postItem.id}`}>
+                                            <RouteLink
+                                                to={`/postDetail/${postItem.id}`}
+                                                replace={true}
+                                            >
                                                 <Image
                                                     src={`${DEVELOP_IMAGE_URL}/${postItem.image[0]}`}
                                                     alt={""}
@@ -192,7 +231,7 @@ function SocialPlatform() {
                                             </Box>
                                         </>
                                     ) : (
-                                        <RouteLink to={`postDetail/${postItem.id}`}>
+                                        <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                             <Box p="6">
                                                 <Box
                                                     mt="1"
@@ -216,13 +255,15 @@ function SocialPlatform() {
                                         </Tag>
                                     ))}
                                     <Tag size="lg" colorScheme="none" borderRadius="full">
-                                        <Avatar
-                                            src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}
-                                            size="md"
-                                            name={`${postItem.account_name}`}
-                                            ml={-1}
-                                            mr={2}
-                                        />
+                                        <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
+                                            <Avatar
+                                                src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}
+                                                size="md"
+                                                name={`${postItem.account_name}`}
+                                                ml={-1}
+                                                mr={2}
+                                            />
+                                        </RouteLink>
                                         <TagLabel>{postItem.account_name}</TagLabel>{" "}
                                         {postItem.is_liked_by_user[0] === true ? (
                                             <FaHeart color="red" />
@@ -251,7 +292,7 @@ function SocialPlatform() {
                             <Box maxW="sm" borderRadius="lg" overflow="hidden">
                                 {postItem.image[0] !== null ? (
                                     <>
-                                        <RouteLink to={`postDetail/${postItem.id}`}>
+                                        <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                             <Image
                                                 src={`${DEVELOP_IMAGE_URL}/${postItem.image[0]}`}
                                                 alt={""}
@@ -272,7 +313,7 @@ function SocialPlatform() {
                                         </Box>
                                     </>
                                 ) : (
-                                    <RouteLink to={`postDetail/${postItem.id}`}>
+                                    <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                         <Box p="6">
                                             <Box
                                                 mt="1"
@@ -297,14 +338,16 @@ function SocialPlatform() {
                                     </Tag>
                                 ))}
                                 <Tag size="lg" colorScheme="none" borderRadius="full">
-                                    <Avatar
-                                        src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}
-                                        size="md"
-                                        name={`${postItem.account_name}`}
-                                        ml={-1}
-                                        mr={2}
-                                    />
-                                    <TagLabel>{postItem.account_name}</TagLabel>{" "}
+                                    <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
+                                        <Avatar
+                                            src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}
+                                            size="md"
+                                            name={`${postItem.account_name}`}
+                                            ml={-1}
+                                            mr={2}
+                                        />
+                                        <TagLabel>{postItem.account_name}</TagLabel>{" "}
+                                    </RouteLink>
                                     {postItem.is_liked_by_user[0] === true ? (
                                         <FaHeart color="red" />
                                     ) : (

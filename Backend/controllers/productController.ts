@@ -58,9 +58,9 @@ export class ProductController {
     };
     addToCart = async (req: Request, res: Response) => {
         const userId = req.body.user.id;
-        const { product_id, size, quantity } = req.body.item; // { product_id, size, quantity }
+        // const { product_id, size, quantity } = req.body.item; // { product_id, size, quantity }
         console.log(userId);
-        await this.productService.addToCart(product_id, size, quantity);
+        // await this.productService.addToCart(product_id, size, quantity);
     };
     incrementQuantity = (req: Request, res: Response) => {};
 
