@@ -34,11 +34,12 @@ import Settings from "./Pages/User/Settings";
 import Payment from "./Pages/User/Payment";
 import Promotion from "./Pages/User/Promotion";
 import ProductDetail from "./Pages/Product/ProductDetail";
+import { Scroll } from "./Components/scroll";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
     const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
-    console.log("shoppingData:", shoppingData);
+    // console.log("shoppingData:", shoppingData);
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
@@ -46,13 +47,12 @@ function App() {
             const token = window.localStorage.getItem("token");
             if (!isLoggedIn && token) {
                 await dispatch(getUserDataJWTFetch({ token }));
-                console.log("isLoggedIn:", isLoggedIn);
+                // console.log("isLoggedIn:", isLoggedIn);
             }
         };
 
         GetUserDataJWT();
     }, []);
-
 
     return (
         <div className="App">
@@ -74,8 +74,7 @@ function App() {
                         <Route path="form" element={<PostForm />} />Í
                     </Route>
                     <Route path="products" element={<Products />} />
-                    {/* <Route path="products/id:" element={<ProductDetail />} /> */}
-                    <Route path="products/productDetail/:productId" element={<ProductDetail/>} />
+                    <Route path="products/productDetail/:productId" element={<ProductDetail />} />
                     <Route path="cart" element={<PrivateRoute />}>
                         <Route path="data" element={<ShoppingCart />} />
                         <Route path="payment" element={<Payment />} />
@@ -101,8 +100,7 @@ function App() {
                     <Route path="table" element={<Table />} />
                     <Route path="upload" element={<ImageUpload />} />
                     <Route path="tags" element={<InsertTags />} />
-
-
+                    <Route path="scroll" element={<Scroll />} />
 
                     <Route path="*" element={<NotFound />} />
                 </Routes>

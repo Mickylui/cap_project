@@ -7,11 +7,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import { WarningTwoIcon } from "@chakra-ui/icons";
 import ScrollToTopButton from "../../Components/ScrollToTopButton";
 import { useDispatch } from "react-redux";
-import { getPostFetch, getSearchTagPostFetch } from "../../Api/platformFetch";
+import {
+    getPostFetch,
+    getSearchContentPostFetch,
+    getSearchTagPostFetch,
+} from "../../Api/platformFetch";
 import { AppDispatch, RootState, store } from "../../Redux/store";
 import { useSelector } from "react-redux";
 import { PostState } from "../../Redux/Slice/platformSlice";
 import { FcLikePlaceholder } from "react-icons/fc";
+import { post } from "fetch-mock";
 
 const suggestedTags = [
     { tag: "practice" },
@@ -34,7 +39,7 @@ function SocialPlatform() {
     const postList = useSelector((state: RootState) => state.platform.list);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     let userId: number | string;
-    console.log("combineUserData:", combineUserData);
+    // console.log("combineUserData:", combineUserData);
     if (combineUserData.length > 0) {
         userId = combineUserData[0].id as number;
     } else {
@@ -42,18 +47,15 @@ function SocialPlatform() {
     }
 
     const [searchTag, setSearchTag] = useState("");
-    const [searchContent, setSearchContent] = useState("");
+    const [searchContent, setsearchContent] = useState("");
+
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
     console.log("postList:", postList);
-    console.log("searchTag:", searchTag);
+    // console.log("searchTag:", searchTag);
 
     // Search Content: form submit -> fetch this content and replace state.platform.list;
     // need Infinite scroll!!
-    async function handleSearch(e) {
-        const form = e.target;
-        console.log("this is form:", form);
-        return;
-    }
+
     const adminPostList = useMemo(
         () => postList.filter((postItem) => postItem.is_ordinary === true),
         [postList]
@@ -86,6 +88,16 @@ function SocialPlatform() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTag]);
 
+    useEffect(() => {
+        const fetchContent = async () => {
+            await dispatch(getSearchContentPostFetch({ keyword: searchContent, userId: userId }));
+        };
+        if (searchContent !== "") {
+            fetchContent();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchContent]);
+
     return (
         // postList.is_ordinary === true -> admin post
         <div>
@@ -98,10 +110,23 @@ function SocialPlatform() {
                 </HStack>
             ) : (
                 <form
-                    onSubmit={(e) => {
+                    onSubmit={async (e) => {
                         e.preventDefault();
                         const form = e.target;
-                        console.log("form:", form.searchContent.value);
+                        const keyword = form.searchContent.value;
+                        if (keyword.length > 0) {
+                            // await dispatch(
+                            //     getSearchContentPostFetch({ keyword: keyword, userId: userId })
+                            // );
+                            setsearchContent(keyword);
+                            // console.log("form:", form.searchContent.value);
+                        } else {
+                            const getPost = async () => {
+                                // console.log("combineUserData:", combineUserData[0].id);
+                                await dispatch(getPostFetch(userId as number));
+                            };
+                            getPost();
+                        }
                     }}
                 >
                     <Input
@@ -165,6 +190,9 @@ function SocialPlatform() {
                                                 {postItem.title}
                                             </Box>
                                         </Box>
+                                        {postItem.tag.map((item) => (
+                                            <Tag>{item}</Tag>
+                                        ))}
                                         <Tag size="lg" colorScheme="none" borderRadius="full">
                                             <Avatar
                                                 src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}
@@ -202,6 +230,9 @@ function SocialPlatform() {
                                                 </Box>
                                             </Box>
                                         </RouteLink>
+                                        {postItem.tag.map((item) => (
+                                            <Tag>{item}</Tag>
+                                        ))}
                                         <Tag size="lg" colorScheme="none" borderRadius="full">
                                             <Avatar
                                                 src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}
@@ -256,6 +287,9 @@ function SocialPlatform() {
                                         {postItem.title}
                                     </Box>
                                 </Box>
+                                {postItem.tag.map((item) => (
+                                    <Tag>{item}</Tag>
+                                ))}
                                 <Tag size="lg" colorScheme="none" borderRadius="full">
                                     <Avatar
                                         src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}

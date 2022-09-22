@@ -1,9 +1,9 @@
 import { Button, HStack, Input, useNumberInput } from "@chakra-ui/react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 
 export function QuantityRange() {
-    const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } = useNumberInput({
         step: 1,
         defaultValue: 1,
@@ -15,26 +15,17 @@ export function QuantityRange() {
     const dec = getDecrementButtonProps();
     const input = getInputProps();
 
-    if (isAdmin) {
-        return (
-            <HStack maxW="320px" border={"solid"}>
-                <Button {...dec} isDisabled>
-                    -
-                </Button>
-                <Input {...input} isDisabled />
-                <Button {...inc} isDisabled>
-                    +
-                </Button>
-                <Button isDisabled>Add to Cart</Button>
-            </HStack>
-        );
+    const [inputValue, setInputValue] = useState(1);
+    function getQuantity() {
+        console.log(inputValue);
     }
+
     return (
         <HStack maxW="320px" border={"solid"}>
             <Button {...dec}>-</Button>
-            <Input {...input} />
+            <Input {...input} onChange={(e) => setInputValue(Number(e.target.value))} />
             <Button {...inc}>+</Button>
-            <Button>Add to Cart</Button>
+            <Button onClick={getQuantity}>Add to Cart</Button>
         </HStack>
     );
 }

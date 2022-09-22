@@ -16,7 +16,7 @@ const UserInitialState = {
     error: undefined,
 } as IUserState;
 
-const accountSlice = createSlice({
+const userSlice = createSlice({
     name: "@User",
     initialState: UserInitialState,
     reducers: {},
@@ -30,19 +30,12 @@ const accountSlice = createSlice({
                 return state;
             })
             .addCase(getUserPostFetch.fulfilled, (state, action) => {
-                if (action.payload.success === true) {
-                    const nextState = produce(UserInitialState, (draft) => {
-                        draft.status = "succeeded";
-                        draft.postData = action.payload.body;
-                    });
-                    state = nextState;
-                } else {
-                    const nextState = produce(UserInitialState, (draft) => {
-                        draft.status = "succeeded";
-                        draft.error = action.payload.message;
-                    });
-                    state = nextState;
-                }
+                const nextState = produce(UserInitialState, (draft) => {
+                    draft.status = "succeeded";
+                    draft.postData = action.payload.body;
+                    draft.likeData = state.likeData;
+                });
+                state = nextState;
                 return state;
             })
             .addCase(getUserPostFetch.rejected, (state, action) => {
@@ -63,6 +56,7 @@ const accountSlice = createSlice({
                 if (action.payload.success === true) {
                     const nextState = produce(UserInitialState, (draft) => {
                         draft.status = "succeeded";
+                        draft.postData = state.postData;
                         draft.likeData = action.payload.body;
                     });
                     state = nextState;
@@ -85,7 +79,7 @@ const accountSlice = createSlice({
     },
 });
 
-export const { logOut } = accountSlice.actions;
+export const { logOut } = userSlice.actions;
 // console.log("this is logIn actions:", logIn)
 
-export default accountSlice.reducer;
+export default userSlice.reducer;

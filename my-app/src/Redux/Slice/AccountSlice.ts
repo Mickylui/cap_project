@@ -86,27 +86,19 @@ const accountSlice = createSlice({
                 return state;
             })
             .addCase(LogInFetch.fulfilled, (state, action) => {
-                if (action.payload.success === true) {
-                    const identity = action.payload.body.combineUserData[0].is_admin;
-                    console.log("identity:", identity);
-                    const nextState = produce(AccountInitialState, (draft) => {
-                        const token = action.payload.body.token;
-                        draft.isLoggedIn = true;
-                        draft.isAdmin = identity;
-                        draft.status = "succeeded";
-                        draft.combineUserData = action.payload.body.combineUserData;
-                        draft.shoppingData = action.payload.body.userShoppingDataArr;
+                const identity = action.payload.body.combineUserData[0].is_admin;
+                // console.log("identity:", identity);
+                const nextState = produce(AccountInitialState, (draft) => {
+                    const token = action.payload.body.token;
+                    draft.isLoggedIn = true;
+                    draft.isAdmin = identity;
+                    draft.status = "succeeded";
+                    draft.combineUserData = action.payload.body.combineUserData;
+                    draft.shoppingData = action.payload.body.userShoppingDataArr;
 
-                        window.localStorage.setItem("token", token);
-                    });
-                    state = nextState;
-                } else {
-                    const nextState = produce(AccountInitialState, (draft) => {
-                        draft.status = "succeeded";
-                        draft.error = action.payload.message;
-                    });
-                    state = nextState;
-                }
+                    window.localStorage.setItem("token", token);
+                });
+                state = nextState;
                 return state;
             })
             .addCase(LogInFetch.rejected, (state, action) => {
@@ -126,8 +118,8 @@ const accountSlice = createSlice({
             .addCase(getUserDataJWTFetch.fulfilled, (state, action) => {
                 // need shopping cart data
                 const nextState = produce(AccountInitialState, (draft) => {
-                    console.log("combineUserData:", action.payload.body.combineUserData);
-                    console.log("userShoppingDataArr:", action.payload.body.userShoppingDataArr);
+                    // console.log("combineUserData:", action.payload.body.combineUserData);
+                    // console.log("userShoppingDataArr:", action.payload.body.userShoppingDataArr);
                     draft.isLoggedIn = true;
                     draft.isAdmin = action.payload.body.combineUserData.is_admin;
                     draft.status = "succeeded";

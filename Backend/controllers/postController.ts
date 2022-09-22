@@ -7,7 +7,7 @@ export class PostController {
     getPosts = async (req: Request, res: Response) => {
         try {
             const userId = req.query.userId as string;
-            console.log("getPosts:", userId);
+            // console.log("getPosts:", userId);
             const allPostData = await this.postService.getAllPost(userId);
             res.status(200).json({ success: true, body: allPostData });
         } catch (error) {
@@ -34,8 +34,20 @@ export class PostController {
         try {
             const tag = req.query.tag as string;
             const userId = req.query.userId as string;
-            console.log("getSearchTagPost!", tag);
+            // console.log("getSearchTagPost!", tag);
             const allPostData = await this.postService.getSearchTagPost(tag, userId);
+            res.status(200).json({ success: true, body: allPostData });
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+    };
+    searchContentPost = async (req: Request, res: Response) => {
+        try {
+            const keyword = req.query.keyword as string;
+            const userId = req.query.userId as string;
+            // console.log("getSearchContentPost!", keyword);
+            const allPostData = await this.postService.contentPost(keyword, userId);
             res.status(200).json({ success: true, body: allPostData });
         } catch (error) {
             winstonLogger.error(error.toString());
@@ -49,7 +61,7 @@ export class PostController {
             const files = form.files.files;
 
             const addPostResult = await this.postService.addPost(fields, files);
-            console.log("addPostResult:", addPostResult);
+            // console.log("addPostResult:", addPostResult);
             if (addPostResult?.success) {
                 res.status(200).json({ success: true });
             } else {

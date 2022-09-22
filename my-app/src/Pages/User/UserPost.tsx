@@ -10,10 +10,12 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState, store } from "../../Redux/store";
 import { useSelector } from "react-redux";
 
-function UserPost() {
+function UserPost(props) {
     // const dispatch: AppDispatch = useDispatch();
-    const postData = useSelector((state: RootState) => state.user.postData);
-    console.log("this is postData:", postData);
+    // const postData = useSelector((state: RootState) => state.user.postData);
+    // console.log("this is postData:", postData);
+    const postData = props.postData;
+    console.log("UserPost:", postData);
 
     return (
         // postList.is_ordinary === true -> admin post
@@ -52,7 +54,7 @@ function UserPost() {
                                     mr={2}
                                 />
                                 <TagLabel>{postItem.account_name}</TagLabel> <FaHeart color="red" />{" "}
-                                {postItem.contact}
+                                {postItem.count}
                             </Tag>
                             <RouteLink to="reportPost">
                                 <Button>

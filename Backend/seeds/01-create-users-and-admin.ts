@@ -6,10 +6,10 @@ export async function seed(knex: Knex): Promise<void> {
     await knex("login_records").del();
     await knex("accumulation").del();
     await knex("admin_info").del();
-    await knex("user_info").del();   
+    await knex("user_info").del();
     await knex("users").del();
-    
-    const hashedPassword = await hashPassword("1234")
+
+    const hashedPassword = await hashPassword("1234");
     // Inserts seed entries
     const result: Array<{ id: number }> =
     await knex("users").insert([
@@ -48,9 +48,9 @@ export async function seed(knex: Knex): Promise<void> {
         {tier:1,in_charge:"hi",user_id:result[1].id}
     ])
     await knex("accumulation").insert([
-        {accumulation:20,user_id:result[4].id},
-        {accumulation:20,user_id:result[3].id}
-    ])
+        { accumulation: 20, user_id: result[4].id },
+        { accumulation: 20, user_id: result[3].id },
+    ]);
     await knex("login_records").insert([
         {user_id:result[4].id,login_at:'2022-07-10 20:00:00'},
         {user_id:result[3].id,login_at:'2022-09-10 20:00:00'},
