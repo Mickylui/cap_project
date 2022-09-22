@@ -14,7 +14,7 @@ import {
 import { createAction } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Link as RouteLink } from "react-router-dom";
+import { Link as RouteLink, useNavigate } from "react-router-dom";
 import { logOutFetch } from "../Api/accountFetch";
 import { RootState } from "../Redux/store";
 import { FormatDate } from "../Utils/timeStamp";
@@ -27,6 +27,7 @@ export function UserLoggedInNav() {
     const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
     // console.log("combineUserData:", userData[0]);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     function logOut() {
         Swal.fire({
@@ -37,7 +38,7 @@ export function UserLoggedInNav() {
             hideClass: {
                 popup: "animate__animated animate__fadeOutUp",
             },
-        });
+        }).then(()=>navigate("/"))
         // need to fetch: insert log out time
         // const logOutTime =  FormatDate(new Date());
         // const logOutResponse = await dispatch(logOutFetch(logOutTime));

@@ -54,7 +54,7 @@ function UserPost(props) {
                                     mr={2}
                                 />
                                 <TagLabel>{postItem.account_name}</TagLabel> <FaHeart color="red" />{" "}
-                                {postItem.contact}
+                                {postItem.count}
                             </Tag>
                             <RouteLink to="reportPost">
                                 <Button>

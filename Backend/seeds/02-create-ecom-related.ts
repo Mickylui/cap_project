@@ -120,9 +120,12 @@ export async function seed(knex: Knex): Promise<void> {
     ]);
     
     await knex("order_history").insert([
-        { total_amount:300 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[3].id},
-        { total_amount:600 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[3].id},
-        { total_amount:750 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[7].id},
+        { total_amount:300 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[3].id, pay_date:'2022-07-10 20:00:00'},
+        { total_amount:600 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[3].id, pay_date:'2022-08-10 20:00:00'},
+        { total_amount:750 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[7].id, pay_date:'2022-06-15 20:00:00'},
+        { total_amount:750 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[8].id, pay_date:'2022-08-20 20:00:00'},
+        { total_amount:300 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[9].id, pay_date:'2022-09-20 20:00:00'},
+        { total_amount:300 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[10].id, pay_date:'2022-09-20 20:00:00'},
     ]);
 
     const order_history = (await knex.raw(`SELECT * FROM order_history`)).rows
@@ -132,7 +135,10 @@ export async function seed(knex: Knex): Promise<void> {
         { product_id:products[0].id, order_quantity:1, order_unit_price:300,order_size:8.25, order_history_id:order_history[1].id},
         { product_id:products[2].id , order_quantity:1, order_unit_price:400, order_size:40,order_history_id:order_history[2].id},
         { product_id:products[3].id, order_quantity:1, order_unit_price:350,order_size:33, order_history_id:order_history[2].id},
-    
+        { product_id:products[2].id , order_quantity:1, order_unit_price:400, order_size:40,order_history_id:order_history[3].id},
+        { product_id:products[3].id, order_quantity:1, order_unit_price:350,order_size:33, order_history_id:order_history[3].id},
+        { product_id:products[0].id, order_quantity:1, order_unit_price:300,order_size:7.625, order_history_id:order_history[4].id},
+        { product_id:products[1].id, order_quantity:1, order_unit_price:300,order_size:27, order_history_id:order_history[5].id}
     ]);
 
 }

@@ -8,7 +8,7 @@ import GetPoints from "./GetPoints";
 import { WarningTwoIcon } from "@chakra-ui/icons";
 import { Link as RouteLink, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../Redux/store";
+import { AppDispatch, RootState } from "../../Redux/store";
 import SocialPlatform from "../Platform/SocialPlatform";
 import AdminExceptUserManage from "../Admin/AdminExceptUserManage";
 import UserPost from "./UserPost";
@@ -102,7 +102,7 @@ function Profile() {
                 </Box>
                 <main>
                     {adminLink === "users" ? <SocialPlatform /> : <></>}
-                    {adminLink === "products" ? <div></div> : <>product</>}
+                    {adminLink === "products" ? <div>product</div> : <></>}
                     {adminLink === "shipping" ? <div>shipping</div> : <></>}
                     {adminLink === "platform" ? <div>platform</div> : <></>}
                     {adminLink === "posts" ? <div>posts</div> : <></>}

@@ -53,7 +53,7 @@ function UserLikePost(props) {
                                     mr={2}
                                 />
                                 <TagLabel>{postItem.account_name}</TagLabel> <FaHeart color="red" />{" "}
-                                {postItem.contact}
+                                {postItem.like}
                             </Tag>
                             <RouteLink to="reportPost">
                                 <Button>
