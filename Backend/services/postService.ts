@@ -24,7 +24,7 @@ export class PostService {
                     json_agg(DISTINCT users.icon) icon,
                     json_agg(DISTINCT post_images.image) image,
                     json_agg(DISTINCT tags.tag) tag,
-                    post_likes.like_by_user_id = ? AS is_liked_by_user,
+                    json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
                     COUNT(post_likes.id)
                 FROM posts
                     LEFT JOIN users ON users.id = posts.user_id
@@ -32,10 +32,10 @@ export class PostService {
                     LEFT JOIN post_tags ON post_tags.post_id = posts.id
                     LEFT JOIN tags ON tags.id = post_tags.tag_id
                     LEFT JOIN post_likes ON post_likes.post_id = posts.id
+                WHERE posts.is_delete = false
                 GROUP BY (
                         posts.id,
-                        users.account_name,
-                        post_likes.like_by_user_id
+                        users.account_name
                     )
                 ORDER BY posts.display_push DESC;
                         `,
@@ -43,7 +43,7 @@ export class PostService {
                 )
             ).rows;
 
-            console.log("allPost:", allPost);
+            // console.log("allPost:", allPost);
             return allPost;
         } catch (error) {
             winstonLogger.error(error);
@@ -52,8 +52,8 @@ export class PostService {
     }
     async getSearchTagPost(tag: string, userId: string) {
         try {
-            console.log("tag:", tag);
-            console.log("userId:", userId);
+            // console.log("tag:", tag);
+            // console.log("userId:", userId);
             const allPost = (
                 await this.knex.raw(
                     `
@@ -78,22 +78,23 @@ export class PostService {
                     json_agg(DISTINCT users.icon) icon,
                     json_agg(DISTINCT post_images.image) image,
                     json_agg(DISTINCT tmp.tag) tag,
-                    post_likes.like_by_user_id = ? AS is_liked_by_user,
+                    json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
                     COUNT(post_likes.id)
                 FROM posts
                     LEFT JOIN users ON users.id = posts.user_id
                     LEFT JOIN post_images ON post_images.post_id = posts.id
                     LEFT JOIN post_tags ON post_tags.post_id = posts.id
                     RIGHT JOIN tmp ON tmp.id = post_tags.tag_id
-                     LEFT JOIN post_likes ON post_likes.post_id = posts.id
-                GROUP BY (posts.id, users.account_name, post_likes.like_by_user_id)
+                    LEFT JOIN post_likes ON post_likes.post_id = posts.id
+                WHERE posts.is_delete = false
+                GROUP BY (posts.id, users.account_name)
                 ORDER BY posts.display_push DESC;
                         `,
                     [tag, userId]
                 )
             ).rows;
 
-            console.log("getSearchTagPost:", allPost);
+            // console.log("getSearchTagPost:", allPost);
             return allPost;
         } catch (error) {
             winstonLogger.error(error.toString());
@@ -123,7 +124,7 @@ export class PostService {
                     json_agg(DISTINCT users.icon) icon,
                     json_agg(DISTINCT post_images.image) image,
                     json_agg(DISTINCT tags.tag) tag,
-                    post_likes.like_by_user_id = ? AS is_liked_by_user,
+                    json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
                     COUNT(post_likes.id)
                 FROM posts
                     LEFT JOIN users ON users.id = posts.user_id
@@ -132,10 +133,10 @@ export class PostService {
                     LEFT JOIN tags ON tags.id = post_tags.tag_id
                     LEFT JOIN post_likes ON post_likes.post_id = posts.id
                 WHERE posts.description = ?
+                AND posts.is_delete = false
                 GROUP BY (
                         posts.id,
-                        users.account_name,
-                        post_likes.like_by_user_id
+                        users.account_name
                     )
                 ORDER BY posts.display_push DESC;
                         `,
@@ -143,7 +144,7 @@ export class PostService {
                 )
             ).rows;
 
-            console.log("getSearchTagPost:", allPost);
+            console.log("getSearchContentPost:", allPost);
             return allPost;
         } catch (error) {
             winstonLogger.error(error.toString());
@@ -168,13 +169,13 @@ export class PostService {
                 imageFiles.push(files);
             }
         }
-        console.log("imageFiles:", imageFiles);
+        // console.log("imageFiles:", imageFiles);
         try {
             const isAdmin: object = await txn("users")
                 .select("is_admin")
                 .where(this.knex.raw("id = ?", parseInt(fields.user_id)));
             // .where("id", parseInt(fields.user_id));
-            console.log("isAdmin", isAdmin);
+            // console.log("isAdmin", isAdmin);
             let databaseTagsArr = [];
             // if field.isEventPost false
             // console.log("isEventPost:", fields.isEventPost);
@@ -190,21 +191,20 @@ export class PostService {
                             is_event: false,
                         })
                         .returning("id");
-                    console.log("postId:", postId);
+                    // console.log("postId:", postId);
 
                     for (let i = 0; i < imageFiles.length; i++) {
                         await txn("post_images").insert({
                             post_id: postId[0].id,
                             image: imageFiles[i].newFilename,
                         });
-                        console.log("a:");
                     }
                     for (let i = 0; i < tagsArr.length; i++) {
                         const exitTags = await txn("tags")
                             .select("*")
                             .where("tag", tagsArr[i])
                             .first();
-                        console.log("exitTags:", exitTags);
+                        // console.log("exitTags:", exitTags);
                         if (exitTags) {
                             let tagsId = exitTags.id;
                             databaseTagsArr.push({ id: tagsId });
@@ -406,7 +406,7 @@ export class PostService {
                 json_agg(DISTINCT users.icon) icon,
                 json_agg(DISTINCT post_images.image) image,
                 json_agg(DISTINCT tags.tag) tag,
-                post_likes.like_by_user_id = ? AS is_liked_by_user,
+                json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
                 users.id AS user_id,
                 COUNT(post_likes.id)
             FROM posts
@@ -416,14 +416,15 @@ export class PostService {
                 LEFT JOIN tags ON tags.id = post_tags.tag_id
                 LEFT JOIN post_likes ON post_likes.post_id = posts.id
             WHERE posts.id = ?
-            GROUP BY (users.id,posts.id, users.account_name,post_likes.like_by_user_id)
+            AND posts.is_delete = false
+            GROUP BY (users.id,posts.id, users.account_name)
             ORDER BY posts.display_push DESC;
                         `,
                     [userId, postId]
                 )
             ).rows[0];
 
-            console.log("allPost:", allPost);
+            // console.log("allPost:", allPost);
             return allPost;
         } catch (error) {
             winstonLogger.error(error.toString());

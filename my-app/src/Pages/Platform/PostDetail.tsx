@@ -9,6 +9,7 @@ import { getPostDetailByPostIdFetch } from "../../Api/platformFetch";
 import { PostState } from "../../Redux/Slice/platformSlice";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { BackButton } from "../../Components/BackButton";
 function PostDetail() {
     const postDetail = useSelector((state: RootState) => state.platform.postDetail);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
@@ -21,12 +22,12 @@ function PostDetail() {
 
     let userId: number | string;
     let isAdmin: boolean;
-    console.log("combineUserData:", combineUserData);
-    console.log("postDetail:", postDetail);
+    // console.log("combineUserData:", combineUserData);
+    // console.log("postDetail:", postDetail);
     if (combineUserData.length > 0) {
         userId = combineUserData[0].id as number;
         isAdmin = combineUserData[0].is_admin as boolean;
-        console.log("isAdmin:", isAdmin);
+        // console.log("isAdmin:", isAdmin);
     } else {
         userId = 1;
         isAdmin = false;
@@ -71,7 +72,7 @@ function PostDetail() {
                     thumbnail: `${DEVELOP_IMAGE_URL}/${postImagesArr[i]}`,
                 },
             ]);
-            console.log("this is images:", postImagesArr[i]);
+            // console.log("this is images:", postImagesArr[i]);
         }
     }, [postDetail]);
 
@@ -84,6 +85,7 @@ function PostDetail() {
             {/* box w/ image */}
             {postDetail.image[0] !== null ? (
                 <Box p="2rem" borderWidth="1px" borderRadius="lg" overflow="hidden" m="4rem">
+                    <BackButton />
                     <HStack>
                         <Box className="image-gallery-box">
                             <ImageGallery
@@ -96,7 +98,7 @@ function PostDetail() {
                             />
                         </Box>
                         <Box p="6">
-                            {postDetail.user_id === userId || isAdmin? (
+                            {postDetail.user_id === userId || isAdmin ? (
                                 <Box>
                                     <AiFillEdit />
                                     <AiFillDelete />
@@ -156,6 +158,7 @@ function PostDetail() {
             ) : (
                 <Box p="2rem" borderWidth="1px" borderRadius="lg" overflow="hidden" m="2rem">
                     <Box p="6">
+                        <BackButton />
                         {postDetail.user_id === userId || isAdmin ? (
                             <Box>
                                 <AiFillEdit />
@@ -172,11 +175,17 @@ function PostDetail() {
                         </HStack>
                         <Box mt="3rem">{postDetail.description}</Box>
                         <Box m="2rem">
-                            {/* {postData["tag"].map((tag) => {
-                            <Tag>${tag}</Tag>;
-                        })} */}
+                            {postDetail.tag.map((tagItem) => (
+                                <Tag
+                                    key={`${tagItem}`}
+                                    borderRadius="full"
+                                    variant="solid"
+                                    colorScheme="green"
+                                >
+                                    {tagItem}
+                                </Tag>
+                            ))}
                         </Box>
-
                         <Tag size="lg" colorScheme="none" borderRadius="full">
                             <Avatar
                                 src={`${DEVELOP_IMAGE_URL}/${postDetail.icon}`}

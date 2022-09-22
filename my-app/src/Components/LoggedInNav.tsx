@@ -44,7 +44,7 @@ export function UserLoggedInNav() {
         // console.log("logOutResponse")
         const logOut = createAction("@Account/logOut");
         const action = logOut();
-        console.log("this is action:", action);
+        // console.log("this is action:", action);
         return action;
     }
     if (isAdmin) {

@@ -1,4 +1,15 @@
+# OSX
+.DS_Store*
+Icon?
+
+#npm
 node_modules
+*.log
+*.gz
+dist
+#Env
 .env
-.DS_Store
+
+images/*.jpg
+images/*.png
 .prepare

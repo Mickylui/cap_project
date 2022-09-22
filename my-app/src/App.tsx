@@ -39,7 +39,7 @@ import { Scroll } from "./Components/scroll";
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
     const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
-    console.log("shoppingData:", shoppingData);
+    // console.log("shoppingData:", shoppingData);
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
@@ -47,7 +47,7 @@ function App() {
             const token = window.localStorage.getItem("token");
             if (!isLoggedIn && token) {
                 await dispatch(getUserDataJWTFetch({ token }));
-                console.log("isLoggedIn:", isLoggedIn);
+                // console.log("isLoggedIn:", isLoggedIn);
             }
         };
 

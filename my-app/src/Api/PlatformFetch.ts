@@ -25,7 +25,6 @@ export const getPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Erro
 export const getSearchTagPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@posts/getSearchTagPost",
     async ({tag,userId} , thunkAPI) => {
-        console.log("getSearchTagPostFetch:", tag);
         try {
             const res = await fetch(
                 `${DEVELOP_HOST}/posts/getSearchTagPost?tag=${tag}&userId=${userId}`

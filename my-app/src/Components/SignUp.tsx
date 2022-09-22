@@ -63,7 +63,7 @@ export default function SignUpCard() {
                                 const accountName = form.accountName.value;
                                 const email = form.email.value;
                                 const password = form.password.value;
-                                console.log("this is data:", accountName, email, password);
+                                // console.log("this is data:", accountName, email, password);
 
                                 const resp = await fetch("http://localhost:8080/account/signUp", {
                                     method: "POST",
@@ -73,7 +73,7 @@ export default function SignUpCard() {
                                     body: JSON.stringify({ accountName, email, password }),
                                 });
                                 const signUpResult = await resp.json();
-                                console.log("this is signUpResult:", signUpResult);
+                                // console.log("this is signUpResult:", signUpResult);
                                 if (signUpResult.success === true) {
                                     Swal.fire({
                                         title: "Good Decision, Welcome To Our Family",

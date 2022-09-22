@@ -21,10 +21,12 @@ function Profile() {
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     const likeData = useSelector((state: RootState) => state.user.likeData);
-    console.log("Profile:",likeData)
+    const postData = useSelector((state: RootState) => state.user.postData);
+    console.log("this is postData:", postData);
+    console.log("Profile like data:", likeData);
 
     const userId = combineUserData[0].id;
-    console.log("userId:", userId);
+    // console.log("userId:", userId);
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
@@ -38,13 +40,13 @@ function Profile() {
             await dispatch(getUserLikePostFetch(userId));
         };
         getUserLikePost();
-    },[]);
+    }, [link]);
 
     if (isAdmin) {
         return (
             <div>
                 <UserImage />
-                <Link
+                <Box
                     // as={ReachLink}
                     // to="posts"
                     margin="20px"
@@ -52,8 +54,8 @@ function Profile() {
                     onClick={() => switchAdminLink("users")}
                 >
                     Users
-                </Link>
-                <Link
+                </Box>
+                <Box
                     // as={ReachLink}
                     // to="likes"
                     margin="20px"
@@ -61,8 +63,8 @@ function Profile() {
                     onClick={() => switchAdminLink("products")}
                 >
                     Products
-                </Link>
-                <Link
+                </Box>
+                <Box
                     // as={ReachLink}
                     // to="likes"
                     margin="20px"
@@ -70,8 +72,8 @@ function Profile() {
                     onClick={() => switchAdminLink("shipping")}
                 >
                     Shipping
-                </Link>
-                <Link
+                </Box>
+                <Box
                     // as={ReachLink}
                     // to="likes"
                     margin="20px"
@@ -79,8 +81,8 @@ function Profile() {
                     onClick={() => switchAdminLink("platform")}
                 >
                     Platform
-                </Link>
-                <Link
+                </Box>
+                <Box
                     // as={ReachLink}
                     // to="likes"
                     margin="20px"
@@ -88,8 +90,8 @@ function Profile() {
                     onClick={() => switchAdminLink("posts")}
                 >
                     Posts
-                </Link>
-                <Link
+                </Box>
+                <Box
                     // as={ReachLink}
                     // to="likes"
                     margin="20px"
@@ -97,13 +99,14 @@ function Profile() {
                     onClick={() => switchAdminLink("banners")}
                 >
                     Banners
-                </Link>
+                </Box>
                 <main>
-                    {adminLink === "users" ? (
-                        <SocialPlatform />
-                    ) : (
-                        <AdminExceptUserManage link={`${adminLink}`} />
-                    )}
+                    {adminLink === "users" ? <SocialPlatform /> : <></>}
+                    {adminLink === "products" ? <div></div> : <>product</>}
+                    {adminLink === "shipping" ? <div>shipping</div> : <></>}
+                    {adminLink === "platform" ? <div>platform</div> : <></>}
+                    {adminLink === "posts" ? <div>posts</div> : <></>}
+                    {adminLink === "banners" ? <div>banners</div> : <></>}
                 </main>
             </div>
         );
@@ -111,7 +114,7 @@ function Profile() {
     return (
         <div>
             <UserImage />
-            <Link
+            <Box
                 // as={ReachLink}
                 // to="posts"
                 margin="20px"
@@ -119,8 +122,8 @@ function Profile() {
                 onClick={() => switchLink("posts")}
             >
                 Post
-            </Link>
-            <Link
+            </Box>
+            <Box
                 // as={ReachLink}
                 // to="likes"
                 margin="20px"
@@ -128,14 +131,20 @@ function Profile() {
                 onClick={() => switchLink("products")}
             >
                 Like
-            </Link>
+            </Box>
             <RouteLink to="report">
                 <Button>
                     <WarningTwoIcon />
                 </Button>
             </RouteLink>
 
-            <main>{link === "posts" ? <UserPost /> : <UserLikePost likeData={likeData}/>}</main>
+            <main>
+                {link === "posts" ? (
+                    <UserPost postData={postData} />
+                ) : (
+                    <UserLikePost likeData={likeData} />
+                )}
+            </main>
             <UsePoints />
             <GetPoints />
             {/* <Outlet/> */}

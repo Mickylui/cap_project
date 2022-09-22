@@ -176,9 +176,10 @@ const platformSlice = createSlice({
             })
             .addCase(getSearchContentPostFetch.fulfilled, (state, action) => {
                 const postItems = action.payload.body;
+                console.log("this is content:", postItems);
                 const nextState = produce(PlatformInitialState, (draft) => {
                     draft.status = "succeeded";
-                    draft.postDetail = postItems;
+                    draft.list = postItems;
                 });
                 state = nextState;
 

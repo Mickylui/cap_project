@@ -42,7 +42,7 @@ export function Scroll() {
         { id: 1, name: "abc" },
         { id: 1, name: "abc" },
     ]);
-    console.log("this is length:", state.length);
+    // console.log("this is length:", state.length);
     // console.log(
     //     "this is Array.from(state, item => item.index < 10):",
     //     Array.from(state, (item) => item.id < 10)

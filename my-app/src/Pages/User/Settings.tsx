@@ -17,7 +17,7 @@ function Settings() {
         contact: "123456",
     };
     const [isEditable, setEditable] = useState(false);
-    console.log("isEditable:", isEditable);
+    // console.log("isEditable:", isEditable);
     const [userName, setUsername] = useState("");
     const [inputRoom, setRoom] = useState("");
     const [inputBuilding, setBuilding] = useState("");

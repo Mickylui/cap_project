@@ -9,9 +9,9 @@ export class AccountController {
         try {
             const { accountName, email, password } = req.body;
             const hashedPassword = await hashPassword(password);
-            console.log("(AccountController)this is accountName:", accountName);
-            console.log("(AccountController)this is email:", email);
-            console.log("(AccountController)this is password:", hashedPassword);
+            // console.log("(AccountController)this is accountName:", accountName);
+            // console.log("(AccountController)this is email:", email);
+            // console.log("(AccountController)this is password:", hashedPassword);
             const result = await this.accountService.signUp(accountName, email, hashedPassword);
             if (result["success"] === false) {
                 res.status(400).json(result);
@@ -44,7 +44,7 @@ export class AccountController {
             const user = req.body.user;
             const shoppingCartArr = req.body.shoppingCartArr;
 
-            console.log("this is getSelfInfo:", user);
+            // console.log("this is getSelfInfo:", user);
             res.json({ body: { combineUserData: user, userShoppingDataArr: shoppingCartArr } });
         } catch (error) {
             winstonLogger.error(error.toString());
