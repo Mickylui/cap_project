@@ -35,3 +35,32 @@ export const getProductDetailByProductIdFetch = createAsyncThunk<ICarriage, any,
         }
     }
 );
+
+export const getCartFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
+    "@cart/get",
+    async (_, thunkAPI) => {
+        try {
+            const res = await fetch(`${DEVELOP_HOST}/cart/`);
+            const cartItems = await res.json();
+            return cartItems;
+        } catch {
+            return thunkAPI.rejectWithValue({ error: "Cannot get CART." } as Error);
+        }
+    }
+);
+
+export const removeCartItem = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
+    "@cart/delete",
+    async (id, thunkAPI) => {
+        try {
+            const res = await fetch(`${DEVELOP_HOST}/cart/:id` ,
+            {method: 'delete'})
+            const cartItems = await res.json();
+            return cartItems;
+        } catch {
+            return thunkAPI.rejectWithValue({ error: "Failed to remove item" } as Error);
+        }
+    }
+);
+
+

@@ -71,9 +71,9 @@ function DeliveryAddress() {
                     </HStack>
                 </RadioGroup>
             </FormControl>
-            <Link to='/cart/contact/usePoints'>
-                <Button mt='4em' onClick={()=>setUsePoint(!usePoint)}>Buy/Save</Button>
-            </Link>
+            <RouteLink to="/cart/payment">
+                <Button mt='4em'>Buy/Save</Button>
+            </RouteLink>
             </Box>
             </Flex>
         </div>

@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 // import {IAccountState} from "./Slice/AccountSlice"
 
 import accountReducer from "./Slice/accountSlice";
+import { cartReducer } from "./Slice/cartSlice";
 import postsReducer from "./Slice/platformSlice";
 import productsReducer from "./Slice/productSlice";
 import userReducer from "./Slice/userSlice";
@@ -13,6 +14,7 @@ export const store = configureStore({
         platform: postsReducer,
         product: productsReducer,
         user: userReducer,
+        cart: cartReducer,
     },
 });
 export type RootState = ReturnType<typeof store.getState>;
