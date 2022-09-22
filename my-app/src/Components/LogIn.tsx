@@ -68,7 +68,7 @@ export default function LogInCard() {
             return;
         }
         const logInResponse = await dispatch(LogInFetch({ email, password }));
-        console.log("logInResponse:", logInResponse);
+        // console.log("logInResponse:", logInResponse);
 
 
         // never log in before && not admin

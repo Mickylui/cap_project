@@ -25,8 +25,8 @@ export class AccountService {
                 default_contact: email,
             });
             // console.log("AccountService-- this is accountName:", accountName);
-            console.log("AccountService-- this is email:", email);
-            console.log("AccountService-- this is password:", password);
+            // console.log("AccountService-- this is email:", email);
+            // console.log("AccountService-- this is password:", password);
             await txn.commit();
             return { success: true };
         } catch (error) {
@@ -41,9 +41,9 @@ export class AccountService {
             // console.log("AccountService-- this is email:", email);
             // console.log("AccountService-- this is password:", password);
             const existUserData = await txn("users").select("*").where("email", email).first();
-            console.log("AccountService--this is userData:", existUserData);
+            // console.log("AccountService--this is userData:", existUserData);
             if (!existUserData) {
-                console.log("Invalid email");
+                // console.log("Invalid email");
                 return { success: false, message: "Invalid email" };
             }
             const matchPassword = await checkPassword(password, existUserData.password);
@@ -99,7 +99,7 @@ export class AccountService {
     async userDataJWT(tokenId: number) {
         const txn = await this.knex.transaction();
         try {
-            console.log("tokenId:", tokenId);
+            // console.log("tokenId:", tokenId);
             const combineUserData = await txn("users")
                 .select(
                     "users.id",
@@ -130,7 +130,7 @@ export class AccountService {
                 .select("*")
                 .where("shopping_carts.user_id", tokenId);
 
-            console.log("userShoppingData:", userShoppingDataArr);
+            // console.log("userShoppingData:", userShoppingDataArr);
             if (!combineUserData) {
                 return { success: false, message: "Invalid token" };
             }

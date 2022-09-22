@@ -1,0 +1,15 @@
+# OSX
+.DS_Store*
+Icon?
+
+#npm
+node_modules
+*.log
+*.gz
+dist
+#Env
+.env
+
+images/*.jpg
+images/*.png
+.prepare

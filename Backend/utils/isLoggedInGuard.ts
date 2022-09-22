@@ -12,7 +12,7 @@ const permit = new Bearer({
 export async function isLoggedIn(req: Request, res: Response, next: NextFunction) {
     try {
         const token = permit.check(req);
-        console.log("isLoggedIn:",token)
+        // console.log("isLoggedIn:",token)
         if (!token) {
             return res.status(401).json({ message: "Permission Denied" });
         }

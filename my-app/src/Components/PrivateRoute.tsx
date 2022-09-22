@@ -6,12 +6,12 @@ function PrivateRoute() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
     const location = useLocation();
 
-    console.log("this is isL: ", isLoggedIn);
 
     if (isLoggedIn === null) {
         <Navigate to="/login" state={{ from: location }} replace />;
         return null;
     }
+    console.log("this is isloggedIn: ", isLoggedIn);
 
     if (!isLoggedIn) {
         console.log("not login");

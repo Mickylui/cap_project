@@ -13,23 +13,27 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 
-const data = {
-    _id: "ats1999",
-    pic: "https://bit.ly/sage-adebayo",
-    name: "Jason",
-    profileTagLine: "Fullstack",
-    location: "Tsuen Wan",
-    bio: "I Love basketball, skateboard and swimming",
-    skills: ["nodejs", "reactjs", "java", "c++"],
-    socialProfiles: {
-        Linkedin: "https://www.linkedin.com/in/rahul-kumar-36b05a189",
-        Github: "https://github.com/ats1999",
-        Website: "https://dsabyte.com",
-    },
-};
+// const data = {
+//     _id: "ats1999",
+//     pic: "https://bit.ly/sage-adebayo",
+//     name: "Jason",
+//     profileTagLine: "Fullstack",
+//     location: "Tsuen Wan",
+//     bio: "I Love basketball, skateboard and swimming",
+//     skills: ["nodejs", "reactjs", "java", "c++"],
+//     socialProfiles: {
+//         Linkedin: "https://www.linkedin.com/in/rahul-kumar-36b05a189",
+//         Github: "https://github.com/ats1999",
+//         Website: "https://dsabyte.com",
+//     },
+// };
 
 function UserImage() {
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
+    const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
+    console.log("combineUserData", combineUserData);
+    const userData = combineUserData[0]
+    const DEVELOP_IMAGE_HOST = process.env.REACT_APP_IMAGE_URL;
     if (isAdmin) {
         return (
             <div>
@@ -59,8 +63,8 @@ function UserImage() {
         <div>
             <Container mt={4}>
                 <Avatar
-                    name={`${data.name}`}
-                    src="https://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
+                    name={`${userData.account_name}`}
+                    src={`${DEVELOP_IMAGE_HOST}/${userData.icon}`}
                     size="2xl"
                 />
                 {/* <Image
@@ -76,12 +80,12 @@ function UserImage() {
                 /> */}
                 <Center>
                     <VStack>
-                        <Heading>{data.name}</Heading>
-                        <Text color="gray">
-                            {data.profileTagLine} {", "} {data.location}
-                        </Text>
+                        <Heading>{userData.account_name}</Heading>
+                        {/* <Text color="gray">
+                            {userData.profileTagLine} {", "} {data.location}
+                        </Text> */}
                         {/* <SocialProfiles data={data.socialProfiles} /> */}
-                        <Text>{data.bio}</Text>
+                        <Text>{userData.slogan}</Text>
                         {/* <HStack>
             {data.skills.map(skill => (
               <Tag colorScheme="blue" key={skill}>

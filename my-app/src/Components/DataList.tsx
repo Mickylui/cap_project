@@ -60,12 +60,12 @@ export default function DataList() {
         showTotal: true,
         alwaysShowAllBtns: true,
         onPageChange: function (page, sizePerPage) {
-            console.log("page", page);
-            console.log("sizePerPage", sizePerPage);
+            // console.log("page", page);
+            // console.log("sizePerPage", sizePerPage);
         },
         onSizePerPageChange: function (page, sizePerPage) {
-            console.log("page", page);
-            console.log("sizePerPage", sizePerPage);
+            // console.log("page", page);
+            // console.log("sizePerPage", sizePerPage);
         },
     });
 
