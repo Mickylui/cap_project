@@ -74,10 +74,6 @@ function App() {
                         <Route path="form" element={<PostForm />} />Í
                     </Route>
                     <Route path="products" element={<Products />} />
-<<<<<<< HEAD
-                    {/* <Route path="products/id:" element={<ProductDetail />} /> */}
-=======
->>>>>>> 115762af41aa2603fc80ab85735e2a2c55a8604f
                     <Route path="products/productDetail/:productId" element={<ProductDetail />} />
                     <Route path="cart" element={<PrivateRoute />}>
                         <Route path="data" element={<ShoppingCart />} />
