@@ -293,6 +293,6 @@ const NAV_ITEMS: Array<NavItem> = [
     },
     {
         label: "Activity Platform",
-        href: "/posts",
+        href: "/platform/posts",
     },
 ];

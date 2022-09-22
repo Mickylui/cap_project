@@ -32,6 +32,8 @@ export interface ICombineUserDataState {
     reason: string | null;
     slogan: string | null;
     updated_at: string;
+    accumulation: number | null;
+    date: string;
 }
 const AccountInitialState = {
     isLoggedIn: null,

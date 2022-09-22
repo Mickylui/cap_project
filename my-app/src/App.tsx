@@ -54,7 +54,6 @@ function App() {
         GetUserDataJWT();
     }, []);
 
-
     return (
         <div className="App">
             <Router>
@@ -76,7 +75,7 @@ function App() {
                     </Route>
                     <Route path="products" element={<Products />} />
                     {/* <Route path="products/id:" element={<ProductDetail />} /> */}
-                    <Route path="products/productDetail/:productId" element={<ProductDetail/>} />
+                    <Route path="products/productDetail/:productId" element={<ProductDetail />} />
                     <Route path="cart" element={<PrivateRoute />}>
                         <Route path="data" element={<ShoppingCart />} />
                         <Route path="payment" element={<Payment />} />
@@ -89,7 +88,9 @@ function App() {
                     </Route>
 
                     {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
-                    <Route path="posts" element={<SocialPlatform />} />
+                    <Route path="platform" element={<PrivateRoute />}>
+                        <Route path="posts" element={<SocialPlatform />} />
+                    </Route>
                     <Route path="posts/postDetail/:postId" element={<PostDetail />} />
                     {/* <Route path="postDetail/:postId" element={<PostDetail />} /> */}
 

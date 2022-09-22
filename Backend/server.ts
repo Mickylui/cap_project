@@ -5,26 +5,16 @@ import expressSession from "express-session";
 import Knex from "knex";
 import cors from "cors";
 import path from "path";
+import dotnev from "dotenv";
+dotnev.config();
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-    next();
-});
 
 //accept other host
-const allowList = ["http://localhost:3000"];
-app.use(
-    cors({
-        origin: allowList.map((host) => host),
-    })
-);
+app.use(cors({ origin: [process.env.FRONTEND_URL ?? "http://localhost:3000"] }));
+// console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
 
 app.use(
     expressSession({

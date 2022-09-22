@@ -145,7 +145,7 @@ function PostDetail() {
                                     mr={2}
                                 />
                                 <TagLabel>{postDetail.account_name}</TagLabel>{" "}
-                                {postDetail.is_liked_by_user ? (
+                                {postDetail.is_liked_by_user[0] === true ? (
                                     <FaHeart color="red" />
                                 ) : (
                                     <FcLikePlaceholder />
@@ -194,7 +194,12 @@ function PostDetail() {
                                 ml={-1}
                                 mr={2}
                             />
-                            <TagLabel>{postDetail.account_name}</TagLabel> <FaHeart color="red" />{" "}
+                            <TagLabel>{postDetail.account_name}</TagLabel>
+                            {postDetail.is_liked_by_user[0] === true ? (
+                                <FaHeart color="red" />
+                            ) : (
+                                <FcLikePlaceholder />
+                            )}{" "}
                             {postDetail.count}
                         </Tag>
                     </Box>

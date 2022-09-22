@@ -156,20 +156,23 @@ export class PostService {
         const tagsArr = fields.tagItems.split(",");
 
         // console.log("fields:", fields);
-        // console.log("files:", files);
+        console.log("files Service:", files);
         // console.log("tagsArr:", tagsArr);
 
         let imageFiles = [];
         if (files === undefined) {
             imageFiles = [];
         } else {
+            console.log("have file")
+            console.log("files.lenght:",files.length)
             if (files.length > 1) {
                 imageFiles = files;
-            } else if (files.length === 1) {
+                console.log("have multiple file")
+            } else{
                 imageFiles.push(files);
             }
         }
-        // console.log("imageFiles:", imageFiles);
+        console.log("imageFiles:", imageFiles);
         try {
             const isAdmin: object = await txn("users")
                 .select("is_admin")
@@ -341,6 +344,7 @@ export class PostService {
                         })
                         .returning("id");
                     // console.log("postId:", postId);
+                    console.log("imageFiles:", imageFiles);
 
                     for (let i = 0; i < imageFiles.length; i++) {
                         await txn("post_images").insert({

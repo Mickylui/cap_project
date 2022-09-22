@@ -9,13 +9,18 @@ import ScrollToTopButton from "../../Components/ScrollToTopButton";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState, store } from "../../Redux/store";
 import { useSelector } from "react-redux";
+import { FcLikePlaceholder } from "react-icons/fc";
 
 function UserPost(props) {
     // const dispatch: AppDispatch = useDispatch();
     // const postData = useSelector((state: RootState) => state.user.postData);
     // console.log("this is postData:", postData);
     const postData = props.postData;
+    // if(postData)
     console.log("UserPost:", postData);
+    if (postData.length < 0) {
+        return null;
+    }
 
     return (
         // postList.is_ordinary === true -> admin post
@@ -53,7 +58,12 @@ function UserPost(props) {
                                     ml={-1}
                                     mr={2}
                                 />
-                                <TagLabel>{postItem.account_name}</TagLabel> <FaHeart color="red" />{" "}
+                                <TagLabel>{postItem.account_name}</TagLabel>{" "}
+                                {postItem.is_liked_by_user[0] === true ? (
+                                    <FaHeart color="red" />
+                                ) : (
+                                    <FcLikePlaceholder />
+                                )}{" "}
                                 {postItem.count}
                             </Tag>
                             <RouteLink to="reportPost">

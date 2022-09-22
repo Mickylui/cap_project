@@ -24,6 +24,7 @@ function Profile() {
     const postData = useSelector((state: RootState) => state.user.postData);
     console.log("this is postData:", postData);
     console.log("Profile like data:", likeData);
+    console.log("combineUserData:", combineUserData);
 
     const userId = combineUserData[0].id;
     // console.log("userId:", userId);

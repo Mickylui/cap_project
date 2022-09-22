@@ -77,11 +77,14 @@ export class AccountService {
                     "user_info.gender",
                     "user_info.age_range",
                     "user_info.reason",
-                    "user_info.learning_level"
+                    "user_info.learning_level",
+                    "accumulation.accumulation",
+                    "accumulation.date"
                 )
                 .leftJoin("user_info", "user_info.user_id", "users.id")
+                .leftJoin("accumulation", "accumulation.user_id", "users.id")
                 .where("users.id", existUserData.id);
-            // console.log("combineUserData:", combineUserData);
+            console.log("combineUserData:", combineUserData);
             const userShoppingDataArr = await txn("shopping_carts")
                 .select("*")
                 .where("shopping_carts.user_id", existUserData.id);

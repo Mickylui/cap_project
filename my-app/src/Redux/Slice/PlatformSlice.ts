@@ -26,7 +26,7 @@ export interface PostState {
     title: string | null;
     updated_at: string;
     icon: string | null;
-    is_liked_by_user: boolean | null;
+    is_liked_by_user: Array<boolean>;
     user_id: number | null;
 }
 
@@ -82,7 +82,7 @@ const PostStateInitialState = {
     title: null,
     updated_at: "",
     icon: null,
-    is_liked_by_user: null,
+    is_liked_by_user: [],
     user_id: null,
 };
 

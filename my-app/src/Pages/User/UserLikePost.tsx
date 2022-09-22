@@ -16,6 +16,10 @@ function UserLikePost(props) {
     const likeData = props.likeData
     console.log("this is likeData:", likeData);
 
+    if (likeData.length < 0) {
+        return null;
+    }
+
     return (
         // postList.is_ordinary === true -> admin post
         <div>
@@ -53,7 +57,7 @@ function UserLikePost(props) {
                                     mr={2}
                                 />
                                 <TagLabel>{postItem.account_name}</TagLabel> <FaHeart color="red" />{" "}
-                                {postItem.like}
+                                {postItem.count}
                             </Tag>
                             <RouteLink to="reportPost">
                                 <Button>
