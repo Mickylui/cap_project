@@ -50,6 +50,7 @@ export async function up(knex: Knex): Promise<void> {
                 t.integer('product_id');
                 t.foreign('product_id').references('products.id').onDelete('CASCADE').onUpdate('CASCADE');
                 t.timestamp('like_at').defaultTo(knex.fn.now());
+                t.boolean("is_dislike").defaultTo(false);
             })
         }
         return;
