@@ -1,22 +1,15 @@
-import React from "react";
-import {
-    Table,
-    Thead,
-    Tbody,
-    Tfoot,
-    Tr,
-    Th,
-    Td,
-    TableCaption,
-    TableContainer,
-    Button,
-} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableContainer, Button } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useSelector } from "react-redux";
-import { RootState } from "../../Redux/store";
+import { AppDispatch, RootState } from "../../Redux/store";
+import { useDispatch } from "react-redux";
+import { CartItemState } from "../../Redux/Slice/cartSlice";
 
 function CartList(props: { usePoint: boolean }) {
-    const cartItemArr = useSelector((state: RootState) => state.cart.list);
+    const cartItemArr = useSelector((state: RootState) => state.cart.product);
+    const [cartList, setCartList] = useState<CartItemState>();
+    const dispatch = useDispatch<AppDispatch>();
 
     if (props.usePoint) {
         return (
@@ -98,7 +91,7 @@ function CartList(props: { usePoint: boolean }) {
                                 <Td>{item.size}</Td>
                                 <Td>{`$ ${item.unit_price * item.quantity}`}</Td>
                                 <Td>
-                                    <Button>
+                                    <Button onClick={() => {}}>
                                         <DeleteIcon />
                                     </Button>
                                 </Td>

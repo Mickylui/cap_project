@@ -68,28 +68,58 @@ export class ProductService {
         }
     }
 
-    async getAllCartItems(userId: string) {
-        const allCartItems = await this.knex("shopping_cart").select(
+    async getAllCartItems(userId: number) {
+        const cartItems = await this.knex.raw(
             `
-            SELECT shopping_cart.id,
-            shopping_cart.size,
-            shopping_cart.quantity,
-            shopping_cart.user_id,
-            json_agg(DISTINCT products.name) name,
-            json_agg(DISTINCT products.unit_price) unit_price,
-            json_agg(DISTINCT users.name) name,            
-        FROM shopping_cart
-            LEFT JOIN products ON products.name.product_id = shopping_cart.id
-            LEFT JOIN products ON products.unit_price.product_id = shopping_cart.id
-            LEFT JOIN users ON users.name.user_id = shopping_cart.id
-        WHERE products.id = ?
-        GROUP BY shopping_cart.id
-            `,
+        SELECT 
+            shopping_carts.id,
+            shopping_carts.size,
+            shopping_carts.quantity,
+            products.name,
+            products.id AS product_id,
+            products.unit_price
+        FROM shopping_carts
+        INNER JOIN products ON products.id = shopping_carts.product_id 
+        WHERE shopping_carts.user_id = ?`,
             [userId]
         );
-        console.log(allCartItems);
+        return cartItems.rows;
     }
+
     async addToCart(user_id: number, product_id: number, size: number, quantity: number) {
+<<<<<<< HEAD
+        const trx = await this.knex.transaction();
+        let qty = quantity;
+        let cartId: number;
+        try {
+            const cartItem = await trx("shopping_carts")
+                .select("id", "quantity", "size")
+                .where("user_id", user_id)
+                .andWhere("product_id", product_id)
+                .andWhere("size", size)
+                .first();
+
+            if (cartItem) {
+                cartId = cartItem.id;
+                qty = cartItem.quantity + quantity;
+                await trx("shopping_carts")
+                    .update({ quantity: qty })
+                    .where("user_id", user_id)
+                    .andWhere("product_id", product_id)
+                    .andWhere("size", size);
+            } else {
+                const [cart] = await trx("shopping_carts")
+                    .insert({ user_id, product_id, quantity, size })
+                    .returning("id");
+                cartId = cart.id;
+            }
+            await trx.commit();
+            return { quantity: qty, cartId };
+        } catch (err) {
+            await trx.rollback();
+            throw err;
+        }
+=======
         // const cart = await this.knex
         //     .insert({
         //         product_id: `${product_id}`,
@@ -102,9 +132,10 @@ export class ProductService {
         try {
             // const cartItem = await this.knex("shopping_carts");
         } catch {}
+>>>>>>> 6054b4d5daa692e901a6ea1ed09331a04cda5999
     }
 
     async RemoveCartItem(id: number) {
-        await this.knex("shopping_cart").where("id", id).del();
+        await this.knex("shopping_carts").where("id", id).del();
     }
 }

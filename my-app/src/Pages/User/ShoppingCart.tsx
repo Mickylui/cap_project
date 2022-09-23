@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Box, Button, Grid, GridItem, Image } from "@chakra-ui/react";
+import { useState } from "react";
+import { Box, Button, Grid, GridItem } from "@chakra-ui/react";
 // import { Link as ReachLink } from "@reach/router"
 import { Link as RouteLink } from "react-router-dom";
 import { Link } from "@chakra-ui/react";
@@ -7,10 +7,9 @@ import CartList from "./CartList";
 import PayWithPoints from "./PayWithPoints";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
-import { getCartFetch } from "../../Api/productFetch";
 
-function ShoppingCart() {
-    const cartItemArr = useSelector((state: RootState) => state.cart.list);
+export default function ShoppingCart() {
+    const cartItemArr = useSelector((state: RootState) => state.cart.product);
     const [usePoint, setUsePoint] = useState(false);
 
     return (
@@ -86,5 +85,3 @@ function ShoppingCart() {
         </div>
     );
 }
-
-export default ShoppingCart;
