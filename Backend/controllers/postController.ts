@@ -59,7 +59,7 @@ export class PostController {
             const form = req.form;
             const fields = form.fields;
             const files = form.files.files;
-            console.log("files:", files);
+            // console.log("files:", files);
 
             const addPostResult = await this.postService.addPost(fields, files);
             // console.log("addPostResult:", addPostResult);

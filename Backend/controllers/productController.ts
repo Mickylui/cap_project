@@ -17,7 +17,7 @@ export class ProductController {
     productDetailByProductId = async (req: Request, res: Response) => {
         try {
             const productId = req.query.productId as string;
-            console.log("productId:", productId);
+            // console.log("productId:", productId);
             const getProductDetailByProductIdData =
                 await this.productService.productDetailByProductId(productId);
 
@@ -29,8 +29,8 @@ export class ProductController {
     };
     addProduct = async (req: any, res: Response) => {
         try {
-            console.log("this is addProduct:", req.form);
-            console.log("this is form:", req.form);
+            // console.log("this is addProduct:", req.form);
+            // console.log("this is form:", req.form);
         } catch (error) {
             winstonLogger.error(error.toString());
             res.status(500).json({ success: false, message: "Internal Server Error" });

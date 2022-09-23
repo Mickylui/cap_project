@@ -6,10 +6,14 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+import { RootState } from "../Redux/store";
+import { useSelector } from "react-redux";
+import { IOrderDataState } from "../Redux/Slice/adminSlice";
 // import ToolkitProvider, { CSVExport } from "react-bootstrap-table2-toolkit";
 
-export default function DataList() {
-    const [userList, setUserList] = useState([]);
+export default function DataList(props) {
+    const [userList, setUserList] = useState<IOrderDataState[]>([]);
+    const orderData = useSelector((state: RootState) => state.admin.orderData);
 
     // const { ExportCSVButton } = CSVExport;
     // const MyExportCSV = (props:any) => {
@@ -27,27 +31,28 @@ export default function DataList() {
 
     const columns = [
         {
-            dataField: "id",
+            dataField: "order_id",
             text: "Id",
             sort: true,
             filter: textFilter(),
         },
+        // {
+        //     dataField: "name",
+        //     text: "Name",
+        //     sort: true,
+        //     filter: textFilter(),
+        // },
         {
-            dataField: "name",
-            text: "Name",
+            dataField: "account_name",
+            text: "Username",
             sort: true,
             filter: textFilter(),
         },
-        {
-            dataField: "username",
-            text: "Username",
-            sort: true,
-        },
-        {
-            dataField: "email",
-            text: "Email",
-            sort: true,
-        },
+        // {
+        //     dataField: "email",
+        //     text: "Email",
+        //     sort: true,
+        // },
     ];
 
     const pagination = paginationFactory({
@@ -69,11 +74,15 @@ export default function DataList() {
         },
     });
 
+    const rowEvents = {
+        onClick: (e, row, rowIndex) => {
+            const orderId = row.order_id;
+            props.setOrderId(orderId);
+        },
+    };
+
     useEffect(() => {
-        fetch("https://jsonplaceholder.typicode.com/users")
-            .then((response) => response.json())
-            .then((result) => setUserList(result))
-            .catch((error) => console.log(error));
+        setUserList(orderData);
     }, []);
     return (
         <div>
@@ -95,15 +104,15 @@ export default function DataList() {
             </ToolkitProvider> */}
 
             <BootstrapTable
-                            bootstrap4
-                            keyField="id"
-                            columns={columns}
-                            data={userList}
-                            pagination={pagination}
-                            filter={filterFactory()}
-                            // {...props.baseProps}
-                        />
-            
+                bootstrap4
+                keyField="id"
+                columns={columns}
+                data={userList}
+                pagination={pagination}
+                filter={filterFactory()}
+                rowEvents={rowEvents}
+                // {...props.baseProps}
+            />
         </div>
     );
 }

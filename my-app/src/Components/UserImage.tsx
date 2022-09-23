@@ -39,7 +39,7 @@ import { SmallAddIcon } from "@chakra-ui/icons";
 function UserImage() {
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
-    console.log("combineUserData", combineUserData);
+    // console.log("combineUserData", combineUserData);
     const userData = combineUserData[0];
     const DEVELOP_IMAGE_HOST = process.env.REACT_APP_IMAGE_URL;
     if (isAdmin) {

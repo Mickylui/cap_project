@@ -72,7 +72,7 @@ function App() {
                     <Route path="admin" element={<PrivateRoute />}>
                         <Route path="manage" element={<Profile />} />Í
                     </Route>
-                    <Route path="posts/platform" element={<PrivateRoute />}>
+                    <Route path="platform" element={<PrivateRoute />}>
                         <Route path="form" element={<PostForm />} />Í
                     </Route>
                     <Route path="products" element={<Products />} />

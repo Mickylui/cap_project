@@ -7,6 +7,7 @@ import { cartReducer } from "./Slice/cartSlice";
 import postsReducer from "./Slice/platformSlice";
 import productsReducer from "./Slice/productSlice";
 import userReducer from "./Slice/userSlice";
+import adminReducer from "./Slice/adminSlice";
 
 export const store = configureStore({
     reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
         product: productsReducer,
         user: userReducer,
         cart: cartReducer,
+        admin: adminReducer
     },
 });
 export type RootState = ReturnType<typeof store.getState>;

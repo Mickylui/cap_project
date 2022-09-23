@@ -145,4 +145,28 @@ GROUP BY (
         users.account_name,
         post_likes.like_by_user_id posts.title,
     )
-ORDER BY posts.display_push DESC
+ORDER BY posts.display_push DESC;
+    -- json_agg(DISTINCT products.name) product_name
+    -- json_agg(order_details.order_quantity) order_quantity,
+    -- json_agg(order_details.order_unit_price) order_unit_price
+SELECT
+    order_history.id AS order_id,
+    order_history.delivery_address,
+    order_history.contact,
+    users.account_name,
+    users.icon,
+    users.id AS user_id,
+    order_history.status,
+    array_agg(products.name || ',' || order_details.order_size || ',' || order_details.order_quantity || ',' || order_details.order_unit_price) name_size_quantity_price
+FROM order_history
+    LEFT JOIN users ON users.id = order_history.user_id
+    LEFT JOIN order_details ON order_details.order_history_id = order_history.id
+    LEFT JOIN products ON products.id = order_details.product_id
+WHERE order_history.status != 'success'
+AND order_history.status != 'cancel'
+GROUP BY (
+        order_history.id,
+        users.id,
+        users.account_name
+    )
+ORDER BY order_history.updated_at DESC;

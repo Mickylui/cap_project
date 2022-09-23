@@ -120,12 +120,12 @@ export async function seed(knex: Knex): Promise<void> {
     ]);
     
     await knex("order_history").insert([
-        { total_amount:300 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[3].id, pay_date:'2022-07-10 20:00:00'},
-        { total_amount:600 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[3].id, pay_date:'2022-08-10 20:00:00'},
-        { total_amount:750 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[7].id, pay_date:'2022-06-15 20:00:00'},
-        { total_amount:750 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[8].id, pay_date:'2022-08-20 20:00:00'},
-        { total_amount:300 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[9].id, pay_date:'2022-09-20 20:00:00'},
-        { total_amount:300 , pay_method:"paypal" ,status:"shipping",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[10].id, pay_date:'2022-09-20 20:00:00'},
+        { total_amount:300 , pay_method:"paypal" ,status:"pending",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[3].id, pay_date:'2022-07-10 20:00:00'},
+        { total_amount:600 , pay_method:"paypal" ,status:"success",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[3].id, pay_date:'2022-08-10 20:00:00'},
+        { total_amount:750 , pay_method:"paypal" ,status:"cancel",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[7].id, pay_date:'2022-06-15 20:00:00'},
+        { total_amount:750 , pay_method:"paypal" ,status:"pending",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[8].id, pay_date:'2022-08-20 20:00:00'},
+        { total_amount:300 , pay_method:"paypal" ,status:"pending",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[9].id, pay_date:'2022-09-20 20:00:00'},
+        { total_amount:300 , pay_method:"paypal" ,status:"pending",delivery_address:"YL",email:"jack@1.com",contact:"12345678", user_id:users[10].id, pay_date:'2022-09-20 20:00:00'},
     ]);
 
     const order_history = (await knex.raw(`SELECT * FROM order_history`)).rows

@@ -36,26 +36,33 @@ const suggestedTags = [
 
 function SocialPlatform() {
     const dispatch: AppDispatch = useDispatch();
+
     const postList = useSelector((state: RootState) => state.platform.list);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
+
+    const [searchTag, setSearchTag] = useState("");
+    const [searchContent, setSearchContent] = useState("");
     const [post, setPost] = useState<PostState[]>([]);
+
     let userId: number | string;
-    console.log("postList:", postList);
+    // console.log("postList:", postList);
     if (combineUserData.length > 0) {
         userId = combineUserData[0].id as number;
     } else {
         userId = 1;
     }
 
-    const [searchTag, setSearchTag] = useState("");
-    const [searchContent, setSearchContent] = useState("");
+    // console.log("postList:", postList);
 
-    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
-    console.log("postList:", postList);
-    // console.log("searchTag:", searchTag);
+    const getPost = async () => {
+        // console.log("combineUserData:", combineUserData[0].id);
+        await dispatch(getPostFetch(userId as number));
+    };
 
-    // Search Content: form submit -> fetch this content and replace state.platform.list;
-    // need Infinite scroll!!
+    useEffect(() => {
+        getPost();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [combineUserData]);
 
     const adminPostList = useMemo(
         () => postList.filter((postItem) => postItem.is_ordinary === true),
@@ -65,19 +72,8 @@ function SocialPlatform() {
         () => postList.filter((postItem) => postItem.is_ordinary === false),
         [postList]
     );
-    // console.log("adminPostList:", adminPostList);
-    // console.log("userPostList:", userPostList);
-    const getPost = async () => {
-        // console.log("combineUserData:", combineUserData[0].id);
-        await dispatch(getPostFetch(userId as number));
-    };
 
-    useEffect(() => {
-        // console.log("state:", store.getState());
-        getPost();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [combineUserData]);
-
+    // need Infinite scroll!!
     // let offset = 0;
     // const getPost = async () => {
     //     // console.log("combineUserData:", combineUserData[0].id);
@@ -116,10 +112,9 @@ function SocialPlatform() {
 
         if (searchTag !== "") {
             fetchSearchTag();
-            return
+            return;
         }
-        console.log("no tag!")
-        getPost()
+        getPost();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTag]);
 
@@ -130,10 +125,12 @@ function SocialPlatform() {
         if (searchContent !== "") {
             fetchContent();
         }
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchContent]);
 
+    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
+    // console.log("DEVELOP_IMAGE_URL:", DEVELOP_IMAGE_URL);
     return (
         // postList.is_ordinary === true -> admin post
         <div>
@@ -180,7 +177,7 @@ function SocialPlatform() {
                 </form>
             )}
 
-            <RouteLink to="platform/form">
+            <RouteLink to="/platform/form" replace={true}>
                 <Button size="md">
                     <FaPlusCircle />
                 </Button>
