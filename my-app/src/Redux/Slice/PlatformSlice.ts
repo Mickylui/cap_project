@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import produce from "immer";
 import {
+    changeLikeFetch,
     getPostDetailByPostIdFetch,
     getPostFetch,
     getSearchContentPostFetch,
@@ -186,6 +187,21 @@ const platformSlice = createSlice({
                 return state;
             })
             .addCase(getSearchContentPostFetch.rejected, (state, action) => {
+                console.log(action.payload?.error);
+            })
+            .addCase(changeLikeFetch.pending, (state) => {
+                const nextState = produce(PlatformInitialState, (draft) => {
+                    draft.status = "loading";
+                });
+                state = nextState;
+                return state;
+            })
+            .addCase(changeLikeFetch.fulfilled, (state, action) => {
+                const postItems = action.payload.body;
+                
+                return state;
+            })
+            .addCase(changeLikeFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             });
     },

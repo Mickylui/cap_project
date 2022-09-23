@@ -439,5 +439,15 @@ export class PostService {
             return;
         }
     }
+    async changeLike(postId: string, userId: string) {
+        const txn = await this.knex.transaction()
+        try {
+
+            // console.log("allPost:", allPost);
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            return;
+        }
+    }
     async reportPost() {}
 }

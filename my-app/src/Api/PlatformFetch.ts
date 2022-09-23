@@ -24,7 +24,7 @@ export const getPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Erro
 );
 export const getSearchTagPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@posts/getSearchTagPost",
-    async ({tag,userId} , thunkAPI) => {
+    async ({ tag, userId }, thunkAPI) => {
         try {
             const res = await fetch(
                 `${DEVELOP_HOST}/posts/getSearchTagPost?tag=${tag}&userId=${userId}`
@@ -32,7 +32,7 @@ export const getSearchTagPostFetch = createAsyncThunk<ICarriage, any, { rejectVa
             const posts = await res.json();
             return posts;
         } catch {
-            return thunkAPI.rejectWithValue({ error: "Cannot get POSTS." } as Error);
+            return thunkAPI.rejectWithValue({ error: "Cannot search tag." } as Error);
         }
     }
 );
@@ -45,14 +45,14 @@ export const addPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Erro
             const posts = await res.json();
             return posts;
         } catch {
-            return thunkAPI.rejectWithValue({ error: "Cannot get POSTS." } as Error);
+            return thunkAPI.rejectWithValue({ error: "Cannot add post." } as Error);
         }
     }
 );
 
 export const getPostDetailByPostIdFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@posts/getPostDetailByPostId",
-    async ({postId,userId}, thunkAPI) => {
+    async ({ postId, userId }, thunkAPI) => {
         try {
             const res = await fetch(
                 `${DEVELOP_HOST}/posts/getPostDetailByPostId?postId=${postId}&userId=${userId}`
@@ -60,14 +60,14 @@ export const getPostDetailByPostIdFetch = createAsyncThunk<ICarriage, any, { rej
             const posts = await res.json();
             return posts;
         } catch {
-            return thunkAPI.rejectWithValue({ error: "Cannot get POSTS." } as Error);
+            return thunkAPI.rejectWithValue({ error: "Cannot get post detail." } as Error);
         }
     }
 );
 
 export const getSearchContentPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@posts/getSearchContentPost",
-    async ({keyword,userId}, thunkAPI) => {
+    async ({ keyword, userId }, thunkAPI) => {
         try {
             const res = await fetch(
                 `${DEVELOP_HOST}/posts/getSearchContentPost?keyword=${keyword}&userId=${userId}`
@@ -75,7 +75,22 @@ export const getSearchContentPostFetch = createAsyncThunk<ICarriage, any, { reje
             const posts = await res.json();
             return posts;
         } catch {
-            return thunkAPI.rejectWithValue({ error: "Cannot get POSTS." } as Error);
+            return thunkAPI.rejectWithValue({ error: "Cannot search content." } as Error);
+        }
+    }
+);
+
+export const changeLikeFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
+    "@posts/changeLike",
+    async ({ postId, userId }, thunkAPI) => {
+        try {
+            const res = await fetch(
+                `${DEVELOP_HOST}/posts/changeLike?postId=${postId}&userId=${userId}`
+            );
+            const posts = await res.json();
+            return posts;
+        } catch {
+            return thunkAPI.rejectWithValue({ error: "Cannot like POSTS." } as Error);
         }
     }
 );

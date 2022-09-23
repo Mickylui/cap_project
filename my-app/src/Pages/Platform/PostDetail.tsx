@@ -14,6 +14,8 @@ function PostDetail() {
     const postDetail = useSelector((state: RootState) => state.platform.postDetail);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     const [images, setImages] = useState<Array<any>>([]);
+    const [like, setLike] = useState(true);
+
     // need to dispatch post list by postId
 
     const pathName = window.location.pathname;
@@ -39,7 +41,7 @@ function PostDetail() {
         };
         getPostDetailByPostId();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [like]);
 
     // useEffect(() => {
     //     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
@@ -75,6 +77,15 @@ function PostDetail() {
             // console.log("this is images:", postImagesArr[i]);
         }
     }, [postDetail]);
+
+    const handleLike = async () => {
+        setLike(true);
+        
+    };
+
+    const handleDislike = async () => {
+        setLike(false);
+    };
 
     // console.log("this is postImagesArr:", postImagesArr);
     // console.log("this is images:", images);
@@ -146,9 +157,9 @@ function PostDetail() {
                                 />
                                 <TagLabel>{postDetail.account_name}</TagLabel>{" "}
                                 {postDetail.is_liked_by_user[0] === true ? (
-                                    <FaHeart color="red" />
+                                    <FaHeart color="red" onClick={() => handleDislike} />
                                 ) : (
-                                    <FcLikePlaceholder />
+                                    <FcLikePlaceholder onClick={() => handleLike} />
                                 )}
                                 {postDetail.count}
                             </Tag>
