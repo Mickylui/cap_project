@@ -57,7 +57,6 @@ export class ProductController {
         }
     };
     addToCart = async (req: Request, res: Response) => {
-<<<<<<< HEAD
         try {
             const userId = req.body.user.id;
             const { product_id, size, quantity } = req.body.item; // { product_id, size, quantity }
@@ -67,12 +66,6 @@ export class ProductController {
             winstonLogger.error(error.toString());
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
-=======
-        const userId = req.body.user.id;
-        // const { product_id, size, quantity } = req.body.item; // { product_id, size, quantity }
-        console.log(userId);
-        // await this.productService.addToCart(product_id, size, quantity);
->>>>>>> 6054b4d5daa692e901a6ea1ed09331a04cda5999
     };
 
     removeCartItem = async (req: any, res: Response) => {

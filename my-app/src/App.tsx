@@ -35,11 +35,8 @@ import Payment from "./Pages/User/Payment";
 import Promotion from "./Pages/User/Promotion";
 import ProductDetail from "./Pages/Product/ProductDetail";
 import { Scroll } from "./Components/scroll";
-<<<<<<< HEAD
 import { getCartFetch } from "./Api/productFetch";
-=======
 import OtherUserProfile from "./Pages/User/OtherUserProfile";
->>>>>>> 6054b4d5daa692e901a6ea1ed09331a04cda5999
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
