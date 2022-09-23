@@ -6,7 +6,7 @@ import Products from "../Product/Products";
 import UsePoints from "./UsePoints";
 import GetPoints from "./GetPoints";
 import { WarningTwoIcon } from "@chakra-ui/icons";
-import { Link as RouteLink, Outlet, useLocation } from "react-router-dom";
+import { Link as RouteLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/store";
 import SocialPlatform from "../Platform/SocialPlatform";
@@ -22,12 +22,11 @@ function Profile() {
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     const likeData = useSelector((state: RootState) => state.user.likeData);
     const postData = useSelector((state: RootState) => state.user.postData);
-    const location = useLocation();
-    const locationArr = location.pathname.split("/");
-    const userId = locationArr[2];
+    
+    const { userId } = useParams();
+
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 
-    console.log("locationArr:", locationArr);
     console.log("this is postData:", postData);
     console.log("Profile like data:", likeData);
     console.log("combineUserData:", combineUserData);

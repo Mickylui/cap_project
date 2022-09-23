@@ -15,6 +15,7 @@ import { getUserLikePostFetch, getUserPostFetch } from "../../Api/userFetch";
 import UserLikePost from "./UserLikePost";
 import { ShippingManage } from "../Admin/ShippingManage";
 import { getOrderFetch } from "../../Api/adminFetch";
+import ProductManage from "../Admin/ProductManage";
 
 function Profile() {
     const [link, switchLink] = useState("posts");
@@ -43,7 +44,6 @@ function Profile() {
             await dispatch(getUserLikePostFetch(userId));
         };
         getUserLikePost();
-
     }, [link]);
 
     if (isAdmin) {
@@ -106,7 +106,7 @@ function Profile() {
                 </Box>
                 <main>
                     {adminLink === "users" ? <SocialPlatform /> : <></>}
-                    {adminLink === "products" ? <div>product</div> : <></>}
+                    {adminLink === "products" ? <ProductManage /> : <></>}
                     {adminLink === "shipping" ? <ShippingManage /> : <></>}
                     {adminLink === "platform" ? <div>platform</div> : <></>}
                     {adminLink === "posts" ? <div>posts</div> : <></>}

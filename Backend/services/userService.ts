@@ -26,6 +26,7 @@ export class UserService {
                         json_agg(DISTINCT post_images.image) image,
                         json_agg(DISTINCT tags.tag) tag,
                         json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
+                        json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
                         COUNT(post_likes.id)
                 FROM posts
                     LEFT JOIN users ON users.id = posts.user_id
@@ -69,6 +70,7 @@ export class UserService {
                 users.account_name,
                 json_agg(DISTINCT post_images.image) image,
                 json_agg(DISTINCT tags.tag) tag,
+                json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
                 COUNT(post_likes.id)
             FROM posts
                 LEFT JOIN users ON users.id = posts.user_id
@@ -77,6 +79,7 @@ export class UserService {
                 LEFT JOIN tags ON tags.id = post_tags.tag_id
                 LEFT JOIN post_likes ON post_likes.post_id = posts.id
             WHERE post_likes.like_by_user_id = ?
+            AND post_likes.is_dislike = false
             GROUP BY (posts.id, users.account_name)
             ORDER BY posts.display_push DESC
                         `,

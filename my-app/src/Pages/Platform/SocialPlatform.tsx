@@ -262,7 +262,7 @@ function SocialPlatform() {
                                             />
                                         </RouteLink>
                                         <TagLabel>{postItem.account_name}</TagLabel>{" "}
-                                        {postItem.is_liked_by_user[0] === true ? (
+                                        {postItem.is_dislike[0] === true ? (
                                             <FaHeart color="red" />
                                         ) : (
                                             <FcLikePlaceholder />
@@ -345,7 +345,7 @@ function SocialPlatform() {
                                         />
                                         <TagLabel>{postItem.account_name}</TagLabel>{" "}
                                     </RouteLink>
-                                    {postItem.is_liked_by_user[0] === true ? (
+                                    {postItem.is_dislike[0] === true ? (
                                         <FaHeart color="red" />
                                     ) : (
                                         <FcLikePlaceholder />
