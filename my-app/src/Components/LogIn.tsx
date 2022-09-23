@@ -23,6 +23,7 @@ import { Link as RouteLink, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../Redux/store";
 import { BackButton } from "./BackButton";
 import Swal from "sweetalert2";
+import { getCartFetch } from "../Api/productFetch";
 
 export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
@@ -31,22 +32,9 @@ export default function LogInCard() {
     const hasLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
-    // console.log("login:",combineUserData)
 
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
-
-    // if (status === "loading") {
-    //     return (
-    //         <Spinner
-    //             thickness="4px"
-    //             speed="0.65s"
-    //             emptyColor="gray.200"
-    //             color="blue.500"
-    //             size="xl"
-    //         />
-    //     );
-    // }
 
     async function logInSubmit(e: FormEvent) {
         // need to fetch logIn time
@@ -67,47 +55,38 @@ export default function LogInCard() {
             });
             return;
         }
-        const logInResponse = await dispatch(LogInFetch({ email, password }));
-        // console.log("logInResponse:", logInResponse);
 
-
-        // never log in before && not admin
-        // Swal.fire({
-        //     title: "Good Decision, Welcome To Our Family!",
-        //     text: "Congratulations! You get 100 points for your registration. Try to get more points by completing your profile.",
-        //     showClass: {
-        //         popup: "animate__animated animate__fadeInDown",
-        //     },
-        //     hideClass: {
-        //         popup: "animate__animated animate__fadeOutUp",
-        //     },
-        // }).then(() => {
-        //     navigate("/");
-        // });
-
-        if (logInResponse.payload.success === true) {
-            Swal.fire({
-                title: "Log In",
-                showClass: {
-                    popup: "animate__animated animate__fadeInDown",
-                },
-                hideClass: {
-                    popup: "animate__animated animate__fadeOutUp",
-                },
-            }).then(() => {
-                navigate(-1);
+        dispatch(LogInFetch({ email, password }))
+            .unwrap()
+            .then((logInResponse) => {
+                if (logInResponse.success === true) {
+                    Swal.fire({
+                        title: "Log In",
+                        showClass: {
+                            popup: "animate__animated animate__fadeInDown",
+                        },
+                        hideClass: {
+                            popup: "animate__animated animate__fadeOutUp",
+                        },
+                    }).then(() => {
+                        navigate(-1);
+                    });
+                } else {
+                    Swal.fire({
+                        title: `${logInResponse.message}`,
+                        showClass: {
+                            popup: "animate__animated animate__fadeInDown",
+                        },
+                        hideClass: {
+                            popup: "animate__animated animate__fadeOutUp",
+                        },
+                    });
+                }
+            })
+            .then(() => {
+                const token = window.localStorage.getItem("token");
+                dispatch(getCartFetch({ token }));
             });
-        } else {
-            Swal.fire({
-                title: `${logInResponse.payload.message}`,
-                showClass: {
-                    popup: "animate__animated animate__fadeInDown",
-                },
-                hideClass: {
-                    popup: "animate__animated animate__fadeOutUp",
-                },
-            });
-        }
     }
 
     return (

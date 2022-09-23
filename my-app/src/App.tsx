@@ -35,6 +35,7 @@ import Payment from "./Pages/User/Payment";
 import Promotion from "./Pages/User/Promotion";
 import ProductDetail from "./Pages/Product/ProductDetail";
 import { Scroll } from "./Components/scroll";
+import { getCartFetch } from "./Api/productFetch";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -43,15 +44,12 @@ function App() {
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
-        const GetUserDataJWT = async () => {
-            const token = window.localStorage.getItem("token");
-            if (!isLoggedIn && token) {
-                await dispatch(getUserDataJWTFetch({ token }));
-                // console.log("isLoggedIn:", isLoggedIn);
-            }
-        };
-
-        GetUserDataJWT();
+        const token = window.localStorage.getItem("token");
+        if (!isLoggedIn && token) {
+            dispatch(getUserDataJWTFetch({ token }))
+                .unwrap()
+                .then(() => dispatch(getCartFetch({ token })));
+        }
     }, []);
 
     return (

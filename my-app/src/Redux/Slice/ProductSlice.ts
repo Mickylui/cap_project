@@ -4,14 +4,14 @@ import produce from "immer";
 import { getProductFetch, getProductDetailByProductIdFetch } from "../../Api/productFetch";
 
 export interface ProductState {
-    id: number | null;
-    image: string | null;
+    id: number;
+    image: String;
     size: number[];
-    name: string | null;
-    description: string | null;
-    unit_price: number | null;
-    quantity: number | null;
-    product_likes: number | null;
+    name: string;
+    description: string;
+    unit_price: number;
+    quantity: number;
+    product_likes: number;
 }
 
 export interface IProductListState {
@@ -31,7 +31,7 @@ const ProductStateInitialState = {
     unit_price: null,
     quantity: null,
     product_likes: null,
-}
+};
 
 export type Error = {
     error: string;
@@ -61,12 +61,12 @@ const productSlice = createSlice({
         // update product items
         updateProduct(state, action: PayloadAction<any>) {
             let index = state.list.findIndex((item) => item.id === action.payload.id);
-            state.list[index].name = action.payload.name
+            state.list[index].name = action.payload.name;
         },
         updateProductDesc(state, action: PayloadAction<any>) {
             let index = state.list.findIndex((item) => item.id === action.payload.id);
             state.list[index].description = action.payload.item_description;
-        }
+        },
     },
     extraReducers(builder) {
         builder
@@ -113,10 +113,5 @@ const productSlice = createSlice({
     },
 });
 
-export const { 
-    addProduct, 
-    selectProduct, 
-    updateProduct, 
-    updateProductDesc 
-} = productSlice.actions;
+export const { addProduct, selectProduct, updateProduct, updateProductDesc } = productSlice.actions;
 export default productSlice.reducer;

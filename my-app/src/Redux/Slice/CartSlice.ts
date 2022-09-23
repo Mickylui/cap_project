@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import produce from "immer";
-import { getCartFetch } from "../../Api/productFetch";
+import { addToCartFetch, getCartFetch } from "../../Api/productFetch";
 
 export interface CartItemState {
     id: number;
@@ -12,7 +11,8 @@ export interface CartItemState {
 }
 
 export interface ICartList {
-    list: CartItemState[];
+    product: CartItemState[];
+    // product: Record<number, CartItemState>;
     status: string;
     error: string;
 }
@@ -20,9 +20,9 @@ export interface ICartList {
 let CartListInitialState: ICartList;
 
 CartListInitialState = {
-    list: [
-        { id: 1, product_id: 1, name: "skateboard", size: 7, quantity: 2, unit_price: 200 },
-        { id: 2, product_id: 1, name: "skateboard", size: 7, quantity: 1, unit_price: 300 },
+    product: [
+        // { id: 1, product_id: 1, name: "skateboard", size: 7, quantity: 2, unit_price: 200 },
+        // { id: 2, product_id: 1, name: "skateboard", size: 7, quantity: 1, unit_price: 300 },
     ],
     status: "",
     error: "",
@@ -31,41 +31,42 @@ CartListInitialState = {
 const cartSlice = createSlice({
     name: "@Cart",
     initialState: CartListInitialState,
-    reducers: {
-        addToCart(state, action: PayloadAction<CartItemState>) {
-            // get item from action
-            // fetch server - insert cart item
-            // once success -> add to state.list
-            state.list.push(action.payload);
-        },
-        // incrementQuantity(state, action: PayloadAction<any>) {
-        //     let index = state.list.findIndex((item) => item.id === action.payload.id);
-        //     state.list[index].quantity++;
-        // },
-        // decrementQuantity(state, action: PayloadAction<any>) {
-        //     let index = state.list.findIndex((item) => item.id === action.payload.id);
-        //     state.list[index].quantity--;
-        // },
-        removeCartItem(state, action: PayloadAction<number>) {},
-    },
+    reducers: {},
     extraReducers(builder) {
         builder
+            // .addCase(getCartFetch.fulfilled, (state, action) => {})
+            .addCase(addToCartFetch.fulfilled, (state, action) => {
+                const product = action.meta.arg.product;
+                const foundProduct = state.product.find(
+                    (p) => p.product_id === product.id && p.size === action.meta.arg.size
+                );
+                if (foundProduct) {
+                    foundProduct.quantity = action.payload.updatedQuantity;
+                } else {
+                    state.product.push({
+                        id: action.payload.cartId,
+                        product_id: product.id,
+                        name: product.name,
+                        size: action.meta.arg.size,
+                        quantity: action.payload.updatedQuantity,
+                        unit_price: product.unit_price,
+                    });
+                }
+            })
+            .addCase(addToCartFetch.pending, (state, action) => {
+                // state.loading = "pending";
+            })
+            .addCase(addToCartFetch.rejected, (state, action) => {
+                console.log(action.payload?.error);
+            })
+
             .addCase(getCartFetch.pending, (state) => {
-                const nextState = produce(CartListInitialState, (draft) => {
-                    draft.status = "loading";
-                });
-                state = nextState;
-                return state;
+                state.status = "loading";
             })
             .addCase(getCartFetch.fulfilled, (state, action) => {
                 const cartItems = action.payload.body;
-                const nextState = produce(CartListInitialState, (draft) => {
-                    draft.status = "succeeded";
-                    draft.list = cartItems;
-                });
-                state = nextState;
-
-                return state;
+                state.status = "succeeded";
+                state.product = cartItems;
             })
             .addCase(getCartFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
@@ -74,5 +75,3 @@ const cartSlice = createSlice({
 });
 
 export const cartReducer = cartSlice.reducer;
-export const { addToCart, incrementQuantity, decrementQuantity, removeCartItem } =
-    cartSlice.actions;

@@ -48,7 +48,7 @@ export class ProductController {
 
     getAllCartItems = async (req: Request, res: Response) => {
         try {
-            const userId = req.query.userId as string;
+            const userId = req.body.user.id;
             const allCartItemsData = await this.productService.getAllCartItems(userId);
             res.status(200).json({ success: true, body: allCartItemsData });
         } catch (error) {
@@ -57,14 +57,16 @@ export class ProductController {
         }
     };
     addToCart = async (req: Request, res: Response) => {
-        const userId = req.body.user.id;
-        const { product_id, size, quantity } = req.body.item; // { product_id, size, quantity }
-        console.log(userId);
-        await this.productService.addToCart(product_id, size, quantity);
+        try {
+            const userId = req.body.user.id;
+            const { product_id, size, quantity } = req.body.item; // { product_id, size, quantity }
+            const result = await this.productService.addToCart(userId, product_id, size, quantity);
+            res.json(result);
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
     };
-    incrementQuantity = (req: Request, res: Response) => {};
-
-    decrementQuantity = (req: Request, res: Response) => {};
 
     removeCartItem = async (req: any, res: Response) => {
         try {
