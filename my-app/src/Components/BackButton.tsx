@@ -10,8 +10,14 @@ interface Props {
 export function BackButton({back}:Props) {
     const navigate = useNavigate();
     const location = useLocation();
-    // console.log("this is location:", location)
+    // console.log("this is location:", location.pathname)
+    // const postDetailLocationPathname = location.pathname;
+    // const postDetail = postDetailLocationPathname.split("/");
+
+
     return (
+
+        
         <Button onClick={()=> back ? back() : navigate(-1)}>
             <ArrowBackIcon />
         </Button>

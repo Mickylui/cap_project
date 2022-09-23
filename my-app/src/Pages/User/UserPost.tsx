@@ -9,14 +9,19 @@ import ScrollToTopButton from "../../Components/ScrollToTopButton";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState, store } from "../../Redux/store";
 import { useSelector } from "react-redux";
+import { FcLikePlaceholder } from "react-icons/fc";
 
 function UserPost(props) {
     // const dispatch: AppDispatch = useDispatch();
     // const postData = useSelector((state: RootState) => state.user.postData);
     // console.log("this is postData:", postData);
     const postData = props.postData;
+    // if(postData)
     console.log("UserPost:", postData);
-
+    if (postData.length < 0) {
+        return null;
+    }
+    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
     return (
         // postList.is_ordinary === true -> admin post
         <div>
@@ -24,7 +29,7 @@ function UserPost(props) {
                 {postData.map((postItem) => (
                     <div key={`postItem_${postItem.id}`}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
-                            <RouteLink to={`postDetail?postId=${postItem.id}`}>
+                            <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                 <Image
                                     src={"./skateBoardLogo.png"}
                                     alt={""}
@@ -47,13 +52,18 @@ function UserPost(props) {
                             </Box>
                             <Tag size="lg" colorScheme="none" borderRadius="full">
                                 <Avatar
-                                    src="https://bit.ly/sage-adebayo"
+                                    src={`${DEVELOP_IMAGE_URL}/${postItem.icon}`}
                                     size="md"
-                                    name="Segun Adebayo"
+                                    name={`${postItem.account_name}`}
                                     ml={-1}
                                     mr={2}
                                 />
-                                <TagLabel>{postItem.account_name}</TagLabel> <FaHeart color="red" />{" "}
+                                <TagLabel>{postItem.account_name}</TagLabel>{" "}
+                                {postItem.is_liked_by_user[0] === true ? (
+                                    <FaHeart color="red" />
+                                ) : (
+                                    <FcLikePlaceholder />
+                                )}{" "}
                                 {postItem.count}
                             </Tag>
                             <RouteLink to="reportPost">

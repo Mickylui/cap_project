@@ -97,6 +97,7 @@ export function Scroll() {
                 releaseToRefreshContent={
                     <h3 style={{ textAlign: "center" }}>&#8593; Release to refresh</h3>
                 }
+                pullDownToRefreshThreshold={50}
                 endMessage={
                     <p style={{ textAlign: "center" }}>
                         <b>Yay! You have seen it all</b>

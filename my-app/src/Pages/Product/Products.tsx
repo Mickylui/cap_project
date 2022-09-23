@@ -10,7 +10,7 @@ export function Products() {
     
     const dispatch: AppDispatch = useDispatch();
     const productList = useSelector((state: RootState) => state.product.list);
-    
+    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
     // const selectedProduct = (id: number) => {
     //     dispatch(selectProduct(id))
     // }
@@ -53,7 +53,7 @@ export function Products() {
                     >
                         <RouteLink to={`productDetail/${product.id}`}>
                         <Image 
-                        src={product.image} 
+                        src={`${DEVELOP_IMAGE_URL}/${product.image}`} 
                         // src="./SkateBoardLogo.png"
                         />
                         <Box

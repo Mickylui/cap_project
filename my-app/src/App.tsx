@@ -35,7 +35,11 @@ import Payment from "./Pages/User/Payment";
 import Promotion from "./Pages/User/Promotion";
 import ProductDetail from "./Pages/Product/ProductDetail";
 import { Scroll } from "./Components/scroll";
+<<<<<<< HEAD
 import { getCartFetch } from "./Api/productFetch";
+=======
+import OtherUserProfile from "./Pages/User/OtherUserProfile";
+>>>>>>> 6054b4d5daa692e901a6ea1ed09331a04cda5999
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
@@ -65,6 +69,7 @@ function App() {
                         <Route path="profile/form" element={<CompleteForm />} />
                         <Route path="profile/report" element={<ReportUser />} />
                     </Route>
+                    <Route path="user/:userId" element={<OtherUserProfile />} />
                     <Route path="admin" element={<PrivateRoute />}>
                         <Route path="manage" element={<Profile />} />Í
                     </Route>
@@ -85,8 +90,10 @@ function App() {
                     </Route>
 
                     {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
-                    <Route path="posts" element={<SocialPlatform />} />
-                    <Route path="posts/postDetail/:postId" element={<PostDetail />} />
+                    <Route path="platform" element={<PrivateRoute />}>
+                        <Route path="posts" element={<SocialPlatform />} />
+                    </Route>
+                    <Route path="postDetail/:postId" element={<PostDetail />} />
                     {/* <Route path="postDetail/:postId" element={<PostDetail />} /> */}
 
                     <Route path="posts" element={<PrivateRoute />}>
