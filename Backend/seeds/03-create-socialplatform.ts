@@ -18,13 +18,12 @@ export async function seed(knex: Knex): Promise<void> {
         {title:"skateboard maintenance",event_date:"2022-9-16",event_time:"18:00-19:00",event_location:"TW",description:"eat something",contact:"12345678",is_complain:false,is_ordinary:true,is_event:true,user_id:users[2].id, created_at:'2022-05-10 20:00:00'},
         {title:"competition",event_date:"2022-9-16",event_time:"18:00-19:00",event_location:"TW",description:"eat something",contact:"12345678",is_complain:false,is_ordinary:true,is_event:true,user_id:users[1].id, created_at:'2022-07-10 20:00:00'},
         {title:"gathering",event_date:"2022-9-16",event_time:"18:00-19:00",event_location:"TW",description:"eat something",contact:"12345678",is_complain:false,is_ordinary:false,is_event:true,user_id:users[3].id, created_at:'2022-07-10 20:00:00'},
-        {title:"",event_date:"",event_time:"",event_location:"",description:"enjoy a lot",contact:"",is_complain:false,is_ordinary:false,is_event:false,user_id:users[3].id, created_at:'2022-08-10 20:00:00'},
+        {title:"my new skateboard!",event_date:"",event_time:"",event_location:"",description:"enjoy a lot",contact:"",is_complain:false,is_ordinary:false,is_event:false,user_id:users[3].id, created_at:'2022-08-10 20:00:00'},
         {title:"practice",event_date:"2022-9-16",event_time:"18:00-19:00",event_location:"TW",description:"practice together",contact:"12345678",is_complain:false,is_ordinary:false,is_event:true,user_id:users[4].id, created_at:'2022-09-10 20:00:00'},
-        {title:"",event_date:"",event_time:"",event_location:"",description:"yay",contact:"",is_complain:false,is_ordinary:false,is_event:false,user_id:users[4].id, created_at:'2022-08-10 20:00:00'},
+        {title:"my new record!",event_date:"",event_time:"",event_location:"",description:"yay",contact:"",is_complain:false,is_ordinary:false,is_event:false,user_id:users[4].id, created_at:'2022-08-10 20:00:00'},
         {title:"skateboard maintenance",event_date:"2022-9-20",event_time:"18:00-19:00",event_location:"TW",description:"maintenance workshop",contact:"12345678",is_complain:false,is_ordinary:false,is_event:true,user_id:users[6].id, created_at:'2022-09-20 20:00:00'},
         {title:"talk",event_date:"2022-9-22",event_time:"18:00-19:00",event_location:"TW",description:"ted talk",contact:"12345678",is_complain:false,is_ordinary:false,is_event:true,user_id:users[7].id, created_at:'2022-09-20 20:00:00'} 
     ]);
-
     
     const posts = (await knex.raw(`SELECT * FROM posts`)).rows
 
