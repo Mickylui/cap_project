@@ -2,6 +2,11 @@ import { Box, Button, Flex, Image, Wrap, WrapItem, Text, Stack } from "@chakra-u
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { getProductFetch } from "../Api/productFetch";
+import { AppDispatch, RootState } from "../Redux/store";
+import { Link as RouteLink } from "react-router-dom";
 import "./css/autoSlider.css";
 
 const colors = ["#0088FE", "#00C49F", "#FFBB28"];
@@ -39,8 +44,18 @@ const productItem = [
 ];
 
 export function Slideshow() {
+    const dispatch: AppDispatch = useDispatch();
     const [index, setIndex] = React.useState(0);
     const timeoutRef: any = React.useRef(null);
+    const productList = useSelector((state: RootState) => state.product.list);
+
+    console.log("productList:", productList);
+
+    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
+
+    useEffect(() => {
+        dispatch(getProductFetch({}));
+    }, []);
 
     const pathName = window.location.pathname;
 
@@ -69,7 +84,7 @@ export function Slideshow() {
                 className="slideshowSlider"
                 style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
             >
-                {productItem.map((product) => (
+                {productList.map((product) => (
                     <Wrap
                         className="slide"
                         key={product.id}
@@ -78,7 +93,11 @@ export function Slideshow() {
                         height={{ ml: "50em" }}
                     >
                         <WrapItem className="imageTitle" paddingRight={{ md: "10em" }}>
-                            <Image src={product.imageUrl} alt={product.imageAlt} width={"50em"} />
+                            <Image
+                                src={`${DEVELOP_IMAGE_URL}/${product.image}`}
+                                alt={product.name}
+                                width={"50em"}
+                            />
                         </WrapItem>
                         <WrapItem
                             className="productInfo"
@@ -93,10 +112,10 @@ export function Slideshow() {
                                 marginTop={"2em"}
                                 w="30"
                             >
-                                {product.title}
+                                {product.name}
                             </Box>
                             <Box className="productPrice" width={"100%"} textAlign={"start"}>
-                                {product.formattedPrice}
+                                {product.unit_price}
                             </Box>
                             <Stack className="productIntro" width={{ md: "30vw" }}>
                                 <Text
@@ -108,20 +127,18 @@ export function Slideshow() {
                                     marginTop={"20px"}
                                     marginBottom={"20px"}
                                 >
-                                    ritatis recusandae reprehenderit. Lorem ipsum dolor sit, amet
-                                    consectetur adipisicing elit. Qui quam dolore voluptatum aperiam
-                                    officia, porro harum voluptatem quae nihil, neque nobis
-                                    asperiores facere blanditiis velit, in alias ipsum quaerat
-                                    dolorum. Lorem ipsum dolor sit amet consectetur adipisicing
-                                    elit. Culpa nam minima ipsam itaque id sit quibusdam sed velit
-                                    odio, in reiciendis earum necessitatibus laudantium cumque non
-                                    omnis! Fugiat, vitae? Quo?
+                                    {product.description}
                                 </Text>
                             </Stack>
                             <Box className="productPrice" width={{ ml: "40rem" }}>
-                                <Button className="productButton" backgroundColor={"black"}>
-                                    BUY NOW!
-                                </Button>
+                                <RouteLink
+                                    to={`/products/productDetail/${product.id}`}
+                                    replace={true}
+                                >
+                                    <Button className="productButton" backgroundColor={"black"}>
+                                        BUY NOW!
+                                    </Button>
+                                </RouteLink>
                             </Box>
                         </WrapItem>
                     </Wrap>
@@ -141,7 +158,12 @@ export function Slideshow() {
             </Box>
         </Box>
     ) : (
-        <Box className="auto-Slider" height={"20em"} backgroundColor={"aliceblue"} overflow={"hidden"}>
+        <Box
+            className="auto-Slider"
+            height={"20em"}
+            backgroundColor={"aliceblue"}
+            overflow={"hidden"}
+        >
             <Box
                 className="slideshowSlider"
                 style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
@@ -155,11 +177,14 @@ export function Slideshow() {
                         height={{ ml: "50em" }}
                     >
                         <WrapItem className="imageTitle">
-                            <Image src={product.imageUrl} alt={product.imageAlt}/>
+                            <Image src={product.imageUrl} alt={product.imageAlt} />
                         </WrapItem>
                     </Wrap>
                 ))}
             </Box>
         </Box>
     );
+}
+function dispatch(arg0: any) {
+    throw new Error("Function not implemented.");
 }

@@ -35,6 +35,7 @@ export const LogInFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error 
 export const getUserDataJWTFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@Account/userDataJWT" as const,
     async ({ token }, thunkAPI) => {
+        console.log("getUserDataJWTFetch")
         try {
             const resp = await fetch(`${DEVELOP_HOST}/account/userDataJWT`, {
                 headers: {

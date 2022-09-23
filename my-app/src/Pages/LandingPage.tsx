@@ -1,5 +1,6 @@
 import { Slideshow } from "../Components/AutoSlider";
 import "../Components/css/landingPage.scss";
+import { Link as RouteLink } from "react-router-dom";
 export function LandingPage() {
     const products = [
         {
@@ -194,9 +195,9 @@ export function LandingPage() {
                     <h1 className="nsTitle">Ask for anything</h1>
                     <h1 className="nsTitle">you want</h1>
                     <h3 className="nsTitleSm">Customize design, event, gathering...</h3>
-                    <a href="#nav">
+                    <RouteLink to={'platform/posts'}> 
                         <button className="nsButton">Go start</button>
-                    </a>
+                    </ RouteLink>
                 </div>
                 <div className="nsItem">
                     <img

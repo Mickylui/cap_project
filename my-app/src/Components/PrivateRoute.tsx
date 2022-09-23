@@ -5,13 +5,14 @@ import { RootState } from "../Redux/store";
 function PrivateRoute() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
     const location = useLocation();
-
+    console.log("this is isloggedIn1: ", isLoggedIn);
 
     if (isLoggedIn === null) {
-        <Navigate to="/login" state={{ from: location }} replace />;
-        return null;
+        console.log("this is null: ", isLoggedIn);
+        // return <Navigate to="/login" state={{ from: location }} replace />;
+        return null
     }
-    console.log("this is isloggedIn: ", isLoggedIn);
+    console.log("this is isloggedIn2: ", isLoggedIn);
 
     if (!isLoggedIn) {
         console.log("not login");

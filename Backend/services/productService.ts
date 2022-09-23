@@ -98,9 +98,9 @@ export class ProductService {
         //     })
         //     .into("shopping_cart");
         // console.log(cart);
-        const trx = await this.knex.transaction();
+        // const trx = await this.knex.transaction();
         try {
-            const cartItem = await this.knex("shopping_carts");
+            // const cartItem = await this.knex("shopping_carts");
         } catch {}
     }
 

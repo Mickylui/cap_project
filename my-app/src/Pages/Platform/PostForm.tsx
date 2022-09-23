@@ -35,7 +35,6 @@ function PostForm() {
     const [tags, setTags] = useState([]);
     const [images, setImages] = useState([]);
 
-
     return (
         <div>
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
@@ -57,6 +56,7 @@ function PostForm() {
                             formData.append("description", form.description.value);
                             formData.append("tagItems", tags);
 
+                            console.log("images:", images);
                             for (let i = 0; i < images.length; i++) {
                                 console.log("this is files:", images[i].file);
                                 formData.append("files", images[i].file);
