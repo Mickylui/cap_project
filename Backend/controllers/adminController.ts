@@ -28,7 +28,33 @@ export class AdminController {
             return res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
-    shipping = async (req: Request, res: Response) => {};
+    shipping = async (req: Request, res: Response) => {
+        try {
+            const orderId = req.query.orderId as string;
+            const shippingResp = (await this.adminService.shipping(orderId)) as [];
+            if (shippingResp) {
+                return res.status(200).json({ success: true });
+            }
+            return res.status(400).json({ success: false, message: "Failed to ship order" });
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            return res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+    };
+
+    cancelOrder = async (req: Request, res: Response) => {
+        try {
+            const orderId = req.query.orderId as string;
+            const cancelOrderResp = (await this.adminService.cancel(orderId)) as [];
+            if (cancelOrderResp) {
+                return res.status(200).json({ success: true });
+            }
+            return res.status(400).json({ success: false, message: "Failed to ship order" });
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            return res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+    };
     // addPost = async (req: Request, res: Response) => {};
     // editPost = async (req: Request, res: Response) => {};
     // getAdminPost = async (req: Request, res: Response) => {};

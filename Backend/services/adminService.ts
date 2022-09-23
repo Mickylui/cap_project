@@ -47,7 +47,41 @@ export class AdminService {
             return;
         }
     }
-    async shipping() {}
+    async shipping(orderId: string) {
+        const txn = await this.knex.transaction();
+        try {
+            // console.log("orderId:", orderId);
+            const shippingResult = await txn("order_history")
+                .update("status", "success")
+                .where("order_history.id", orderId)
+                .returning("id");
+            console.log("shippingResult:", shippingResult);
+            await txn.commit();
+            return shippingResult;
+        } catch (error) {
+            await txn.rollback();
+            winstonLogger.error(error.toString());
+            return;
+        }
+    }
+
+    async cancel(orderId: string) {
+        const txn = await this.knex.transaction();
+        try {
+            // console.log("orderId:", orderId);
+            const cancelOrderResult = await txn("order_history")
+                .update("status", "cancel")
+                .where("order_history.id", orderId)
+                .returning("id");
+            console.log("cancelOrderResult:", cancelOrderResult);
+            await txn.commit();
+            return cancelOrderResult;
+        } catch (error) {
+            await txn.rollback();
+            winstonLogger.error(error.toString());
+            return;
+        }
+    }
 
     // async addPost() {}
     // async editPost() {}

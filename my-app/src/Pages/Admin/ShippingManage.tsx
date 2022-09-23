@@ -27,7 +27,7 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getOrderFetch } from "../../Api/adminFetch";
+import { cancelOrderFetch, getOrderFetch, shipOrderFetch } from "../../Api/adminFetch";
 import DataList from "../../Components/DataList";
 export function ShippingManage() {
     // fetch order data
@@ -61,9 +61,17 @@ export function ShippingManage() {
     console.log("orderDetailArr:", orderDetailArr);
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 
-    // const handleShipping = () =>{
-    //     await
-    // }
+    const handleShipping = async (e) => {
+        const orderId = e.target.id;
+        // console.log("orderId:", orderId);
+        await dispatch(shipOrderFetch(orderId));
+    };
+
+    const handleCancel = async (e) => {
+        const orderId = e.target.id;
+        // console.log("orderId:", orderId);
+        await dispatch(cancelOrderFetch(orderId));
+    };
 
     if (orderDetailArr.length > 0) {
         products = [];
@@ -151,8 +159,18 @@ export function ShippingManage() {
                                                     justifyContent={"space-between"}
                                                 >
                                                     <Heading>Items List</Heading>
-                                                    <CheckIcon onClick={() => {}} />
-                                                    <MdOutlineCancel />
+                                                    <CheckIcon
+                                                        id={orderDetail.order_id}
+                                                        onClick={(e) => {
+                                                            handleShipping(e);
+                                                        }}
+                                                    />
+                                                    <MdOutlineCancel
+                                                        id={orderDetail.order_id}
+                                                        onClick={(e) => {
+                                                            handleCancel(e)
+                                                        }}
+                                                    />
                                                 </Box>
                                                 {/* need table!! */}
                                                 <table>

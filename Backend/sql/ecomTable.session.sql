@@ -170,3 +170,13 @@ GROUP BY (
         users.account_name
     )
 ORDER BY order_history.updated_at DESC;
+
+UPDATE table_name
+SET column1 = value1,
+    column2 = value2,
+    ...
+WHERE condition;
+
+UPDATE order_history
+SET status = 'success'
+WHERE order_history.id = '6';
