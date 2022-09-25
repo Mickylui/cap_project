@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import { PostState } from "../../Redux/Slice/platformSlice";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { post } from "fetch-mock";
+import "../css/socialPlatform.css";
 
 const suggestedTags = [
     { tag: "practice" },
@@ -34,6 +35,7 @@ const suggestedTags = [
     { tag: "sharing" },
 ];
 
+const buttonColor = "rgb(190,162,120)";
 function SocialPlatform() {
     const dispatch: AppDispatch = useDispatch();
 
@@ -136,12 +138,21 @@ function SocialPlatform() {
         // postList.is_ordinary === true -> admin post
         <div>
             {searchTag.length > 0 ? (
-                <HStack spacing={4}>
-                    <Tag borderRadius="full" variant="solid" colorScheme="green">
-                        <TagLabel>{searchTag}</TagLabel>
-                        <TagCloseButton onClick={() => setSearchTag("")} />
-                    </Tag>
-                </HStack>
+                <div>
+                    <HStack spacing={4} className="button-area" margin={"20px"}>
+                        <h1>You are searching</h1>
+                        <Tag borderRadius="full" variant="solid" backgroundColor={buttonColor}>
+                            <TagLabel>{searchTag}</TagLabel>
+                            <TagCloseButton onClick={() => setSearchTag("")} />
+                        </Tag>
+                        <h1>,the result is below:</h1>
+                    </HStack>
+                    <RouteLink to="/platform/form" replace={true}>
+                        <Button size="md" bgColor={buttonColor} marginBottom={"20px"}>
+                            <FaPlusCircle />
+                        </Button>
+                    </RouteLink>
+                </div>
             ) : (
                 <form
                     onSubmit={async (e) => {
@@ -163,35 +174,46 @@ function SocialPlatform() {
                         }
                     }}
                 >
-                    <Input
-                        size="lg"
-                        htmlSize={70}
-                        width="auto"
-                        m="4rem 2rem 1rem"
-                        placeholder="Search keywords or tags"
-                        type="text"
-                        name="searchContent"
-                    />
-                    <Button colorScheme="teal" size="md" type="submit">
-                        Search
-                    </Button>
+                    <div className="button-area">
+                        <Input
+                            size="lg"
+                            htmlSize={70}
+                            width="70%"
+                            marginLeft={"20px"}
+                            marginRight={"10px"}
+                            placeholder="Search keywords or tags"
+                            type="text"
+                            name="searchContent"
+                        />
+                        <Button bgColor={buttonColor} size="md" type="submit" marginRight={"20px"}>
+                            Search
+                        </Button>
+                        <RouteLink to="/platform/form" replace={true}>
+                            <Button size="md" bgColor={buttonColor}>
+                                <FaPlusCircle />
+                            </Button>
+                        </RouteLink>
+                    </div>
                 </form>
             )}
 
-            <RouteLink to="/platform/form" replace={true}>
-                <Button size="md">
+            {/* <RouteLink to="/platform/form" replace={true}>
+                <Button size="md" bgColor={"rgb(190,162,120)"}>
                     <FaPlusCircle />
                 </Button>
-            </RouteLink>
-            <HStack spacing={4}>
+            </RouteLink> */}
+            <HStack spacing={4} className="tags-area">
                 {suggestedTags.map((suggestedTag, index) => (
                     <Tag
                         key={suggestedTag.id}
                         borderRadius="full"
                         variant="solid"
-                        colorScheme="green"
+                        backgroundColor={buttonColor}
                     >
-                        <TagLabel onClick={() => setSearchTag(suggestedTag.tag)}>
+                        <TagLabel
+                            onClick={() => setSearchTag(suggestedTag.tag)}
+                            width={"fit-content"}
+                        >
                             {suggestedTag.tag}
                         </TagLabel>
                     </Tag>
@@ -200,7 +222,7 @@ function SocialPlatform() {
             {adminPostList.length > 0 ? (
                 <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
                     {adminPostList.map((postItem) => (
-                        <div key={`postItem_${postItem.id}`}>
+                        <div key={`postItem_${postItem.id}`} className={"post-item"}>
                             <Box maxW="sm" borderRadius="lg" overflow="hidden">
                                 <>
                                     {postItem.image[0] !== null ? (
@@ -211,18 +233,20 @@ function SocialPlatform() {
                                             >
                                                 <Image
                                                     src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
-                                                    alt={""}
+                                                    alt={`image of postId:${postItem.id}`}
                                                     border="1px"
                                                     borderRadius="lg"
                                                 />
                                             </RouteLink>
                                             <Box p="6">
                                                 <Box
-                                                    mt="1"
+                                                    // mt="1"
                                                     fontWeight="semibold"
+                                                    fontSize={"2em"}
                                                     as="h4"
                                                     lineHeight="tight"
                                                     noOfLines={1}
+                                                    backgroundColor={"white"}
                                                 >
                                                     {postItem.title}
                                                 </Box>
@@ -232,8 +256,9 @@ function SocialPlatform() {
                                         <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                             <Box p="6">
                                                 <Box
-                                                    mt="1"
+                                                    // mt="1"
                                                     fontWeight="semibold"
+                                                    fontSize={"2em"}
                                                     as="h4"
                                                     lineHeight="tight"
                                                     noOfLines={1}
@@ -248,11 +273,17 @@ function SocialPlatform() {
                                             onClick={(e) => {
                                                 setSearchTag(e.target.innerHTML);
                                             }}
+                                            className="tags"
                                         >
                                             {item}
                                         </Tag>
                                     ))}
-                                    <Tag size="lg" colorScheme="none" borderRadius="full">
+                                    <Tag
+                                        size="lg"
+                                        colorScheme="none"
+                                        borderRadius="full"
+                                        className="user-profile"
+                                    >
                                         <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
                                             <Avatar
                                                 src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
@@ -262,20 +293,22 @@ function SocialPlatform() {
                                                 mr={2}
                                             />
                                         </RouteLink>
-                                        <TagLabel>{postItem.account_name}</TagLabel>{" "}
-                                        {postItem.is_dislike[0] === false &&
-                                        postItem.is_liked_by_user[0] === true ? (
-                                            <FaHeart color="red" />
-                                        ) : (
-                                            <FcLikePlaceholder />
-                                        )}
-                                        {postItem.count}
+                                        <h1>{postItem.account_name}</h1>
+                                        <div className="like-button">
+                                            {postItem.is_dislike[0] === false &&
+                                            postItem.is_liked_by_user[0] === true ? (
+                                                <FaHeart color="red" />
+                                            ) : (
+                                                <FcLikePlaceholder />
+                                            )}
+                                            {postItem.count}
+                                        </div>
+                                        <RouteLink to="reportPost">
+                                            <Button>
+                                                <WarningTwoIcon />
+                                            </Button>
+                                        </RouteLink>
                                     </Tag>
-                                    <RouteLink to="reportPost">
-                                        <Button>
-                                            <WarningTwoIcon />
-                                        </Button>
-                                    </RouteLink>
                                 </>
                             </Box>
                         </div>
@@ -287,25 +320,26 @@ function SocialPlatform() {
             {userPostList.length > 0 ? (
                 <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
                     {userPostList.map((postItem) => (
-                        <div key={`postItem_${postItem.id}`}>
+                        <div key={`postItem_${postItem.id}`} className={"post-item"}>
                             <Box maxW="sm" borderRadius="lg" overflow="hidden">
                                 {postItem.image[0] !== null ? (
                                     <>
                                         <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                             <Image
                                                 src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
-                                                alt={""}
-                                                border="1px"
-                                                borderRadius="lg"
+                                                alt={`image of postId:${postItem.id}`}
+                                                // borderRadius="lg"
                                             />
                                         </RouteLink>
                                         <Box p="6">
                                             <Box
-                                                mt="1"
+                                                // mt="1"
                                                 fontWeight="semibold"
+                                                fontSize={"2em"}
                                                 as="h4"
                                                 lineHeight="tight"
                                                 noOfLines={1}
+                                                backgroundColor={"white"}
                                             >
                                                 {postItem.title}
                                             </Box>
@@ -319,6 +353,7 @@ function SocialPlatform() {
                                                 fontWeight="semibold"
                                                 as="h4"
                                                 lineHeight="tight"
+                                                height={"90px"}
                                                 noOfLines={1}
                                             >
                                                 {postItem.title}
@@ -326,17 +361,22 @@ function SocialPlatform() {
                                         </Box>
                                     </RouteLink>
                                 )}
-
                                 {postItem.tag.map((item) => (
                                     <Tag
                                         onClick={(e) => {
                                             setSearchTag(e.target.innerHTML);
                                         }}
+                                        className="tags"
                                     >
                                         {item}
                                     </Tag>
                                 ))}
-                                <Tag size="lg" colorScheme="none" borderRadius="full">
+                                <Tag
+                                    size="lg"
+                                    colorScheme="none"
+                                    borderRadius="full"
+                                    className="user-profile"
+                                >
                                     <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
                                         <Avatar
                                             src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
@@ -345,21 +385,23 @@ function SocialPlatform() {
                                             ml={-1}
                                             mr={2}
                                         />
-                                        <TagLabel>{postItem.account_name}</TagLabel>{" "}
                                     </RouteLink>
-                                    {postItem.is_dislike[0] === false &&
-                                    postItem.is_liked_by_user[0] === true ? (
-                                        <FaHeart color="red" />
-                                    ) : (
-                                        <FcLikePlaceholder />
-                                    )}{" "}
-                                    {postItem.count}
+                                    <h1 className="user-name">{postItem.account_name}</h1>
+                                    <div className="like-button">
+                                        {postItem.is_dislike[0] === false &&
+                                        postItem.is_liked_by_user[0] === true ? (
+                                            <FaHeart color="red" />
+                                        ) : (
+                                            <FcLikePlaceholder />
+                                        )}
+                                        {postItem.count}
+                                    </div>
+                                    <RouteLink to="reportPost">
+                                        <Button className="user-profile-button">
+                                            <WarningTwoIcon />
+                                        </Button>
+                                    </RouteLink>
                                 </Tag>
-                                <RouteLink to="reportPost">
-                                    <Button>
-                                        <WarningTwoIcon />
-                                    </Button>
-                                </RouteLink>
                             </Box>
                         </div>
                     ))}

@@ -1,12 +1,21 @@
 import { ReactNode } from "react";
 
-import { Box, Container, Link, SimpleGrid, Stack, Text, useColorModeValue, Image } from "@chakra-ui/react";
+import {
+    Box,
+    Container,
+    Link,
+    SimpleGrid,
+    Stack,
+    Text,
+    useColorModeValue,
+    Image,
+} from "@chakra-ui/react";
 
 import "./css/footer.css";
 import { Link as RouteLink } from "react-router-dom";
 
 const Logo = (props: any) => {
-    return <Image src="../Logo.png" alt="SkateBoardLogo" boxSize='200px'/>;
+    return <Image src="../Logo.png" alt="SkateBoardLogo" boxSize="200px" />;
 };
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
@@ -28,7 +37,8 @@ const TextContent = ({ children }: { children: ReactNode }) => {
 export default function Footer() {
     return (
         <Box
-            bg={useColorModeValue("gray.50", "gray.900")}
+            // bg={useColorModeValue("gray.50", "gray.900")}
+            bg={"white"}
             color={useColorModeValue("gray.700", "gray.200")}
         >
             <Container as={Stack} maxW={"8xl"} py={10}>
@@ -38,15 +48,15 @@ export default function Footer() {
                 >
                     <Stack spacing={2}>
                         <Box display={"flex"} justifyContent={"center"}>
-                            <Logo color={useColorModeValue("gray.700", "white")}/>
+                            <Logo color={useColorModeValue("gray.700", "white")} />
                         </Box>
                         <ListHeader>Follow us</ListHeader>
-                            <SmallTextContent>
-                                <i className={`fa-brands fa-instagram textContent`}></i>
-                                <i className={`fa-brands fa-facebook textContent`}></i>
-                                <i className={`fa-brands fa-square-twitter textContent`}></i>
-                            </SmallTextContent>
-  
+                        <SmallTextContent>
+                            <i className={`fa-brands fa-instagram textContent`}></i>
+                            <i className={`fa-brands fa-facebook textContent`}></i>
+                            <i className={`fa-brands fa-square-twitter textContent`}></i>
+                        </SmallTextContent>
+
                         <SmallTextContent>
                             © 2022 Chakra Templates. All rights reserved
                         </SmallTextContent>
@@ -54,7 +64,13 @@ export default function Footer() {
                     <Stack align={"flex-start"}>
                         <ListHeader>About us</ListHeader>
                         <TextContent>
-                        Skate Park offers skateboarding enthusiasts a platform for purchasing skateboards and to connect with like-minded hobbyists. We aim to promote skateboarding culture in Hong Kong by allowing individuals and organizations to share their activities and product information on our platform. We offer quality skateboards for purchase and host information on all things skateboard-related: competitions, workshops, employment, skateboard designs and more.
+                            Skate Park offers skateboarding enthusiasts a platform for purchasing
+                            skateboards and to connect with like-minded hobbyists. We aim to promote
+                            skateboarding culture in Hong Kong by allowing individuals and
+                            organizations to share their activities and product information on our
+                            platform. We offer quality skateboards for purchase and host information
+                            on all things skateboard-related: competitions, workshops, employment,
+                            skateboard designs and more.
                         </TextContent>
                     </Stack>
                     <Stack align={"flex-start"}>

@@ -16,6 +16,7 @@ import UserLikePost from "./UserLikePost";
 import { ShippingManage } from "../Admin/ShippingManage";
 import { getOrderFetch } from "../../Api/adminFetch";
 import ProductManage from "../Admin/ProductManage";
+import "../css/userProfile.css";
 
 function Profile() {
     const [link, switchLink] = useState("posts");
@@ -45,32 +46,30 @@ function Profile() {
         getUserLikePost();
     }, [link]);
     return (
-        <div>
+        <div className="user-profile-container">
             <UserImage />
-            <Box
-                // as={ReachLink}
-                // to="posts"
-                margin="20px"
-                fontSize="1.5rem"
-                onClick={() => switchLink("posts")}
-            >
-                Post
-            </Box>
-            <Box
-                // as={ReachLink}
-                // to="likes"
-                margin="20px"
-                fontSize="1.5rem"
-                onClick={() => switchLink("products")}
-            >
-                Like
-            </Box>
-            <RouteLink to="report">
-                <Button>
-                    <WarningTwoIcon />
-                </Button>
-            </RouteLink>
-
+            <div className="user-nav">
+                <Box
+                    // as={ReachLink}
+                    // to="posts"
+                    margin="20px"
+                    fontSize="1.5rem"
+                    onClick={() => switchLink("posts")}
+                    className="user-nav"
+                >
+                    Post
+                </Box>
+                <Box
+                    // as={ReachLink}
+                    // to="likes"
+                    margin="20px"
+                    fontSize="1.5rem"
+                    onClick={() => switchLink("products")}
+                    className="user-nav"
+                >
+                    Like
+                </Box>
+            </div>
             <main>
                 {link === "posts" ? (
                     <UserPost postData={postData} />

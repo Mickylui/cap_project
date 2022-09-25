@@ -1,7 +1,7 @@
 import type { Knex } from "knex";
 import dotnev from "dotenv";
 dotnev.config();
-// console.log("check env",process.env.NODE_ENV)
+console.log("check env",process.env.NODE_ENV)
 
 // Update with your config settings.
 const config: { [key: string]: Knex.Config } = {

@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState, store } from "../../Redux/store";
 import { useSelector } from "react-redux";
 import { FcLikePlaceholder } from "react-icons/fc";
+import "../css/socialPlatform.css";
 
 function UserPost(props) {
     // const dispatch: AppDispatch = useDispatch();
@@ -27,30 +28,66 @@ function UserPost(props) {
         <div>
             <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
                 {postData.map((postItem) => (
-                    <div key={`postItem_${postItem.id}`}>
+                    <div key={`postItem_${postItem.id}`} className={"post-item"}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
-                            <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
-                                <Image
-                                    src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
-                                    alt={""}
-                                    border="1px"
-                                    borderRadius="lg"
-                                />
-                            </RouteLink>
-                            <Box p="6">
-                                <Box
-                                    mt="1"
-                                    fontWeight="semibold"
-                                    as="h4"
-                                    lineHeight="tight"
-                                    noOfLines={1}
-                                >
-                                    {postItem.title}
-                                </Box>
-
-                                <Box>{postItem.description}</Box>
+                            {postItem.image[0] !== null ? (
+                                <>
+                                    <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
+                                        <Image
+                                            src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
+                                            alt={`image of postId:${postItem.id}`}
+                                            // border="1px"
+                                            // borderRadius="lg"
+                                        />
+                                    </RouteLink>
+                                    <Box p="6">
+                                        <Box
+                                            // mt="1"
+                                            fontWeight="semibold"
+                                            fontSize={"2em"}
+                                            as="h4"
+                                            lineHeight="tight"
+                                            noOfLines={1}
+                                            backgroundColor={"white"}
+                                        >
+                                            {postItem.title}
+                                        </Box>
+                                    </Box>
+                                </>
+                            ) : (
+                                <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
+                                    <Box p="6">
+                                        <Box
+                                            // mt="1"
+                                            fontWeight="semibold"
+                                            fontSize={"2em"}
+                                            as="h4"
+                                            lineHeight="tight"
+                                            noOfLines={1}
+                                        >
+                                            {postItem.title}
+                                        </Box>
+                                    </Box>
+                                </RouteLink>
+                            )}
+                            <Box>
+                                {postItem.tag.map((item) => (
+                                    <Tag
+                                        onClick={(e) => {
+                                            setSearchTag(e.target.innerHTML);
+                                        }}
+                                        className="tags"
+                                    >
+                                        {item}
+                                    </Tag>
+                                ))}
                             </Box>
-                            <Tag size="lg" colorScheme="none" borderRadius="full">
+                            <Tag
+                                size="lg"
+                                colorScheme="none"
+                                borderRadius="full"
+                                className="user-profile"
+                            >
                                 <Avatar
                                     src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
                                     size="md"
@@ -58,20 +95,22 @@ function UserPost(props) {
                                     ml={-1}
                                     mr={2}
                                 />
-                                <TagLabel>{postItem.account_name}</TagLabel>{" "}
-                                {postItem.is_dislike[0] === false &&
-                                postItem.is_liked_by_user[0] === true ? (
-                                    <FaHeart color="red" />
-                                ) : (
-                                    <FcLikePlaceholder />
-                                )}{" "}
-                                {postItem.count}
+                                <h1>{postItem.account_name}</h1>
+                                <div className="like-button">
+                                    {postItem.is_dislike[0] === false &&
+                                    postItem.is_liked_by_user[0] === true ? (
+                                        <FaHeart color="red" />
+                                    ) : (
+                                        <FcLikePlaceholder />
+                                    )}
+                                    {postItem.count}
+                                </div>
+                                <RouteLink to="reportPost">
+                                    <Button>
+                                        <WarningTwoIcon />
+                                    </Button>
+                                </RouteLink>
                             </Tag>
-                            <RouteLink to="reportPost">
-                                <Button>
-                                    <WarningTwoIcon />
-                                </Button>
-                            </RouteLink>
                         </Box>
                     </div>
                 ))}
