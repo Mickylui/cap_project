@@ -13,10 +13,10 @@ export async function seed(knex: Knex): Promise<void> {
 
     // Inserts seed entries
     await knex("products").insert([
-        { name: "Skateboard", description: "Number 1", unit_price: 400.00, quantity: 200 },
-        { name: "Fish board", description: "Number 2", unit_price: 250.00, quantity: 200 },
-        { name: "Long board", description: "Number 3", unit_price: 800.00, quantity: 200 },
-        { name: "Surf skateboard", description: "Number 4", unit_price: 700.00, quantity: 200 }
+        { name: "Skateboard", description: "It doesn't matter if you're old. young, overweight, tall or skinny, skateboarding is a fun sport to master. Hardly anyone learns skateboarding at day one, it takes time, dedication and some guts.Come and get your first skateboard!", unit_price: 400.00, quantity: 200 },
+        { name: "Fish board", description: "Fish Boards make excellent commuter boards. The fact that they're lightweight provides comfort and convenience. Also, because the board wheels are more extensive and soft than those on a typical skateboard park, they can handle more challenging terrain, including cracks, stones, and other obstacles.", unit_price: 250.00, quantity: 200 },
+        { name: "Long board", description: "longboards are typically designed and optimized for cruising (covering distances at moderate speeds), commuting (as a practical means of personal transport), and downhill (racing). The act of riding on a longboard in general is known as longboarding, which can also include more specialized forms such as longboard dancing, which involves stepping up and down a board and other movements and motions performed on the board while riding, and freestyle, which can encompass trick skating and executing tricks often associated with street skateboards.", unit_price: 800.00, quantity: 200 },
+        { name: "Surf skateboard", description: "A Surfskate is a skateboard for surfing on the street! The special front truck allows movements similar to surfing. The turning dynamics of the Surfskate truck allows short and manoeuvrable turns like surfing. Even if you have absolutely nothing to do with surfing: it doesn't matter. The movements are absolutely intuitive and easy to learn.", unit_price: 700.00, quantity: 200 }
     ]);
 
     const products = (await knex.raw(`SELECT * FROM products`)).rows
