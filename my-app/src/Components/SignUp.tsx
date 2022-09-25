@@ -26,6 +26,7 @@ export default function SignUpCard() {
     const navigate = useNavigate();
     // const dispatch = useDispatch();
 
+    const DEVELOP_HOST = process.env.REACT_APP_API_URL;
     return (
         <Flex
             minH={"100vh"}
@@ -65,7 +66,7 @@ export default function SignUpCard() {
                                 const password = form.password.value;
                                 // console.log("this is data:", accountName, email, password);
 
-                                const resp = await fetch("http://localhost:8080/account/signUp", {
+                                const resp = await fetch(`${DEVELOP_HOST}/account/signUp`, {
                                     method: "POST",
                                     headers: {
                                         "Content-Type": "application/json",

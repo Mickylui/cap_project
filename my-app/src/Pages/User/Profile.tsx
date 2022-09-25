@@ -10,10 +10,12 @@ import { Link as RouteLink, Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/store";
 import SocialPlatform from "../Platform/SocialPlatform";
-import AdminExceptUserManage from "../Admin/AdminExceptUserManage";
 import UserPost from "./UserPost";
 import { getUserLikePostFetch, getUserPostFetch } from "../../Api/userFetch";
 import UserLikePost from "./UserLikePost";
+import { ShippingManage } from "../Admin/ShippingManage";
+import { getOrderFetch } from "../../Api/adminFetch";
+import ProductManage from "../Admin/ProductManage";
 
 function Profile() {
     const [link, switchLink] = useState("posts");
@@ -23,11 +25,9 @@ function Profile() {
     const likeData = useSelector((state: RootState) => state.user.likeData);
     const postData = useSelector((state: RootState) => state.user.postData);
     const location = useLocation();
-    console.log("this is postData:", postData);
-    console.log("Profile like data:", likeData);
-    console.log("combineUserData:", combineUserData);
-
-
+    // console.log("this is postData:", postData);
+    // console.log("Profile like data:", likeData);
+    // console.log("combineUserData:", combineUserData);
 
     const userId = combineUserData[0].id;
     // console.log("userId:", userId);
@@ -35,17 +35,16 @@ function Profile() {
 
     useEffect(() => {
         const getUserPost = async () => {
-            console.log("getting post !");
+            // console.log("getting post !");
             await dispatch(getUserPostFetch(userId));
         };
         getUserPost();
         const getUserLikePost = async () => {
-            console.log("getting post !");
+            // console.log("getting post !");
             await dispatch(getUserLikePostFetch(userId));
         };
         getUserLikePost();
     }, [link]);
-
 
     if (isAdmin) {
         return (
@@ -107,8 +106,8 @@ function Profile() {
                 </Box>
                 <main>
                     {adminLink === "users" ? <SocialPlatform /> : <></>}
-                    {adminLink === "products" ? <div>product</div> : <></>}
-                    {adminLink === "shipping" ? <div>shipping</div> : <></>}
+                    {adminLink === "products" ? <ProductManage /> : <></>}
+                    {adminLink === "shipping" ? <ShippingManage /> : <></>}
                     {adminLink === "platform" ? <div>platform</div> : <></>}
                     {adminLink === "posts" ? <div>posts</div> : <></>}
                     {adminLink === "banners" ? <div>banners</div> : <></>}

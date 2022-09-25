@@ -18,6 +18,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { BackButton } from "../../Components/BackButton";
 import { ImageUpload } from "../../Components/ImageUpload";
 import { RootState } from "../../Redux/store";
 import { InsertTags } from "../Platform/InputTags";
@@ -35,13 +36,28 @@ function PostForm() {
     const [tags, setTags] = useState([]);
     const [images, setImages] = useState([]);
 
+    const DEVELOP_HOST = process.env.REACT_APP_API_URL;
+
     return (
         <div>
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
                 <Box rounded={"lg"} boxShadow={"lg"} padding={20}>
+                    <BackButton />
                     <form
                         onSubmit={async (e) => {
                             e.preventDefault();
+
+                            if (tags.length === 0) {
+                                Swal.fire({
+                                    title: "Log out",
+                                    showClass: {
+                                        popup: "animate__animated animate__fadeInDown",
+                                    },
+                                    hideClass: {
+                                        popup: "animate__animated animate__fadeOutUp",
+                                    },
+                                }).then(() => navigate("/"));
+                            }
                             const form = e.target;
                             const formData = new FormData();
 
@@ -132,7 +148,7 @@ function PostForm() {
                             }
 
                             formData.append("isEventPost", isEventPost);
-                            const resp = await fetch("http://localhost:8080/posts/addPost", {
+                            const resp = await fetch(`${DEVELOP_HOST}/posts/addPost`, {
                                 method: "POST",
                                 body: formData,
                             });

@@ -42,6 +42,7 @@ function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
     const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
     // console.log("shoppingData:", shoppingData);
+    
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
@@ -68,13 +69,13 @@ function App() {
                     </Route>
                     <Route path="user/:userId" element={<OtherUserProfile />} />
                     <Route path="admin" element={<PrivateRoute />}>
-                        <Route path="manage" element={<Profile />} />Í
+                        <Route path="manage" element={<Profile />} />
                     </Route>
-                    <Route path="posts/platform" element={<PrivateRoute />}>
-                        <Route path="form" element={<PostForm />} />Í
+                    <Route path="platform" element={<PrivateRoute />}>
+                        <Route path="form" element={<PostForm />} />
                     </Route>
                     <Route path="products" element={<Products />} />
-                    <Route path="products/productDetail/:productId" element={<ProductDetail />} />
+                    <Route path="productDetail/:productId" element={<ProductDetail />} />
                     <Route path="cart" element={<PrivateRoute />}>
                         <Route path="data" element={<ShoppingCart />} />
                         <Route path="payment" element={<Payment />} />

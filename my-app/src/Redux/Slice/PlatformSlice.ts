@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import produce from "immer";
 import {
+    changeLikeFetch,
     getPostDetailByPostIdFetch,
     getPostFetch,
     getSearchContentPostFetch,
@@ -28,6 +29,7 @@ export interface PostState {
     icon: string | null;
     is_liked_by_user: Array<boolean>;
     user_id: number | null;
+    is_dislike: Array<boolean> ;
 }
 
 // export interface PostView {
@@ -84,6 +86,7 @@ const PostStateInitialState = {
     icon: null,
     is_liked_by_user: [],
     user_id: null,
+    is_dislike: []
 };
 
 PlatformInitialState = {
@@ -186,6 +189,21 @@ const platformSlice = createSlice({
                 return state;
             })
             .addCase(getSearchContentPostFetch.rejected, (state, action) => {
+                console.log(action.payload?.error);
+            })
+            .addCase(changeLikeFetch.pending, (state) => {
+                const nextState = produce(PlatformInitialState, (draft) => {
+                    draft.status = "loading";
+                });
+                state = nextState;
+                return state;
+            })
+            .addCase(changeLikeFetch.fulfilled, (state, action) => {
+                const postItems = action.payload.body;
+                
+                return state;
+            })
+            .addCase(changeLikeFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             });
     },

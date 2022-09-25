@@ -32,16 +32,16 @@ const knexConfig = knexConfigs[configMode];
 const knex = Knex(knexConfig);
 
 // server & controller set up
-// import { AdminService } from "./services/adminService";
-// import { AdminController } from "./controllers/adminController";
+import { AdminService } from "./services/adminService";
+import { AdminController } from "./controllers/adminController";
 // import { UserService } from "./services/userService";
 // import { UserController } from "./controllers/userController";
 import { AccountService } from "./services/accountService";
 import { AccountController } from "./controllers/accountController";
 export const accountService = new AccountService(knex);
 export const accountController = new AccountController(accountService);
-// const adminService = new AdminService(knex);
-// export const adminController = new AdminController(adminService);
+const adminService = new AdminService(knex);
+export const adminController = new AdminController(adminService);
 // const userService = new UserService(knex);
 // export const userController = new UserController(userService);
 
@@ -64,11 +64,13 @@ import { accountRoutes } from "./routes/accountRoutes";
 import { postRoutes } from "./routes/postRoutes";
 import { productRoutes } from "./routes/productRoutes";
 import { userRoutes } from "./routes/userRoutes";
+import { adminRoutes } from "./routes/adminRoutes";
 // route handling
 app.use("/account", accountRoutes);
 app.use("/posts", postRoutes);
 app.use("/products", productRoutes);
 app.use("/user", userRoutes);
+app.use("/admin", adminRoutes);
 
 //folder path
 app.use(express.static(path.join(__dirname, "private")));
