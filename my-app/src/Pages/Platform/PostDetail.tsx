@@ -1,4 +1,4 @@
-import { Box, Tag, Avatar, TagLabel, Image, HStack, VStack } from "@chakra-ui/react";
+import { Box, Tag, Avatar, TagLabel, Image, HStack, VStack, Button } from "@chakra-ui/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,8 @@ function PostDetail() {
     const postDetail = useSelector((state: RootState) => state.platform.postDetail);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     const [images, setImages] = useState<Array<any>>([]);
-    const [like, setLike] = useState(true);
+    const [like, setLike] = useState(1);
+    console.log("postDetail:", postDetail);
 
     const { postId } = useParams();
     // need to dispatch post list by postId
@@ -24,7 +25,7 @@ function PostDetail() {
 
     let userId: number | string;
     let isAdmin: boolean;
-    // console.log("combineUserData:", combineUserData);
+    console.log("combineUserData:", combineUserData);
     // console.log("postDetail:", postDetail);
     if (combineUserData.length > 0) {
         userId = combineUserData[0].id as number;
@@ -37,11 +38,12 @@ function PostDetail() {
 
     useEffect(() => {
         const getPostDetailByPostId = async () => {
+            console.log("getPostDetailByPostId userId:", userId);
             await dispatch(getPostDetailByPostIdFetch({ postId: postId, userId: userId }));
         };
         getPostDetailByPostId();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [like]);
+    }, [combineUserData, like]);
 
     // useEffect(() => {
     //     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
@@ -70,21 +72,25 @@ function PostDetail() {
             setImages((prevState) => [
                 ...prevState,
                 {
-                    original: `${DEVELOP_IMAGE_URL}/${postImagesArr[i]}`,
-                    thumbnail: `${DEVELOP_IMAGE_URL}/${postImagesArr[i]}`,
+                    original: `${DEVELOP_IMAGE_URL}/posts/${postImagesArr[i]}`,
+                    thumbnail: `${DEVELOP_IMAGE_URL}/posts/${postImagesArr[i]}`,
                 },
             ]);
             // console.log("this is images:", postImagesArr[i]);
         }
     }, [postDetail]);
 
+    const DEVELOP_HOST = process.env.REACT_APP_API_URL;
     const handleLike = async () => {
-        setLike(true);
-
+        console.log("like!");
+        setLike(like + 1);
+        await fetch(`${DEVELOP_HOST}/posts/likePost?postId=${postId}&userId=${userId}`);
     };
 
     const handleDislike = async () => {
-        setLike(false);
+        console.log("dislike!");
+        setLike(like - 1);
+        await fetch(`${DEVELOP_HOST}/posts/dislikePost?postId=${postId}&userId=${userId}`);
     };
 
     // console.log("this is postImagesArr:", postImagesArr);
@@ -149,17 +155,18 @@ function PostDetail() {
 
                             <Tag size="lg" colorScheme="none" borderRadius="full">
                                 <Avatar
-                                    src="https://bit.ly/sage-adebayo"
+                                    src={`${DEVELOP_IMAGE_URL}/users/${postDetail.icon}`}
                                     size="md"
                                     name={`${postDetail.account_name}`}
                                     ml={-1}
                                     mr={2}
                                 />
                                 <TagLabel>{postDetail.account_name}</TagLabel>{" "}
-                                {postDetail.is_dislike[0] === true ? (
-                                    <FaHeart color="red" onClick={() => handleDislike} />
+                                {postDetail.is_dislike[0] === false &&
+                                postDetail.is_liked_by_user[0] === true ? (
+                                    <FaHeart color="red" onClick={() => handleDislike()} />
                                 ) : (
-                                    <FcLikePlaceholder onClick={() => handleLike} />
+                                    <FcLikePlaceholder onClick={() => handleLike()} />
                                 )}
                                 {postDetail.count}
                             </Tag>
@@ -199,17 +206,18 @@ function PostDetail() {
                         </Box>
                         <Tag size="lg" colorScheme="none" borderRadius="full">
                             <Avatar
-                                src={`${DEVELOP_IMAGE_URL}/${postDetail.icon}`}
+                                src={`${DEVELOP_IMAGE_URL}/users/${postDetail.icon}`}
                                 size="md"
                                 name="Segun Adebayo"
                                 ml={-1}
                                 mr={2}
                             />
                             <TagLabel>{postDetail.account_name}</TagLabel>
-                            {postDetail.is_dislike[0] === true ? (
-                                <FaHeart color="red" />
+                            {postDetail.is_dislike[0] === false &&
+                            postDetail.is_liked_by_user[0] === true ? (
+                                <FaHeart color="red" onClick={() => handleDislike()} />
                             ) : (
-                                <FcLikePlaceholder />
+                                <FcLikePlaceholder onClick={() => handleLike()} />
                             )}{" "}
                             {postDetail.count}
                         </Tag>

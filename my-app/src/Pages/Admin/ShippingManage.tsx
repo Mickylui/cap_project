@@ -104,7 +104,7 @@ export function ShippingManage() {
                                     <Box>
                                         <Container mt={4}>
                                             <Image
-                                                src={`${DEVELOP_IMAGE_URL}/${orderDetail.icon}`}
+                                                src={`${DEVELOP_IMAGE_URL}/products/${orderDetail.icon}`}
                                                 alt={orderDetail.account_name}
                                                 boxSize="200px"
                                                 borderRadius="full"

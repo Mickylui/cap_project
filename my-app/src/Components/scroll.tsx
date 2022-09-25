@@ -8,105 +8,68 @@ const style = {
     padding: 8,
 };
 
-export function Scroll() {
-    const [state, setState] = useState([
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-        { id: 1, name: "abc" },
-    ]);
-    // console.log("this is length:", state.length);
-    // console.log(
-    //     "this is Array.from(state, item => item.index < 10):",
-    //     Array.from(state, (item) => item.id < 10)
-    // );
+export default function Scroll() {
+    const data = [
+        { id: 1, name: "a" },
+        { id: 2, name: "a" },
+        { id: 3, name: "a" },
+        { id: 5, name: "a" },
+        { id: 6, name: "a" },
+        { id: 7, name: "a" },
+        { id: 8, name: "a" },
+        { id: 9, name: "a" },
+        { id: 10, name: "a" },
+        { id: 11, name: "a" },
+        { id: 12, name: "a" },
+        { id: 13, name: "a" },
+        { id: 14, name: "a" },
+        { id: 15, name: "a" },
+        { id: 16, name: "a" },
+        { id: 17, name: "a" },
+        { id: 18, name: "a" },
+    ];
+    const [startingNumb, setStartingNumb] = useState(1);
+    const displayItems = 5;
+    const newArr = data.splice(0, displayItems);
+    const [state, setState] = useState(newArr);
+    console.log("newArr:", newArr);
+    console.log("startingNumb:", startingNumb);
 
     const fetchMoreData = () => {
         // a fake async api call like which sends
         // 20 more records in 1.5 secs
+        console.log("fetchMoreData!")
         setTimeout(() => {
-            setState(state.concat(Array.from({ length: 20 })));
+            setState(
+                state.concat(
+                    data.splice(
+                        displayItems * startingNumb + startingNumb,
+                        displayItems * (startingNumb + 1) + startingNumb
+                    )
+                )
+            );
         }, 1500);
+        setStartingNumb(startingNumb + 1);
     };
+
     return (
-        // <div>
-        //     <h1>demo: react-infinite-scroll-component</h1>
-        //     <hr />
-        //     <InfiniteScroll
-        //         dataLength={this.state.items.length}
-        //         next={this.fetchMoreData}
-        //         hasMore={true}
-        //         loader={<h4>Loading...</h4>}
-        //         pullDownToRefreshContent={
-        //             <h3 style={{ textAlign: "center" }}>&#8595; Pull down to refresh</h3>
-        //         }
-        //         releaseToRefreshContent={
-        //             <h3 style={{ textAlign: "center" }}>&#8593; Release to refresh</h3>
-        //         }
-        //         endMessage={
-        //             <p style={{ textAlign: "center" }}>
-        //                 <b>Yay! You have seen it all</b>
-        //             </p>
-        //         }
-        //     >
-        //         {this.state.items.map((i, index) => (
-        //             <div style={style} key={index}>
-        //                 div - #{index}
-        //             </div>
-        //         ))}
-        //     </InfiniteScroll>
-        // </div>
         <div>
             <h1>demo: react-infinite-scroll-component</h1>
             <hr />
             <InfiniteScroll
-                dataLength={state.length}
+                dataLength={displayItems}
                 next={fetchMoreData}
                 hasMore={true}
                 loader={<h4>Loading...</h4>}
-                pullDownToRefreshContent={
-                    <h3 style={{ textAlign: "center" }}>&#8595; Pull down to refresh</h3>
-                }
-                releaseToRefreshContent={
-                    <h3 style={{ textAlign: "center" }}>&#8593; Release to refresh</h3>
-                }
-                pullDownToRefreshThreshold={50}
                 endMessage={
                     <p style={{ textAlign: "center" }}>
                         <b>Yay! You have seen it all</b>
                     </p>
                 }
             >
-                {state.map((item) => (
-                    <div style={style} key={item.id}>
-                        div - #{item.id}
+                {state.map((i, index) => (
+                    <div style={style} key={index}>
+                        div - #{i.id}
                     </div>
                 ))}
             </InfiniteScroll>

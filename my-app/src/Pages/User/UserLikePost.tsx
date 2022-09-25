@@ -13,7 +13,7 @@ import { getUserLikePostFetch } from "../../Api/userFetch";
 
 function UserLikePost(props) {
     // const dispatch: AppDispatch = useDispatch();
-    const likeData = props.likeData
+    const likeData = props.likeData;
     console.log("this is likeData:", likeData);
 
     if (likeData.length < 0) {
@@ -29,7 +29,7 @@ function UserLikePost(props) {
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
                             <RouteLink to={`/postDetail/${postItem.id}`}>
                                 <Image
-                                    src={"./skateBoardLogo.png"}
+                                    src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
                                     alt={""}
                                     border="1px"
                                     borderRadius="lg"
@@ -50,7 +50,7 @@ function UserLikePost(props) {
                             </Box>
                             <Tag size="lg" colorScheme="none" borderRadius="full">
                                 <Avatar
-                                    src={`${DEVELOP_IMAGE_URL}/${postItem.icon}`}
+                                    src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
                                     size="md"
                                     name={`${postItem.account_name}`}
                                     ml={-1}

@@ -45,7 +45,7 @@ function SocialPlatform() {
     const [post, setPost] = useState<PostState[]>([]);
 
     let userId: number | string;
-    // console.log("postList:", postList);
+    console.log("postList:", postList);
     if (combineUserData.length > 0) {
         userId = combineUserData[0].id as number;
     } else {
@@ -130,7 +130,8 @@ function SocialPlatform() {
     }, [searchContent]);
 
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
-    // console.log("DEVELOP_IMAGE_URL:", DEVELOP_IMAGE_URL);
+    console.log("DEVELOP_IMAGE_URL:", DEVELOP_IMAGE_URL);
+
     return (
         // postList.is_ordinary === true -> admin post
         <div>
@@ -209,7 +210,7 @@ function SocialPlatform() {
                                                 replace={true}
                                             >
                                                 <Image
-                                                    src={`${DEVELOP_IMAGE_URL}/${postItem.image[0]}`}
+                                                    src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
                                                     alt={""}
                                                     border="1px"
                                                     borderRadius="lg"
@@ -254,7 +255,7 @@ function SocialPlatform() {
                                     <Tag size="lg" colorScheme="none" borderRadius="full">
                                         <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
                                             <Avatar
-                                                src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}
+                                                src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
                                                 size="md"
                                                 name={`${postItem.account_name}`}
                                                 ml={-1}
@@ -262,7 +263,8 @@ function SocialPlatform() {
                                             />
                                         </RouteLink>
                                         <TagLabel>{postItem.account_name}</TagLabel>{" "}
-                                        {postItem.is_dislike[0] === true ? (
+                                        {postItem.is_dislike[0] === false &&
+                                        postItem.is_liked_by_user[0] === true ? (
                                             <FaHeart color="red" />
                                         ) : (
                                             <FcLikePlaceholder />
@@ -291,7 +293,7 @@ function SocialPlatform() {
                                     <>
                                         <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                             <Image
-                                                src={`${DEVELOP_IMAGE_URL}/${postItem.image[0]}`}
+                                                src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
                                                 alt={""}
                                                 border="1px"
                                                 borderRadius="lg"
@@ -337,7 +339,7 @@ function SocialPlatform() {
                                 <Tag size="lg" colorScheme="none" borderRadius="full">
                                     <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
                                         <Avatar
-                                            src={`DEVELOP_IMAGE_URL}/${postItem.icon}`}
+                                            src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
                                             size="md"
                                             name={`${postItem.account_name}`}
                                             ml={-1}
@@ -345,7 +347,8 @@ function SocialPlatform() {
                                         />
                                         <TagLabel>{postItem.account_name}</TagLabel>{" "}
                                     </RouteLink>
-                                    {postItem.is_dislike[0] === true ? (
+                                    {postItem.is_dislike[0] === false &&
+                                    postItem.is_liked_by_user[0] === true ? (
                                         <FaHeart color="red" />
                                     ) : (
                                         <FcLikePlaceholder />

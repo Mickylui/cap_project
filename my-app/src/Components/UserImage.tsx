@@ -72,7 +72,7 @@ function UserImage() {
             <Container mt={4}>
                 <Avatar
                     name={`${userData.account_name}`}
-                    src={`${DEVELOP_IMAGE_HOST}/${userData.icon}`}
+                    src={`${DEVELOP_IMAGE_HOST}/users/${userData.icon}`}
                     size="2xl"
                 />
                 {/* <Image

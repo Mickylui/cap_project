@@ -17,7 +17,7 @@ declare global{
     }
 }
 
-const uploadDir = path.join(__dirname,"../","private","assets");
+const uploadDir = path.join(__dirname,"../","private","assets","posts");
 
 const form = formidable({
     uploadDir,

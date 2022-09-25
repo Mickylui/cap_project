@@ -31,7 +31,7 @@ function UserPost(props) {
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
                             <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                 <Image
-                                    src={"./skateBoardLogo.png"}
+                                    src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
                                     alt={""}
                                     border="1px"
                                     borderRadius="lg"
@@ -52,14 +52,15 @@ function UserPost(props) {
                             </Box>
                             <Tag size="lg" colorScheme="none" borderRadius="full">
                                 <Avatar
-                                    src={`${DEVELOP_IMAGE_URL}/${postItem.icon}`}
+                                    src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
                                     size="md"
                                     name={`${postItem.account_name}`}
                                     ml={-1}
                                     mr={2}
                                 />
                                 <TagLabel>{postItem.account_name}</TagLabel>{" "}
-                                {postItem.is_dislike[0] === true ? (
+                                {postItem.is_dislike[0] === false &&
+                                postItem.is_liked_by_user[0] === true ? (
                                     <FaHeart color="red" />
                                 ) : (
                                     <FcLikePlaceholder />

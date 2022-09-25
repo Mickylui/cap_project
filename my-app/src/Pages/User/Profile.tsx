@@ -19,8 +19,7 @@ import ProductManage from "../Admin/ProductManage";
 
 function Profile() {
     const [link, switchLink] = useState("posts");
-    const [adminLink, switchAdminLink] = useState("users");
-    const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
+
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     const likeData = useSelector((state: RootState) => state.user.likeData);
     const postData = useSelector((state: RootState) => state.user.postData);
@@ -45,76 +44,6 @@ function Profile() {
         };
         getUserLikePost();
     }, [link]);
-
-    if (isAdmin) {
-        return (
-            <div>
-                <UserImage />
-                <Box
-                    // as={ReachLink}
-                    // to="posts"
-                    margin="20px"
-                    fontSize="1.5rem"
-                    onClick={() => switchAdminLink("users")}
-                >
-                    Users
-                </Box>
-                <Box
-                    // as={ReachLink}
-                    // to="likes"
-                    margin="20px"
-                    fontSize="1.5rem"
-                    onClick={() => switchAdminLink("products")}
-                >
-                    Products
-                </Box>
-                <Box
-                    // as={ReachLink}
-                    // to="likes"
-                    margin="20px"
-                    fontSize="1.5rem"
-                    onClick={() => switchAdminLink("shipping")}
-                >
-                    Shipping
-                </Box>
-                <Box
-                    // as={ReachLink}
-                    // to="likes"
-                    margin="20px"
-                    fontSize="1.5rem"
-                    onClick={() => switchAdminLink("platform")}
-                >
-                    Platform
-                </Box>
-                <Box
-                    // as={ReachLink}
-                    // to="likes"
-                    margin="20px"
-                    fontSize="1.5rem"
-                    onClick={() => switchAdminLink("posts")}
-                >
-                    Posts
-                </Box>
-                <Box
-                    // as={ReachLink}
-                    // to="likes"
-                    margin="20px"
-                    fontSize="1.5rem"
-                    onClick={() => switchAdminLink("banners")}
-                >
-                    Banners
-                </Box>
-                <main>
-                    {adminLink === "users" ? <SocialPlatform /> : <></>}
-                    {adminLink === "products" ? <ProductManage /> : <></>}
-                    {adminLink === "shipping" ? <ShippingManage /> : <></>}
-                    {adminLink === "platform" ? <div>platform</div> : <></>}
-                    {adminLink === "posts" ? <div>posts</div> : <></>}
-                    {adminLink === "banners" ? <div>banners</div> : <></>}
-                </main>
-            </div>
-        );
-    }
     return (
         <div>
             <UserImage />
