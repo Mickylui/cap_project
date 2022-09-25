@@ -8,13 +8,15 @@ import { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserPostFetch } from "../../Api/userFetch";
 import PostManage from "./PostManage";
+import "../css/adminSystem.css";
 
 export function AdminSystem() {
     const [adminLink, switchAdminLink] = useState("products");
     return (
-        <div>
-            <UserImage />
-            {/* <Box
+        <>
+            <div className="admin-profile-container">
+                <UserImage />
+                {/* <Box
                 // as={ReachLink}
                 // to="posts"
                 margin="20px"
@@ -23,25 +25,25 @@ export function AdminSystem() {
             >
                 Users
             </Box> */}
-            <Box
-                // as={ReachLink}
-                // to="likes"
-                margin="20px"
-                fontSize="1.5rem"
-                onClick={() => switchAdminLink("products")}
-            >
-                Products
-            </Box>
-            <Box
-                // as={ReachLink}
-                // to="likes"
-                margin="20px"
-                fontSize="1.5rem"
-                onClick={() => switchAdminLink("shipping")}
-            >
-                Shipping
-            </Box>
-            {/* <Box
+                <Box
+                    // as={ReachLink}
+                    // to="likes"
+                    margin="20px"
+                    fontSize="1.5rem"
+                    onClick={() => switchAdminLink("products")}
+                >
+                    Products
+                </Box>
+                <Box
+                    // as={ReachLink}
+                    // to="likes"
+                    margin="20px"
+                    fontSize="1.5rem"
+                    onClick={() => switchAdminLink("shipping")}
+                >
+                    Shipping
+                </Box>
+                {/* <Box
                 // as={ReachLink}
                 // to="likes"
                 margin="20px"
@@ -50,16 +52,16 @@ export function AdminSystem() {
             >
                 Platform
             </Box> */}
-            <Box
-                // as={ReachLink}
-                // to="likes"
-                margin="20px"
-                fontSize="1.5rem"
-                onClick={() => switchAdminLink("posts")}
-            >
-                Posts
-            </Box>
-            {/* <Box
+                <Box
+                    // as={ReachLink}
+                    // to="likes"
+                    margin="20px"
+                    fontSize="1.5rem"
+                    onClick={() => switchAdminLink("posts")}
+                >
+                    Posts
+                </Box>
+                {/* <Box
                 // as={ReachLink}
                 // to="likes"
                 margin="20px"
@@ -68,14 +70,12 @@ export function AdminSystem() {
             >
                 Banners
             </Box> */}
+            </div>
             <main>
-                {/* {adminLink === "users" ? <SocialPlatform /> : <></>} */}
                 {adminLink === "products" ? <ProductManage /> : <></>}
                 {adminLink === "shipping" ? <ShippingManage /> : <></>}
-                {/* {adminLink === "platform" ? <div>platform</div> : <></>} */}
                 {adminLink === "posts" ? <PostManage /> : <></>}
-                {/* {adminLink === "banners" ? <div>banners</div> : <></>} */}
             </main>
-        </div>
+        </>
     );
 }

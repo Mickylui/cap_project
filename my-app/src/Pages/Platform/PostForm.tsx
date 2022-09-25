@@ -44,19 +44,24 @@ function PostForm() {
                 <Box rounded={"lg"} boxShadow={"lg"} padding={20}>
                     <BackButton />
                     <form
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                                e.preventDefault();
+                            }
+                        }}
                         onSubmit={async (e) => {
                             e.preventDefault();
-
                             if (tags.length === 0) {
                                 Swal.fire({
-                                    title: "Log out",
+                                    title: "Please input at least one tag",
                                     showClass: {
                                         popup: "animate__animated animate__fadeInDown",
                                     },
                                     hideClass: {
                                         popup: "animate__animated animate__fadeOutUp",
                                     },
-                                }).then(() => navigate("/"));
+                                });
+                                return
                             }
                             const form = e.target;
                             const formData = new FormData();
@@ -143,7 +148,6 @@ function PostForm() {
                                         timer: 1500,
                                     });
                                 }
-                                // console.log("addPostResponse:", addPostResponse);
                                 return;
                             }
 
@@ -172,14 +176,13 @@ function PostForm() {
                                     timer: 1500,
                                 });
                             }
-                            // console.log("addPostResponse:", addPostResponse);
                         }}
                     >
                         <FormControl isRequired>
-                            <Input placeholder="Title" name="title" />
+                            <Input placeholder="Title" name="title" required />
                         </FormControl>
                         <FormControl isRequired>
-                            <Input placeholder="Write a caption" name="description" />
+                            <Input placeholder="Write a caption" name="description" required />
                         </FormControl>
                         <FormControl as="fieldset">
                             <FormLabel as="legend">Is your post a event?</FormLabel>
@@ -202,21 +205,27 @@ function PostForm() {
                                             type="text"
                                             placeholder="eventLocation"
                                             name="eventLocation"
+                                            required
                                         />
                                     </HStack>
                                 </FormControl>
                                 <FormControl>
                                     <HStack spacing="12px">
                                         <FormLabel>Date</FormLabel>
-                                        <Input type="date" id="eventDate" name="eventDate" />
+                                        <Input
+                                            type="date"
+                                            id="eventDate"
+                                            name="eventDate"
+                                            required
+                                        />
                                     </HStack>
                                 </FormControl>
                                 <FormControl>
                                     <HStack spacing="12px">
                                         <FormLabel>Time</FormLabel>
-                                        <Input type="time" id="time" name="startingTime" />
+                                        <Input type="time" id="time" name="startingTime" required />
                                         <Text>to</Text>
-                                        <Input type="time" id="time" name="endingTime" />
+                                        <Input type="time" id="time" name="endingTime" required />
                                     </HStack>
                                 </FormControl>{" "}
                                 <FormControl>
@@ -229,6 +238,7 @@ function PostForm() {
                                                 <Input
                                                     placeholder="eventContact"
                                                     name="eventContact"
+                                                    required
                                                 />
                                             )}
                                             {isAdmin ? (

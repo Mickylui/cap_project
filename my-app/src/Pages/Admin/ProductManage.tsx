@@ -19,66 +19,70 @@ export function ProductManage() {
     }, []);
 
     return (
-        <div
-            style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                marginTop: "20px",
-                marginBottom: "20px",
-            }}
-        >
+        <>
             <IconButton icon={<PlusSquareIcon />} aria-label={"add product"} />
-            {productList.map((product) => (
-                <Box
-                    key={product.id}
-                    // maxW="sm"
-                    width={"50em"}
-                    borderWidth="1px"
-                    borderRadius="lg"
-                    overflow="hidden"
-                    style={{ margin: "10px" }}
-                    display={"flex"}
-                    flexWrap={"wrap"}
-                >
-                    {/* <Image src={product.imageUrl} alt={product.imageAlt} width={"100%"}/> */}
-
+            <div
+                style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    marginTop: "20px",
+                    marginBottom: "20px",
+                }}
+            >
+                {productList.map((product) => (
                     <Box
-                        p="6"
+                        key={product.id}
+                        // maxW="sm"
+                        width={"50em"}
+                        borderWidth="1px"
+                        borderRadius="lg"
+                        overflow="hidden"
+                        style={{ margin: "10px" }}
                         display={"flex"}
-                        justifyContent={"center"}
                         flexWrap={"wrap"}
-                        width={"100%"}
                     >
-                        <RouteLink to={`/admin/productDetail/${product.id}`} replace={true}>
-                            <Image
-                                src={`${DEVELOP_IMAGE_URL}/products/${product.image}`}
-                                // src="./SkateBoardLogo.png"
-                            />
-                            <Box
-                                mt="1"
-                                fontWeight="semibold"
-                                as="h4"
-                                lineHeight="tight"
-                                noOfLines={1}
-                                fontSize={{ md: "2rem" }}
-                                width={"100%"}
-                            >
-                                {product.name}
-                            </Box>
+                        {/* <Image src={product.imageUrl} alt={product.imageAlt} width={"100%"}/> */}
 
-                            <VStack>
-                                <Box fontSize={{ md: "2rem" }}>
-                                    Description: {product.description}
+                        <Box
+                            p="6"
+                            display={"flex"}
+                            justifyContent={"center"}
+                            flexWrap={"wrap"}
+                            width={"100%"}
+                        >
+                            <RouteLink to={`/admin/productDetail/${product.id}`} replace={true}>
+                                <Image
+                                    src={`${DEVELOP_IMAGE_URL}/products/${product.image}`}
+                                    // src="./SkateBoardLogo.png"
+                                />
+                                <Box
+                                    mt="1"
+                                    fontWeight="semibold"
+                                    as="h4"
+                                    lineHeight="tight"
+                                    noOfLines={1}
+                                    fontSize={{ md: "2rem" }}
+                                    width={"100%"}
+                                >
+                                    {product.name}
                                 </Box>
-                                <Box fontSize={{ md: "2rem" }}>Price: HKD {product.unit_price}</Box>
-                            </VStack>
-                        </RouteLink>
+
+                                <VStack>
+                                    <Box fontSize={{ md: "2rem" }}>
+                                        Description: {product.description}
+                                    </Box>
+                                    <Box fontSize={{ md: "2rem" }}>
+                                        Price: HKD {product.unit_price}
+                                    </Box>
+                                </VStack>
+                            </RouteLink>
+                        </Box>
                     </Box>
-                </Box>
-            ))}
-            <ScrollToTopButton />
-        </div>
+                ))}
+                <ScrollToTopButton />
+            </div>
+        </>
     );
 }
 

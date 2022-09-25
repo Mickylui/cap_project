@@ -1,0 +1,9 @@
+.table {
+    margin-top: 25px;
+    width: fit-content;
+    background-color: white;
+}
+.shipping-data-container {
+    display: flex;
+    justify-content: space-around;
+}

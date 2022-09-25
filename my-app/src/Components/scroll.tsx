@@ -27,28 +27,47 @@ export default function Scroll() {
         { id: 16, name: "a" },
         { id: 17, name: "a" },
         { id: 18, name: "a" },
+        { id: 19, name: "a" },
+        { id: 20, name: "a" },
+        { id: 21, name: "a" },
+        { id: 22, name: "a" },
+        { id: 23, name: "a" },
+        { id: 24, name: "a" },
+        { id: 25, name: "a" },
+        { id: 26, name: "a" },
+        { id: 27, name: "a" },
+        { id: 28, name: "a" },
+        { id: 29, name: "a" },
+        { id: 30, name: "a" },
+        { id: 31, name: "a" },
+        { id: 32, name: "a" },
+        { id: 33, name: "a" },
+        { id: 34, name: "a" },
+        { id: 35, name: "a" },
     ];
     const [startingNumb, setStartingNumb] = useState(1);
-    const displayItems = 5;
-    const newArr = data.splice(0, displayItems);
-    const [state, setState] = useState(newArr);
-    console.log("newArr:", newArr);
+    const perItems = 5;
+    const newArr = data.splice(0, perItems);
+    const [displayItems, setDisplayItems] = useState(newArr);
+    // console.log("newArr:", newArr);
     console.log("startingNumb:", startingNumb);
 
     const fetchMoreData = () => {
         // a fake async api call like which sends
         // 20 more records in 1.5 secs
-        console.log("fetchMoreData!")
+        console.log("fetchMoreData!");
         setTimeout(() => {
-            setState(
-                state.concat(
+            setDisplayItems(
+                displayItems.concat(
                     data.splice(
-                        displayItems * startingNumb + startingNumb,
-                        displayItems * (startingNumb + 1) + startingNumb
+                        perItems * startingNumb + startingNumb,
+                        perItems * (startingNumb + 1) + startingNumb
                     )
                 )
             );
         }, 1500);
+        console.log("form:", perItems * startingNumb + startingNumb);
+        console.log("to:", perItems * (startingNumb + 1) + startingNumb);
         setStartingNumb(startingNumb + 1);
     };
 
@@ -57,7 +76,7 @@ export default function Scroll() {
             <h1>demo: react-infinite-scroll-component</h1>
             <hr />
             <InfiniteScroll
-                dataLength={displayItems}
+                dataLength={displayItems.length}
                 next={fetchMoreData}
                 hasMore={true}
                 loader={<h4>Loading...</h4>}
@@ -67,7 +86,7 @@ export default function Scroll() {
                     </p>
                 }
             >
-                {state.map((i, index) => (
+                {displayItems.map((i, index) => (
                     <div style={style} key={index}>
                         div - #{i.id}
                     </div>

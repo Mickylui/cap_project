@@ -34,7 +34,7 @@ import Settings from "./Pages/User/Settings";
 import Payment from "./Pages/User/Payment";
 import Promotion from "./Pages/User/Promotion";
 import ProductDetail from "./Pages/Product/ProductDetail";
-import Scroll from "./Components/scroll";
+import Scroll from "./Components/Scroll";
 import { getCartFetch } from "./Api/productFetch";
 import OtherUserProfile from "./Pages/User/OtherUserProfile";
 import { AdminSystem } from "./Pages/Admin/AdminSystem";

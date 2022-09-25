@@ -10,27 +10,27 @@ import { PostState } from "../../Redux/Slice/platformSlice";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BackButton } from "../../Components/BackButton";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
+const buttonColor = "rgb(190,162,120)";
 function PostDetail() {
+    const dispatch: AppDispatch = useDispatch();
     const postDetail = useSelector((state: RootState) => state.platform.postDetail);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     const [images, setImages] = useState<Array<any>>([]);
     const [like, setLike] = useState(1);
-    console.log("postDetail:", postDetail);
+
 
     const { postId } = useParams();
-    // need to dispatch post list by postId
 
-    const dispatch: AppDispatch = useDispatch();
 
     let userId: number | string;
     let isAdmin: boolean;
-    console.log("combineUserData:", combineUserData);
+    // console.log("combineUserData:", combineUserData);
     // console.log("postDetail:", postDetail);
     if (combineUserData.length > 0) {
         userId = combineUserData[0].id as number;
         isAdmin = combineUserData[0].is_admin as boolean;
-        // console.log("isAdmin:", isAdmin);
     } else {
         userId = 1;
         isAdmin = false;
@@ -45,25 +45,6 @@ function PostDetail() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [combineUserData, like]);
 
-    // useEffect(() => {
-    //     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
-    //     const getPostImages = () => {
-    //         const postImagesArr = postDetail["image"] as unknown as Array<string>;
-    //         console.log("this is postImagesArr:", postImagesArr);
-    //         for (let i = 0; i < postImagesArr.length; i++) {
-    //             setImages((prevState) => [
-    //                 ...prevState,
-    //                 {
-    //                     original: `${DEVELOP_IMAGE_URL}/${postImagesArr[i]}`,
-    //                     thumbnail: `${DEVELOP_IMAGE_URL}/${postImagesArr[i]}`,
-    //                 },
-    //             ]);
-    //             console.log("this is images:", postImagesArr[i]);
-    //         }
-    //     };
-    //     getPostImages();
-    // }, [postDetail]);
-
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
     const postImagesArr = postDetail["image"] as unknown as Array<string>;
     useMemo(() => {
@@ -76,7 +57,6 @@ function PostDetail() {
                     thumbnail: `${DEVELOP_IMAGE_URL}/posts/${postImagesArr[i]}`,
                 },
             ]);
-            // console.log("this is images:", postImagesArr[i]);
         }
     }, [postDetail]);
 
@@ -93,15 +73,11 @@ function PostDetail() {
         await fetch(`${DEVELOP_HOST}/posts/dislikePost?postId=${postId}&userId=${userId}`);
     };
 
-    // console.log("this is postImagesArr:", postImagesArr);
-    // console.log("this is images:", images);
-
-    // need to seperate the style : isOwner / isAdmin, hasImage / noImage
     return (
         <div>
-            {/* box w/ image */}
             {postDetail.image[0] !== null ? (
                 <Box p="2rem" borderWidth="1px" borderRadius="lg" overflow="hidden" m="4rem">
+                    {/* <BackButton back={()=>navigate("/platform/posts")}/> */}
                     <BackButton />
                     <HStack>
                         <Box className="image-gallery-box">
@@ -146,7 +122,7 @@ function PostDetail() {
                                         key={`${tagItem}`}
                                         borderRadius="full"
                                         variant="solid"
-                                        colorScheme="green"
+                                        backgroundColor={buttonColor}
                                     >
                                         {tagItem}
                                     </Tag>
@@ -192,13 +168,22 @@ function PostDetail() {
                             <Box>{postDetail.updated_at}</Box>
                         </HStack>
                         <Box mt="3rem">{postDetail.description}</Box>
+                        {postDetail.is_event ? (
+                            <>
+                                <Box mt="3rem">Location: {postDetail.event_location}</Box>
+                                <Box mt="1rem">Time: {postDetail.event_time}</Box>
+                                <Box mt="1rem">contact: {postDetail.contact}</Box>
+                            </>
+                        ) : (
+                            <></>
+                        )}
                         <Box m="2rem">
                             {postDetail.tag.map((tagItem) => (
                                 <Tag
                                     key={`${tagItem}`}
                                     borderRadius="full"
                                     variant="solid"
-                                    colorScheme="green"
+                                    backgroundColor={buttonColor}
                                 >
                                     {tagItem}
                                 </Tag>

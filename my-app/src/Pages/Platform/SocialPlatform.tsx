@@ -44,7 +44,6 @@ function SocialPlatform() {
 
     const [searchTag, setSearchTag] = useState("");
     const [searchContent, setSearchContent] = useState("");
-    const [post, setPost] = useState<PostState[]>([]);
 
     let userId: number | string;
     console.log("postList:", postList);
@@ -106,8 +105,7 @@ function SocialPlatform() {
     //         getPost();
     //     }
     // };
-
-    useEffect(() => {
+    useMemo(() => {
         const fetchSearchTag = async () => {
             await dispatch(getSearchTagPostFetch({ tag: searchTag, userId: userId }));
         };
@@ -120,19 +118,17 @@ function SocialPlatform() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTag]);
 
-    useEffect(() => {
+    useMemo(() => {
         const fetchContent = async () => {
             await dispatch(getSearchContentPostFetch({ keyword: searchContent, userId: userId }));
         };
         if (searchContent !== "") {
             fetchContent();
         }
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchContent]);
 
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
-    console.log("DEVELOP_IMAGE_URL:", DEVELOP_IMAGE_URL);
 
     return (
         // postList.is_ordinary === true -> admin post
@@ -245,8 +241,9 @@ function SocialPlatform() {
                                                     fontSize={"2em"}
                                                     as="h4"
                                                     lineHeight="tight"
-                                                    noOfLines={1}
+                                                    // noOfLines={1}
                                                     backgroundColor={"white"}
+                                                    className="title"
                                                 >
                                                     {postItem.title}
                                                 </Box>
@@ -261,7 +258,8 @@ function SocialPlatform() {
                                                     fontSize={"2em"}
                                                     as="h4"
                                                     lineHeight="tight"
-                                                    noOfLines={1}
+                                                    // noOfLines={1}
+                                                    className="title"
                                                 >
                                                     {postItem.title}
                                                 </Box>
@@ -334,11 +332,12 @@ function SocialPlatform() {
                                         <Box p="6">
                                             <Box
                                                 // mt="1"
+                                                className="title"
                                                 fontWeight="semibold"
                                                 fontSize={"2em"}
                                                 as="h4"
                                                 lineHeight="tight"
-                                                noOfLines={1}
+                                                // noOfLines={1}
                                                 backgroundColor={"white"}
                                             >
                                                 {postItem.title}
@@ -349,12 +348,14 @@ function SocialPlatform() {
                                     <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                         <Box p="6">
                                             <Box
-                                                mt="1"
+                                                // mt="1"
+                                                className="title"
                                                 fontWeight="semibold"
+                                                fontSize={"2em"}
                                                 as="h4"
                                                 lineHeight="tight"
-                                                height={"90px"}
-                                                noOfLines={1}
+                                                // noOfLines={1}
+                                                backgroundColor={"white"}
                                             >
                                                 {postItem.title}
                                             </Box>

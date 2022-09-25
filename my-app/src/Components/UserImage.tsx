@@ -42,31 +42,14 @@ import "./css/userImage.css";
 function UserImage() {
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
-    // console.log("combineUserData", combineUserData);
+    console.log("combineUserData", combineUserData);
+    console.log("accu", combineUserData[0].accumulation);
     const userData = combineUserData[0];
     const DEVELOP_IMAGE_HOST = process.env.REACT_APP_IMAGE_URL;
     if (isAdmin) {
         return (
             <div className="user-image-container">
                 <Avatar name={"admin"} backgroundColor={"black"} size="2xl" />
-                {/* <Container mt={4}>
-                    <Image
-                        src={
-                            data.pic ||
-                            "https://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
-                        }
-                        alt={data.name}
-                        boxSize="200px"
-                        borderRadius="full"
-                        fallbackSrc="hhttps://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
-                        mx="auto"
-                    />
-                    <Center>
-                        <VStack>
-                            <Heading>{data.name}</Heading>
-                        </VStack>
-                    </Center>
-                </Container> */}
             </div>
         );
     }

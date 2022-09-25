@@ -43,11 +43,12 @@ function UserPost(props) {
                                     <Box p="6">
                                         <Box
                                             // mt="1"
+                                            className="title"
                                             fontWeight="semibold"
                                             fontSize={"2em"}
                                             as="h4"
                                             lineHeight="tight"
-                                            noOfLines={1}
+                                            // noOfLines={1}
                                             backgroundColor={"white"}
                                         >
                                             {postItem.title}
@@ -59,11 +60,13 @@ function UserPost(props) {
                                     <Box p="6">
                                         <Box
                                             // mt="1"
+                                            className="title"
                                             fontWeight="semibold"
                                             fontSize={"2em"}
                                             as="h4"
                                             lineHeight="tight"
-                                            noOfLines={1}
+                                            // noOfLines={1}
+                                            backgroundColor={"white"}
                                         >
                                             {postItem.title}
                                         </Box>
@@ -88,14 +91,16 @@ function UserPost(props) {
                                 borderRadius="full"
                                 className="user-profile"
                             >
-                                <Avatar
-                                    src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
-                                    size="md"
-                                    name={`${postItem.account_name}`}
-                                    ml={-1}
-                                    mr={2}
-                                />
-                                <h1>{postItem.account_name}</h1>
+                                <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
+                                    <Avatar
+                                        src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
+                                        size="md"
+                                        name={`${postItem.account_name}`}
+                                        ml={-1}
+                                        mr={2}
+                                    />
+                                </RouteLink>
+                                <h1 className="user-name">{postItem.account_name}</h1>
                                 <div className="like-button">
                                     {postItem.is_dislike[0] === false &&
                                     postItem.is_liked_by_user[0] === true ? (
@@ -106,7 +111,7 @@ function UserPost(props) {
                                     {postItem.count}
                                 </div>
                                 <RouteLink to="reportPost">
-                                    <Button>
+                                    <Button className="user-profile-button">
                                         <WarningTwoIcon />
                                     </Button>
                                 </RouteLink>
@@ -121,3 +126,6 @@ function UserPost(props) {
 }
 
 export default UserPost;
+function setSearchTag(innerHTML: any) {
+    throw new Error("Function not implemented.");
+}

@@ -41,10 +41,16 @@ export default function Footer() {
             bg={"white"}
             color={useColorModeValue("gray.700", "gray.200")}
         >
-            <Container as={Stack} maxW={"8xl"} py={10}>
+            <Container
+                as={Stack}
+                maxW={"8xl"}
+                py={10}
+            >
                 <SimpleGrid
                     templateColumns={{ sm: "1fr 1fr", md: "2fr 1fr 1fr 1fr 1fr" }}
                     spacing={10}
+                    display={"flex"}
+                    justifyContent={"space-around"}
                 >
                     <Stack spacing={2}>
                         <Box display={"flex"} justifyContent={"center"}>
@@ -61,7 +67,7 @@ export default function Footer() {
                             © 2022 Chakra Templates. All rights reserved
                         </SmallTextContent>
                     </Stack>
-                    <Stack align={"flex-start"}>
+                    <Stack align={"flex-start"} width={"20rem"}>
                         <ListHeader>About us</ListHeader>
                         <TextContent>
                             Skate Park offers skateboarding enthusiasts a platform for purchasing
@@ -77,15 +83,6 @@ export default function Footer() {
                         <ListHeader>Sections</ListHeader>
                         <RouteLink to="/products"> Products</RouteLink>
                         <RouteLink to="/posts"> Activity Platform</RouteLink>
-                    </Stack>
-                    <Stack align={"flex-start"}>
-                        <ListHeader>Support</ListHeader>
-                        <TextContent>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet ipsam
-                            nesciunt sed aliquam non hic distinctio atque soluta. Ea, sint tempore.
-                            Perspiciatis voluptatem sit aliquid quia mollitia necessitatibus qui
-                            vitae!
-                        </TextContent>
                     </Stack>
                     <Stack align={"flex-start"}>
                         <ListHeader>Contact Us</ListHeader>
