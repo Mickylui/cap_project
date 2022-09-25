@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addToCartFetch, getCartFetch } from "../../Api/productFetch";
+import { iteratorSymbol } from "immer/dist/internal";
+import { addToCartFetch, getCartFetch, removeCartItem } from "../../Api/productFetch";
 
 export interface CartItemState {
     id: number;
@@ -34,7 +35,6 @@ const cartSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-            // .addCase(getCartFetch.fulfilled, (state, action) => {})
             .addCase(addToCartFetch.fulfilled, (state, action) => {
                 const product = action.meta.arg.product;
                 const foundProduct = state.product.find(
@@ -65,13 +65,25 @@ const cartSlice = createSlice({
             })
             .addCase(getCartFetch.fulfilled, (state, action) => {
                 const cartItems = action.payload.body;
-                state.status = "succeeded";
+                state.status = "success";
                 state.product = cartItems;
             })
             .addCase(getCartFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
+            })
+            .addCase(removeCartItem.fulfilled, (state, action) => {
+                state.status = "success";
+                const { id } = action.payload.body;
+                state.product = state.product.filter((item) => item.id !== id);
+                return;
             });
+            // .addCase(clearCart.fulfilled, (state, action) => {
+            //     const cartItems = action.payload.body;
+            //     state.cartItems = [];
+            // })
     },
 });
 
 export const cartReducer = cartSlice.reducer;
+
+

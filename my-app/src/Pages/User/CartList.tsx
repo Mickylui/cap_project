@@ -5,11 +5,19 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch } from "react-redux";
 import { CartItemState } from "../../Redux/Slice/cartSlice";
+import { getCartFetch, removeCartItem } from "../../Api/productFetch";
 
 function CartList(props: { usePoint: boolean }) {
     const cartItemArr = useSelector((state: RootState) => state.cart.product);
-    const [cartList, setCartList] = useState<CartItemState>();
+    const status = useSelector((state: RootState) => state.cart.status);
+    console.log("check cartItem", cartItemArr[0].id);
+    const token = window.localStorage.getItem("token");
+    const [trigger,setTrigger] = useState(true)
     const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(getCartFetch({ token }));
+    }, [trigger]);
 
     if (props.usePoint) {
         return (
@@ -82,7 +90,7 @@ function CartList(props: { usePoint: boolean }) {
                             <Th></Th>
                         </Tr>
                     </Thead>
-                    {cartItemArr.map((item) => (
+                    {cartItemArr.map((item, idx) => (
                         <Tbody>
                             <Tr>
                                 <Td></Td>
@@ -91,7 +99,20 @@ function CartList(props: { usePoint: boolean }) {
                                 <Td>{item.size}</Td>
                                 <Td>{`$ ${item.unit_price * item.quantity}`}</Td>
                                 <Td>
-                                    <Button onClick={() => {}}>
+                                    <Button
+                                        onClick={() => {
+                                            setTrigger(!trigger);
+                                            dispatch(
+                                                removeCartItem({
+                                                    token: token,
+                                                    product_id: item.id,
+                                                })
+
+                                            );
+
+                                            
+                                        }}
+                                    >
                                         <DeleteIcon />
                                     </Button>
                                 </Td>

@@ -14,6 +14,7 @@ export default function ShoppingCart() {
 
     return (
         <div>
+            {/* {cartItemArr.length === 0? (<p>Your cart is currently empty</p>): ()} */}
             {usePoint ? (
                 <PayWithPoints usePoint={usePoint} backToCart={() => setUsePoint(false)} />
             ) : (
@@ -44,7 +45,7 @@ export default function ShoppingCart() {
 
                     {/* show products */}
                     <GridItem pl="2" bg="grey.300" area={"main"}>
-                        Your Items
+                        Your Items in detail
                         <div
                             style={{
                                 display: "flex",
@@ -74,7 +75,9 @@ export default function ShoppingCart() {
                                         >
                                             {product.name}
                                         </Box>
-                                        <Box>${product.unit_price}</Box>
+                                        <Box>Price: ${product.unit_price}</Box>
+                                        <Box>Quantity: {product.quantity}</Box>
+                                        <Box>Size: {Number(product.size)}</Box>
                                     </Box>
                                 </Box>
                             ))}

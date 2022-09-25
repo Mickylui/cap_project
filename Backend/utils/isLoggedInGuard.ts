@@ -11,6 +11,7 @@ const permit = new Bearer({
 
 export async function isLoggedIn(req: Request, res: Response, next: NextFunction) {
     try {
+        // console.log("before request body is touched",req.body)
         const token = permit.check(req);
         // console.log("isLoggedIn:",token)
         if (!token) {

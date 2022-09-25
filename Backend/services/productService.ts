@@ -87,7 +87,6 @@ export class ProductService {
     }
 
     async addToCart(user_id: number, product_id: number, size: number, quantity: number) {
-<<<<<<< HEAD
         const trx = await this.knex.transaction();
         let qty = quantity;
         let cartId: number;
@@ -119,23 +118,11 @@ export class ProductService {
             await trx.rollback();
             throw err;
         }
-=======
-        // const cart = await this.knex
-        //     .insert({
-        //         product_id: `${product_id}`,
-        //         size: `${size}`,
-        //         quantity: `${quantity}`,
-        //     })
-        //     .into("shopping_cart");
-        // console.log(cart);
-        // const trx = await this.knex.transaction();
-        try {
-            // const cartItem = await this.knex("shopping_carts");
-        } catch {}
->>>>>>> 6054b4d5daa692e901a6ea1ed09331a04cda5999
     }
 
     async RemoveCartItem(id: number) {
-        await this.knex("shopping_carts").where("id", id).del();
+        console.log(id);
+        const deletedItem = await this.knex("shopping_carts").where("id", id).delete();
+        return deletedItem;
     }
 }
