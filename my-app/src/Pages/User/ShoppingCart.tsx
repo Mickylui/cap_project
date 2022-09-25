@@ -39,7 +39,7 @@ export default function ShoppingCart() {
                             Use default address or click to change address
                         </Link>
                         <Button mt="4em" onClick={() => setUsePoint(!usePoint)}>
-                            Buy/Save
+                            Checkout
                         </Button>
                     </GridItem>
 

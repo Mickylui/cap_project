@@ -73,7 +73,7 @@ export class ProductController {
             console.log("remove controller !", req.body);
             const strId = req.body.product_id;
             const id = parseInt(strId as string);
-            await this.productService.RemoveCartItem(id);
+            await this.productService.removeCartItem(id);
             console.log(id);
         } catch (error) {
             winstonLogger.error(error.toString());

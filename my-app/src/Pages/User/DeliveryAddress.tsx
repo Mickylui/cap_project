@@ -72,7 +72,7 @@ function DeliveryAddress() {
                 </RadioGroup>
             </FormControl>
             <RouteLink to="/cart/payment">
-                <Button mt='4em'>Buy/Save</Button>
+                <Button mt='4em'>Checkout</Button>
             </RouteLink>
             </Box>
             </Flex>

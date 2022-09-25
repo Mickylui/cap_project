@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { addToCartFetch, getProductDetailByProductIdFetch } from "../../Api/productFetch";
+import Swal from "sweetalert2";
 
 export function ProductDetail() {
     const productDetail = useSelector((state: RootState) => state.product.productDetail);
@@ -135,7 +136,21 @@ export function ProductDetail() {
                                     <Button {...getDecrementButtonProps()}>-</Button>
                                     <Input {...getInputProps()} name={"qty"} disabled />
                                     <Button {...getIncrementButtonProps()}>+</Button>
-                                    <Button type="submit">Add to Cart</Button>
+                                    <Button 
+                                    type="submit"
+                                    onClick={() => 
+                                        Swal.fire({
+                                            title: "Thank You",
+                                            text: "Item added to cart",
+                                            showClass: {
+                                                popup: "animate__animated animate__fadeInDown",
+                                            },
+                                            hideClass: {
+                                                popup: "animate__animated animate__fadeOutUp",
+                                            },
+                                        })}
+                                    >Add to Cart
+                                    </Button>
                                 </HStack>
                             </div>
                         </form>

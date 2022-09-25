@@ -101,26 +101,26 @@ export const removeCartItem = createAsyncThunk<
         })
     
         return res.json()
-        const deleteResult = await res.json();
-        if (deleteResult.success === true) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, remove it!'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  Swal.fire(
-                    'Removed!',
-                    'Your item has been removed.',
-                    'success'
-                  )
-                }
-              });   
-        }
+        // const deleteResult = await res.json();
+        // if (deleteResult.success === true) {
+        //     Swal.fire({
+        //         title: 'Are you sure?',
+        //         text: "You won't be able to revert this!",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Yes, remove it!'
+        //       }).then((result) => {
+        //         if (result.isConfirmed) {
+        //           Swal.fire(
+        //             'Removed!',
+        //             'Your item has been removed.',
+        //             'success'
+        //           )
+        //         }
+        //       });   
+        // }
         
     } catch {
         return thunkAPI.rejectWithValue({ error: "Failed to remove item" } as Error);
@@ -128,26 +128,6 @@ export const removeCartItem = createAsyncThunk<
 });
 
 
-// function deleteBlog(blog) {
-//   fetch('http://localhost:3003/delete', {
-//       method: 'DELETE',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(blog)
-//     })
-//     .then(data => data.json())
-//     .then(resp => {
-//       // I also suppose that you will more likely find 
-//       // your "Deleted successfully" in the resp.body property, so :
-//       if (resp.body === 'Deleted Successfully') {
-//         navigate(0)
-//       } else if (resp.body === 'An error occured') {
-//         console.log('Something went wrong')
-//       } else {
-//         console.log('ERROR')
-//       }
-//     })
-// }
+
 
 
