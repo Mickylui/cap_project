@@ -6,7 +6,7 @@ import "./css/footer.css";
 import { Link as RouteLink } from "react-router-dom";
 
 const Logo = (props: any) => {
-    return <Image src="../SkateBoardLogo.png" alt="SkateBoardLogo" boxSize='200px'/>;
+    return <Image src="../Logo.png" alt="SkateBoardLogo" boxSize='200px'/>;
 };
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
@@ -54,10 +54,7 @@ export default function Footer() {
                     <Stack align={"flex-start"}>
                         <ListHeader>About us</ListHeader>
                         <TextContent>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Amet ipsam
-                            nesciunt sed aliquam non hic distinctio atque soluta. Ea, sint tempore.
-                            Perspiciatis voluptatem sit aliquid quia mollitia necessitatibus qui
-                            vitae!
+                        Skate Park offers skateboarding enthusiasts a platform for purchasing skateboards and to connect with like-minded hobbyists. We aim to promote skateboarding culture in Hong Kong by allowing individuals and organizations to share their activities and product information on our platform. We offer quality skateboards for purchase and host information on all things skateboard-related: competitions, workshops, employment, skateboard designs and more.
                         </TextContent>
                     </Stack>
                     <Stack align={"flex-start"}>
