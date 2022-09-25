@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { CartItemState } from "../Redux/Slice/cartSlice";
 import { ProductState } from "../Redux/Slice/productSlice";
+import Swal from "sweetalert2";
 
 interface ICarriage<T = unknown> {
     success: boolean;
@@ -83,21 +84,70 @@ export const addToCartFetch = createAsyncThunk<
     }
 });
 
-export const removeCartItem = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
-    "@cart/:id",
-    async ({ token, id }, thunkAPI) => {
-        try {
-            const res = await fetch(`${DEVELOP_HOST}/products/cart/:id`, {
-                method: "delete",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            });
-            const cartItem = await res.json();
-            return cartItem;
-        } catch {
-            return thunkAPI.rejectWithValue({ error: "Failed to remove item" } as Error);
+export const removeCartItem = createAsyncThunk<
+    ICarriage<CartItemState>,
+    { token: string | null; product_id: number },
+    { rejectValue: Error }
+>("@cart/remove", async ({ token, product_id }, thunkAPI) => {
+    console.log("check remove thunk", product_id);
+    try {
+        const res = await fetch(`${DEVELOP_HOST}/products/cart/remove`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({product_id: product_id }),
+        })
+    
+        return res.json()
+        const deleteResult = await res.json();
+        if (deleteResult.success === true) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, remove it!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire(
+                    'Removed!',
+                    'Your item has been removed.',
+                    'success'
+                  )
+                }
+              });   
         }
+        
+    } catch {
+        return thunkAPI.rejectWithValue({ error: "Failed to remove item" } as Error);
     }
-);
+});
+
+
+// function deleteBlog(blog) {
+//   fetch('http://localhost:3003/delete', {
+//       method: 'DELETE',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(blog)
+//     })
+//     .then(data => data.json())
+//     .then(resp => {
+//       // I also suppose that you will more likely find 
+//       // your "Deleted successfully" in the resp.body property, so :
+//       if (resp.body === 'Deleted Successfully') {
+//         navigate(0)
+//       } else if (resp.body === 'An error occured') {
+//         console.log('Something went wrong')
+//       } else {
+//         console.log('ERROR')
+//       }
+//     })
+// }
+
+

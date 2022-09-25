@@ -1,7 +1,7 @@
 import express from "express";
 // import path from "path";
 import http from "http";
-import expressSession from "express-session";
+// import expressSession from "express-session";
 import Knex from "knex";
 import cors from "cors";
 import path from "path";
@@ -16,13 +16,13 @@ app.use(express.json());
 app.use(cors({ origin: [process.env.FRONTEND_URL ?? "http://localhost:3000"] }));
 // console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
 
-app.use(
-    expressSession({
-        secret: "welcome to our website",
-        resave: true,
-        saveUninitialized: true,
-    })
-);
+// app.use(
+//     expressSession({
+//         secret: "welcome to our website",
+//         resave: true,
+//         saveUninitialized: true,
+//     })
+// );
 
 //knex setup
 import knexConfigs from "./knexfile";

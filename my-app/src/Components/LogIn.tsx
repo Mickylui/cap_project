@@ -33,6 +33,7 @@ export default function LogInCard() {
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
 
+
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -40,7 +41,7 @@ export default function LogInCard() {
         // need to fetch logIn time
         e.preventDefault();
         const form = e.target as HTMLInputElement;
-        const email = form.email.value;
+        const email = form.email!.value;
         const password = form.password.value;
 
         if (email.length === 0 || password.length === 0) {

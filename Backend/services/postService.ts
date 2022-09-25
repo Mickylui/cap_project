@@ -26,6 +26,7 @@ export class PostService {
                     json_agg(DISTINCT post_images.image) image,
                     json_agg(DISTINCT tags.tag) tag,
                     json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
+                    json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
                     COUNT(post_likes.id)
                 FROM posts
                     LEFT JOIN users ON users.id = posts.user_id
@@ -81,6 +82,7 @@ export class PostService {
                     json_agg(DISTINCT post_images.image) image,
                     json_agg(DISTINCT tmp.tag) tag,
                     json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
+                    json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
                     COUNT(post_likes.id)
                 FROM posts
                     LEFT JOIN users ON users.id = posts.user_id
@@ -128,6 +130,7 @@ export class PostService {
                     json_agg(DISTINCT post_images.image) image,
                     json_agg(DISTINCT tags.tag) tag,
                     json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
+                    json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
                     COUNT(post_likes.id)
                 FROM posts
                     LEFT JOIN users ON users.id = posts.user_id
@@ -166,12 +169,12 @@ export class PostService {
         if (files === undefined) {
             imageFiles = [];
         } else {
-            console.log("have file")
-            console.log("files.lenght:",files.length)
+            console.log("have file");
+            console.log("files.lenght:", files.length);
             if (files.length > 1) {
                 imageFiles = files;
-                console.log("have multiple file")
-            } else{
+                console.log("have multiple file");
+            } else {
                 imageFiles.push(files);
             }
         }
@@ -415,6 +418,7 @@ export class PostService {
                 json_agg(DISTINCT post_images.image) image,
                 json_agg(DISTINCT tags.tag) tag,
                 json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
+                json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
                 users.id AS user_id,
                 COUNT(post_likes.id)
             FROM posts
@@ -440,14 +444,13 @@ export class PostService {
         }
     }
     async changeLike(postId: string, userId: string) {
-        const txn = await this.knex.transaction()
-        try {
-
-            // console.log("allPost:", allPost);
-        } catch (error) {
-            winstonLogger.error(error.toString());
-            return;
-        }
+        // const txn = await this.knex.transaction();
+        // try {
+        //     // console.log("allPost:", allPost);
+        // } catch (error) {
+        //     winstonLogger.error(error.toString());
+        //     return;
+        // }
     }
     async reportPost() {}
 }

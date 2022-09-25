@@ -121,6 +121,8 @@ export class ProductService {
     }
 
     async RemoveCartItem(id: number) {
-        await this.knex("shopping_carts").where("id", id).del();
+        console.log(id);
+        const deletedItem = await this.knex("shopping_carts").where("id", id).delete();
+        return deletedItem;
     }
 }
