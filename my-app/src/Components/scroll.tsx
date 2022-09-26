@@ -12,6 +12,7 @@ const data = [
     { id: 1, name: "a" },
     { id: 2, name: "a" },
     { id: 3, name: "a" },
+    { id: 4, name: "a" },
     { id: 5, name: "a" },
     { id: 6, name: "a" },
     { id: 7, name: "a" },
@@ -24,11 +25,13 @@ const data = [
     { id: 14, name: "a" },
     { id: 15, name: "a" },
     { id: 16, name: "a" },
+
     { id: 17, name: "a" },
     { id: 18, name: "a" },
     { id: 19, name: "a" },
     { id: 20, name: "a" },
     { id: 21, name: "a" },
+
     { id: 22, name: "a" },
     { id: 23, name: "a" },
     { id: 24, name: "a" },
@@ -62,6 +65,7 @@ export default function Scroll() {
                 )
             );
         }, 1500);
+        console.log("displayItems:", displayItems);
         console.log("form:", perItems * startingNumb);
         console.log("to:", perItems * (startingNumb + 1));
         setStartingNumb(startingNumb + 1);
