@@ -18,7 +18,7 @@ describe("accountService", () => {
     beforeEach(() => {
         service = new AccountService({} as Knex);
         service.logIn = jest.fn(() =>
-            Promise.reject({ success: false, message: "Invalid password" })
+            Promise.reject({ success: false, message: "Internal Server Error" })
         );
 
         req = {
@@ -39,7 +39,7 @@ describe("accountService", () => {
         req.body = { email: "admin@1.com" };
         await controller.logIn(req, res);
         expect(service.logIn).toBeCalled();
-        expect(res.json).toBeCalledWith({ success: false, message: "Invalid password" });
+        expect(res.json).toBeCalledWith({ success: false, message: "Internal Server Error" });
     });
 
     // it("logIn - failed with error from service", async () => {
