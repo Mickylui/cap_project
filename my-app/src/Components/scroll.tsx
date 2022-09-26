@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const style = {
-    height: 30,
+    height: 300,
     border: "1px solid green",
     margin: 6,
     padding: 8,
@@ -58,15 +58,12 @@ export default function Scroll() {
         setTimeout(() => {
             setDisplayItems(
                 displayItems.concat(
-                    data.splice(
-                        perItems * startingNumb + startingNumb,
-                        perItems * (startingNumb + 1) + startingNumb
-                    )
+                    data.splice(perItems * startingNumb, perItems * (startingNumb + 1))
                 )
             );
         }, 1500);
-        console.log("form:", perItems * startingNumb + startingNumb);
-        console.log("to:", perItems * (startingNumb + 1) + startingNumb);
+        console.log("form:", perItems * startingNumb);
+        console.log("to:", perItems * (startingNumb + 1));
         setStartingNumb(startingNumb + 1);
     };
 
@@ -74,24 +71,26 @@ export default function Scroll() {
         <div>
             <h1>demo: react-infinite-scroll-component</h1>
             <hr />
-            <InfiniteScroll
-                dataLength={displayItems.length}
-                next={fetchMoreData}
-                hasMore={startingNumb < (data.length / perItems)}
-                loader={<h4>Loading...</h4>}
-                endMessage={
-                    <p style={{ textAlign: "center" }}>
-                        <b>Yay! You have seen it all</b>
-                    </p>
-                } 
-            >
-                {displayItems.map((i, index) => (
-                    <div style={style} key={index}>
-                        div - #{i.id}
-                        {i.name}
-                    </div>
-                ))}
-            </InfiniteScroll>
+            <div style={{ height: "100%", overflowY: "scroll" }}>
+                <InfiniteScroll
+                    dataLength={displayItems.length}
+                    next={fetchMoreData}
+                    hasMore={startingNumb < data.length / perItems}
+                    loader={<h4>Loading...</h4>}
+                    endMessage={
+                        <p style={{ textAlign: "center" }}>
+                            <b>Yay! You have seen it all</b>
+                        </p>
+                    }
+                >
+                    {displayItems.map((i, index) => (
+                        <div style={style} key={index}>
+                            div - #{i.id}
+                            {i.name}
+                        </div>
+                    ))}
+                </InfiniteScroll>
+            </div>
         </div>
     );
 }
