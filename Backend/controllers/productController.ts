@@ -73,8 +73,25 @@ export class ProductController {
             console.log("remove controller !", req.body);
             const strId = req.body.product_id;
             const id = parseInt(strId as string);
+<<<<<<< HEAD
+            await this.productService.removeCartItem(id);
+            res.status(200).json({ success: true });
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+    };
+
+    clearCartItems = async (req: Request, res: Response) => {
+        try {
+            const strId = req.body.user.id;     
+            const id = parseInt(strId);
+            await this.productService.checkout(id);
+            res.status(200).json({ success: true });
+=======
             await this.productService.removeItem(id);
             console.log(id);
+>>>>>>> 70a2cd075df128026a664412496e64eeee635f1c
         } catch (error) {
             winstonLogger.error(error.toString());
             res.status(500).json({ success: false, message: "Internal Server Error" });

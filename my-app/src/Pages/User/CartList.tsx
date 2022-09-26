@@ -34,7 +34,7 @@ function CartList(props: { usePoint: boolean }) {
                             </Tr>
                         </Thead>
                         {cartItemArr.map((item) => (
-                            <Tbody>
+                            <Tbody key={item.id}>
                                 <Tr>
                                     <Td>{item.name}</Td>
                                     <Td>{item.quantity}</Td>
@@ -91,7 +91,7 @@ function CartList(props: { usePoint: boolean }) {
                         </Tr>
                     </Thead>
                     {cartItemArr.map((item, idx) => (
-                        <Tbody>
+                        <Tbody key={item.id}>
                             <Tr>
                                 <Td>{idx + 1}</Td>
                                 <Td>{item.name}</Td>

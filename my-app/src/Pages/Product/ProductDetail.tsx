@@ -58,7 +58,7 @@ export function ProductDetail() {
                         <div className="productImage-box">
                             <img
                                 className="productImage"
-                                src="./SkateBoardLogo.png"
+                                src={productDetail.image}
                                 alt="skateBoard-product"
                             />
                         </div>
