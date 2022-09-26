@@ -34,6 +34,7 @@ export function Products() {
                 <Box
                     key={product.id}
                     // maxW="sm"
+                    background={"#DCDCDC"}
                     width={"50em"}
                     borderWidth="1px"
                     borderRadius="lg"
@@ -59,17 +60,19 @@ export function Products() {
                         <Box
                             mt="1"
                             fontWeight="semibold"
-                            as="h4"
+                            as="h4"                            
                             lineHeight="tight"
                             noOfLines={1}
                             fontSize={{ md: "2rem" }}
+                            margin={"5px"}
                             width={"100%"}
+                            height={"50px"}
                         >
                             {product.name}
                         </Box>
                         
                         <VStack>
-                            <Box fontSize={{ md: "2rem" }}>Description: {product.description}</Box>
+                            <Box fontSize={{ md: "1.2rem" }}>Description: {product.description}</Box>
                             <Box fontSize={{ md: "2rem" }}>Price: HKD {product.unit_price}</Box>
                         </VStack>
                         </RouteLink>
