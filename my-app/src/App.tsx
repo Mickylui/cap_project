@@ -17,7 +17,6 @@ import ReportUser from "./Pages/User/ReportUser";
 import Footer from "./Components/Footer";
 import Navbar from "./Components/Navbar";
 import { Slideshow } from "./Components/AutoSlider";
-import Table from "./Components/Table";
 import PrivateRoute from "./Components/PrivateRoute";
 
 import { getUserDataJWTFetch } from "./Api/accountFetch";
