@@ -49,10 +49,10 @@ const data = [
 ];
 
 export default function Scroll() {
-    const [startingNumb, setStartingNumb] = useState(1);
+    const [startingPage, setStartingPage] = useState(1);
     const perItems = 5;
     const [displayItems, setDisplayItems] = useState(data.slice(0, perItems));
-    console.log("startingNumb:", startingNumb);
+    console.log("startingNumb:", startingPage);
 
     const fetchMoreData = () => {
         // a fake async api call like which sends
@@ -61,14 +61,14 @@ export default function Scroll() {
         setTimeout(() => {
             setDisplayItems(
                 displayItems.concat(
-                    data.splice(perItems * startingNumb, perItems * (startingNumb + 1))
+                    data.slice(perItems * startingPage, perItems * (startingPage + 1))
                 )
             );
         }, 1500);
         console.log("displayItems:", displayItems);
-        console.log("form:", perItems * startingNumb);
-        console.log("to:", perItems * (startingNumb + 1));
-        setStartingNumb(startingNumb + 1);
+        console.log("form:", perItems * startingPage);
+        console.log("to:", perItems * (startingPage + 1));
+        setStartingPage(startingPage + 1);
     };
 
     return (
@@ -79,7 +79,7 @@ export default function Scroll() {
                 <InfiniteScroll
                     dataLength={displayItems.length}
                     next={fetchMoreData}
-                    hasMore={startingNumb < data.length / perItems}
+                    hasMore={startingPage < data.length / perItems}
                     loader={<h4>Loading...</h4>}
                     endMessage={
                         <p style={{ textAlign: "center" }}>

@@ -17,7 +17,6 @@ export async function up(knex: Knex): Promise<void> {
                 t.string('default_contact');
                 t.string('icon');
                 t.text('slogan');
-                t.boolean('is_delete').defaultTo(false)
             })
         }
         return;

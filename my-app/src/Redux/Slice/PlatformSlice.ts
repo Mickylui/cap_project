@@ -1,8 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import produce from "immer";
 import {
-    changeLikeFetch,
     getPostDetailByPostIdFetch,
     getPostFetch,
     getSearchContentPostFetch,
@@ -41,6 +40,7 @@ export interface IPlatformState {
     list: PostState[];
     currentSelect: number;
     status: string;
+    pageNum: number;
     error: string;
     postDetail: PostState;
 }
@@ -94,6 +94,7 @@ PlatformInitialState = {
     currentSelect: 1,
     status: "",
     error: "",
+    pageNum: 1,
     postDetail: PostStateInitialState,
 };
 
@@ -111,20 +112,16 @@ const platformSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(getPostFetch.pending, (state) => {
-                const nextState = produce(PlatformInitialState, (draft) => {
-                    draft.status = "loading";
-                });
-                state = nextState;
-                return state;
+                state.status = "loading"
+                return state
             })
             .addCase(getPostFetch.fulfilled, (state, action) => {
-                const postItems = action.payload.body;
-                const nextState = produce(PlatformInitialState, (draft) => {
-                    draft.status = "succeeded";
-                    draft.list = postItems;
-                });
-                state = nextState;
-
+                const postItems:PostState[] = action.payload.body;
+                console.log("check postItems state",state.list)
+                console.log("check postItems",postItems)
+                state.status = "succeeded";
+                state.list = [...state.list].concat([...action.payload.body])
+                state.pageNum += 1;
                 return state;
             })
             .addCase(getPostFetch.rejected, (state, action) => {

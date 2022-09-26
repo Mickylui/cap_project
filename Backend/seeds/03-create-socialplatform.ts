@@ -203,9 +203,9 @@ export async function seed(knex: Knex): Promise<void> {
 
     await knex("post_likes").insert([
         { post_id: posts[4].id, like_by_user_id: users[4].id },
-        { post_id: posts[5].id, like_by_user_id: users[3].id, is_dislike: true },
-        { post_id: posts[6].id, like_by_user_id: users[3].id, is_dislike: true },
-        { post_id: posts[7].id, like_by_user_id: users[4].id, is_dislike: true },
+        { post_id: posts[5].id, like_by_user_id: users[3].id },
+        { post_id: posts[6].id, like_by_user_id: users[3].id },
+        { post_id: posts[7].id, like_by_user_id: users[4].id },
         { post_id: posts[6].id, like_by_user_id: users[6].id },
         { post_id: posts[7].id, like_by_user_id: users[7].id },
     ]);
