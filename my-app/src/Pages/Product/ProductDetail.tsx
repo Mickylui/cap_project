@@ -55,7 +55,7 @@ export function ProductDetail() {
                             <BackButton />
                         </div>
 
-                        <div className="productImage-box">
+                        <div className="productImage-box" >
                             <img
                                 className="productImage"
                                 src={productDetail.image}

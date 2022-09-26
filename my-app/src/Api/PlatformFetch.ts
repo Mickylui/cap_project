@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from "../Redux/store";
 
 interface ICarriage {
     success: boolean;
@@ -10,11 +11,25 @@ interface Error {
 }
 
 const DEVELOP_HOST = process.env.REACT_APP_API_URL;
-export const getPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
-    "@posts/get",
+export const getUserPostFetch = createAsyncThunk<
+    ICarriage,
+    { userId: number },
+    { rejectValue: Error; state: RootState }
+>("@posts/getUserPost", async ({ userId }, thunkAPI) => {
+    try {
+        const page = thunkAPI.getState().platform.pageNum;
+        const res = await fetch(`${DEVELOP_HOST}/posts/userPost?userId=${userId}&page=${page}`);
+        const posts = await res.json();
+        return posts;
+    } catch {
+        return thunkAPI.rejectWithValue({ error: "Cannot get POSTS." } as Error);
+    }
+});
+export const getAdminPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
+    "@posts/getAdminPost",
     async (userId, thunkAPI) => {
         try {
-            const res = await fetch(`${DEVELOP_HOST}/posts?userId=${userId}`);
+            const res = await fetch(`${DEVELOP_HOST}/posts/adminPost?userId=${userId}`);
             const posts = await res.json();
             return posts;
         } catch {
@@ -22,6 +37,7 @@ export const getPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Erro
         }
     }
 );
+
 export const getSearchTagPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@posts/getSearchTagPost",
     async ({ tag, userId }, thunkAPI) => {

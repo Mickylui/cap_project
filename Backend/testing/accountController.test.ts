@@ -6,7 +6,6 @@ import type { Request, Response } from "express";
 import { checkPassword } from "../utils/hash";
 
 jest.mock("../services/accountService");
-// jest.mock("jwt-simple");
 jest.mock("../utils/hash");
 
 describe("accountService", () => {

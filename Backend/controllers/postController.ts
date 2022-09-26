@@ -1,14 +1,44 @@
 import { Request, Response } from "express";
 import { PostService } from "../services/postService";
+import type { ParsedQs } from "qs";
 import { winstonLogger } from "../utils/winstonLogger";
 
 export class PostController {
     constructor(private postService: PostService) {}
-    getPosts = async (req: Request, res: Response) => {
+    // getAllPosts = async (req: Request, res: Response) => {
+    //     try {
+    //         const userId = req.query.userId as string;
+    //         const allPostData = await this.postService.getAllPosts(userId);
+    //         res.status(200).json({ success: true, body: allPostData });
+    //     } catch (error) {
+    //         winstonLogger.error(error.toString());
+    //         res.status(500).json({ success: false, message: "Internal Server Error" });
+    //     }
+    // };
+    getUserPosts = async (req: Request, res: Response) => {
         try {
             const userId = req.query.userId as string;
-            // console.log("getPosts:", userId);
-            const allPostData = await this.postService.getAllPost(userId);
+            const pageStr = getQueryString(req.query, "page");
+            console.log("getUserPosts c pageStr:", pageStr);
+            const LIMIT = 6;
+            let pageNumb = 1;
+            if (pageStr) {
+                pageNumb = parseInt(pageStr);
+            }
+
+            console.log("getUserPosts c:", pageNumb);
+            const allPostData = await this.postService.getUserPost(userId, pageNumb, LIMIT);
+            res.status(200).json({ success: true, body: allPostData });
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+    };
+    adminPost = async (req: Request, res: Response) => {
+        try {
+            const userId = req.query.userId as string;
+            console.log("adminPost:", userId);
+            const allPostData = await this.postService.getAdminPost(userId);
             res.status(200).json({ success: true, body: allPostData });
         } catch (error) {
             winstonLogger.error(error.toString());
@@ -105,4 +135,13 @@ export class PostController {
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
+}
+
+function getQueryString(query: ParsedQs, key: string) {
+    const param = query[key];
+    if (Array.isArray(param)) {
+        return param[0].toString();
+    }
+
+    return param?.toString();
 }
