@@ -34,16 +34,17 @@ export class PostController {
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
-    // getAdminPosts = async (req: Request, res: Response) => {
-    //     try {
-    //         const userId = req.query.userId as string;
-    //         const allPostData = await this.postService.getAllPosts(userId);
-    //         res.status(200).json({ success: true, body: allPostData });
-    //     } catch (error) {
-    //         winstonLogger.error(error.toString());
-    //         res.status(500).json({ success: false, message: "Internal Server Error" });
-    //     }
-    // };
+    adminPost = async (req: Request, res: Response) => {
+        try {
+            const userId = req.query.userId as string;
+            console.log("adminPost:", userId);
+            const allPostData = await this.postService.getAdminPost(userId);
+            res.status(200).json({ success: true, body: allPostData });
+        } catch (error) {
+            winstonLogger.error(error.toString());
+            res.status(500).json({ success: false, message: "Internal Server Error" });
+        }
+    };
     postDetailByPostId = async (req: Request, res: Response) => {
         try {
             const postId = req.query.postId as string;

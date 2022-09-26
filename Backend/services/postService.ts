@@ -88,6 +88,7 @@ export class PostService {
                     LEFT JOIN tags ON tags.id = post_tags.tag_id
                     LEFT JOIN post_likes ON post_likes.post_id = posts.id
                 WHERE posts.is_delete = false
+                AND posts.is_ordinary = true
                 GROUP BY (
                         posts.id,
                         users.account_name
