@@ -491,27 +491,29 @@ export class PostService {
         try {
             console.log("likePost userId", userId);
             console.log("likePost postId", postId);
-            // const existLikeRecord = await this.knex("post_likes")
-            //     .select("id")
-            //     .where("like_by_user_id", userId)
-            //     .andWhere("post_id", postId);
-            // console.log("existLikeRecord:", existLikeRecord);
-            // if (existLikeRecord.length > 0) {
-            //     const updatedLikeRecord = await txn("post_likes")
-            //         .update("is_dislike", false)
-            //         .where("post_id", postId)
-            //         .andWhere("like_by_user_id", userId).returning("*");
-            //     console.log("updatedLikeRecord:", updatedLikeRecord);
-            //     return;
-            // }
-            const insertLikeResult = await txn("post_likes")
-                .insert({
-                    like_by_user_id: userId,
-                    post_id: postId,
-                    like_at: this.knex.fn.now(),
-                })
-                .returning("*");
-            console.log("insertLikeResult:", insertLikeResult);
+            const existLikeRecord = await this.knex("post_likes")
+                .select("*")
+                .where("like_by_user_id", userId)
+                .andWhere("post_id", postId)
+                .first();
+            console.log("existLikeRecord:", existLikeRecord);
+            if (existLikeRecord) {
+                const updatedLikeRecord = await txn("post_likes")
+                    .update("is_dislike", false)
+                    .where("post_id", postId)
+                    .andWhere("like_by_user_id", userId)
+                    .returning("*");
+                console.log("updatedLikeRecord:", updatedLikeRecord);
+            } else {
+                const insertLikeResult = await txn("post_likes")
+                    .insert({
+                        like_by_user_id: userId,
+                        post_id: postId,
+                        like_at: this.knex.fn.now(),
+                    })
+                    .returning("*");
+                console.log("insertLikeResult:", insertLikeResult);
+            }
             await txn.commit();
             return true;
         } catch (error) {

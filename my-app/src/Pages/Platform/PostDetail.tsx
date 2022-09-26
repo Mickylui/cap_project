@@ -20,14 +20,12 @@ function PostDetail() {
     const [images, setImages] = useState<Array<any>>([]);
     const [like, setLike] = useState(1);
 
-
     const { postId } = useParams();
-
 
     let userId: number | string;
     let isAdmin: boolean;
     // console.log("combineUserData:", combineUserData);
-    // console.log("postDetail:", postDetail);
+    console.log("postDetail:", postDetail);
     if (combineUserData.length > 0) {
         userId = combineUserData[0].id as number;
         isAdmin = combineUserData[0].is_admin as boolean;
@@ -63,14 +61,14 @@ function PostDetail() {
     const DEVELOP_HOST = process.env.REACT_APP_API_URL;
     const handleLike = async () => {
         console.log("like!");
-        setLike(like + 1);
         await fetch(`${DEVELOP_HOST}/posts/likePost?postId=${postId}&userId=${userId}`);
+        setLike(like + 1);
     };
 
     const handleDislike = async () => {
         console.log("dislike!");
-        setLike(like - 1);
         await fetch(`${DEVELOP_HOST}/posts/dislikePost?postId=${postId}&userId=${userId}`);
+        setLike(like - 1);
     };
 
     return (
@@ -139,7 +137,7 @@ function PostDetail() {
                                 />
                                 <TagLabel>{postDetail.account_name}</TagLabel>{" "}
                                 {postDetail.is_dislike[0] === false &&
-                                postDetail.is_liked_by_user[0] === true ? (
+                                postDetail.is_liked_by_user[0] !== null ? (
                                     <FaHeart color="red" onClick={() => handleDislike()} />
                                 ) : (
                                     <FcLikePlaceholder onClick={() => handleLike()} />
@@ -199,7 +197,7 @@ function PostDetail() {
                             />
                             <TagLabel>{postDetail.account_name}</TagLabel>
                             {postDetail.is_dislike[0] === false &&
-                            postDetail.is_liked_by_user[0] === true ? (
+                            postDetail.is_liked_by_user[0] !== null ? (
                                 <FaHeart color="red" onClick={() => handleDislike()} />
                             ) : (
                                 <FcLikePlaceholder onClick={() => handleLike()} />

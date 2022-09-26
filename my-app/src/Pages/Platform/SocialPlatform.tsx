@@ -294,7 +294,7 @@ function SocialPlatform() {
                                         <h1>{postItem.account_name}</h1>
                                         <div className="like-button">
                                             {postItem.is_dislike[0] === false &&
-                                            postItem.is_liked_by_user[0] === true ? (
+                                            postItem.is_liked_by_user[0] !== null ? (
                                                 <FaHeart color="red" />
                                             ) : (
                                                 <FcLikePlaceholder />
@@ -390,7 +390,7 @@ function SocialPlatform() {
                                     <h1 className="user-name">{postItem.account_name}</h1>
                                     <div className="like-button">
                                         {postItem.is_dislike[0] === false &&
-                                        postItem.is_liked_by_user[0] === true ? (
+                                        postItem.is_liked_by_user[0] !== null ? (
                                             <FaHeart color="red" />
                                         ) : (
                                             <FcLikePlaceholder />

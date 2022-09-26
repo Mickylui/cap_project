@@ -42,7 +42,7 @@ import AdminProductDetail from "./Pages/Admin/AdminProductDetail";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
-    const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
+    // const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
     // console.log("shoppingData:", shoppingData);
 
     const dispatch: AppDispatch = useDispatch();
@@ -103,7 +103,7 @@ function App() {
 
                     {/* temp route */}
                     <Route path="slider" element={<Slideshow />} />
-                    <Route path="table" element={<Table />} />
+                    {/* <Route path="table" element={<Table />} /> */}
                     <Route path="upload" element={<ImageUpload />} />
                     <Route path="tags" element={<InsertTags />} />
                     <Route path="scroll" element={<Scroll />} />
