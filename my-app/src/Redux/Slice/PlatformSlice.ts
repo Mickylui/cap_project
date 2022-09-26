@@ -1,12 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import produce from "immer";
 import {
-    changeLikeFetch,
+    getAdminPostFetch,
     getPostDetailByPostIdFetch,
-    getPostFetch,
     getSearchContentPostFetch,
     getSearchTagPostFetch,
+    getUserPostFetch,
 } from "../../Api/platformFetch";
 
 export interface PostState {
@@ -29,36 +29,19 @@ export interface PostState {
     icon: string | null;
     is_liked_by_user: Array<boolean>;
     user_id: number | null;
-    is_dislike: Array<boolean> ;
+    is_dislike: Array<boolean>;
 }
 
-// export interface PostView {
-//     postList: [{}],
-//     postViews:[{}]
-// }
-
 export interface IPlatformState {
-    list: PostState[];
+    userList: PostState[];
+    adminList: PostState[];
+    searchList: PostState[];
     currentSelect: number;
     status: string;
+    pageNum: number;
     error: string;
     postDetail: PostState;
 }
-
-// type NewPostState = {
-//     id: number;
-//     title: string;
-//     description: string;
-//     event_date: Date | null;
-//     event_time: string | null;
-//     event_location: string | null;
-// }
-
-// export type NewPlatformState = {
-//     list: PostState[];
-//     currentSelect: number;
-//     loading:boolean;
-// }
 
 export type Error = {
     error: string;
@@ -86,14 +69,17 @@ const PostStateInitialState = {
     icon: null,
     is_liked_by_user: [],
     user_id: null,
-    is_dislike: []
+    is_dislike: [],
 };
 
 PlatformInitialState = {
-    list: [],
+    userList: [],
+    adminList: [],
+    searchList: [],
     currentSelect: 1,
     status: "",
     error: "",
+    pageNum: 1,
     postDetail: PostStateInitialState,
 };
 
@@ -110,87 +96,87 @@ const platformSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(getPostFetch.pending, (state) => {
-                const nextState = produce(PlatformInitialState, (draft) => {
-                    draft.status = "loading";
-                });
-                state = nextState;
+            .addCase(getUserPostFetch.pending, (state) => {
+                state.status = "loading";
                 return state;
             })
-            .addCase(getPostFetch.fulfilled, (state, action) => {
-                const postItems = action.payload.body;
-                const nextState = produce(PlatformInitialState, (draft) => {
-                    draft.status = "succeeded";
-                    draft.list = postItems;
-                });
-                state = nextState;
-
+            .addCase(getUserPostFetch.fulfilled, (state, action) => {
+                const postItems: PostState[] = action.payload.body;
+                console.log("check postItems state", state.userList);
+                console.log("check postItems", postItems);
+                state.searchList = [];
+                state.status = "succeeded";
+                state.userList = [...state.userList].concat([...action.payload.body]);
+                state.pageNum += 1;
                 return state;
             })
-            .addCase(getPostFetch.rejected, (state, action) => {
+            .addCase(getUserPostFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             })
+            .addCase(getAdminPostFetch.pending, (state) => {
+                state.status = "loading";
+                return state;
+            })
+            .addCase(getAdminPostFetch.fulfilled, (state, action) => {
+                const postItems: PostState[] = action.payload.body;
+                console.log("check postItems state", state.adminList);
+                console.log("check postItems", postItems);
+                state.status = "succeeded";
+                state.searchList = [];
+                state.adminList = postItems;
+                return state;
+            })
+            .addCase(getAdminPostFetch.rejected, (state, action) => {
+                console.log(action.payload?.error);
+            })
+
             .addCase(getSearchTagPostFetch.pending, (state) => {
-                const nextState = produce(PlatformInitialState, (draft) => {
-                    draft.status = "loading";
-                });
-                state = nextState;
+                state.status = "loading";
                 return state;
             })
             .addCase(getSearchTagPostFetch.fulfilled, (state, action) => {
                 const postItems = action.payload.body;
-                const nextState = produce(PlatformInitialState, (draft) => {
-                    draft.status = "succeeded";
-                    draft.list = postItems;
-                });
-                state = nextState;
-
+                state.status = "succeeded";
+                state.adminList = [];
+                state.userList = [];
+                state.searchList = postItems;
+                state.pageNum = 1;
                 return state;
             })
             .addCase(getSearchTagPostFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             })
-            .addCase(getPostDetailByPostIdFetch.pending, (state) => {
-                const nextState = produce(PlatformInitialState, (draft) => {
-                    draft.status = "loading";
-                });
-                state = nextState;
-                return state;
-            })
-            .addCase(getPostDetailByPostIdFetch.fulfilled, (state, action) => {
-                const postItems = action.payload.body;
-                const nextState = produce(PlatformInitialState, (draft) => {
-                    draft.status = "succeeded";
-                    draft.postDetail = postItems;
-                });
-                state = nextState;
-
-                return state;
-            })
-            .addCase(getPostDetailByPostIdFetch.rejected, (state, action) => {
-                console.log(action.payload?.error);
-            })
             .addCase(getSearchContentPostFetch.pending, (state) => {
-                const nextState = produce(PlatformInitialState, (draft) => {
-                    draft.status = "loading";
-                });
-                state = nextState;
+                state.status = "loading";
                 return state;
             })
             .addCase(getSearchContentPostFetch.fulfilled, (state, action) => {
                 const postItems = action.payload.body;
                 console.log("this is content:", postItems);
-                const nextState = produce(PlatformInitialState, (draft) => {
-                    draft.status = "succeeded";
-                    draft.list = postItems;
-                });
-                state = nextState;
-
+                state.status = "succeeded";
+                state.adminList = [];
+                state.userList = [];
+                state.searchList = postItems;
+                state.pageNum = 1;
                 return state;
             })
             .addCase(getSearchContentPostFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             })
+            .addCase(getPostDetailByPostIdFetch.pending, (state) => {
+                state.status = "loading";
+                return state;
+            })
+            .addCase(getPostDetailByPostIdFetch.fulfilled, (state, action) => {
+                const postItems = action.payload.body;
+                state.status = "succeeded";
+                state.postDetail = postItems;
+
+                return state;
+            })
+            .addCase(getPostDetailByPostIdFetch.rejected, (state, action) => {
+                console.log(action.payload?.error);
+            });
     },
 });
 
