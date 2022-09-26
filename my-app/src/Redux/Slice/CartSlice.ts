@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { iteratorSymbol } from "immer/dist/internal";
 import { addToCartFetch, getCartFetch, removeCartItem } from "../../Api/productFetch";
 
 export interface CartItemState {
@@ -28,6 +27,27 @@ CartListInitialState = {
     status: "",
     error: "",
 };
+
+export interface Order {
+    id: number;
+    product_id: number;
+    order_size: number;
+    order_quantity: number;
+    order_unit_price: number;
+    order_history_id: number;
+}
+
+export interface OrderHistory {
+    id: number;
+    total_amount: number;
+    pay_method: string;
+    pay_date: string;
+    status: string;
+    user_id: number;
+    delivery_address: string;
+    email: string;
+    contact: string;
+}
 
 const cartSlice = createSlice({
     name: "@Cart",
@@ -75,12 +95,12 @@ const cartSlice = createSlice({
                 state.status = "success";
                 const { id } = action.payload.body;
                 state.product = state.product.filter((item) => item.id !== id);
-                return;
             });
-            // .addCase(clearCart.fulfilled, (state, action) => {
-            //     const cartItems = action.payload.body;
-            //     state.cartItems = [];
-            // })
+    //         .addCase(clearCartItems.fulfilled, (state, action) => {
+    //             state.status = "success";
+    //             const cartItems = action.payload.body;
+    //             state.cartItems = [];
+    //         })
     },
 });
 

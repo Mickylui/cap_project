@@ -127,6 +127,29 @@ export const removeCartItem = createAsyncThunk<
     }
 });
 
+export const clearCartItems = createAsyncThunk<
+    ICarriage<Array<CartItemState>>,
+    { token: string | null, id: number },
+    { rejectValue: Error }
+>("@cart/checkout", async ({ token }, thunkAPI) => {
+    try {
+        const res = await fetch(`${DEVELOP_HOST}/products/cart/checkout`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const checkoutItems = await res.json();
+        return checkoutItems;
+    } catch {
+        return thunkAPI.rejectWithValue({ error: "Cannot get CART." } as Error);
+    }
+});
+
+
+
+
+
+
 
 
 

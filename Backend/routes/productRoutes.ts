@@ -16,3 +16,4 @@ productRoutes.get(
 productRoutes.get("/cart", isLoggedIn, productController.getAllCartItems);
 productRoutes.post("/cart/add", isLoggedIn, productController.addToCart);
 productRoutes.delete("/cart/remove", isLoggedIn, productController.removeCartItem);
+productRoutes.post("/cart/checkout", isLoggedIn, productController.clearCartItems);
