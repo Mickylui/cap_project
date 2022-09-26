@@ -17,7 +17,9 @@ describe("accountService", () => {
 
     beforeEach(() => {
         service = new AccountService({} as Knex);
-        service.logIn = jest.fn(() => Promise.resolve({ success: true, message: "" }));
+        service.logIn = jest.fn(() =>
+            Promise.reject({ success: false, message: "Invalid password" })
+        );
 
         req = {
             params: {},
