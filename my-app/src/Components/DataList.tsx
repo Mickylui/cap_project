@@ -15,20 +15,6 @@ export default function DataList(props) {
     const [userList, setUserList] = useState<IOrderDataState[]>([]);
     const orderData = useSelector((state: RootState) => state.admin.orderData);
 
-    // const { ExportCSVButton } = CSVExport;
-    // const MyExportCSV = (props:any) => {
-    //     const handleClick = () => {
-    //         props.onExport();
-    //     };
-    //     return (
-    //         <div>
-    //             <button className="btn btn-success" onClick={handleClick}>
-    //                 Export to CSV
-    //             </button>
-    //         </div>
-    //     );
-    // };
-
     const columns = [
         {
             dataField: "order_id",
