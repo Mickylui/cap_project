@@ -11,7 +11,18 @@ export class ProductService {
             "products.unit_price"
         );
 
-        // (await this.knex.raw('SELECT image, size, products.id, name, description, unit_price, quantity FROM products JOIN product_images ON products.id = product_images.product_id JOIN product_sizes ON products.id = product_sizes.product_id')).rows
+        // await this.knex.raw(
+        //     `SELECT
+        //     product_images.image,
+        //     products.id,
+        //     products.name,
+        //     products.description,
+        //     products.unit_price
+        //     json_agg(DISTINCT product_images.image) image
+        //     FROM products
+        //     LEFT JOIN product_images.product_id = product.id
+        //     GROUP BY products.id
+        //     `)
 
         console.log("allProduct:", allProduct);
         return allProduct;
@@ -126,16 +137,63 @@ export class ProductService {
         return deletedItem;
     }
 
-    async checkout(userId: number){
-        const clearCart = await this.knex.raw(
-            `
-        DELETE *
-        FROM shopping_carts,
-        WHERE shopping_carts.user_id = ?`,
-            [userId]
-        );
-        return clearCart;
+    async checkout(userId: number) {
+        const trx = await this.knex.transaction();
+        try {
+            const cartItems = await trx("shopping_carts")
+                .innerJoin("products", "shopping_carts.product_id", "products.id")
+                .where("user_id", userId)
+                .select<
+                    { product_id: number; size: string; quantity: number; unit_price: string }[]
+                >(
+                    "shopping_carts.product_id",
+                    "shopping_carts.size",
+                    "shopping_carts.quantity",
+                    "products.unit_price"
+                );
+            const userDetail = (await trx("users")
+                .where("id", userId)
+                .select<{ email: string; default_contact: string }>("email", "default_contact")
+                .first())!;
+            let totalAmount = 0;
+            for (let i = 0; i < cartItems.length; i++) {
+                totalAmount += cartItems[i]["quantity"] * Number(cartItems[i]["unit_price"]);
+            }
+
+            const [orderHistory] = await trx("order_history").insert({
+                total_amount: totalAmount, 
+                pay_method: "Visa", 
+                pay_date: new Date() , 
+                status: "pending", 
+                user_id: userId, 
+                delivery_address: userDetail.default_contact,
+                email: userDetail.email,
+                contact: userDetail.default_contact
+            })
+                .returning("id");
+                console.log(orderHistory)
+
+            
+
+            for (let i = 0; i < cartItems.length; i++) {
+                const order = await trx("order_details").insert({
+                    product_id: cartItems[i].product_id,
+                    order_size: cartItems[i].size,
+                    order_quantity: cartItems[i].quantity,
+                    order_unit_price: cartItems[i].unit_price,
+                    order_history_id: orderHistory.id
+                }) 
+                .returning("id")
+                console.log(order)               
+            }
+
+            await trx("shopping_carts").where("id", userId).delete();
+            
+            await trx.commit();
+       
+        } catch (error) {
+            await trx.rollback();
+            throw error;
+        }
     }
 }
-
-

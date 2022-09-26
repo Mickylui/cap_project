@@ -85,14 +85,13 @@ export class AccountService {
                 .leftJoin("accumulation", "accumulation.user_id", "users.id")
                 .where("users.id", existUserData.id);
             console.log("combineUserData:", combineUserData);
-            const userShoppingDataArr = await txn("shopping_carts")
-                .select("*")
-                .where("shopping_carts.user_id", existUserData.id);
-
+            // const userShoppingDataArr = await txn("shopping_carts")
+            //     .select("*")
+            //     .where("shopping_carts.user_id", existUserData.id);
             // console.log("userShoppingData:", userShoppingDataArr);
 
             await txn.commit();
-            return { success: true, body: { token, combineUserData, userShoppingDataArr } };
+            return { success: true, body: { token, combineUserData } };
         } catch (error) {
             await txn.rollback();
             winstonLogger.error(error.toString());
