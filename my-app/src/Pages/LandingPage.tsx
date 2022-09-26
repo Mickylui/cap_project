@@ -2,83 +2,6 @@ import { Slideshow } from "../Components/AutoSlider";
 import "../Components/css/landingPage.scss";
 import { Link as RouteLink } from "react-router-dom";
 export function LandingPage() {
-    const products = [
-        {
-            id: 1,
-            title: "Air Force",
-            price: 119,
-            colors: [
-                {
-                    code: "black",
-                    img: "./img/air.png",
-                },
-                {
-                    code: "darkblue",
-                    img: "./img/air2.png",
-                },
-            ],
-        },
-        {
-            id: 2,
-            title: "Air Jordan",
-            price: 149,
-            colors: [
-                {
-                    code: "lightgray",
-                    img: "./img/jordan.png",
-                },
-                {
-                    code: "green",
-                    img: "./img/jordan2.png",
-                },
-            ],
-        },
-        {
-            id: 3,
-            title: "Blazer",
-            price: 109,
-            colors: [
-                {
-                    code: "lightgray",
-                    img: "./img/blazer.png",
-                },
-                {
-                    code: "green",
-                    img: "./img/blazer2.png",
-                },
-            ],
-        },
-        {
-            id: 4,
-            title: "Crater",
-            price: 129,
-            colors: [
-                {
-                    code: "black",
-                    img: "./img/crater.png",
-                },
-                {
-                    code: "lightgray",
-                    img: "./img/crater2.png",
-                },
-            ],
-        },
-        {
-            id: 5,
-            title: "Hippie",
-            price: 99,
-            colors: [
-                {
-                    code: "gray",
-                    img: "./img/hippie.png",
-                },
-                {
-                    code: "black",
-                    img: "./img/hippie2.png",
-                },
-            ],
-        },
-    ];
     return (
         <>
             <video className="landingVideo" muted autoPlay loop width={"100%"}>
@@ -153,7 +76,7 @@ export function LandingPage() {
                 <h1 className="galleryTitle">Join Us</h1>
                 <div className="galleryItem">
                     <img
-                        src="https://images.pexels.com/photos/9295809/pexels-photo-9295809.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                        src="https://images.unsplash.com/photo-1591311337241-cecfd26f1da1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c2thdGVib2FyZGluZ3xlbnwwfHwwfHw%3D&w=1000&q=80"
                         alt=""
                         className="galleryImg"
                     />
@@ -163,7 +86,7 @@ export function LandingPage() {
                 </div>
                 <div className="galleryItem">
                     <img
-                        src="https://images.pexels.com/photos/1040427/pexels-photo-1040427.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                        src="https://cdn.shopify.com/s/files/1/0515/3724/8432/articles/group-of-skate-kids_384x.png?v=1617567034"
                         alt=""
                         className="galleryImg"
                     />
@@ -173,7 +96,7 @@ export function LandingPage() {
                 </div>
                 <div className="galleryItem">
                     <img
-                        src="https://images.pexels.com/photos/7856965/pexels-photo-7856965.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                        src="https://i0.wp.com/youthcare.org/wp-content/uploads/2021/01/pexels-allan-mas-5370615-scaled.jpg?fit=1834%2C2560&ssl=1"
                         alt=""
                         className="galleryImg"
                     />
@@ -185,7 +108,7 @@ export function LandingPage() {
             <div className="newSeason">
                 <div className="nsItem">
                     <img
-                        src="https://images.pexels.com/photos/4753986/pexels-photo-4753986.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                        src="https://st.depositphotos.com/1993283/2007/i/600/depositphotos_20073547-stock-photo-skateboarding.jpg"
                         alt=""
                         className="nsImg"
                     />
@@ -195,13 +118,13 @@ export function LandingPage() {
                     <h1 className="nsTitle">Ask for anything</h1>
                     <h1 className="nsTitle">you want</h1>
                     <h3 className="nsTitleSm">Customize design, event, gathering...</h3>
-                    <RouteLink to={'platform/posts'}> 
+                    <RouteLink to={"platform/posts"}>
                         <button className="nsButton">Go start</button>
-                    </ RouteLink>
+                    </RouteLink>
                 </div>
                 <div className="nsItem">
                     <img
-                        src="https://images.pexels.com/photos/7856965/pexels-photo-7856965.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                        src="https://apicms.thestar.com.my/uploads/images/2022/09/06/1726547.jpg"
                         alt=""
                         className="nsImg"
                     />

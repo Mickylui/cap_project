@@ -28,6 +28,7 @@ export function UserLoggedInNav() {
     // console.log("combineUserData:", userData[0]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 
     function logOut() {
         Swal.fire({
@@ -38,7 +39,7 @@ export function UserLoggedInNav() {
             hideClass: {
                 popup: "animate__animated animate__fadeOutUp",
             },
-        }).then(()=>navigate("/"))
+        }).then(() => navigate("/"));
         // need to fetch: insert log out time
         // const logOutTime =  FormatDate(new Date());
         // const logOutResponse = await dispatch(logOutFetch(logOutTime));
@@ -69,7 +70,10 @@ export function UserLoggedInNav() {
     return (
         <Menu>
             <MenuButton>
-                <Avatar name={`${userData[0]["account_name"]}`} src="https://bit.ly/ryan-florence">
+                <Avatar
+                    name={`${userData[0]["account_name"]}`}
+                    src={`${DEVELOP_IMAGE_URL}/users/${userData[0]["icon"]}`}
+                >
                     {shoppingData.length > 0 ? (
                         <AvatarBadge boxSize="1.25em" bg="green.500" textColor={"white"}>
                             {shoppingData.length}

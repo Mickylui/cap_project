@@ -34,15 +34,17 @@ import Settings from "./Pages/User/Settings";
 import Payment from "./Pages/User/Payment";
 import Promotion from "./Pages/User/Promotion";
 import ProductDetail from "./Pages/Product/ProductDetail";
-import { Scroll } from "./Components/scroll";
+import Scroll from "./Components/Scroll";
 import { getCartFetch } from "./Api/productFetch";
 import OtherUserProfile from "./Pages/User/OtherUserProfile";
+import { AdminSystem } from "./Pages/Admin/AdminSystem";
+import AdminProductDetail from "./Pages/Admin/AdminProductDetail";
 
 function App() {
     const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
-    const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
+    // const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
     // console.log("shoppingData:", shoppingData);
-    
+
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
@@ -69,7 +71,8 @@ function App() {
                     </Route>
                     <Route path="user/:userId" element={<OtherUserProfile />} />
                     <Route path="admin" element={<PrivateRoute />}>
-                        <Route path="manage" element={<Profile />} />
+                        <Route path="manage" element={<AdminSystem />} />
+                        <Route path="productDetail/:productId" element={<AdminProductDetail />} />
                     </Route>
                     <Route path="platform" element={<PrivateRoute />}>
                         <Route path="form" element={<PostForm />} />
@@ -100,7 +103,7 @@ function App() {
 
                     {/* temp route */}
                     <Route path="slider" element={<Slideshow />} />
-                    <Route path="table" element={<Table />} />
+                    {/* <Route path="table" element={<Table />} /> */}
                     <Route path="upload" element={<ImageUpload />} />
                     <Route path="tags" element={<InsertTags />} />
                     <Route path="scroll" element={<Scroll />} />

@@ -80,17 +80,17 @@ export const getSearchContentPostFetch = createAsyncThunk<ICarriage, any, { reje
     }
 );
 
-export const changeLikeFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
-    "@posts/changeLike",
-    async ({ postId, userId }, thunkAPI) => {
-        try {
-            const res = await fetch(
-                `${DEVELOP_HOST}/posts/changeLike?postId=${postId}&userId=${userId}`
-            );
-            const posts = await res.json();
-            return posts;
-        } catch {
-            return thunkAPI.rejectWithValue({ error: "Cannot like POSTS." } as Error);
-        }
-    }
-);
+// export const changeLikeFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
+//     "@posts/changeLike",
+//     async ({ postId, userId }, thunkAPI) => {
+//         try {
+//             const res = await fetch(
+//                 `${DEVELOP_HOST}/posts/changeLike?postId=${postId}&userId=${userId}`
+//             );
+//             const posts = await res.json();
+//             return posts;
+//         } catch {
+//             return thunkAPI.rejectWithValue({ error: "Cannot like POSTS." } as Error);
+//         }
+//     }
+// );

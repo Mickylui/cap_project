@@ -41,7 +41,7 @@ function UserImage() {
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     console.log("combineUserData", combineUserData);
     const userData = combineUserData[0];
-    const DEVELOP_IMAGE_HOST = process.env.REACT_APP_IMAGE_URL;
+    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
     if (isAdmin) {
         return (
             <div>
@@ -72,7 +72,7 @@ function UserImage() {
             <Container mt={4}>
                 <Avatar
                     name={`${userData.account_name}`}
-                    src={`${DEVELOP_IMAGE_HOST}/${userData.icon}`}
+                    src={`${DEVELOP_IMAGE_URL}/users/${userData.icon}`}
                     size="2xl"
                 />
                 {/* <Image

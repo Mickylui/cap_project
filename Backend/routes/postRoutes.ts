@@ -10,4 +10,5 @@ postRoutes.post("/addPost", middlewareLogger,formidableMiddleware, postControlle
 postRoutes.get("/getSearchTagPost", middlewareLogger, postController.getSearchTagPost);
 postRoutes.get("/getPostDetailByPostId", middlewareLogger, postController.postDetailByPostId);
 postRoutes.get("/getSearchContentPost", middlewareLogger, postController.searchContentPost);
-// postRoutes.get("/changeLike", middlewareLogger, postController.changeLikeStatus);
+postRoutes.get("/likePost", middlewareLogger, postController.likePost);
+postRoutes.get("/dislikePost", middlewareLogger, postController.dislikePost);

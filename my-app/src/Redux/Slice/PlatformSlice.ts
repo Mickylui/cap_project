@@ -191,21 +191,6 @@ const platformSlice = createSlice({
             .addCase(getSearchContentPostFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             })
-            .addCase(changeLikeFetch.pending, (state) => {
-                const nextState = produce(PlatformInitialState, (draft) => {
-                    draft.status = "loading";
-                });
-                state = nextState;
-                return state;
-            })
-            .addCase(changeLikeFetch.fulfilled, (state, action) => {
-                const postItems = action.payload.body;
-                
-                return state;
-            })
-            .addCase(changeLikeFetch.rejected, (state, action) => {
-                console.log(action.payload?.error);
-            });
     },
 });
 

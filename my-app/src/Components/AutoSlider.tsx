@@ -94,7 +94,7 @@ export function Slideshow() {
                     >
                         <WrapItem className="imageTitle" paddingRight={{ md: "10em" }}>
                             <Image
-                                src={`${DEVELOP_IMAGE_URL}/${product.image}`}
+                                src={`${DEVELOP_IMAGE_URL}/products/${product.image}`}
                                 alt={product.name}
                                 width={"50em"}
                             />
