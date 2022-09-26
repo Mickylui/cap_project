@@ -1,4 +1,14 @@
-import { Button, Divider, Icon, Stack, HStack, Input, useNumberInput } from "@chakra-ui/react";
+import {
+    Button,
+    Divider,
+    Icon,
+    Stack,
+    HStack,
+    Input,
+    useNumberInput,
+    CloseButton,
+    IconButton,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import "../../Components/css/productDetail.scss";
 import { BackButton } from "../../Components/BackButton";
@@ -9,11 +19,14 @@ import { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { addToCartFetch, getProductDetailByProductIdFetch } from "../../Api/productFetch";
-import Swal from "sweetalert2";
+import { SmallAddIcon } from "@chakra-ui/icons";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
-export function ProductDetail() {
+export function AdminProductDetail() {
     const productDetail = useSelector((state: RootState) => state.product.productDetail);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
+    // const [sizeButton, setSizeButton] = useState<number[]>([]);
+    const [isEditable, setIsEditable] = useState(false);
     const { productId } = useParams();
     const [sizeValue, setSizeValue] = useState<number>();
     const {
@@ -45,6 +58,13 @@ export function ProductDetail() {
         setSizeValue(productDetail.size[0]);
     }, [productDetail]);
 
+    const handleDeletedSize = (size) => {
+        console.log("handleDeletedSize:", size);
+    };
+    // const handleDeletedAddButton = () => {
+
+    //     setSizeButton([...sizeButton, 1]);
+    // };
     return (
         <>
             <Slideshow />
@@ -54,6 +74,12 @@ export function ProductDetail() {
                         <div className="backButton-box">
                             <BackButton />
                         </div>
+                        <IconButton
+                            icon={<AiFillEdit />}
+                            aria-label={"Edit"}
+                            onClick={() => setIsEditable(!isEditable)}
+                        />
+                        <IconButton icon={<AiFillDelete />} aria-label={"Delete"} />
 
                         <div className="productImage-box">
                             <img
@@ -118,6 +144,17 @@ export function ProductDetail() {
                             <div className="product-subtitle product-size-box">
                                 <span className="product-size">
                                     <p className="product-key product-size-key">Size</p>
+                                    {/* <IconButton
+                                        icon={<SmallAddIcon />}
+                                        aria-label={"Adding Size button"}
+                                        onClick={() => handleAddSize}
+                                    />
+                                    {sizeButton.map((item, index) => {
+                                        <Button key={index} className="product-value product-sizes">
+                                            <Input />
+                                            <CloseButton></CloseButton>
+                                        </Button>;
+                                    })} */}
                                     {productDetail.size.map((size) => (
                                         <Button
                                             key={size}
@@ -136,20 +173,8 @@ export function ProductDetail() {
                                     <Button {...getDecrementButtonProps()}>-</Button>
                                     <Input {...getInputProps()} name={"qty"} disabled />
                                     <Button {...getIncrementButtonProps()}>+</Button>
-                                    <Button 
-                                    type="submit"
-                                    onClick={() => 
-                                        Swal.fire({
-                                            title: "Thank You",
-                                            text: "Item added to cart",
-                                            showClass: {
-                                                popup: "animate__animated animate__fadeInDown",
-                                            },
-                                            hideClass: {
-                                                popup: "animate__animated animate__fadeOutUp",
-                                            },
-                                        })}
-                                    >Add to Cart
+                                    <Button type="submit" isDisabled>
+                                        Add to Cart
                                     </Button>
                                 </HStack>
                             </div>
@@ -164,4 +189,4 @@ export function ProductDetail() {
     );
 }
 
-export default ProductDetail;
+export default AdminProductDetail;

@@ -5,6 +5,7 @@ import "react-credit-cards/es/styles-compiled.css";
 import "./payment.module.css";
 import { Box } from "@chakra-ui/react";
 import { Link as RouteLink } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CreditCard = () => {
   const [number, SetNumber] = useState("");
@@ -151,6 +152,16 @@ const CreditCard = () => {
           type="submit"
           className="btn btn-secondary form-control"
           value="Submit"
+          onClick={()=> Swal.fire({
+            title: "Thank You",
+            text: "Item Purchased.",
+            showClass: {
+                popup: "animate__animated animate__fadeInDown",
+            },
+            hideClass: {
+                popup: "animate__animated animate__fadeOutUp",
+            },
+        })}
         />
         </RouteLink>
         

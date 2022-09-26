@@ -36,23 +36,12 @@ export default function DataList(props) {
             sort: true,
             filter: textFilter(),
         },
-        // {
-        //     dataField: "name",
-        //     text: "Name",
-        //     sort: true,
-        //     filter: textFilter(),
-        // },
         {
             dataField: "account_name",
             text: "Username",
             sort: true,
             filter: textFilter(),
-        },
-        // {
-        //     dataField: "email",
-        //     text: "Email",
-        //     sort: true,
-        // },
+        }
     ];
 
     const pagination = paginationFactory({

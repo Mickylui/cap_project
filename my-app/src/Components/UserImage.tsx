@@ -16,10 +16,13 @@ import {
     StatNumber,
     StatHelpText,
     StatArrow,
+    Button,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
-import { SmallAddIcon } from "@chakra-ui/icons";
+import { SmallAddIcon, WarningTwoIcon } from "@chakra-ui/icons";
+import { Link as RouteLink, Outlet, useLocation } from "react-router-dom";
+import "./css/userImage.css";
 
 // const data = {
 //     _id: "ats1999",
@@ -39,42 +42,27 @@ import { SmallAddIcon } from "@chakra-ui/icons";
 function UserImage() {
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
-    // console.log("combineUserData", combineUserData);
+    console.log("combineUserData", combineUserData);
+    console.log("accu", combineUserData[0].accumulation);
     const userData = combineUserData[0];
     const DEVELOP_IMAGE_HOST = process.env.REACT_APP_IMAGE_URL;
     if (isAdmin) {
         return (
-            <div>
+            <div className="user-image-container">
                 <Avatar name={"admin"} backgroundColor={"black"} size="2xl" />
-                {/* <Container mt={4}>
-                    <Image
-                        src={
-                            data.pic ||
-                            "https://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
-                        }
-                        alt={data.name}
-                        boxSize="200px"
-                        borderRadius="full"
-                        fallbackSrc="hhttps://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
-                        mx="auto"
-                    />
-                    <Center>
-                        <VStack>
-                            <Heading>{data.name}</Heading>
-                        </VStack>
-                    </Center>
-                </Container> */}
             </div>
         );
     }
     return (
-        <div>
-            <Container mt={4}>
-                <Avatar
-                    name={`${userData.account_name}`}
-                    src={`${DEVELOP_IMAGE_HOST}/${userData.icon}`}
-                    size="2xl"
-                />
+        <div className="user-container">
+            <Container mt={4} className="user-info-container">
+                <div className="user-image-container">
+                    <Avatar
+                        name={`${userData.account_name}`}
+                        src={`${DEVELOP_IMAGE_HOST}/users/${userData.icon}`}
+                        size="2xl"
+                    />
+                </div>
                 {/* <Image
                     src={
                         data.pic ||
@@ -87,19 +75,18 @@ function UserImage() {
                     mx="auto"
                 /> */}
                 <Center>
-                    <Box>
-                        <StatGroup>
+                    <Box className="user-point-container">
+                        <StatGroup className="user-point">
                             <Stat>
-                                <StatLabel>Point</StatLabel>
+                                <StatLabel fontSize={"20px"}>Point</StatLabel>
                                 <StatNumber>{userData.accumulation}</StatNumber>
                                 <StatHelpText>
-                                    <SmallAddIcon />
                                     <StatHelpText>{userData.date}</StatHelpText>
                                 </StatHelpText>
                             </Stat>
                         </StatGroup>
                     </Box>
-                    <VStack>
+                    <VStack className="user-data-container">
                         <Heading>{userData.account_name}</Heading>
                         {/* <Text color="gray">
                             {userData.profileTagLine} {", "} {data.location}
@@ -112,10 +99,16 @@ function UserImage() {
                 {skill}
               </Tag>
             ))}
+
           </HStack> */}
                     </VStack>
                 </Center>
             </Container>
+            <RouteLink to="report">
+                <Button className="report-container">
+                    <WarningTwoIcon />
+                </Button>
+            </RouteLink>
         </div>
     );
 }

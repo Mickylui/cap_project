@@ -93,10 +93,10 @@ function CartList(props: { usePoint: boolean }) {
                     {cartItemArr.map((item, idx) => (
                         <Tbody>
                             <Tr>
-                                <Td></Td>
+                                <Td>{idx + 1}</Td>
                                 <Td>{item.name}</Td>
                                 <Td>{item.quantity}</Td>
-                                <Td>{item.size}</Td>
+                                <Td>{Number(item.size)}</Td>
                                 <Td>{`$ ${item.unit_price * item.quantity}`}</Td>
                                 <Td>
                                     <Button

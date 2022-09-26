@@ -53,7 +53,7 @@ export function Products() {
                     >
                         <RouteLink to={`/productDetail/${product.id}`} replace={true}>
                         <Image 
-                        src={`${DEVELOP_IMAGE_URL}/${product.image}`} 
+                        src={`${DEVELOP_IMAGE_URL}/products/${product.image}`} 
                         // src="./SkateBoardLogo.png"
                         />
                         <Box

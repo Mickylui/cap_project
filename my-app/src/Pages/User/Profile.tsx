@@ -16,11 +16,11 @@ import UserLikePost from "./UserLikePost";
 import { ShippingManage } from "../Admin/ShippingManage";
 import { getOrderFetch } from "../../Api/adminFetch";
 import ProductManage from "../Admin/ProductManage";
+import "../css/userProfile.css";
 
 function Profile() {
     const [link, switchLink] = useState("posts");
-    const [adminLink, switchAdminLink] = useState("users");
-    const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
+
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     const likeData = useSelector((state: RootState) => state.user.likeData);
     const postData = useSelector((state: RootState) => state.user.postData);
@@ -45,103 +45,31 @@ function Profile() {
         };
         getUserLikePost();
     }, [link]);
-
-    if (isAdmin) {
-        return (
-            <div>
-                <UserImage />
+    return (
+        <div className="user-profile-container">
+            <UserImage />
+            <div className="user-nav">
                 <Box
                     // as={ReachLink}
                     // to="posts"
                     margin="20px"
                     fontSize="1.5rem"
-                    onClick={() => switchAdminLink("users")}
+                    onClick={() => switchLink("posts")}
+                    className="user-nav"
                 >
-                    Users
+                    Post
                 </Box>
                 <Box
                     // as={ReachLink}
                     // to="likes"
                     margin="20px"
                     fontSize="1.5rem"
-                    onClick={() => switchAdminLink("products")}
+                    onClick={() => switchLink("products")}
+                    className="user-nav"
                 >
-                    Products
+                    Like
                 </Box>
-                <Box
-                    // as={ReachLink}
-                    // to="likes"
-                    margin="20px"
-                    fontSize="1.5rem"
-                    onClick={() => switchAdminLink("shipping")}
-                >
-                    Shipping
-                </Box>
-                <Box
-                    // as={ReachLink}
-                    // to="likes"
-                    margin="20px"
-                    fontSize="1.5rem"
-                    onClick={() => switchAdminLink("platform")}
-                >
-                    Platform
-                </Box>
-                <Box
-                    // as={ReachLink}
-                    // to="likes"
-                    margin="20px"
-                    fontSize="1.5rem"
-                    onClick={() => switchAdminLink("posts")}
-                >
-                    Posts
-                </Box>
-                <Box
-                    // as={ReachLink}
-                    // to="likes"
-                    margin="20px"
-                    fontSize="1.5rem"
-                    onClick={() => switchAdminLink("banners")}
-                >
-                    Banners
-                </Box>
-                <main>
-                    {adminLink === "users" ? <SocialPlatform /> : <></>}
-                    {adminLink === "products" ? <ProductManage /> : <></>}
-                    {adminLink === "shipping" ? <ShippingManage /> : <></>}
-                    {adminLink === "platform" ? <div>platform</div> : <></>}
-                    {adminLink === "posts" ? <div>posts</div> : <></>}
-                    {adminLink === "banners" ? <div>banners</div> : <></>}
-                </main>
             </div>
-        );
-    }
-    return (
-        <div>
-            <UserImage />
-            <Box
-                // as={ReachLink}
-                // to="posts"
-                margin="20px"
-                fontSize="1.5rem"
-                onClick={() => switchLink("posts")}
-            >
-                Post
-            </Box>
-            <Box
-                // as={ReachLink}
-                // to="likes"
-                margin="20px"
-                fontSize="1.5rem"
-                onClick={() => switchLink("products")}
-            >
-                Like
-            </Box>
-            <RouteLink to="report">
-                <Button>
-                    <WarningTwoIcon />
-                </Button>
-            </RouteLink>
-
             <main>
                 {link === "posts" ? (
                     <UserPost postData={postData} />

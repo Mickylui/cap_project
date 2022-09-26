@@ -120,9 +120,22 @@ export class ProductService {
         }
     }
 
-    async RemoveCartItem(id: number) {
+    async removeItem(id: number) {
         console.log(id);
         const deletedItem = await this.knex("shopping_carts").where("id", id).delete();
         return deletedItem;
     }
+
+    async checkout(userId: number){
+        const clearCart = await this.knex.raw(
+            `
+        DELETE *
+        FROM shopping_carts,
+        WHERE shopping_carts.user_id = ?`,
+            [userId]
+        );
+        return clearCart;
+    }
 }
+
+

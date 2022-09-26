@@ -4,6 +4,7 @@ import { winstonLogger } from "../utils/winstonLogger";
 export class PostService {
     constructor(private knex: Knex) {}
     async getAllPost(userId: string) {
+        console.log("postDetailByPostId userId", userId);
         try {
             const allPost = (
                 await this.knex.raw(
@@ -27,7 +28,7 @@ export class PostService {
                     json_agg(DISTINCT tags.tag) tag,
                     json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
                     json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
-                    COUNT(post_likes.id)
+                    COUNT(DISTINCT post_likes.is_dislike = false)
                 FROM posts
                     LEFT JOIN users ON users.id = posts.user_id
                     LEFT JOIN post_images ON post_images.post_id = posts.id
@@ -83,7 +84,7 @@ export class PostService {
                     json_agg(DISTINCT tmp.tag) tag,
                     json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
                     json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
-                    COUNT(post_likes.id)
+                    COUNT(DISTINCT post_likes.is_dislike = false)
                 FROM posts
                     LEFT JOIN users ON users.id = posts.user_id
                     LEFT JOIN post_images ON post_images.post_id = posts.id
@@ -131,7 +132,7 @@ export class PostService {
                     json_agg(DISTINCT tags.tag) tag,
                     json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
                     json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
-                    COUNT(post_likes.id)
+                    COUNT(DISTINCT post_likes.is_dislike = false)
                 FROM posts
                     LEFT JOIN users ON users.id = posts.user_id
                     LEFT JOIN post_images ON post_images.post_id = posts.id
@@ -397,44 +398,86 @@ export class PostService {
     }
     async postDetailByPostId(postId: string, userId: string) {
         try {
+            console.log("postDetailByPostId userId", userId);
+            console.log("postDetailByPostId postId", postId);
+            // console.log("countLike:", countLike);
             const allPost = (
                 await this.knex.raw(
                     `
-                SELECT posts.id ,
-                posts.title,
-                posts.event_date,
-                posts.event_time,
-                posts.event_location,
-                posts.description,
-                posts.contact,
-                posts.created_at,
-                posts.updated_at,
-                posts.is_ordinary,
-                posts.is_event,
-                posts.display_push,
-                posts.user_id,
-                users.account_name,
-                json_agg(DISTINCT users.icon) icon,
-                json_agg(DISTINCT post_images.image) image,
-                json_agg(DISTINCT tags.tag) tag,
-                json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
-                json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
-                users.id AS user_id,
-                COUNT(post_likes.id)
-            FROM posts
-                LEFT JOIN users ON users.id = posts.user_id
-                LEFT JOIN post_images ON post_images.post_id = posts.id
-                LEFT JOIN post_tags ON post_tags.post_id = posts.id
-                LEFT JOIN tags ON tags.id = post_tags.tag_id
-                LEFT JOIN post_likes ON post_likes.post_id = posts.id
-            WHERE posts.id = ?
-            AND posts.is_delete = false
-            GROUP BY (users.id,posts.id, users.account_name)
-            ORDER BY posts.display_push DESC;
+                    SELECT posts.id,
+                    posts.title,
+                    posts.event_date,
+                    posts.event_time,
+                    posts.event_location,
+                    posts.description,
+                    posts.contact,
+                    posts.created_at,
+                    posts.updated_at,
+                    posts.is_ordinary,
+                    posts.is_event,
+                    posts.display_push,
+                    posts.user_id,
+                    users.account_name,
+                    json_agg(DISTINCT users.icon) icon,
+                    json_agg(DISTINCT post_images.image) image,
+                    json_agg(DISTINCT tags.tag) tag,
+                    json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
+                    json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
+                    users.id AS user_id,
+                    COUNT(DISTINCT post_likes.is_dislike = false)
+                FROM posts
+                    LEFT JOIN users ON users.id = posts.user_id
+                    LEFT JOIN post_images ON post_images.post_id = posts.id
+                    LEFT JOIN post_tags ON post_tags.post_id = posts.id
+                    LEFT JOIN tags ON tags.id = post_tags.tag_id
+                    LEFT JOIN post_likes ON post_likes.post_id = posts.id
+                WHERE posts.id = ?
+                    AND posts.is_delete = false
+                GROUP BY (users.id, posts.id, users.account_name)
+                ORDER BY posts.display_push DESC;
                         `,
                     [userId, postId]
                 )
             ).rows[0];
+            // console.log("allPost:", allPost);
+            // const allPost = (
+            //     await this.knex.raw(
+            //         `
+            //     SELECT posts.id ,
+            //     posts.title,
+            //     posts.event_date,
+            //     posts.event_time,
+            //     posts.event_location,
+            //     posts.description,
+            //     posts.contact,
+            //     posts.created_at,
+            //     posts.updated_at,
+            //     posts.is_ordinary,
+            //     posts.is_event,
+            //     posts.display_push,
+            //     posts.user_id,
+            //     users.account_name,
+            //     json_agg(DISTINCT users.icon) icon,
+            //     json_agg(DISTINCT post_images.image) image,
+            //     json_agg(DISTINCT tags.tag) tag,
+            //     json_agg(DISTINCT post_likes.like_by_user_id = ?) AS is_liked_by_user,
+            //     json_agg(DISTINCT post_likes.is_dislike) AS is_dislike,
+            //     users.id AS user_id,
+            //     COUNT(post_likes.id)
+            // FROM posts
+            //     LEFT JOIN users ON users.id = posts.user_id
+            //     LEFT JOIN post_images ON post_images.post_id = posts.id
+            //     LEFT JOIN post_tags ON post_tags.post_id = posts.id
+            //     LEFT JOIN tags ON tags.id = post_tags.tag_id
+            //     LEFT JOIN post_likes ON post_likes.post_id = posts.id
+            // WHERE posts.id = ?
+            // AND posts.is_delete = false
+            // GROUP BY (users.id,posts.id, users.account_name)
+            // ORDER BY posts.display_push DESC;
+            //             `,
+            //         [userId, postId]
+            //     )
+            // ).rows[0];
 
             // console.log("allPost:", allPost);
             return allPost;
@@ -443,14 +486,60 @@ export class PostService {
             return;
         }
     }
-    async changeLike(postId: string, userId: string) {
-        // const txn = await this.knex.transaction();
-        // try {
-        //     // console.log("allPost:", allPost);
-        // } catch (error) {
-        //     winstonLogger.error(error.toString());
-        //     return;
-        // }
+    async likePost(postId: string, userId: string) {
+        const txn = await this.knex.transaction();
+        try {
+            console.log("likePost userId", userId);
+            console.log("likePost postId", postId);
+            const existLikeRecord = await this.knex("post_likes")
+                .select("*")
+                .where("like_by_user_id", userId)
+                .andWhere("post_id", postId)
+                .first();
+            console.log("existLikeRecord:", existLikeRecord);
+            if (existLikeRecord) {
+                const updatedLikeRecord = await txn("post_likes")
+                    .update("is_dislike", false)
+                    .where("post_id", postId)
+                    .andWhere("like_by_user_id", userId)
+                    .returning("*");
+                console.log("updatedLikeRecord:", updatedLikeRecord);
+            } else {
+                const insertLikeResult = await txn("post_likes")
+                    .insert({
+                        like_by_user_id: userId,
+                        post_id: postId,
+                        like_at: this.knex.fn.now(),
+                    })
+                    .returning("*");
+                console.log("insertLikeResult:", insertLikeResult);
+            }
+            await txn.commit();
+            return true;
+        } catch (error) {
+            await txn.rollback();
+            winstonLogger.error(error.toString());
+            return;
+        }
+    }
+    async dislikePost(postId: string, userId: string) {
+        const txn = await this.knex.transaction();
+        try {
+            console.log("dislikePost userId", userId);
+            console.log("dislikePost postId", postId);
+            const updatedLikeResult = await txn("post_likes")
+                .update("is_dislike", true)
+                .where("post_id", postId)
+                .andWhere("like_by_user_id", userId)
+                .returning("*");
+            console.log("updatedLikeResult:", updatedLikeResult);
+            await txn.commit();
+            return updatedLikeResult;
+        } catch (error) {
+            await txn.rollback();
+            winstonLogger.error(error.toString());
+            return;
+        }
     }
     async reportPost() {}
 }

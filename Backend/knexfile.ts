@@ -1,7 +1,7 @@
 import type { Knex } from "knex";
 import dotnev from "dotenv";
 dotnev.config();
-// console.log("check env",process.env.NODE_ENV)
+console.log("check env", process.env.NODE_ENV);
 
 // Update with your config settings.
 const config: { [key: string]: Knex.Config } = {
@@ -12,14 +12,22 @@ const config: { [key: string]: Knex.Config } = {
             user: process.env.DB_USERNAME,
             password: process.env.DB_PASSWORD,
         },
+        pool: {
+            min: 2,
+            max: 10,
+        },
+        migrations: {
+            tableName: "knex_migrations",
+        },
     },
 
-    staging: {
+    test: {
         client: "postgresql",
         connection: {
-            database: "my_db",
-            user: "username",
-            password: "password",
+            host: process.env.POSTGRES_HOST,
+            database: process.env.POSTGRES_DB,
+            user: process.env.POSTGRES_USER,
+            password: process.env.POSTGRES_PASSWORD,
         },
         pool: {
             min: 2,

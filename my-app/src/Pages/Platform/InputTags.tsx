@@ -4,7 +4,21 @@ import "../../Components/css/tagsInput.css";
 import Autosuggest from "react-autosuggest";
 import React from "react";
 
-const companies: string[] = ["Company1", "Company2", "Big Corp", "Happy Toy Company"];
+const companies: string[] = [
+    "practice",
+    "gathering",
+    "talk",
+    "recruitment",
+    "lesson-information",
+    "product-promotion",
+    "skateboard-design",
+    "art-related-workshop",
+    "skateboard-maintenance",
+    "competition",
+    "skateboard-performance",
+    "question",
+    "sharing",
+];
 
 const lowerCasedCompanies = companies.map((language) => language.toLowerCase());
 export function InsertTags(props) {
@@ -16,24 +30,25 @@ export function InsertTags(props) {
     // console.log("setTag:",setTags)
     function handleKeyDown(e) {
         if (e.key !== "Enter") return;
-        const value:string = e.target.value.toLowerCase().replace(/ /g, "");
+        const value: string = e.target.value.toLowerCase().replace(/ /g, "");
         // console.log("this is value :", value);
         if (!value.trim()) return;
-        const existValue = tags.filter((tag:string)=> tag.trim() === value.trim());
+        const existValue = tags.filter((tag: string) => tag.trim() === value.trim());
         // console.log("existValue:",existValue)
-        if(existValue.length > 0) return;
+        if (existValue.length > 0) return;
         setTags([...tags, value]);
+        console.log("this is e.target.value1 :", e.target.value);
         e.target.value = "";
-        // console.log("this is value2 :", e.target.value);
+        console.log("this is e.target.value2 :", e.target.value);
     }
 
     function handleSelect(e) {
         // console.log("this is value :", e.target.innerHTML);
-        const value = e.target.innerHTML;
+        let value = e.target.innerHTML;
         setTags([...tags, value]);
-        // console.log("this is value1 :", e.target.value);
-        e.target.value = "";
-        // console.log("this is value2 :", e.target.value);
+        // console.log("this is value1 :", value);
+        value = "";
+        // console.log("this is value2 :", value);
     }
 
     function removeTag(index) {
@@ -85,7 +100,7 @@ export function InsertTags(props) {
                         },
                         onKeyDown: handleKeyDown,
                         placeholder: "type something",
-                        className: "tags-input"
+                        className: "tags-input",
                     }}
                     highlightFirstSuggestion={true}
                 />

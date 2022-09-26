@@ -27,7 +27,6 @@ app.use(cors({ origin: [process.env.FRONTEND_URL ?? "http://localhost:3000"] }))
 //knex setup
 import knexConfigs from "./knexfile";
 const configMode = process.env.NODE_ENV || "development";
-// console.log('check config Mode', configMode)
 const knexConfig = knexConfigs[configMode];
 const knex = Knex(knexConfig);
 

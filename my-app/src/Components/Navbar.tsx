@@ -69,7 +69,7 @@ export default function Navbar() {
                         width={{ base: "3rem" }}
                         display={{ base: "none", md: "flex" }}
                     >
-                        <Image src="../SkateBoardLogo.png" alt="SkateBoardLogo" />
+                        <Image src="../Logo.png" alt="SkateBoardLogo" />
                     </Box>
 
                     <Flex display={{ base: "none", md: "flex" }}>

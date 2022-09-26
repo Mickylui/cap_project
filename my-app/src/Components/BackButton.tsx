@@ -7,14 +7,15 @@ interface Props {
     back ?: () => void
 }
 
-export function BackButton({back}:Props) {
+export function BackButton({ back }: Props) {
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
     // console.log("this is location:", location.pathname)
 
     return (
-
-        
+        // <Button onClick={() => navigate(-1)}>
+        //     <ArrowBackIcon />
+        // </Button>
         <Button onClick={()=> back ? back() : navigate(-1)}>
             <ArrowBackIcon />
         </Button>
