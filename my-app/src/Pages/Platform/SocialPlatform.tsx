@@ -216,7 +216,7 @@ function SocialPlatform() {
                 ))}
             </HStack>
             {adminPostList.length > 0 ? (
-                <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
+                <SimpleGrid columns={[2, null, 3]} spacing="100px" margin="5rem">
                     {adminPostList.map((postItem) => (
                         <div key={`postItem_${postItem.id}`} className={"post-item"}>
                             <Box maxW="sm" borderRadius="lg" overflow="hidden">
