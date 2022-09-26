@@ -2,11 +2,11 @@ import { AccountService } from "../services/accountService";
 import { AccountController } from "../controllers/accountController";
 import type { Knex } from "knex";
 import type { Request, Response } from "express";
-import jwtSimple from "jwt-simple";
+// import jwtSimple from "jwt-simple";
 import { checkPassword } from "../utils/hash";
 
 jest.mock("../services/accountService");
-jest.mock("jwt-simple");
+// jest.mock("jwt-simple");
 jest.mock("../utils/hash");
 
 describe("accountService", () => {
