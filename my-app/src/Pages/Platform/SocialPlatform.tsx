@@ -35,7 +35,8 @@ const suggestedTags = [
     { tag: "sharing" },
 ];
 
-const buttonColor = "rgb(190,162,120)";
+const buttonColor = "rgb(255,20,147)";
+
 function SocialPlatform() {
     const dispatch: AppDispatch = useDispatch();
 
@@ -140,18 +141,19 @@ function SocialPlatform() {
                         <Input
                             size="lg"
                             htmlSize={70}
-                            width="70%"
+                            width="80%"
                             marginLeft={"20px"}
                             marginRight={"10px"}
+                            outline={"dashed black"}
                             placeholder="Search keywords or tags"
                             type="text"
                             name="searchContent"
                         />
-                        <Button bgColor={buttonColor} size="md" type="submit" marginRight={"20px"}>
+                        <Button bgColor={"gray.700"} color={'white'} size="md" type="submit" marginRight={"20px"}>
                             Search
                         </Button>
                         <RouteLink to="/platform/form" replace={true}>
-                            <Button size="md" bgColor={buttonColor}>
+                            <Button size="md" bgColor={"gray.700"} color={'white'}>
                                 <FaPlusCircle />
                             </Button>
                         </RouteLink>
@@ -163,15 +165,20 @@ function SocialPlatform() {
                 {suggestedTags.map((suggestedTag, index) => (
                     <Tag
                         key={suggestedTag.id}
-                        borderRadius="full"
+                        borderRadius="10"
+                        border={"dashed black"}
                         variant="solid"
                         backgroundColor={buttonColor}
+                        width={'fit-content'}
+                        height={50}
+                        margin={5}
+                        fontSize={20}
                     >
                         <TagLabel
                             onClick={() => setSearchTag(suggestedTag.tag)}
                             width={"fit-content"}
                         >
-                            {suggestedTag.tag}
+                            #{suggestedTag.tag}
                         </TagLabel>
                     </Tag>
                 ))}
@@ -180,7 +187,7 @@ function SocialPlatform() {
                 <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
                     {searchList.map((postItem) => (
                         <div key={`postItem_${postItem.id}`} className={"post-item"}>
-                            <Box maxW="sm" borderRadius="lg" overflow="hidden">
+                            <Box maxW="sm" borderRadius="lg">
                                 <>
                                     <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                         {postItem.image[0] !== null ? (
@@ -196,6 +203,8 @@ function SocialPlatform() {
                                                 alt={`image of postId:${postItem.id}`}
                                                 border="1px"
                                                 borderRadius="lg"
+                                                width={"250px"}
+                                                height={"300px"}
                                             />
                                         )}
                                     </RouteLink>
@@ -271,23 +280,28 @@ function SocialPlatform() {
                 <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
                     {adminList.map((postItem) => (
                         <div key={`postItem_${postItem.id}`} className={"post-item"}>
-                            <Box maxW="sm" borderRadius="lg" overflow="hidden">
+                            <Box maxW="sm" borderRadius="lg">
                                 <>
                                     <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                         {postItem.image[0] !== null ? (
+                                            <div className="post_image_container">
                                             <Image
                                                 src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
                                                 alt={`image of postId:${postItem.id}`}
                                                 border="1px"
                                                 borderRadius="lg"
+                                                className="post_image"   
                                             />
-                                        ) : (
+                                            </div>
+                                        ) : (<div className="post_image_container">
                                             <Image
                                                 src={"https://random.imagecdn.app/1000/1000"}
                                                 alt={`image of postId:${postItem.id}`}
                                                 border="1px"
                                                 borderRadius="lg"
+                                                className="post_image"
                                             />
+                                            </div>
                                         )}
                                     </RouteLink>
                                     <Box p="6">
@@ -362,7 +376,7 @@ function SocialPlatform() {
                 <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
                     {userList.map((postItem, index) => (
                         <div key={`postItem_${postItem.id}`} className={"post-item"}>
-                            <Box maxW="sm" borderRadius="lg" overflow="hidden">
+                            <Box maxW="sm" borderRadius="lg">
                                 <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                     {postItem.image[0] !== null ? (
                                         <Image
