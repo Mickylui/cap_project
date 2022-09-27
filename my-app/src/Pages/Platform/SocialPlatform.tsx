@@ -99,7 +99,7 @@ function SocialPlatform() {
 
     return (
         // postList.is_ordinary === true -> admin post
-        <div>
+        <div className="background">
             {searchTag.length > 0 ? (
                 <div>
                     <HStack spacing={4} className="button-area" margin={"20px"}>
@@ -148,12 +148,19 @@ function SocialPlatform() {
                             placeholder="Search keywords or tags"
                             type="text"
                             name="searchContent"
+                            // backgroundColor={'black'}
                         />
-                        <Button bgColor={"gray.700"} color={'white'} size="md" type="submit" marginRight={"20px"}>
+                        <Button
+                            bgColor={"gray.700"}
+                            color={"white"}
+                            size="md"
+                            type="submit"
+                            marginRight={"20px"}
+                        >
                             Search
                         </Button>
                         <RouteLink to="/platform/form" replace={true}>
-                            <Button size="md" bgColor={"gray.700"} color={'white'}>
+                            <Button size="md" bgColor={"gray.700"} color={"white"}>
                                 <FaPlusCircle />
                             </Button>
                         </RouteLink>
@@ -169,9 +176,9 @@ function SocialPlatform() {
                         border={"dashed black"}
                         variant="solid"
                         backgroundColor={buttonColor}
-                        width={'fit-content'}
+                        width={"fit-content"}
                         height={50}
-                        margin={5}
+                        margin={10}
                         fontSize={20}
                     >
                         <TagLabel
@@ -218,6 +225,7 @@ function SocialPlatform() {
                                             // noOfLines={1}
                                             backgroundColor={"white"}
                                             className="title"
+                                            sx={{}}
                                         >
                                             {postItem.title}
                                         </Box>
@@ -233,39 +241,49 @@ function SocialPlatform() {
                                             {item}
                                         </Tag>
                                     ))}
+
                                     <Tag
                                         size="lg"
                                         colorScheme="none"
                                         borderRadius="full"
                                         className="user-profile"
                                     >
-                                        <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
-                                            {postItem.is_ordinary ? (
-                                                <Avatar
-                                                    backgroundColor={"black"}
-                                                    size="md"
-                                                    name={`${postItem.account_name}`}
-                                                    ml={-1}
-                                                    mr={2}
-                                                />
-                                            ) : (
-                                                <Avatar
-                                                    src={"https://i.pravatar.cc/1000/1000"}
-                                                    size="md"
-                                                    name={`${postItem.account_name}`}
-                                                    ml={-1}
-                                                    mr={2}
-                                                />
-                                            )}
-                                        </RouteLink>
-                                        <h1>{postItem.account_name}</h1>
+                                        <div className="user_container">
+                                            <RouteLink
+                                                to={`/user/${postItem.user_id}`}
+                                                replace={true}
+                                            >
+                                                {postItem.is_ordinary ? (
+                                                    <Avatar
+                                                        backgroundColor={"black"}
+                                                        size="md"
+                                                        name={`${postItem.account_name}`}
+                                                        ml={-1}
+                                                        mr={2}
+                                                    />
+                                                ) : (
+                                                    <Avatar
+                                                        src={"https://i.pravatar.cc/1000/1000"}
+                                                        size="md"
+                                                        name={`${postItem.account_name}`}
+                                                        ml={-1}
+                                                        mr={2}
+                                                    />
+                                                )}
+                                            </RouteLink>
+                                            <h1>{postItem.account_name}</h1>
+                                        </div>
+                                        <div className="like_button_container">
                                         <div className="like-button">
                                             {postItem.is_liked_by_user.includes(true) ? (
                                                 <FaHeart color="red" />
                                             ) : (
                                                 <FcLikePlaceholder />
                                             )}
+                                             <div className="like-count">
                                             {postItem.count}
+                                            </div>
+                                        </div>
                                         </div>
                                     </Tag>
                                 </>
@@ -285,22 +303,23 @@ function SocialPlatform() {
                                     <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
                                         {postItem.image[0] !== null ? (
                                             <div className="post_image_container">
-                                            <Image
-                                                src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
-                                                alt={`image of postId:${postItem.id}`}
-                                                border="1px"
-                                                borderRadius="lg"
-                                                className="post_image"   
-                                            />
+                                                <Image
+                                                    src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
+                                                    alt={`image of postId:${postItem.id}`}
+                                                    border="1px"
+                                                    borderRadius="lg"
+                                                    className="post_image"
+                                                />
                                             </div>
-                                        ) : (<div className="post_image_container">
-                                            <Image
-                                                src={"https://random.imagecdn.app/1000/1000"}
-                                                alt={`image of postId:${postItem.id}`}
-                                                border="1px"
-                                                borderRadius="lg"
-                                                className="post_image"
-                                            />
+                                        ) : (
+                                            <div className="post_image_container">
+                                                <Image
+                                                    src={"https://random.imagecdn.app/1000/1000"}
+                                                    alt={`image of postId:${postItem.id}`}
+                                                    border="1px"
+                                                    borderRadius="lg"
+                                                    className="post_image"
+                                                />
                                             </div>
                                         )}
                                     </RouteLink>
@@ -355,13 +374,17 @@ function SocialPlatform() {
                                             )}
                                         </RouteLink>
                                         <h1>{postItem.account_name}</h1>
+                                        <div className="like_button_container">
                                         <div className="like-button">
                                             {postItem.is_liked_by_user.includes(true) ? (
                                                 <FaHeart color="red" />
                                             ) : (
                                                 <FcLikePlaceholder />
                                             )}
+                                            <div className="like-count">
                                             {postItem.count}
+                                            </div>
+                                        </div>
                                         </div>
                                     </Tag>
                                 </>
@@ -443,13 +466,17 @@ function SocialPlatform() {
                                         )}
                                     </RouteLink>
                                     <h1 className="user-name">{postItem.account_name}</h1>
-                                    <div className="like-button">
-                                        {postItem.is_liked_by_user.includes(true) ? (
-                                            <FaHeart color="red" />
-                                        ) : (
-                                            <FcLikePlaceholder />
-                                        )}
-                                        {postItem.count}
+                                    <div className="like_button_container">
+                                        <div className="like-button">
+                                            {postItem.is_liked_by_user.includes(true) ? (
+                                                <FaHeart color="red" />
+                                            ) : (
+                                                <FcLikePlaceholder  />
+                                            )}
+                                           
+                                            <div className="like-count">{postItem.count}</div>
+                                           
+                                        </div>
                                     </div>
                                 </Tag>
                             </Box>
