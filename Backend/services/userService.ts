@@ -36,7 +36,7 @@ export class UserService {
                     LEFT JOIN post_likes ON post_likes.post_id = posts.id
                 WHERE posts.user_id = ?
                 GROUP BY (posts.id, users.account_name)
-                ORDER BY posts.display_push DESC
+                ORDER BY posts.created_at DESC
                         `,
                     [userId.userId, userId.userId]
                 )
@@ -80,7 +80,7 @@ export class UserService {
             WHERE post_likes.like_by_user_id = ?
             AND post_likes.is_dislike = false
             GROUP BY (posts.id, users.account_name)
-            ORDER BY posts.display_push DESC
+            ORDER BY post_likes.like_at DESC
                         `,
                     [userId.userId]
                 )

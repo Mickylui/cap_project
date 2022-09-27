@@ -105,6 +105,7 @@ export const getSearchContentPostFetch = createAsyncThunk<ICarriage, any, { reje
     "@posts/getSearchContentPost",
     async ({ keyword }, thunkAPI) => {
         try {
+            console.log("getSearchContentPostFetch")
             const token = window.localStorage.getItem("token");
             const res = await fetch(
                 `${DEVELOP_HOST}/posts/getSearchContentPost?keyword=${keyword}`,
