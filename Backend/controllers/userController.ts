@@ -28,17 +28,4 @@ export class UserController {
             res.status(500).json({ success: true, message: "Internal Server Error" });
         }
     };
-    editPost = async (req: Request, res: Response) => {};
-    deletePost = async (req: Request, res: Response) => {};
-    // changePostOrder(){}
-    getOrderData = async (req: Request, res: Response) => {};
-    editOrder = async (req: Request, res: Response) => {};
-    deleteOrder = async (req: Request, res: Response) => {};
-    payment = async (req: Request, res: Response) => {
-        //Don't use point
-        //Use point
-    };
-    getUserInfo = async (req: Request, res: Response) => {};
-    editUserInfo = async (req: Request, res: Response) => {};
-    reportUser = async (req: Request, res: Response) => {};
 }

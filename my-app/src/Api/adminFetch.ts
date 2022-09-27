@@ -11,7 +11,7 @@ interface Error {
 
 const DEVELOP_HOST = process.env.REACT_APP_API_URL;
 
-export const getOrderFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
+export const getOrderFetch = createAsyncThunk<ICarriage, void, { rejectValue: Error }>(
     "@Admin/getOrder" as const,
     async (_, thunkAPI) => {
         try {

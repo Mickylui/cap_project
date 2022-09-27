@@ -78,8 +78,7 @@ export class UserService {
                 LEFT JOIN tags ON tags.id = post_tags.tag_id
                 LEFT JOIN post_likes ON post_likes.post_id = posts.id
             WHERE post_likes.like_by_user_id = ?
-            AND post_likes.is_dislike = false
-            GROUP BY (posts.id, users.account_name)
+            GROUP BY (posts.id, users.account_name, post_likes.like_at)
             ORDER BY post_likes.like_at DESC
                         `,
                     [userId.userId]
@@ -92,55 +91,4 @@ export class UserService {
             return;
         }
     }
-    async editPost() {}
-    async deletePost() {}
-    // changePostOrder(){}
-    async getOrderData() {}
-    async editOrder() {}
-    async deleteOrder() {}
-    async payment() {
-        //Don't use point
-        //Use point
-    }
-    async getUserInfo(userId: string) {
-        const txn = await this.knex.transaction();
-        try {
-            // console.log("tokenId:", tokenId);
-            const combineUserData = await txn("users")
-                .select(
-                    "users.id",
-                    "users.account_name",
-                    "users.email",
-                    "users.is_admin",
-                    "users.created_at",
-                    "users.updated_at",
-                    "users.last_login_at",
-                    "users.default_contact",
-                    "user_info.first_name",
-                    "user_info.last_name",
-                    "users.icon",
-                    "users.slogan",
-                    "user_info.area",
-                    "user_info.district",
-                    "user_info.location",
-                    "user_info.contact",
-                    "user_info.gender",
-                    "user_info.age_range",
-                    "user_info.reason",
-                    "user_info.learning_level"
-                )
-                .leftJoin("user_info", "user_info.user_id", "users.id")
-                .where("users.id", userId);
-            // console.log("combineUserData:", combineUserData);
-
-            await txn.commit();
-            return { success: true, body: { combineUserData } };
-        } catch (error) {
-            await txn.rollback();
-            winstonLogger.error(error.toString());
-            return { success: false, message: "Internal Server Error" };
-        }
-    }
-    async editUserInfo() {}
-    async reportUser() {}
 }
