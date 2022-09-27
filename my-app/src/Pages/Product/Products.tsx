@@ -58,6 +58,9 @@ export function Products() {
                         justifyContent={"center"}
                         flexWrap={"wrap"}
                         width={"100%"}
+                        padding={"0px"}
+                        backgroundColor={'#CDCDCD'}
+
                     >
                         
                         
@@ -68,22 +71,22 @@ export function Products() {
                             lineHeight="tight"
                             noOfLines={1}
                             fontSize={{ md: "2rem" }}
-                            margin={"20px"}
+                            margin={"30px 0px 0px 0px"}
                             width={"100%"}
-                            height={"50px"}
+                            height={"60px"}
                             color='teal'
+                            
+                            
+                            
+                            
                         >
                             {(product.name).toUpperCase()}
                         </Box>
                         
                         <VStack>
-                            <Box fontSize={{ md: "1.2rem" }}
-                            h='6rem'                    
-                            overflow='hidden'
-                        //    textDecoration={'none'}
-                            >Description: {product.description}</Box>
-                            <HStack color='teal'>
-                                <Box>HKD </Box><Box fontSize={{ md: "1.5rem" }} fontWeight='bold'>{product.unit_price}</Box>
+                            
+                            <HStack color='teal' >
+                                <Box fontWeight='bold'>HKD </Box><Box fontSize={{ md: "1.5rem" }} fontWeight='bold' padding={'5px 0px 15px 0px'}>{product.unit_price}</Box>
                             </HStack>
                             
                         </VStack>
