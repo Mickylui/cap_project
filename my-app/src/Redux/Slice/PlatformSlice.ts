@@ -102,8 +102,8 @@ const platformSlice = createSlice({
             })
             .addCase(getUserPostFetch.fulfilled, (state, action) => {
                 const postItems: PostState[] = action.payload.body;
-                console.log("check postItems state", state.userList);
-                console.log("check postItems", postItems);
+                // console.log("check postItems state", state.userList);
+                // console.log("check postItems", postItems);
                 state.searchList = [];
                 state.status = "succeeded";
                 state.userList = [...state.userList].concat([...action.payload.body]);
@@ -119,8 +119,8 @@ const platformSlice = createSlice({
             })
             .addCase(getAdminPostFetch.fulfilled, (state, action) => {
                 const postItems: PostState[] = action.payload.body;
-                console.log("check postItems state", state.adminList);
-                console.log("check postItems", postItems);
+                // console.log("check postItems state", state.adminList);
+                // console.log("check postItems", postItems);
                 state.status = "succeeded";
                 state.searchList = [];
                 state.adminList = postItems;
@@ -152,7 +152,7 @@ const platformSlice = createSlice({
             })
             .addCase(getSearchContentPostFetch.fulfilled, (state, action) => {
                 const postItems = action.payload.body;
-                console.log("this is content:", postItems);
+                // console.log("this is content:", postItems);
                 state.status = "succeeded";
                 state.adminList = [];
                 state.userList = [];
@@ -171,7 +171,6 @@ const platformSlice = createSlice({
                 const postItems = action.payload.body;
                 state.status = "succeeded";
                 state.postDetail = postItems;
-
                 return state;
             })
             .addCase(getPostDetailByPostIdFetch.rejected, (state, action) => {

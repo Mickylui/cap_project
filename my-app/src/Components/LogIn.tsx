@@ -33,7 +33,6 @@ export default function LogInCard() {
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
 
-
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -63,6 +62,7 @@ export default function LogInCard() {
                 if (logInResponse.success === true) {
                     Swal.fire({
                         title: "Log In",
+                        text: `Welcome`,
                         showClass: {
                             popup: "animate__animated animate__fadeInDown",
                         },
@@ -70,7 +70,7 @@ export default function LogInCard() {
                             popup: "animate__animated animate__fadeOutUp",
                         },
                     }).then(() => {
-                        navigate(-1);
+                        navigate("/");
                     });
                 } else {
                     Swal.fire({

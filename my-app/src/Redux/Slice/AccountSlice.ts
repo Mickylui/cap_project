@@ -89,7 +89,7 @@ const accountSlice = createSlice({
             })
             .addCase(LogInFetch.fulfilled, (state, action) => {
                 const identity = action.payload.body.combineUserData[0].is_admin;
-                // console.log("identity:", identity);
+                console.log("action.payload.body.userShoppingDataArr:", action.payload.body.userShoppingDataArr);
                 const nextState = produce(AccountInitialState, (draft) => {
                     const token = action.payload.body.token;
                     draft.isLoggedIn = true;

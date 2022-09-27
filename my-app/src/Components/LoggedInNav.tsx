@@ -25,7 +25,7 @@ export function UserLoggedInNav() {
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const userData = useSelector((state: RootState) => state.account.combineUserData);
     const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
-    // console.log("combineUserData:", userData[0]);
+    const userInfo = userData[0];
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
@@ -49,69 +49,73 @@ export function UserLoggedInNav() {
         // console.log("this is action:", action);
         return action;
     }
-    if (isAdmin) {
-        // if admin
+    if (userInfo) {
+        if (isAdmin) {
+            // if admin
+            return (
+                <Menu>
+                    <MenuButton>
+                        <Avatar name={`${userInfo["account_name"]}`} backgroundColor={"black"} />
+                    </MenuButton>
+                    <MenuList marginTop={"-20px"} minWidth={{ base: "7em", md: "10em" }}>
+                        <RouteLink to="admin/manage">
+                            <MenuItem>Manage</MenuItem>
+                        </RouteLink>
+                        <MenuItem onClick={() => dispatch(logOut())}>Log Out</MenuItem>
+                    </MenuList>
+                </Menu>
+            );
+        }
+        // if user
+        // useEffect[shopping_cart+userData]: if has item, return number, else return non-number; user data shown
+        console.log(`userInfo["account_name"]:`, userInfo["account_name"]);
+        console.log(`shoppingData:`, shoppingData);
         return (
             <Menu>
                 <MenuButton>
-                    <Avatar name={`${userData[0]["account_name"]}`} backgroundColor={"black"} />
+                    <Avatar
+                        name={`${userInfo["account_name"]}`}
+                        src={`${DEVELOP_IMAGE_URL}/users/${userInfo["icon"]}`}
+                    >
+                        {shoppingData.length > 0 ? (
+                            <AvatarBadge boxSize="1.25em" bg="green.500" textColor={"white"}>
+                                {shoppingData.length}
+                            </AvatarBadge>
+                        ) : (
+                            <></>
+                        )}
+                    </Avatar>
                 </MenuButton>
                 <MenuList marginTop={"-20px"} minWidth={{ base: "7em", md: "10em" }}>
-                    <RouteLink to="admin/manage">
-                        <MenuItem>Manage</MenuItem>
+                    {/* href: get user id(req.session?) and go to his profile */}
+                    <RouteLink to="/user/profile">
+                        <MenuItem>Profile</MenuItem>
                     </RouteLink>
+                    <RouteLink to="/cart/data">
+                        <MenuItem>
+                            Cart
+                            {shoppingData.length > 0 ? (
+                                <Box
+                                    boxSize="1.25em"
+                                    bg="green.500"
+                                    textColor={"white"}
+                                    borderRadius={"10px"}
+                                    textAlign={"center"}
+                                >
+                                    {shoppingData.length}
+                                </Box>
+                            ) : (
+                                <></>
+                            )}
+                        </MenuItem>
+                    </RouteLink>
+                    <RouteLink to="/setting/user">
+                        <MenuItem>Setting</MenuItem>
+                    </RouteLink>
+                    {/* change the state -> re-render */}
                     <MenuItem onClick={() => dispatch(logOut())}>Log Out</MenuItem>
                 </MenuList>
             </Menu>
         );
     }
-    // if user
-    // useEffect[shopping_cart+userData]: if has item, return number, else return non-number; user data shown
-    return (
-        <Menu>
-            <MenuButton>
-                <Avatar
-                    name={`${userData[0]["account_name"]}`}
-                    src={`${DEVELOP_IMAGE_URL}/users/${userData[0]["icon"]}`}
-                >
-                    {shoppingData.length > 0 ? (
-                        <AvatarBadge boxSize="1.25em" bg="green.500" textColor={"white"}>
-                            {shoppingData.length}
-                        </AvatarBadge>
-                    ) : (
-                        <></>
-                    )}
-                </Avatar>
-            </MenuButton>
-            <MenuList marginTop={"-20px"} minWidth={{ base: "7em", md: "10em" }}>
-                {/* href: get user id(req.session?) and go to his profile */}
-                <RouteLink to="/user/profile">
-                    <MenuItem>Profile</MenuItem>
-                </RouteLink>
-                <RouteLink to="/cart/data">
-                    <MenuItem>
-                        Cart
-                        {shoppingData.length > 0 ? (
-                            <Box
-                                boxSize="1.25em"
-                                bg="green.500"
-                                textColor={"white"}
-                                borderRadius={"10px"}
-                                textAlign={"center"}
-                            >
-                                {shoppingData.length}
-                            </Box>
-                        ) : (
-                            <></>
-                        )}
-                    </MenuItem>
-                </RouteLink>
-                <RouteLink to="/setting/user">
-                    <MenuItem>Setting</MenuItem>
-                </RouteLink>
-                {/* change the state -> re-render */}
-                <MenuItem onClick={() => dispatch(logOut())}>Log Out</MenuItem>
-            </MenuList>
-        </Menu>
-    );
 }

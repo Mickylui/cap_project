@@ -75,7 +75,7 @@ function SocialPlatform() {
             window.addEventListener("scroll", handleScroll);
         }
         // window.removeEventListener("scroll", handleScroll);
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [combineUserData]);
 
@@ -131,7 +131,7 @@ function SocialPlatform() {
                         if (keyword.length > 0) {
                             setSearchContent(keyword);
                         } else {
-                            console.log("going backkk")
+                            console.log("going backkk");
                             await dispatch(getUserPostFetch({ userId }));
                             await dispatch(getAdminPostFetch(userId));
                         }
