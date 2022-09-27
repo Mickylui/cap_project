@@ -1,5 +1,5 @@
 import { Button, Center, HStack, Input, TagCloseButton } from "@chakra-ui/react";
-import { Box, Image, SimpleGrid, Tag, TagLabel, Avatar } from "@chakra-ui/react";
+import { Box, Image, Flex, Tag, TagLabel, Avatar } from "@chakra-ui/react";
 import { FaHeart, FaPlusCircle } from "react-icons/fa";
 import { Link as RouteLink } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -24,7 +24,7 @@ function UserLikePost(props) {
     return (
         // postList.is_ordinary === true -> admin post
         <div>
-            <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
+            <Flex style={{ display:"flex",flexWrap:"wrap" ,justifyItems:"center", width:"fit-content", margin:"2rem"}}>
                 {likeData.map((postItem) => (
                     <div key={`postItem_${postItem.id}`} className={"post-item"}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
@@ -112,7 +112,7 @@ function UserLikePost(props) {
                         </Box>
                     </div>
                 ))}
-            </SimpleGrid>
+            </Flex>
             <ScrollToTopButton />
         </div>
     );

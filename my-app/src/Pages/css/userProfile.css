@@ -11,9 +11,18 @@
     display: flex;
     justify-content: space-around;
     width: 30%;
-    
+       
     
 }
+.user-nav button{
+
+    width: 100%;
+    background:#DFDFDF;
+    font-size: large;
+    font-weight: 900;
+}
+
+
 .user-container {
     width: 100%;
     position: relative;
