@@ -349,6 +349,12 @@ label {
     width: 100%;
 }
 
+.galleryImg {
+    width: 300px;
+    height: 800px;
+    object-fit: cover;
+}
+
 .galleryItem {
     flex: 1;
     margin: 50px;
@@ -369,18 +375,20 @@ label {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
+    height: 15%;
     top: 45%;
     left: 0;
     right: 0;
     display: flex;
     justify-content: center;
-    /* background-color: white; */
+    align-items: center;
 }
 .gallerySubTitle{
   text-align: center;
   width: 80%;
   background-color: white;
   opacity: 0;
+  font-size: 2rem;
 }
 .galleryImg {
     width: 100%;
@@ -388,10 +396,11 @@ label {
 
 .newSeason {
     display: flex;
-    height: 50em;
+    height: 65em;
 }
 
 .nsItem {
+    font-size: 1.25rem;
     flex: 1;
     background-color: black;
     color: white;
