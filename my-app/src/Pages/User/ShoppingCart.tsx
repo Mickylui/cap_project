@@ -15,7 +15,7 @@ export default function ShoppingCart() {
 
     return (
         <div>
-            {/* {cartItemArr.length === 0? (<p>Your cart is currently empty</p>): ()} */}
+           
             {/* {usePoint ? (
                 <PayWithPoints usePoint={usePoint} backToCart={() => setUsePoint(false)} /> */}
                 { cartItemArr.length === 0? ( 
@@ -44,7 +44,7 @@ export default function ShoppingCart() {
                     <GridItem pl="2" bg="grey.300" area={"header"}>
                         Shopping Cart
                     </GridItem>
-                    <GridItem pl="2" bg="teal" borderColor="black" border="1px" area={"nav"}>
+                    <GridItem pl="2" bg="teal100" borderColor="black" border="1px" area={"nav"}>
                         <Box m="2em">Cart List</Box>
                         <CartList usePoint={usePoint} />
                         <Link as={RouteLink} to="/cart/contact">
@@ -75,20 +75,16 @@ export default function ShoppingCart() {
                             {cartItemArr.map((product) => (
                                 <Box
                                     key={product.id}
-                                    w="200px"
+                                    w="250px"
                                     borderWidth="1px"
                                     borderRadius="lg"
                                     overflow="hidden"
-                                    style={{ margin: "10px" }}
+                                    style={{ margin: "15px" }}
                                 >
                                     {/* <Image src={product.image} alt={product.name} /> */}
                                     <Box p="6">
                                         <Box
-                                            mt="1"
-                                            fontWeight="semibold"
-                                            as="h4"
-                                            lineHeight="tight"
-                                            noOfLines={1}
+                                           fontSize="1.5rem"
                                         >
                                             {product.name}
                                         </Box>

@@ -15,6 +15,11 @@ function CartList(props: { usePoint: boolean }) {
     const [trigger,setTrigger] = useState(true)
     const dispatch = useDispatch<AppDispatch>();
 
+    let sum = 0;
+    for (let i = 0; i < cartItemArr.length ; i++) {
+        sum += cartItemArr[i].quantity * cartItemArr[i].unit_price
+    }
+
     useEffect(() => {
         dispatch(getCartFetch({ token }));
     }, [trigger]);
@@ -120,12 +125,15 @@ function CartList(props: { usePoint: boolean }) {
                         </Tbody>
                     ))}
                     <Tfoot>
+                                        
+
+
                         <Tr>
                             <Th>Total</Th>
                             <Th></Th>
                             <Th></Th>
                             <Th></Th>
-                            <Th>{`$ `}</Th>
+                            <Th>{`$ ${sum}`}</Th>
                         </Tr>
                     </Tfoot>
                 </Table>

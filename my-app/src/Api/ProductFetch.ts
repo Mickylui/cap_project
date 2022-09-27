@@ -95,12 +95,12 @@ export const removeCartItem = createAsyncThunk<
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({product_id: product_id }),
-        })
-    
-        return res.json()
+            body: JSON.stringify({ product_id: product_id }),
+        });
+
+        return res.json();
         // const deleteResult = await res.json();
         // if (deleteResult.success === true) {
         //     Swal.fire({
@@ -119,38 +119,27 @@ export const removeCartItem = createAsyncThunk<
         //             'success'
         //           )
         //         }
-        //       });   
+        //       });
         // }
-        
     } catch {
         return thunkAPI.rejectWithValue({ error: "Failed to remove item" } as Error);
     }
 });
 
 export const clearCartItems = createAsyncThunk<
-    ICarriage<Array<CartItemState>>,
-    { token: string | null, id: number },
+    void,
+    { token: string | null },
     { rejectValue: Error }
 >("@cart/checkout", async ({ token }, thunkAPI) => {
     try {
         const res = await fetch(`${DEVELOP_HOST}/products/cart/checkout`, {
+            method: "POST",
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
-        const checkoutItems = await res.json();
-        return checkoutItems;
+        await res.json();
     } catch {
         return thunkAPI.rejectWithValue({ error: "Cannot get CART." } as Error);
     }
 });
-
-
-
-
-
-
-
-
-
-
