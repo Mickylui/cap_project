@@ -74,6 +74,7 @@ app.use("/admin", adminRoutes);
 
 //folder path
 app.use(express.static(path.join(__dirname, "private")));
+app.use(express.static(path.join(__dirname, "public")));
 
 const PORT = 8080;
 const server = http.createServer(app);

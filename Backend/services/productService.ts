@@ -160,37 +160,34 @@ export class ProductService {
                 totalAmount += cartItems[i]["quantity"] * Number(cartItems[i]["unit_price"]);
             }
 
-            const [orderHistory] = await trx("order_history").insert({
-                total_amount: totalAmount, 
-                pay_method: "Visa", 
-                pay_date: new Date() , 
-                status: "pending", 
-                user_id: userId, 
-                delivery_address: userDetail.default_contact,
-                email: userDetail.email,
-                contact: userDetail.default_contact
-            })
+            const [orderHistory] = await trx("order_history")
+                .insert({
+                    total_amount: totalAmount,
+                    pay_method: "Visa",
+                    pay_date: new Date(),
+                    status: "pending",
+                    user_id: userId,
+                    delivery_address: userDetail.default_contact,
+                    email: userDetail.email,
+                    contact: userDetail.default_contact,
+                })
                 .returning("id");
-                console.log(orderHistory)
-
-            
+            console.log(orderHistory);
 
             for (let i = 0; i < cartItems.length; i++) {
-                const order = await trx("order_details").insert({
-                    product_id: cartItems[i].product_id,
-                    order_size: cartItems[i].size,
-                    order_quantity: cartItems[i].quantity,
-                    order_unit_price: cartItems[i].unit_price,
-                    order_history_id: orderHistory.id
-                }) 
-                .returning("id")
-                console.log(order)               
+                await trx("order_details")
+                    .insert({
+                        product_id: cartItems[i].product_id,
+                        order_size: cartItems[i].size,
+                        order_quantity: cartItems[i].quantity,
+                        order_unit_price: cartItems[i].unit_price,
+                        order_history_id: orderHistory.id,
+                    })
+                    .returning("id");
             }
 
-            await trx("shopping_carts").where("id", userId).delete();
-            
+            await trx("shopping_carts").where("user_id", userId).delete();
             await trx.commit();
-       
         } catch (error) {
             await trx.rollback();
             throw error;

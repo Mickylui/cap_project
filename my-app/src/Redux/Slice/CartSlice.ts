@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { addToCartFetch, getCartFetch, removeCartItem } from "../../Api/productFetch";
+import { addToCartFetch, clearCartItems, getCartFetch, removeCartItem } from "../../Api/productFetch";
 
 export interface CartItemState {
     id: number;
@@ -95,12 +95,11 @@ const cartSlice = createSlice({
                 state.status = "success";
                 const { id } = action.payload.body;
                 state.product = state.product.filter((item) => item.id !== id);
-            });
-    //         .addCase(clearCartItems.fulfilled, (state, action) => {
-    //             state.status = "success";
-    //             const cartItems = action.payload.body;
-    //             state.cartItems = [];
-    //         })
+            })
+            .addCase(clearCartItems.fulfilled, (state, action) => {
+                state.status = "success";
+                state.product = []
+            })
     },
 });
 
