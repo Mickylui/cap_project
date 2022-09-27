@@ -156,7 +156,6 @@ export class PostService {
             return;
         }
     }
-
     async contentPost(keyword: string, userId: string) {
         try {
             console.log("keyword:", keyword);
@@ -189,7 +188,7 @@ export class PostService {
                     LEFT JOIN post_tags ON post_tags.post_id = posts.id
                     LEFT JOIN tags ON tags.id = post_tags.tag_id
                     LEFT JOIN post_likes ON post_likes.post_id = posts.id
-                WHERE posts.description = ?
+                WHERE posts.description LIKE ?
                 AND posts.is_delete = false
                 GROUP BY (
                         posts.id,
@@ -197,7 +196,7 @@ export class PostService {
                     )
                 ORDER BY posts.display_push DESC;
                         `,
-                    [userId, keyword]
+                    [userId, `%%${keyword}%%`]
                 )
             ).rows;
 

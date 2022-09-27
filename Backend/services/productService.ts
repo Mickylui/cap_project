@@ -12,18 +12,17 @@ export class ProductService {
         );
 
         // await this.knex.raw(
-        //     `SELECT
-        //     product_images.image,
-        //     products.id,
-        //     products.name,
-        //     products.description,
-        //     products.unit_price
-        //     json_agg(DISTINCT product_images.image) image
-        //     FROM products
-        //     LEFT JOIN product_images.product_id = product.id
-        //     
-        //     `)
-
+            // `SELECT
+            // product_images.image,
+            // products.id,
+            // products.name,
+            // products.description,
+            // products.unit_price
+            // json_agg(DISTINCT product_images.image) image
+            // FROM products
+            // LEFT JOIN product_images.product_id = product.id        //     
+            // `
+            // )
         console.log("allProduct:", allProduct);
         return allProduct;
     }
