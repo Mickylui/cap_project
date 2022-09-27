@@ -56,6 +56,7 @@ function Profile() {
                     fontSize="1.5rem"
                     onClick={() => switchLink("posts")}
                     className="user-nav"
+                    
                 >
                     Post
                 </Box>

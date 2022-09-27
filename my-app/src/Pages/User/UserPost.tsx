@@ -24,10 +24,10 @@ function UserPost(props) {
     }
     return (
         // postList.is_ordinary === true -> admin post
-        <div>
-            <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
+        <div >
+            <SimpleGrid columns={[2, null, 2]} spacing="0px" margin="2rem" style={{ justifyItems:"center", width:"fit-content"}}>
                 {postData.map((postItem) => (
-                    <div key={`postItem_${postItem.id}`} className={"post-item"}>
+                    <div key={`postItem_${postItem.id}`} className={"post-item"}  >
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
                             {postItem.image[0] !== null ? (
                                 <>
