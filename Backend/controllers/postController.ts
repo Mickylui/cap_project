@@ -17,7 +17,7 @@ export class PostController {
     // };
     getUserPosts = async (req: Request, res: Response) => {
         try {
-            const userId = req.query.userId as string;
+            const userId = req.body.user.id;
             const pageStr = getQueryString(req.query, "page");
             console.log("getUserPosts c pageStr:", pageStr);
             const LIMIT = 6;
@@ -36,7 +36,7 @@ export class PostController {
     };
     adminPost = async (req: Request, res: Response) => {
         try {
-            const userId = req.query.userId as string;
+            const userId = req.body.user.id;
             console.log("adminPost:", userId);
             const allPostData = await this.postService.getAdminPost(userId);
             res.status(200).json({ success: true, body: allPostData });
@@ -45,6 +45,7 @@ export class PostController {
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
+
     postDetailByPostId = async (req: Request, res: Response) => {
         try {
             const postId = req.query.postId as string;
@@ -62,7 +63,7 @@ export class PostController {
     getSearchTagPost = async (req: Request, res: Response) => {
         try {
             const tag = req.query.tag as string;
-            const userId = req.query.userId as string;
+            const userId = req.body.user.id;
             // console.log("getSearchTagPost!", tag);
             const allPostData = await this.postService.getSearchTagPost(tag, userId);
             res.status(200).json({ success: true, body: allPostData });
@@ -74,7 +75,7 @@ export class PostController {
     searchContentPost = async (req: Request, res: Response) => {
         try {
             const keyword = req.query.keyword as string;
-            const userId = req.query.userId as string;
+            const userId = req.body.user.id;
             // console.log("getSearchContentPost!", keyword);
             const allPostData = await this.postService.contentPost(keyword, userId);
             res.status(200).json({ success: true, body: allPostData });

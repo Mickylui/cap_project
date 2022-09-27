@@ -2,8 +2,7 @@ import { Button, HStack, Input, TagCloseButton } from "@chakra-ui/react";
 import { Box, Image, SimpleGrid, Tag, TagLabel, Avatar } from "@chakra-ui/react";
 import { FaHeart, FaPlusCircle } from "react-icons/fa";
 import { Link as RouteLink } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
-// import PostForm from "./PostForm";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { WarningTwoIcon } from "@chakra-ui/icons";
 import ScrollToTopButton from "../../Components/ScrollToTopButton";
 import { useDispatch } from "react-redux";
@@ -18,18 +17,20 @@ import { useSelector } from "react-redux";
 import { FcLikePlaceholder } from "react-icons/fc";
 import "../css/socialPlatform.css";
 
+const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
+
 const suggestedTags = [
     { tag: "practice" },
     { tag: "gathering" },
     { tag: "talk" },
     { tag: "recruitment" },
-    { tag: "lesson-information" },
-    { tag: "product-promotion" },
-    { tag: "skateboard-design" },
-    { tag: "art-related-workshop" },
-    { tag: "skateboard-maintenance" },
+    { tag: "lesson information" },
+    { tag: "product promotion" },
+    { tag: "skateboard design" },
+    { tag: "art related workshop" },
+    { tag: "skateboard maintenance" },
     { tag: "competition" },
-    { tag: "skateboard-performance" },
+    { tag: "skateboard performance" },
     { tag: "question" },
     { tag: "sharing" },
 ];
@@ -39,69 +40,54 @@ function SocialPlatform() {
     const dispatch: AppDispatch = useDispatch();
 
     const userList = useSelector((state: RootState) => state.platform.userList);
+    console.log(userList)
     const adminList = useSelector((state: RootState) => state.platform.adminList);
     const searchList = useSelector((state: RootState) => state.platform.searchList);
-    const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
-
     const [searchTag, setSearchTag] = useState("");
     const [searchContent, setSearchContent] = useState("");
 
-    let userId: number = 1;
-    if (combineUserData.length > 0) {
-        userId = combineUserData[0].id as number;
-    }
+    useEffect(() => {
+        dispatch(getUserPostFetch({init: true}));
+        dispatch(getAdminPostFetch());
+    }, [dispatch]);
 
-    const handleScroll = (e) => {
-        if (
-            window.innerHeight + e.target.documentElement.scrollTop + 1 >=
-            e.target.documentElement.scrollHeight
-        ) {
-            console.log("scroll");
-            dispatch(getUserPostFetch({ userId: userId }));
-        }
-    };
-
-    const handleNoTag = () => {
-        setSearchTag("");
-        dispatch(getUserPostFetch({ userId: userId }));
-        dispatch(getAdminPostFetch(userId));
-    };
+    const handleScroll = useCallback(
+        (e) => {
+            if (
+                window.innerHeight + e.target.documentElement.scrollTop + 1 >=
+                e.target.documentElement.scrollHeight
+            ) {
+                console.log("scroll");
+                window.removeEventListener("scroll", handleScroll);
+                dispatch(getUserPostFetch({init: false}));
+            }
+        },
+        [dispatch]
+    );
 
     useEffect(() => {
-        dispatch(getUserPostFetch({ userId: userId }));
-        dispatch(getAdminPostFetch(userId));
-        console.log("searchList.length:", searchList.length);
         if (searchList.length <= 0) {
+            window.removeEventListener("scroll", handleScroll);
             window.addEventListener("scroll", handleScroll);
         }
-        // window.removeEventListener("scroll", handleScroll);
-
+        window.removeEventListener("scroll", handleScroll);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [combineUserData]);
+    }, [userList]);
 
     useMemo(() => {
-        const fetchSearchTag = async () => {
-            await dispatch(getSearchTagPostFetch({ tag: searchTag, userId: userId }));
-        };
-
         if (searchTag !== "") {
-            fetchSearchTag();
+            dispatch(getSearchTagPostFetch({ tag: searchTag }));
             return;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTag]);
 
     useMemo(() => {
-        const fetchContent = async () => {
-            await dispatch(getSearchContentPostFetch({ keyword: searchContent, userId: userId }));
-        };
         if (searchContent !== "") {
-            fetchContent();
+            dispatch(getSearchContentPostFetch({ keyword: searchContent }));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchContent]);
-
-    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 
     return (
         // postList.is_ordinary === true -> admin post
@@ -112,11 +98,17 @@ function SocialPlatform() {
                         <h1>You are searching</h1>
                         <Tag borderRadius="full" variant="solid" backgroundColor={buttonColor}>
                             <TagLabel>{searchTag}</TagLabel>
-                            <TagCloseButton onClick={() => handleNoTag()} />
+                            <TagCloseButton
+                                onClick={() => {
+                                    setSearchTag("");
+                                    dispatch(getUserPostFetch({init: true}));
+                                    dispatch(getAdminPostFetch());
+                                }}
+                            />
                         </Tag>
                         <h1>,the result is below:</h1>
                     </HStack>
-                    <RouteLink to="/platform/form" replace={true}>
+                    <RouteLink to="/platform/form" replace>
                         <Button size="md" bgColor={buttonColor} marginBottom={"20px"}>
                             <FaPlusCircle />
                         </Button>
@@ -132,8 +124,8 @@ function SocialPlatform() {
                             setSearchContent(keyword);
                         } else {
                             console.log("going backkk");
-                            await dispatch(getUserPostFetch({ userId }));
-                            await dispatch(getAdminPostFetch(userId));
+                            await dispatch(getUserPostFetch({init: true}));
+                            await dispatch(getAdminPostFetch());
                         }
                     }}
                 >
@@ -262,11 +254,6 @@ function SocialPlatform() {
                                             )}
                                             {postItem.count}
                                         </div>
-                                        <RouteLink to="reportPost">
-                                            <Button>
-                                                <WarningTwoIcon />
-                                            </Button>
-                                        </RouteLink>
                                     </Tag>
                                 </>
                             </Box>

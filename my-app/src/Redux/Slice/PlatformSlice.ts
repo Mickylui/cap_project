@@ -98,29 +98,22 @@ const platformSlice = createSlice({
         builder
             .addCase(getUserPostFetch.pending, (state) => {
                 state.status = "loading";
-                return state;
             })
             .addCase(getUserPostFetch.fulfilled, (state, action) => {
-                const postItems: PostState[] = action.payload.body;
-                // console.log("check postItems state", state.userList);
-                // console.log("check postItems", postItems);
                 state.searchList = [];
                 state.status = "succeeded";
-                state.userList = [...state.userList].concat([...action.payload.body]);
-                state.pageNum += 1;
-                return state;
+                console.log(action.payload.body);
+                state.userList = action.meta.arg.init ? action.payload.body : [...state.userList].concat([...action.payload.body]);
+                state.pageNum = action.meta.arg.init ? 1 : state.pageNum + 1;
             })
             .addCase(getUserPostFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             })
             .addCase(getAdminPostFetch.pending, (state) => {
                 state.status = "loading";
-                return state;
             })
             .addCase(getAdminPostFetch.fulfilled, (state, action) => {
                 const postItems: PostState[] = action.payload.body;
-                // console.log("check postItems state", state.adminList);
-                // console.log("check postItems", postItems);
                 state.status = "succeeded";
                 state.searchList = [];
                 state.adminList = postItems;
@@ -158,20 +151,17 @@ const platformSlice = createSlice({
                 state.userList = [];
                 state.searchList = postItems;
                 state.pageNum = 1;
-                return state;
             })
             .addCase(getSearchContentPostFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             })
             .addCase(getPostDetailByPostIdFetch.pending, (state) => {
                 state.status = "loading";
-                return state;
             })
             .addCase(getPostDetailByPostIdFetch.fulfilled, (state, action) => {
                 const postItems = action.payload.body;
                 state.status = "succeeded";
                 state.postDetail = postItems;
-                return state;
             })
             .addCase(getPostDetailByPostIdFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);

@@ -118,4 +118,6 @@ export function UserLoggedInNav() {
             </Menu>
         );
     }
+
+    return null;
 }

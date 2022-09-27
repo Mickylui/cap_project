@@ -111,17 +111,11 @@ const accountSlice = createSlice({
                 return state;
             })
             .addCase(getUserDataJWTFetch.pending, (state, action) => {
-                const nextState = produce(AccountInitialState, (draft) => {
-                    draft.status = "loading";
-                });
-                state = nextState;
-                return state;
+                state.status = "loading";
             })
             .addCase(getUserDataJWTFetch.fulfilled, (state, action) => {
                 // need shopping cart data
                 const nextState = produce(AccountInitialState, (draft) => {
-                    // console.log("combineUserData:", action.payload.body.combineUserData);
-                    // console.log("userShoppingDataArr:", action.payload.body.userShoppingDataArr);
                     draft.isLoggedIn = true;
                     draft.isAdmin = action.payload.body.combineUserData.is_admin;
                     draft.status = "succeeded";
@@ -132,8 +126,10 @@ const accountSlice = createSlice({
                 return state;
             })
             .addCase(getUserDataJWTFetch.rejected, (state, action) => {
+                console.log("reject")
                 const nextState = produce(AccountInitialState, (draft) => {
                     draft.status = "failed";
+                    draft.isLoggedIn = false;
                 });
                 state = nextState;
                 return state;

@@ -18,11 +18,12 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import { getUserPostFetch } from "../../Api/platformFetch";
 import { BackButton } from "../../Components/BackButton";
 import { ImageUpload } from "../../Components/ImageUpload";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { InsertTags } from "../Platform/InputTags";
+
+const DEVELOP_HOST = process.env.REACT_APP_API_URL;
 
 function PostForm() {
     // need to get user default contact!!
@@ -43,8 +44,6 @@ function PostForm() {
 
     const [tags, setTags] = useState([]);
     const [images, setImages] = useState([]);
-
-    const DEVELOP_HOST = process.env.REACT_APP_API_URL;
 
     return (
         <div>
@@ -91,15 +90,6 @@ function PostForm() {
                                 formData.append("files", images[i].file);
                             }
 
-                            // console.log("form:", form);
-                            // console.log("title:", form.title.value);
-                            // console.log("description:", form.description.value);
-                            // console.log("tagItems:", tagItems);
-
-                            // for (var key of formData.entries()) {
-                            //     console.log(key[0] + ', ' + key[1]);
-                            // }
-
                             if (isEvent === true) {
                                 isEventPost = "true";
                                 // console.log("isEventPost:",isEventPost)
@@ -131,23 +121,19 @@ function PostForm() {
                                     formData.append("eventContact", form.eventContact.value);
                                     // console.log("eventContact:", form.eventContact.value);
                                 }
-                                const DEVELOP_HOST = process.env.REACT_APP_API_URL;
                                 const resp = await fetch(`${DEVELOP_HOST}/posts/addPost`, {
                                     method: "POST",
                                     body: formData,
                                 });
                                 const addPostResponse = await resp.json();
                                 if (addPostResponse.success) {
-                                    dispatch(getUserPostFetch({ userId: userId }));
                                     Swal.fire({
                                         position: "center",
                                         icon: "success",
                                         title: "Your Post has posted",
                                         showConfirmButton: false,
                                         timer: 1500,
-                                    }).then(() => {
-                                        navigate(-1);
-                                    });
+                                    }).then(() => navigate("/platform/posts", {replace:true}));
                                 } else {
                                     Swal.fire({
                                         position: "center",
@@ -167,7 +153,6 @@ function PostForm() {
                             });
                             const addPostResponse = await resp.json();
                             if (addPostResponse.success) {
-                                dispatch(getUserPostFetch({ userId: userId }));
                                 Swal.fire({
                                     position: "center",
                                     icon: "success",
@@ -175,7 +160,7 @@ function PostForm() {
                                     showConfirmButton: false,
                                     timer: 1500,
                                 }).then(() => {
-                                    navigate(-1);
+                                    navigate("/platform/posts", {replace:true});
                                 });
                             } else {
                                 Swal.fire({

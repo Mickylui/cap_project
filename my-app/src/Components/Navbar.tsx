@@ -13,17 +13,12 @@ import {
     PopoverTrigger,
     PopoverContent,
     useColorModeValue,
-    Link,
-    useBreakpointValue,
     useDisclosure,
-    LinkBox,
-    LinkOverlay,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Link as RouteLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
-import { useEffect } from "react";
 import { UserLoggedInNav } from "./LoggedInNav";
 import "../Components/css/navbar.css";
 
