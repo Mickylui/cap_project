@@ -14,6 +14,7 @@ import { IOrderDataState } from "../Redux/Slice/adminSlice";
 export default function DataList(props) {
     const [userList, setUserList] = useState<IOrderDataState[]>([]);
     const orderData = useSelector((state: RootState) => state.admin.orderData);
+    console.log("orderData:", orderData);
 
     const columns = [
         {
@@ -27,7 +28,7 @@ export default function DataList(props) {
             text: "Username",
             sort: true,
             filter: textFilter(),
-        }
+        },
     ];
 
     const pagination = paginationFactory({

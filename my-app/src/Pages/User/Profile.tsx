@@ -56,8 +56,10 @@ function Profile() {
                     fontSize="1.5rem"
                     onClick={() => switchLink("posts")}
                     className="user-nav"
+                    
+                    
                 >
-                    Post
+                    <Button>Post</Button>
                 </Box>
                 <Box
                     // as={ReachLink}
@@ -66,11 +68,12 @@ function Profile() {
                     fontSize="1.5rem"
                     onClick={() => switchLink("products")}
                     className="user-nav"
+                   
                 >
-                    Like
+                    <Button>Like</Button>
                 </Box>
             </div>
-            <main>
+            <main style={{margin:"0px 0px 30px 0px"}}>
                 {link === "posts" ? (
                     <UserPost postData={postData} />
                 ) : (

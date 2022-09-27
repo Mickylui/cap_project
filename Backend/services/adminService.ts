@@ -38,7 +38,7 @@ export class AdminService {
                     users.id,
                     users.account_name
                 )
-            ORDER BY order_history.updated_at DESC`)
+            ORDER BY order_history.created_at DESC`)
             ).rows;
             console.log("OrderData:", OrderData);
             return OrderData;

@@ -28,12 +28,14 @@
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
+    
     align-items: center;
     justify-content: center;
     width:600px;
     height:700px;
     padding:0;
 }
+
 
 .post_image_container{
    padding:0px;
@@ -74,20 +76,5 @@
 .title {
     height: max-content;
     text-align: center;
-}
-
-.user_container{
-    flex: display;
-    justify-content: flex-start;
-}
-
-.like-count{
-    font-size: 17px;
-    position: absolute;
-    top: 0.8em;
-    bottom: auto;
-    margin: auto;
-    left: 0;
-    right: 0;
 }
 
