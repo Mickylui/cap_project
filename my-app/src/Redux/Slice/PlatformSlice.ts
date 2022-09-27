@@ -100,7 +100,6 @@ const platformSlice = createSlice({
                 state.status = "loading";
             })
             .addCase(getUserPostFetch.fulfilled, (state, action) => {
-                console.log("action.meta.arg.init:", action.meta.arg.init);
                 state.searchList = [];
                 state.status = "succeeded";
                 console.log(action.payload.body);
@@ -121,7 +120,6 @@ const platformSlice = createSlice({
                 state.status = "succeeded";
                 state.searchList = [];
                 state.adminList = postItems;
-                return state;
             })
             .addCase(getAdminPostFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
@@ -129,7 +127,6 @@ const platformSlice = createSlice({
 
             .addCase(getSearchTagPostFetch.pending, (state) => {
                 state.status = "loading";
-                return state;
             })
             .addCase(getSearchTagPostFetch.fulfilled, (state, action) => {
                 const postItems = action.payload.body;
@@ -138,14 +135,12 @@ const platformSlice = createSlice({
                 state.userList = [];
                 state.searchList = postItems;
                 state.pageNum = 1;
-                return state;
             })
             .addCase(getSearchTagPostFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             })
             .addCase(getSearchContentPostFetch.pending, (state) => {
                 state.status = "loading";
-                return state;
             })
             .addCase(getSearchContentPostFetch.fulfilled, (state, action) => {
                 const postItems = action.payload.body;

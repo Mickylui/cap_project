@@ -28,7 +28,6 @@ const adminSlice = createSlice({
     initialState: AdminInitialState,
     reducers: {
         getOrder(state, action: PayloadAction<IAdminState>) {
-            console.log("@Admin/getOrder:", state);
         },
         shipOrder() {},
         cancelOrder() {},
@@ -36,25 +35,15 @@ const adminSlice = createSlice({
     extraReducers(builder) {
         builder
             .addCase(getOrderFetch.pending, (state, action) => {
-                // console.log("this is getOrderFetch:", action);
+                state.status = "loading"
             })
             .addCase(getOrderFetch.fulfilled, (state, action) => {
-                console.log("this is getOrderFetch.fulfilled:", action.payload.body);
+                state.status = "succeeded"
                 state.orderData = action.payload.body;
             })
             .addCase(getOrderFetch.rejected, (state, action) => {
-                // console.log("this is getOrderFetch:", action);
+                state.status = "rejected"
             })
-            .addCase(shipOrderFetch.pending, (state, action) => {})
-            .addCase(shipOrderFetch.fulfilled, (state, action) => {
-                // need shopping cart data
-            })
-            .addCase(shipOrderFetch.rejected, (state, action) => {})
-            .addCase(cancelOrderFetch.pending, (state, action) => {})
-            .addCase(cancelOrderFetch.fulfilled, (state, action) => {
-                // need shopping cart data
-            })
-            .addCase(cancelOrderFetch.rejected, (state, action) => {});
     },
 });
 
