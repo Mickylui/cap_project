@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, Grid, GridItem, VStack } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, Heading, VStack, Text } from "@chakra-ui/react";
 // import { Link as ReachLink } from "@reach/router"
 import { Link as RouteLink } from "react-router-dom";
 import { Link } from "@chakra-ui/react";
@@ -15,20 +15,38 @@ export default function ShoppingCart() {
 
     return (
         <div>
-           
             {/* {usePoint ? (
                 <PayWithPoints usePoint={usePoint} backToCart={() => setUsePoint(false)} /> */}
-                { cartItemArr.length === 0? ( 
+            {cartItemArr.length === 0 ? (
                     <VStack m='6rem'>
-                    <Box  fontSize={'3rem'}>SHOPPING CART</Box>
-                    <Box fontSize={'2rem'}>
-                        <FaShoppingCart />
+                    <Box  fontSize={'3rem'}
+                    display="inline-block"
+                    as="h2"
+                    p="1rem"
+                    bgGradient="linear(to-r, teal.400, teal.600)"
+                    backgroundClip="text">
+                        SHOPPING CART
+                        </Box>
+                    <Box fontSize={'4rem'}>
+                        <FaShoppingCart color={'teal'}/>
                     </Box>
-                    
+
                 <Box  fontSize={'2rem'}>Your cart is currently empty</Box>
                 <p>Before proceed to checkout you must add some products to your shopping cart.</p>
                 <p>You will find a lot of interesting products on our "Products" page.</p>
+                <Link as={RouteLink} to={"/products"}>
+                <Button
+                    colorScheme="teal"
+                    bgGradient="linear(to-r, teal.400, teal.500, teal.600)"
+                    color="white"
+                    variant="solid"
+                    mt="1.5rem"
+                >
+                    Go to Store
+                </Button>
+            </Link>
                 </VStack>
+                
             ) : (
                 <Grid
                     templateAreas={`"header header"
@@ -83,11 +101,7 @@ export default function ShoppingCart() {
                                 >
                                     {/* <Image src={product.image} alt={product.name} /> */}
                                     <Box p="6">
-                                        <Box
-                                           fontSize="1.5rem"
-                                        >
-                                            {product.name}
-                                        </Box>
+                                        <Box fontSize="1.5rem">{product.name}</Box>
                                         <Box>Price: ${product.unit_price}</Box>
                                         <Box>Quantity: {product.quantity}</Box>
                                         <Box>Size: {Number(product.size)}</Box>

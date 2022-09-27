@@ -58,7 +58,7 @@ export function ProductDetail() {
                         <div className="productImage-box" >
                             <img
                                 className="productImage"
-                                src={productDetail.image}
+                                src={`${process.env.REACT_APP_IMAGE_URL}/${productDetail.image}`}
                                 alt="skateBoard-product"
                             />
                         </div>
@@ -82,7 +82,7 @@ export function ProductDetail() {
                             <span className="product-availability">
                                 <h2 className="product-key">Availability</h2>
                                 <div className="product-value product-availability">
-                                    {productDetail.quantity}
+                                    Many in Stock
                                 </div>
                             </span>
                         </div>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Input, Button, Box, Image, flexbox, VStack } from "@chakra-ui/react";
+import { Input, Button, Box, Image, flexbox, VStack, Center, HStack } from "@chakra-ui/react";
 import { AppDispatch, RootState } from "../../Redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductFetch } from "../../Api/productFetch";
@@ -35,16 +35,23 @@ export function Products() {
                     key={product.id}
                     // maxW="sm"
                     background={"#DCDCDC"}
-                    width={"50em"}
+                    width={"25em"}
                     borderWidth="1px"
                     borderRadius="lg"
                     overflow="hidden"
                     style={{ margin: "10px" }}
                     display={"flex"}
-                    flexWrap={"wrap"}
+                    // flexWrap={"wrap"}
                 >
                     {/* <Image src={product.imageUrl} alt={product.imageAlt} width={"100%"}/> */}
                     
+                    <RouteLink to={`/productDetail/${product.id}`} replace={true}>
+                            <Center >
+                                <Image 
+                        // src={`${DEVELOP_IMAGE_URL}/products/${product.image}`} 
+                        src="fish.jpg"
+                        />
+                            </Center>
                     <Box 
                         p="6"
                         display={"flex"}
@@ -52,11 +59,8 @@ export function Products() {
                         flexWrap={"wrap"}
                         width={"100%"}
                     >
-                        <RouteLink to={`/productDetail/${product.id}`} replace={true}>
-                        <Image 
-                        src={`${DEVELOP_IMAGE_URL}/products/${product.image}`} 
-                        // src="./SkateBoardLogo.png"
-                        />
+                        
+                        
                         <Box
                             mt="1"
                             fontWeight="semibold"
@@ -64,20 +68,28 @@ export function Products() {
                             lineHeight="tight"
                             noOfLines={1}
                             fontSize={{ md: "2rem" }}
-                            margin={"5px"}
+                            margin={"20px"}
                             width={"100%"}
                             height={"50px"}
+                            color='teal'
                         >
-                            {product.name}
+                            {(product.name).toUpperCase()}
                         </Box>
                         
                         <VStack>
-                            <Box fontSize={{ md: "1.2rem" }}>Description: {product.description}</Box>
-                            <Box fontSize={{ md: "2rem" }}>Price: HKD {product.unit_price}</Box>
+                            <Box fontSize={{ md: "1.2rem" }}
+                            h='6rem'                    
+                            overflow='hidden'
+                        //    textDecoration={'none'}
+                            >Description: {product.description}</Box>
+                            <HStack color='teal'>
+                                <Box>HKD </Box><Box fontSize={{ md: "1.5rem" }} fontWeight='bold'>{product.unit_price}</Box>
+                            </HStack>
+                            
                         </VStack>
-                        </RouteLink>
+                        
                     </Box>
-                    
+                    </RouteLink>
                 </Box>
             ))}
             <ScrollToTopButton />
