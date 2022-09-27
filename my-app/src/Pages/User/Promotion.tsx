@@ -11,7 +11,8 @@ function Promotion() {
                 Here are some posts you may be interested           
             </Box>
 
-            <PromoSlider />
+            {/* <PromoSlider /> */}
+            <SocialPlatform />
             </Box>
         </div>
     );

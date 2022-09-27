@@ -75,34 +75,34 @@ export class PostController {
             res.status(500).json({ success: false, message: "Internal Server Error" });
         }
     };
-    likePost = async (req: any, res: Response) => {
-        try {
-            const postId = req.query.postId as string;
-            const userId = req.query.userId as string;
-            const changeLikeResult = await this.postService.likePost(postId, userId);
-            if (changeLikeResult) {
-                res.status(200).json({ success: true });
-            } else {
-                res.status(400).json({ success: false, message: "Failed to like" });
-            }
-        } catch (error) {
-            winstonLogger.error(error.toString());
-            res.status(500).json({ success: false, message: "Internal Server Error" });
-        }
-    };
-    dislikePost = async (req: any, res: Response) => {
-        try {
-            const postId = req.query.postId as string;
-            const userId = req.query.userId as string;
-            const changeLikeResult = await this.postService.dislikePost(postId, userId);
-            if (changeLikeResult) {
-                res.status(200).json({ success: true });
-            } else {
-                res.status(400).json({ success: false, message: "Failed to dislike" });
-            }
-        } catch (error) {
-            winstonLogger.error(error.toString());
-            res.status(500).json({ success: false, message: "Internal Server Error" });
-        }
-    };
+    // likePost = async (req: any, res: Response) => {
+    //     try {
+    //         const postId = req.query.postId as string;
+    //         const userId = req.query.userId as string;
+    //         const changeLikeResult = await this.postService.likePost(postId, userId);
+    //         if (changeLikeResult) {
+    //             res.status(200).json({ success: true });
+    //         } else {
+    //             res.status(400).json({ success: false, message: "Failed to like" });
+    //         }
+    //     } catch (error) {
+    //         winstonLogger.error(error.toString());
+    //         res.status(500).json({ success: false, message: "Internal Server Error" });
+    //     }
+    // };
+    // dislikePost = async (req: any, res: Response) => {
+    //     try {
+    //         const postId = req.query.postId as string;
+    //         const userId = req.query.userId as string;
+    //         const changeLikeResult = await this.postService.dislikePost(postId, userId);
+    //         if (changeLikeResult) {
+    //             res.status(200).json({ success: true });
+    //         } else {
+    //             res.status(400).json({ success: false, message: "Failed to dislike" });
+    //         }
+    //     } catch (error) {
+    //         winstonLogger.error(error.toString());
+    //         res.status(500).json({ success: false, message: "Internal Server Error" });
+    //     }
+    // };
 }
