@@ -35,20 +35,16 @@ export const LogInFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error 
 export const getUserDataJWTFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@Account/userDataJWT" as const,
     async ({ token }, thunkAPI) => {
-        console.log("getUserDataJWTFetch")
-        try {
-            const resp = await fetch(`${DEVELOP_HOST}/account/userDataJWT`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            const result = await resp.json();
-            return result;
-        } catch (e) {
-            return thunkAPI.rejectWithValue({
-                error: "Failed to log in.",
-            } as Error);
+        const resp = await fetch(`${DEVELOP_HOST}/account/userDataJWT`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (resp.status < 200 || resp.status >= 300) {
+            return thunkAPI.rejectWithValue({error: "Failed to log in."} as Error);
         }
+        const result = await resp.json();
+        return result;
     }
 );
 

@@ -19,7 +19,9 @@ import { logOutFetch } from "../Api/accountFetch";
 import { RootState } from "../Redux/store";
 import { FormatDate } from "../Utils/timeStamp";
 import Swal from "sweetalert2";
+import { useMemo } from "react";
 
+const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 export function UserLoggedInNav() {
     // useSelector: if isAdmin true, return admin; else return user/
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
@@ -28,7 +30,13 @@ export function UserLoggedInNav() {
     const userInfo = userData[0];
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
+
+    const icons = useMemo(() => {
+        const result = userInfo["icon"]
+            ? "https://i.pravatar.cc/1000/1000"
+            : `${DEVELOP_IMAGE_URL}/users/${userInfo.icon}`;
+        return result;
+    }, [userData]);
 
     function logOut() {
         Swal.fire({
@@ -73,10 +81,7 @@ export function UserLoggedInNav() {
         return (
             <Menu>
                 <MenuButton>
-                    <Avatar
-                        name={`${userInfo["account_name"]}`}
-                        src={`${DEVELOP_IMAGE_URL}/users/${userInfo["icon"]}`}
-                    >
+                    <Avatar name={`${userInfo["account_name"]}`} src={icons}>
                         {shoppingData.length > 0 ? (
                             <AvatarBadge boxSize="1.25em" bg="green.500" textColor={"white"}>
                                 {shoppingData.length}
@@ -118,4 +123,6 @@ export function UserLoggedInNav() {
             </Menu>
         );
     }
+
+    return null;
 }
