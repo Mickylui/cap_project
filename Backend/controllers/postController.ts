@@ -49,7 +49,7 @@ export class PostController {
     postDetailByPostId = async (req: Request, res: Response) => {
         try {
             const postId = req.query.postId as string;
-            const userId = req.query.userId as string;
+            const userId = req.body.user.id;
             const getPostDetailByPostIdData = await this.postService.postDetailByPostId(
                 postId,
                 userId

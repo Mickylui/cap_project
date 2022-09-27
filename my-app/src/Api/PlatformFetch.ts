@@ -18,7 +18,7 @@ export const getUserPostFetch = createAsyncThunk<
 >("@posts/getUserPost", async ({ init }, thunkAPI) => {
     try {
         console.log("getUserPost:", thunkAPI.getState().platform.pageNum);
-        const page = init ? 1 : thunkAPI.getState().platform.pageNum + 1;
+        const page = init ? 1 : thunkAPI.getState().platform.pageNum;
         const token = window.localStorage.getItem("token");
         const res = await fetch(`${DEVELOP_HOST}/posts/userPost?page=${page}`, {
             headers: {
@@ -82,10 +82,16 @@ export const addPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: Erro
 
 export const getPostDetailByPostIdFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
     "@posts/getPostDetailByPostId",
-    async ({ postId, userId }, thunkAPI) => {
+    async (postId, thunkAPI) => {
         try {
+            const token = window.localStorage.getItem("token");
             const res = await fetch(
-                `${DEVELOP_HOST}/posts/getPostDetailByPostId?postId=${postId}&userId=${userId}`
+                `${DEVELOP_HOST}/posts/getPostDetailByPostId?postId=${postId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
             );
             const posts = await res.json();
             return posts;

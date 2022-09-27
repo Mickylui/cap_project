@@ -40,14 +40,14 @@ function SocialPlatform() {
     const dispatch: AppDispatch = useDispatch();
 
     const userList = useSelector((state: RootState) => state.platform.userList);
-    console.log(userList)
+    console.log(userList);
     const adminList = useSelector((state: RootState) => state.platform.adminList);
     const searchList = useSelector((state: RootState) => state.platform.searchList);
     const [searchTag, setSearchTag] = useState("");
     const [searchContent, setSearchContent] = useState("");
 
     useEffect(() => {
-        dispatch(getUserPostFetch({init: true}));
+        dispatch(getUserPostFetch({ init: true }));
         dispatch(getAdminPostFetch());
     }, [dispatch]);
 
@@ -59,7 +59,7 @@ function SocialPlatform() {
             ) {
                 console.log("scroll");
                 window.removeEventListener("scroll", handleScroll);
-                dispatch(getUserPostFetch({init: false}));
+                dispatch(getUserPostFetch({ init: false }));
             }
         },
         [dispatch]
@@ -89,6 +89,13 @@ function SocialPlatform() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchContent]);
 
+    // const icons = useMemo(() => {
+    //     const result = userList["icon"]
+    //         ? "https://i.pravatar.cc/1000/1000"
+    //         : `${DEVELOP_IMAGE_URL}/users/${postDetail.icon}`;
+    //     return result;
+    // }, [userList]);
+
     return (
         // postList.is_ordinary === true -> admin post
         <div>
@@ -101,7 +108,7 @@ function SocialPlatform() {
                             <TagCloseButton
                                 onClick={() => {
                                     setSearchTag("");
-                                    dispatch(getUserPostFetch({init: true}));
+                                    dispatch(getUserPostFetch({ init: true }));
                                     dispatch(getAdminPostFetch());
                                 }}
                             />
@@ -124,7 +131,7 @@ function SocialPlatform() {
                             setSearchContent(keyword);
                         } else {
                             console.log("going backkk");
-                            await dispatch(getUserPostFetch({init: true}));
+                            await dispatch(getUserPostFetch({ init: true }));
                             await dispatch(getAdminPostFetch());
                         }
                     }}
@@ -175,51 +182,38 @@ function SocialPlatform() {
                         <div key={`postItem_${postItem.id}`} className={"post-item"}>
                             <Box maxW="sm" borderRadius="lg" overflow="hidden">
                                 <>
-                                    {postItem.image[0] !== null ? (
-                                        <>
-                                            <RouteLink
-                                                to={`/postDetail/${postItem.id}`}
-                                                replace={true}
-                                            >
-                                                <Image
-                                                    src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
-                                                    alt={`image of postId:${postItem.id}`}
-                                                    border="1px"
-                                                    borderRadius="lg"
-                                                />
-                                            </RouteLink>
-                                            <Box p="6">
-                                                <Box
-                                                    // mt="1"
-                                                    fontWeight="semibold"
-                                                    fontSize={"2em"}
-                                                    as="h4"
-                                                    lineHeight="tight"
-                                                    // noOfLines={1}
-                                                    backgroundColor={"white"}
-                                                    className="title"
-                                                >
-                                                    {postItem.title}
-                                                </Box>
-                                            </Box>
-                                        </>
-                                    ) : (
-                                        <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
-                                            <Box p="6">
-                                                <Box
-                                                    // mt="1"
-                                                    fontWeight="semibold"
-                                                    fontSize={"2em"}
-                                                    as="h4"
-                                                    lineHeight="tight"
-                                                    // noOfLines={1}
-                                                    className="title"
-                                                >
-                                                    {postItem.title}
-                                                </Box>
-                                            </Box>
-                                        </RouteLink>
-                                    )}
+                                    <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
+                                        {postItem.image[0] !== null ? (
+                                            <Image
+                                                src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
+                                                alt={`image of postId:${postItem.id}`}
+                                                border="1px"
+                                                borderRadius="lg"
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={"https://random.imagecdn.app/1000/1000"}
+                                                alt={`image of postId:${postItem.id}`}
+                                                border="1px"
+                                                borderRadius="lg"
+                                            />
+                                        )}
+                                    </RouteLink>
+                                    <Box p="6">
+                                        <Box
+                                            // mt="1"
+                                            fontWeight="semibold"
+                                            fontSize={"2em"}
+                                            as="h4"
+                                            lineHeight="tight"
+                                            // noOfLines={1}
+                                            backgroundColor={"white"}
+                                            className="title"
+                                        >
+                                            {postItem.title}
+                                        </Box>
+                                    </Box>
+
                                     {postItem.tag.map((item) => (
                                         <Tag
                                             onClick={(e) => {
@@ -237,13 +231,23 @@ function SocialPlatform() {
                                         className="user-profile"
                                     >
                                         <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
-                                            <Avatar
-                                                src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
-                                                size="md"
-                                                name={`${postItem.account_name}`}
-                                                ml={-1}
-                                                mr={2}
-                                            />
+                                            {postItem.is_ordinary ? (
+                                                <Avatar
+                                                    backgroundColor={"black"}
+                                                    size="md"
+                                                    name={`${postItem.account_name}`}
+                                                    ml={-1}
+                                                    mr={2}
+                                                />
+                                            ) : (
+                                                <Avatar
+                                                    src={"https://i.pravatar.cc/1000/1000"}
+                                                    size="md"
+                                                    name={`${postItem.account_name}`}
+                                                    ml={-1}
+                                                    mr={2}
+                                                />
+                                            )}
                                         </RouteLink>
                                         <h1>{postItem.account_name}</h1>
                                         <div className="like-button">
@@ -269,51 +273,38 @@ function SocialPlatform() {
                         <div key={`postItem_${postItem.id}`} className={"post-item"}>
                             <Box maxW="sm" borderRadius="lg" overflow="hidden">
                                 <>
-                                    {postItem.image[0] !== null ? (
-                                        <>
-                                            <RouteLink
-                                                to={`/postDetail/${postItem.id}`}
-                                                replace={true}
-                                            >
-                                                <Image
-                                                    src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
-                                                    alt={`image of postId:${postItem.id}`}
-                                                    border="1px"
-                                                    borderRadius="lg"
-                                                />
-                                            </RouteLink>
-                                            <Box p="6">
-                                                <Box
-                                                    // mt="1"
-                                                    fontWeight="semibold"
-                                                    fontSize={"2em"}
-                                                    as="h4"
-                                                    lineHeight="tight"
-                                                    // noOfLines={1}
-                                                    backgroundColor={"white"}
-                                                    className="title"
-                                                >
-                                                    {postItem.title}
-                                                </Box>
-                                            </Box>
-                                        </>
-                                    ) : (
-                                        <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
-                                            <Box p="6">
-                                                <Box
-                                                    // mt="1"
-                                                    fontWeight="semibold"
-                                                    fontSize={"2em"}
-                                                    as="h4"
-                                                    lineHeight="tight"
-                                                    // noOfLines={1}
-                                                    className="title"
-                                                >
-                                                    {postItem.title}
-                                                </Box>
-                                            </Box>
-                                        </RouteLink>
-                                    )}
+                                    <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
+                                        {postItem.image[0] !== null ? (
+                                            <Image
+                                                src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
+                                                alt={`image of postId:${postItem.id}`}
+                                                border="1px"
+                                                borderRadius="lg"
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={"https://random.imagecdn.app/1000/1000"}
+                                                alt={`image of postId:${postItem.id}`}
+                                                border="1px"
+                                                borderRadius="lg"
+                                            />
+                                        )}
+                                    </RouteLink>
+                                    <Box p="6">
+                                        <Box
+                                            // mt="1"
+                                            fontWeight="semibold"
+                                            fontSize={"2em"}
+                                            as="h4"
+                                            lineHeight="tight"
+                                            // noOfLines={1}
+                                            backgroundColor={"white"}
+                                            className="title"
+                                        >
+                                            {postItem.title}
+                                        </Box>
+                                    </Box>
+
                                     {postItem.tag.map((item) => (
                                         <Tag
                                             onClick={(e) => {
@@ -331,13 +322,23 @@ function SocialPlatform() {
                                         className="user-profile"
                                     >
                                         <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
-                                            <Avatar
-                                                src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
-                                                size="md"
-                                                name={`${postItem.account_name}`}
-                                                ml={-1}
-                                                mr={2}
-                                            />
+                                            {postItem.is_ordinary ? (
+                                                <Avatar
+                                                    backgroundColor={"black"}
+                                                    size="md"
+                                                    name={`${postItem.account_name}`}
+                                                    ml={-1}
+                                                    mr={2}
+                                                />
+                                            ) : (
+                                                <Avatar
+                                                    src={"https://i.pravatar.cc/1000/1000"}
+                                                    size="md"
+                                                    name={`${postItem.account_name}`}
+                                                    ml={-1}
+                                                    mr={2}
+                                                />
+                                            )}
                                         </RouteLink>
                                         <h1>{postItem.account_name}</h1>
                                         <div className="like-button">
@@ -348,11 +349,6 @@ function SocialPlatform() {
                                             )}
                                             {postItem.count}
                                         </div>
-                                        <RouteLink to="reportPost">
-                                            <Button>
-                                                <WarningTwoIcon />
-                                            </Button>
-                                        </RouteLink>
                                     </Tag>
                                 </>
                             </Box>
@@ -362,67 +358,41 @@ function SocialPlatform() {
             ) : (
                 <></>
             )}
-
-            {/* </InfiniteScroll> */}
-            {/* <div style={{ height: "100%", overflowY: "scroll" }}>
-                <InfiniteScroll
-                    dataLength={displayUserItems.length}
-                    next={fetchMoreUserData}
-                    hasMore={handleHasMoreData}
-                    loader={<h4>Loading...</h4>}
-                    endMessage={
-                        <p style={{ textAlign: "center" }}>
-                            <b>Yay! You have seen it all</b>
-                        </p>
-                    }
-                > */}
             {userList.length > 0 ? (
                 <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
                     {userList.map((postItem, index) => (
                         <div key={`postItem_${postItem.id}`} className={"post-item"}>
                             <Box maxW="sm" borderRadius="lg" overflow="hidden">
-                                {postItem.image[0] !== null ? (
-                                    <>
-                                        <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
-                                            <Image
-                                                src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
-                                                alt={`image of postId:${postItem.id}`}
-                                                // borderRadius="lg"
-                                            />
-                                        </RouteLink>
-                                        <Box p="6">
-                                            <Box
-                                                // mt="1"
-                                                className="title"
-                                                fontWeight="semibold"
-                                                fontSize={"2em"}
-                                                as="h4"
-                                                lineHeight="tight"
-                                                // noOfLines={1}
-                                                backgroundColor={"white"}
-                                            >
-                                                {postItem.title}
-                                            </Box>
-                                        </Box>
-                                    </>
-                                ) : (
-                                    <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
-                                        <Box p="6">
-                                            <Box
-                                                // mt="1"
-                                                className="title"
-                                                fontWeight="semibold"
-                                                fontSize={"2em"}
-                                                as="h4"
-                                                lineHeight="tight"
-                                                // noOfLines={1}
-                                                backgroundColor={"white"}
-                                            >
-                                                {postItem.title}
-                                            </Box>
-                                        </Box>
-                                    </RouteLink>
-                                )}
+                                <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
+                                    {postItem.image[0] !== null ? (
+                                        <Image
+                                            src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
+                                            alt={`image of postId:${postItem.id}`}
+                                            // borderRadius="lg"
+                                        />
+                                    ) : (
+                                        <Image
+                                            src={`https://random.imagecdn.app/1000/1000`}
+                                            alt={`image of postId:${postItem.id}`}
+                                            // borderRadius="lg"
+                                        />
+                                    )}
+                                </RouteLink>
+                                <Box p="6">
+                                    <Box
+                                        // mt="1"
+                                        className="title"
+                                        fontWeight="semibold"
+                                        fontSize={"2em"}
+                                        as="h4"
+                                        lineHeight="tight"
+                                        // noOfLines={1}
+                                        backgroundColor={"white"}
+                                    >
+                                        {postItem.title}
+                                    </Box>
+                                </Box>
+
                                 {postItem.tag.map((item) => (
                                     <Tag
                                         onClick={(e) => {
@@ -440,13 +410,23 @@ function SocialPlatform() {
                                     className="user-profile"
                                 >
                                     <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
-                                        <Avatar
-                                            src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
-                                            size="md"
-                                            name={`${postItem.account_name}`}
-                                            ml={-1}
-                                            mr={2}
-                                        />
+                                        {postItem.is_ordinary ? (
+                                            <Avatar
+                                                backgroundColor={"black"}
+                                                size="md"
+                                                name={`${postItem.account_name}`}
+                                                ml={-1}
+                                                mr={2}
+                                            />
+                                        ) : (
+                                            <Avatar
+                                                src={"https://i.pravatar.cc/1000/1000"}
+                                                size="md"
+                                                name={`${postItem.account_name}`}
+                                                ml={-1}
+                                                mr={2}
+                                            />
+                                        )}
                                     </RouteLink>
                                     <h1 className="user-name">{postItem.account_name}</h1>
                                     <div className="like-button">
@@ -457,14 +437,8 @@ function SocialPlatform() {
                                         )}
                                         {postItem.count}
                                     </div>
-                                    <RouteLink to="reportPost">
-                                        <Button className="user-profile-button">
-                                            <WarningTwoIcon />
-                                        </Button>
-                                    </RouteLink>
                                 </Tag>
                             </Box>
-                            <h1>{index}</h1>
                         </div>
                     ))}
                 </SimpleGrid>
