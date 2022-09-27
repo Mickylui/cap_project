@@ -101,8 +101,7 @@ function UserPost(props) {
                                 </RouteLink>
                                 <h1 className="user-name">{postItem.account_name}</h1>
                                 <div className="like-button">
-                                    {postItem.is_dislike[0] === false &&
-                                    postItem.is_liked_by_user[0] !== null ? (
+                                    {postItem.is_liked_by_user.includes(true) ? (
                                         <FaHeart color="red" />
                                     ) : (
                                         <FcLikePlaceholder />
