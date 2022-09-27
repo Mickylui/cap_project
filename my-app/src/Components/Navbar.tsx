@@ -1,4 +1,4 @@
-import { Image } from "@chakra-ui/react";
+import { Grid, Image } from "@chakra-ui/react";
 
 import {
     Box,
@@ -55,7 +55,8 @@ export default function Navbar() {
                         aria-label={"Toggle Navigation"}
                     />
                 </Flex>
-                <Flex justifyContent={"space-between"} width={"100%"}>
+                {/* navbar */}
+                <Flex justifyContent={"start"} width={"100%"} h="55px">
                     <Box
                         as={RouteLink}
                         to="/"
@@ -67,7 +68,7 @@ export default function Navbar() {
                         <Image src="../Logo.png" alt="SkateBoardLogo" />
                     </Box>
 
-                    <Flex display={{ base: "none", md: "flex" }}>
+                    <Flex marginLeft={"auto"}>
                         <DesktopNav />
                     </Flex>
                     {isLoggedIn ? (
@@ -118,18 +119,17 @@ const DesktopNav = () => {
         // nav bar width
         <Stack
             direction={"row"}
-           
-            justifyContent={"start"}
-            
+            // display={"flex"}
+            // justifyContent={"space-between"}
         >
             {/* Routes */}
             {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label} display={"flex"}>
+                <Box key={navItem.label} >
                     <Popover trigger={"hover"} placement={"bottom-end"}>
                         <PopoverTrigger>
                             <Box
                                 display={"flex"}
-                                alignItems={"end"}
+                                
                                 as={RouteLink}
                                 to={`${navItem.href}`}
                                 p={5}
@@ -154,7 +154,7 @@ const DesktopNav = () => {
                                 rounded={"xl"}
                                 minW={"sm"}
                             >
-                                <Stack>
+                                <Stack display={"flex"} justifyContent={"flex-start"}>
                                     {navItem.children.map((child) => (
                                         <DesktopSubNav key={child.label} {...child} />
                                     ))}
