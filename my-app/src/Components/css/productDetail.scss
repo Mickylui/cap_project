@@ -3,7 +3,20 @@
     --left-button-margin: 20px;
 }
 
+.left-image-like-box{
+    background-color: rgb(175, 175, 175);
+    // display: flex;
+    min-width:  300px;
+}
 
+.right-information-box{
+    padding: 20px;
+    
+}
+.right-information-box h2{
+    font-weight: 700;
+    
+}
 
 .leftPosition{
     display: flex;
@@ -20,6 +33,9 @@
     display: flex;
     border: solid gray 1px;
     margin: 50px;
+    max-width: 1300PX;
+    margin-left: auto;
+    margin-right: auto;
 }
 .backButton-box {
     width: 100%;
@@ -32,6 +48,10 @@
     display: flex;
     justify-content: center;
 }
+.product-cost-box{
+    font-size: 10px;
+}
+
 .like-box {
     width: 100%;
     /* border: solid; */
@@ -47,6 +67,10 @@
 .like:hover {
     cursor: pointer;
 }
+
+.product-value {
+    margin-left: 2rem;
+}
 .product-like {
     font-size: 2rem;
     width: fit-content;
@@ -55,20 +79,77 @@
 .product-subtitle {
     width: 100%;
     text-align: left;
+    
 }
 .product-key {
     width: fit-content;
     display: flex;
-    font-size: 3em;
+    font-size: 1.5em;
 }
 
-.product-value {
-    margin-left: 2rem;
+.product-introduction-box{
+    margin: 30px 0px 0px 0px;
 }
+.product-introduction{
+    margin: 0px;
+}
+
+.product-availability-box{
+    
+    margin: 30px 0px 0px 0px;
+}
+.product-availability{
+   
+    margin: 0px
+}
+
 .product-size {
     display: flex;
     flex-wrap: wrap;
 }
 .product-size-key {
     width: 100%;
+}
+
+
+.product-quantity-box {
+    width:fit-content;
+    margin-top: 10px;   
+        
+}
+
+.product-quantity-box input{
+    width:60px;
+    
+}
+
+.product-quantity-box button{
+    width:fit-content;
+    background-color: rgb(213, 213, 213);
+    
+}
+.product-size-box {
+    display: flex;
+    justify-content: center;    
+}
+
+.product-size button{
+      margin: 0px 10px 0px 10px;
+}
+.product-size-key{
+    width: fit-content;
+        
+}
+
+.right-information-box form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.product-share-line-box button{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8px;
+    font-weight: 900;
 }
