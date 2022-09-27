@@ -136,8 +136,7 @@ function PostDetail() {
                                     mr={2}
                                 />
                                 <TagLabel>{postDetail.account_name}</TagLabel>{" "}
-                                {postDetail.is_dislike[0] === false &&
-                                postDetail.is_liked_by_user[0] !== null ? (
+                                {postDetail.is_liked_by_user.includes(true) ? (
                                     <FaHeart color="red" onClick={() => handleDislike()} />
                                 ) : (
                                     <FcLikePlaceholder onClick={() => handleLike()} />
@@ -196,8 +195,7 @@ function PostDetail() {
                                 mr={2}
                             />
                             <TagLabel>{postDetail.account_name}</TagLabel>
-                            {postDetail.is_dislike[0] === false &&
-                            postDetail.is_liked_by_user[0] !== null ? (
+                            {postDetail.is_liked_by_user.includes(true) ? (
                                 <FaHeart color="red" onClick={() => handleDislike()} />
                             ) : (
                                 <FcLikePlaceholder onClick={() => handleLike()} />

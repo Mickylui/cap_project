@@ -32,7 +32,7 @@ export default function SignUpCard() {
             minH={"100vh"}
             align={"center"}
             justify={"center"}
-            bg={useColorModeValue("gray.50", "gray.800")}
+            bg={"#F5F5F5"}
         >
             <BackButton />
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
@@ -46,11 +46,14 @@ export default function SignUpCard() {
                 </Stack>
                 <Box
                     rounded={"lg"}
-                    bg={useColorModeValue("white", "gray.700")}
+                    bg={useColorModeValue("#D3D3D3", "gray.700")}
                     boxShadow={"lg"}
-                    p={8}
+                    padding={10}
+                    width={450}
+                    height={550}
+                    // p={8}
                 >
-                    <Stack spacing={4}>
+                    <Stack spacing={7}>
                         <form
                             onSubmit={async (e) => {
                                 e.preventDefault();
@@ -117,11 +120,11 @@ export default function SignUpCard() {
                             </HStack> */}
                             <FormControl isRequired>
                                 <FormLabel>Username</FormLabel>
-                                <Input type="text" id="accountName" name="accountName" />
+                                <Input type="text" id="accountName" name="accountName" width={350} outline={'2px solid'} />
                             </FormControl>
                             <FormControl isRequired>
                                 <FormLabel>Email address</FormLabel>
-                                <Input type="email" id="email" name="email" />
+                                <Input type="email" id="email" name="email" outline={'2px solid'}/>
                             </FormControl>
                             <FormControl isRequired>
                                 <FormLabel>Password</FormLabel>
@@ -130,6 +133,7 @@ export default function SignUpCard() {
                                         type={showPassword ? "text" : "password"}
                                         id="password"
                                         name="password"
+                                        outline={'2px solid'}
                                     />
                                     <InputRightElement h={"full"}>
                                         <Button
@@ -150,6 +154,7 @@ export default function SignUpCard() {
                                         type={showPassword ? "text" : "password"}
                                         id="confirmPassword"
                                         name="confirmPassword"
+                                        outline={'2px solid'}
                                     />
                                     <InputRightElement h={"full"}>
                                         <Button
@@ -168,11 +173,12 @@ export default function SignUpCard() {
                                     type="submit"
                                     loadingText="Submitting"
                                     size="lg"
-                                    bg={"blue.400"}
+                                    bg={"black"}
                                     color={"white"}
                                     _hover={{
                                         bg: "blue.500",
                                     }}
+                                    width={"20"}
                                 >
                                     Sign up
                                 </Button>
@@ -180,7 +186,7 @@ export default function SignUpCard() {
                             <Stack pt={6}>
                                 <Text align={"center"}>
                                     Already a user?{" "}
-                                    <Link as={RouteLink} to="/logIn" color={"blue.400"}>
+                                    <Link as={RouteLink} to="/logIn" color={"blue.900"}>
                                         Login
                                     </Link>
                                 </Text>

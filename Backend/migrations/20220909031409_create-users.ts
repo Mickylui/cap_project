@@ -17,7 +17,6 @@ export async function up(knex: Knex): Promise<void> {
                 t.string('default_contact');
                 t.string('icon');
                 t.text('slogan');
-                t.boolean('is_delete').defaultTo(false)
             })
         }
         return;
@@ -94,4 +93,6 @@ export async function down(knex: Knex): Promise<void> {
     await knex.schema.dropTableIfExists('user_info');   
     await knex.schema.dropTableIfExists('users');
 }
+
+// console
 

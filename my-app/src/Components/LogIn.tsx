@@ -24,6 +24,7 @@ import { AppDispatch, RootState } from "../Redux/store";
 import { BackButton } from "./BackButton";
 import Swal from "sweetalert2";
 import { getCartFetch } from "../Api/productFetch";
+import "./css/login.css"
 
 export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
@@ -32,7 +33,6 @@ export default function LogInCard() {
     const hasLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
-
 
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
@@ -63,6 +63,7 @@ export default function LogInCard() {
                 if (logInResponse.success === true) {
                     Swal.fire({
                         title: "Log In",
+                        text: `Welcome`,
                         showClass: {
                             popup: "animate__animated animate__fadeInDown",
                         },
@@ -70,7 +71,7 @@ export default function LogInCard() {
                             popup: "animate__animated animate__fadeOutUp",
                         },
                     }).then(() => {
-                        navigate(-1);
+                        navigate("/");
                     });
                 } else {
                     Swal.fire({
@@ -95,12 +96,15 @@ export default function LogInCard() {
             minH={"100vh"}
             align={"center"}
             justify={"center"}
-            bg={useColorModeValue("gray.50", "gray.800")}
+            // bg={useColorModeValue("gray.50", "gray.800")}
+            bg={"#F5F5F5"}
+
         >
+
             <BackButton />
-            <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+            <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6} className={"abc"}>
                 <Stack align={"center"}>
-                    <Heading fontSize={"4xl"} textAlign={"center"}>
+                    <Heading fontSize={"4xl"} textAlign={"center"} color={"black"}>
                         Log in
                     </Heading>
                     <Text fontSize={"lg"} color={"gray.600"}>
@@ -109,21 +113,24 @@ export default function LogInCard() {
                 </Stack>
                 <Box
                     rounded={"lg"}
-                    bg={useColorModeValue("white", "gray.700")}
+                    bg={useColorModeValue("#D3D3D3", "gray.700")}
                     boxShadow={"lg"}
-                    padding={20}
+                    padding={10}
+                    width={450}
+                    height={450}
                 >
                     <form onSubmit={logInSubmit}>
                         <Stack spacing={7}>
                             <FormControl isRequired>
                                 <FormLabel>Email address</FormLabel>
-                                <Input type="email" name="email" id="email" />
+                                <Input type="email" name="email" id="email" outline={'2px solid'}/>
                                 <FormLabel>Password</FormLabel>
                                 <InputGroup>
                                     <Input
                                         type={showPassword ? "text" : "password"}
                                         name="password"
                                         id="password"
+                                        outline={'2px solid'}
                                     />
                                     <InputRightElement h={"full"}>
                                         <Button
@@ -143,19 +150,23 @@ export default function LogInCard() {
                                         thickness="4px"
                                         speed="0.65s"
                                         emptyColor="gray.200"
-                                        color="blue.500"
+                                        color="gray.500"
                                         size="xl"
+                                    
                                     />
                                 ) : (
                                     <Button
                                         type="submit"
                                         loadingText="Submitting"
                                         size="lg"
-                                        bg={"blue.400"}
+                                        width={"20"}
+                                        bg={"black"}
                                         color={"white"}
                                         _hover={{
-                                            bg: "blue.500",
+                                            bg: "gray.500",
                                         }}
+                            
+                        
                                     >
                                         Log In
                                     </Button>
@@ -164,7 +175,7 @@ export default function LogInCard() {
                             <Stack pt={6}>
                                 <Text align={"center"}>
                                     Not a user?{" "}
-                                    <Link as={RouteLink} to="/signUp" color={"blue.400"}>
+                                    <Link as={RouteLink} to="/signUp" color={"blue.900"}>
                                         signUp
                                     </Link>
                                 </Text>

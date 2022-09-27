@@ -15,18 +15,26 @@ import {
     Checkbox,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { getUserPostFetch } from "../../Api/platformFetch";
 import { BackButton } from "../../Components/BackButton";
 import { ImageUpload } from "../../Components/ImageUpload";
-import { RootState } from "../../Redux/store";
+import { AppDispatch, RootState } from "../../Redux/store";
 import { InsertTags } from "../Platform/InputTags";
 
 function PostForm() {
     // need to get user default contact!!
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
+    const dispatch: AppDispatch = useDispatch();
+
+    let userId: number = 1;
+    if (combineUserData.length > 0) {
+        userId = combineUserData[0].id as number;
+    }
+
     // console.log("this is combineUserData:", combineUserData);
     const [isEvent, setIsEvent] = useState(false);
     const [isDefaultContact, setIsDefaultContact] = useState(true);
@@ -61,7 +69,7 @@ function PostForm() {
                                         popup: "animate__animated animate__fadeOutUp",
                                     },
                                 });
-                                return
+                                return;
                             }
                             const form = e.target;
                             const formData = new FormData();
@@ -130,6 +138,7 @@ function PostForm() {
                                 });
                                 const addPostResponse = await resp.json();
                                 if (addPostResponse.success) {
+                                    dispatch(getUserPostFetch({ userId: userId }));
                                     Swal.fire({
                                         position: "center",
                                         icon: "success",
@@ -158,6 +167,7 @@ function PostForm() {
                             });
                             const addPostResponse = await resp.json();
                             if (addPostResponse.success) {
+                                dispatch(getUserPostFetch({ userId: userId }));
                                 Swal.fire({
                                     position: "center",
                                     icon: "success",

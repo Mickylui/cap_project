@@ -90,7 +90,7 @@ export function InsertTags(props) {
                     getSuggestionValue={(suggestion) => suggestion}
                     renderSuggestion={(suggestion) => (
                         <div className="tag-item" onClick={handleSelect}>
-                            <span className="text">{suggestion}</span>
+                            <span className="text" >{suggestion}</span>
                         </div>
                     )}
                     inputProps={{

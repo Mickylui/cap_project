@@ -41,7 +41,7 @@ export class AccountService {
             // console.log("AccountService-- this is email:", email);
             // console.log("AccountService-- this is password:", password);
             const existUserData = await txn("users").select("*").where("email", email).first();
-            // console.log("AccountService--this is userData:", existUserData);
+            // console.log("AccountService--this is userData:", existUserData);            
             if (!existUserData) {
                 // console.log("Invalid email");
                 return { success: false, message: "Invalid email" };
@@ -85,13 +85,13 @@ export class AccountService {
                 .leftJoin("accumulation", "accumulation.user_id", "users.id")
                 .where("users.id", existUserData.id);
             console.log("combineUserData:", combineUserData);
-            // const userShoppingDataArr = await txn("shopping_carts")
-            //     .select("*")
-            //     .where("shopping_carts.user_id", existUserData.id);
-            // console.log("userShoppingData:", userShoppingDataArr);
+            const userShoppingDataArr = await txn("shopping_carts")
+                .select("*")
+                .where("shopping_carts.user_id", existUserData.id);
+            console.log("userShoppingData:", userShoppingDataArr);
 
             await txn.commit();
-            return { success: true, body: { token, combineUserData } };
+            return { success: true, body: { token, combineUserData, userShoppingDataArr } };
         } catch (error) {
             await txn.rollback();
             winstonLogger.error(error.toString());
