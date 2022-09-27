@@ -25,7 +25,7 @@ export class AccountController {
     };
     logIn = async (req: Request, res: Response) => {
         try {
-            const { email, password } = req.body;
+            const { email, password } = req.body;            
             const result = await this.accountService.logIn(email, password);
             if (result["success"] === false) {
                 res.status(400).json(result);

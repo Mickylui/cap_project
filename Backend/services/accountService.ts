@@ -41,7 +41,7 @@ export class AccountService {
             // console.log("AccountService-- this is email:", email);
             // console.log("AccountService-- this is password:", password);
             const existUserData = await txn("users").select("*").where("email", email).first();
-            // console.log("AccountService--this is userData:", existUserData);
+            // console.log("AccountService--this is userData:", existUserData);            
             if (!existUserData) {
                 // console.log("Invalid email");
                 return { success: false, message: "Invalid email" };
