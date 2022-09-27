@@ -13,17 +13,12 @@ import {
     PopoverTrigger,
     PopoverContent,
     useColorModeValue,
-    Link,
-    useBreakpointValue,
     useDisclosure,
-    LinkBox,
-    LinkOverlay,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Link as RouteLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
-import { useEffect } from "react";
 import { UserLoggedInNav } from "./LoggedInNav";
 import "../Components/css/navbar.css";
 
@@ -40,7 +35,7 @@ export default function Navbar() {
             <Flex
                 bg={useColorModeValue("white", "gray.800")}
                 color={useColorModeValue("gray.600", "white")}
-                minH={"60px"}
+                minH={"45px"}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
                 borderBottom={1}
@@ -123,9 +118,9 @@ const DesktopNav = () => {
         // nav bar width
         <Stack
             direction={"row"}
-            width={"45rem"}
-            justifyContent={"space-around"}
-            alignContent={"center"}
+           
+            justifyContent={"start"}
+            
         >
             {/* Routes */}
             {NAV_ITEMS.map((navItem) => (

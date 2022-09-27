@@ -12,17 +12,16 @@ import { useSelector } from "react-redux";
 import { FcLikePlaceholder } from "react-icons/fc";
 import "../css/socialPlatform.css";
 
+const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 function UserPost(props) {
     // const dispatch: AppDispatch = useDispatch();
     // const postData = useSelector((state: RootState) => state.user.postData);
     // console.log("this is postData:", postData);
     const postData = props.postData;
     // if(postData)
-    console.log("UserPost:", postData);
     if (postData.length < 0) {
         return null;
     }
-    const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
     return (
         // postList.is_ordinary === true -> admin post
         <div>
@@ -93,7 +92,7 @@ function UserPost(props) {
                             >
                                 <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
                                     <Avatar
-                                        src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
+                                        src="https://i.pravatar.cc/1000/1000"
                                         size="md"
                                         name={`${postItem.account_name}`}
                                         ml={-1}

@@ -40,20 +40,13 @@ import { AdminSystem } from "./Pages/Admin/AdminSystem";
 import AdminProductDetail from "./Pages/Admin/AdminProductDetail";
 
 function App() {
-    const isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
-    // const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
-    // console.log("shoppingData:", shoppingData);
-
     const dispatch: AppDispatch = useDispatch();
-
     useEffect(() => {
         const token = window.localStorage.getItem("token");
-        if (!isLoggedIn && token) {
-            dispatch(getUserDataJWTFetch({ token }))
-                .unwrap()
-                .then(() => dispatch(getCartFetch({ token })));
-        }
-    }, []);
+        dispatch(getUserDataJWTFetch({ token }))
+            .unwrap()
+            .then(() => dispatch(getCartFetch({ token })));
+    }, [dispatch]);
 
     return (
         <div className="App">

@@ -105,11 +105,10 @@ export class PostService {
             return;
         }
     }
-
     async getSearchTagPost(tag: string, userId: string) {
         try {
-            // console.log("tag:", tag);
-            // console.log("userId:", userId);
+            console.log("tag:",tag)
+            console.log("userId:",userId)
             const allPost = (
                 await this.knex.raw(
                     `
@@ -151,13 +150,13 @@ export class PostService {
                 )
             ).rows;
 
-            // console.log("getSearchTagPost:", allPost);
             return allPost;
         } catch (error) {
             winstonLogger.error(error.toString());
             return;
         }
     }
+
     async contentPost(keyword: string, userId: string) {
         try {
             console.log("keyword:", keyword);
@@ -213,7 +212,7 @@ export class PostService {
         const txn = await this.knex.transaction();
         const tagsArr = fields.tagItems.split(",");
 
-        // console.log("fields:", fields);
+        console.log("fields:", fields);
         console.log("files Service:", files);
         // console.log("tagsArr:", tagsArr);
 
@@ -299,7 +298,7 @@ export class PostService {
                             is_event: false,
                         })
                         .returning("id");
-                    // console.log("postId:", postId);
+                    console.log("postId:", postId);
 
                     for (let i = 0; i < imageFiles.length; i++) {
                         await txn("post_images").insert({

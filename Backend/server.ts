@@ -15,7 +15,7 @@ app.use(express.json());
 //accept other host
 app.use(cors({ origin: [process.env.FRONTEND_URL ?? "http://localhost:3000"] }));
 // app.use(cors({ origin: ["https://mickybad.me"] }));
-console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
+// console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
 
 // app.use(
 //     expressSession({
