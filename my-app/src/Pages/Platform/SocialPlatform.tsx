@@ -70,7 +70,7 @@ function SocialPlatform() {
             window.removeEventListener("scroll", handleScroll);
             window.addEventListener("scroll", handleScroll);
         }
-        window.removeEventListener("scroll", handleScroll);
+        // window.removeEventListener("scroll", handleScroll);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userList]);
 

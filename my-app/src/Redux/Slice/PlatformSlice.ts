@@ -100,17 +100,21 @@ const platformSlice = createSlice({
                 state.status = "loading";
             })
             .addCase(getUserPostFetch.fulfilled, (state, action) => {
+                console.log("action.meta.arg.init:", action.meta.arg.init);
                 state.searchList = [];
                 state.status = "succeeded";
                 console.log(action.payload.body);
-                state.userList = action.meta.arg.init ? action.payload.body : [...state.userList].concat([...action.payload.body]);
+                state.userList = action.meta.arg.init
+                    ? action.payload.body
+                    : [...state.userList].concat([...action.payload.body]);
+                console.log("pageNum:", state.pageNum);
                 state.pageNum = action.meta.arg.init ? 1 : state.pageNum + 1;
             })
             .addCase(getUserPostFetch.rejected, (state, action) => {
                 console.log(action.payload?.error);
             })
             .addCase(getAdminPostFetch.pending, (state) => {
-                state.status = "loading";
+                state.status = "loading"; 
             })
             .addCase(getAdminPostFetch.fulfilled, (state, action) => {
                 const postItems: PostState[] = action.payload.body;

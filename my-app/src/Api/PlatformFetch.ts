@@ -17,7 +17,8 @@ export const getUserPostFetch = createAsyncThunk<
     { rejectValue: Error; state: RootState }
 >("@posts/getUserPost", async ({ init }, thunkAPI) => {
     try {
-        const page = init ? 1 : thunkAPI.getState().platform.pageNum;
+        console.log("getUserPost:", thunkAPI.getState().platform.pageNum);
+        const page = init ? 1 : thunkAPI.getState().platform.pageNum + 1;
         const token = window.localStorage.getItem("token");
         const res = await fetch(`${DEVELOP_HOST}/posts/userPost?page=${page}`, {
             headers: {
