@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, Grid, GridItem, Heading, VStack, Text } from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, Heading, VStack, Text, background } from "@chakra-ui/react";
 // import { Link as ReachLink } from "@reach/router"
 import { Link as RouteLink } from "react-router-dom";
 import { Link } from "@chakra-ui/react";
@@ -8,6 +8,7 @@ import PayWithPoints from "./PayWithPoints";
 import { useSelector } from "react-redux";
 import { RootState } from "../../Redux/store";
 import { FaShoppingCart } from "react-icons/fa";
+import { BsJustify } from "react-icons/bs";
 
 export default function ShoppingCart() {
     const cartItemArr = useSelector((state: RootState) => state.cart.product);
@@ -49,67 +50,37 @@ export default function ShoppingCart() {
                 
             ) : (
                 <Grid
-                    templateAreas={`"header header"
-                  "nav main"
-                  "nav footer"`}
-                    gridTemplateRows={"60px 1fr"}
-                    gridTemplateColumns={".5fr 1fr"}
+                    templateAreas={`"header"
+                  "main"`}
+                    gridTemplateRows={"60px"}
+                    gridTemplateColumns={".5fr"}
                     gap="1"
                     color="blackAlpha.700"
                     fontWeight="bold"
-                    margin="2rem"
+                    width="fit-content"
+                    margin={"2rem auto 2rem auto"}
+                    
+                    justifyItems={"center"}
                 >
-                    <GridItem pl="2" bg="grey.300" area={"header"}>
+                    <GridItem pl="2" bg="grey.300" area={"header"} fontSize={"2rem"} >
                         Shopping Cart
                     </GridItem>
-                    <GridItem pl="2" bg="teal100" borderColor="black" border="1px" area={"nav"}>
-                        <Box m="2em">Cart List</Box>
+                    <GridItem pl="2"  width={"1300px"} bg="teal100" borderColor="black" border="2px" area={"main"} background={"#DBDBDB"} borderRadius={"15px"}>
+                        <Box m="2em" fontSize={"1.7rem"} height={"40px"} margin={"10px auto 25px auto"}>Cart List</Box>
                         <CartList usePoint={usePoint} />
-                        <Link as={RouteLink} to="/cart/contact">
-                            Use default address or click to change address
+                        <Link as={RouteLink} to="/cart/contact" >
+                           Use default address or click to change address
                         </Link>
                         {/* <Button mt="4em" onClick={() => setUsePoint(!usePoint)}>
                             Checkout
                         </Button> */}
                         <GridItem m="2rem">
                             <RouteLink to="/cart/payment">
-                                <Button>Checkout</Button>
+                                <Button fontWeight={"700"} background={"#FFFFFF"}>Checkout</Button>
                             </RouteLink>
                         </GridItem>
                     </GridItem>
 
-                    {/* show products */}
-                    <GridItem pl="2" bg="grey.300" area={"main"}>
-                        Your Items in detail
-                        <div
-                            style={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                justifyContent: "center",
-                                marginTop: "20px",
-                                marginBottom: "20px",
-                            }}
-                        >
-                            {cartItemArr.map((product) => (
-                                <Box
-                                    key={product.id}
-                                    w="250px"
-                                    borderWidth="1px"
-                                    borderRadius="lg"
-                                    overflow="hidden"
-                                    style={{ margin: "15px" }}
-                                >
-                                    {/* <Image src={product.image} alt={product.name} /> */}
-                                    <Box p="6">
-                                        <Box fontSize="1.5rem">{product.name}</Box>
-                                        <Box>Price: ${product.unit_price}</Box>
-                                        <Box>Quantity: {product.quantity}</Box>
-                                        <Box>Size: {Number(product.size)}</Box>
-                                    </Box>
-                                </Box>
-                            ))}
-                        </div>
-                    </GridItem>
                 </Grid>
             )}
         </div>
