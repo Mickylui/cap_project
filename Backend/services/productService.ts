@@ -21,7 +21,7 @@ export class ProductService {
         //     json_agg(DISTINCT product_images.image) image
         //     FROM products
         //     LEFT JOIN product_images.product_id = product.id
-        //     GROUP BY products.id
+        //     
         //     `)
 
         console.log("allProduct:", allProduct);

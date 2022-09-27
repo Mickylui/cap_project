@@ -58,7 +58,7 @@ export function ProductDetail() {
                         <div className="productImage-box" >
                             <img
                                 className="productImage"
-                                src={productDetail.image}
+                                src={`${process.env.REACT_APP_IMAGE_URL}/${productDetail.image}`}
                                 alt="skateBoard-product"
                             />
                         </div>
@@ -82,7 +82,7 @@ export function ProductDetail() {
                             <span className="product-availability">
                                 <h2 className="product-key">Availability</h2>
                                 <div className="product-value product-availability">
-                                    {productDetail.quantity}
+                                    Many in Stock
                                 </div>
                             </span>
                         </div>
@@ -117,7 +117,7 @@ export function ProductDetail() {
                         >
                             <div className="product-subtitle product-size-box">
                                 <span className="product-size">
-                                    <p className="product-key product-size-key">Size</p>
+                                    <p className="product-key product-size-key">Size:</p>
                                     {productDetail.size.map((size) => (
                                         <Button
                                             key={size}
@@ -132,7 +132,7 @@ export function ProductDetail() {
                             </div>
 
                             <div className="product-subtitle product-quantity-box">
-                                <HStack maxW="320px" border={"solid"}>
+                                <HStack maxW="600px" border={"solid 2px #909090"} padding={"5px"}>
                                     <Button {...getDecrementButtonProps()}>-</Button>
                                     <Input {...getInputProps()} name={"qty"} disabled />
                                     <Button {...getIncrementButtonProps()}>+</Button>
@@ -155,7 +155,7 @@ export function ProductDetail() {
                             </div>
                         </form>
                         <div className="product-subtitle product-share-line-box">
-                            <button>Copy link</button>
+                            <button>Copy Link</button>
                         </div>
                     </div>
                 </div>
