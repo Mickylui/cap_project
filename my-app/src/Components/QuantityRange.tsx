@@ -17,7 +17,6 @@ export function QuantityRange() {
 
     const [inputValue, setInputValue] = useState(1);
     function getQuantity() {
-        console.log(inputValue);
     }
 
     return (

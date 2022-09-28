@@ -67,7 +67,7 @@ export default function SignUpCard() {
                                 const accountName = form.accountName.value;
                                 const email = form.email.value;
                                 const password = form.password.value;
-                                // console.log("this is data:", accountName, email, password);
+        
 
                                 const resp = await fetch(`${DEVELOP_HOST}/account/signUp`, {
                                     method: "POST",
@@ -77,7 +77,7 @@ export default function SignUpCard() {
                                     body: JSON.stringify({ accountName, email, password }),
                                 });
                                 const signUpResult = await resp.json();
-                                // console.log("this is signUpResult:", signUpResult);
+
                                 if (signUpResult.success === true) {
                                     Swal.fire({
                                         title: "Good Decision, Welcome To Our Family",
@@ -104,20 +104,7 @@ export default function SignUpCard() {
                                 }
                             }}
                         >
-                            {/* <HStack>
-                                <Box>
-                                    <FormControl isRequired>
-                                        <FormLabel>First Name</FormLabel>
-                                        <Input type="text" id="firstName" name="firstName" />
-                                    </FormControl>
-                                </Box>
-                                <Box>
-                                    <FormControl>
-                                        <FormLabel>Last Name</FormLabel>
-                                        <Input type="text" id="lastName" name="lastName" />
-                                    </FormControl>
-                                </Box>
-                            </HStack> */}
+                 
                             <FormControl isRequired>
                                 <FormLabel>Username</FormLabel>
                                 <Input type="text" id="accountName" name="accountName" background='white' width={350} outline={'2px solid'} />

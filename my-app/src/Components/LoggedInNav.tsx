@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
 import { RootState } from "../Redux/store";
 import Swal from "sweetalert2";
-import { useMemo } from "react";
+
 
 const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 export function UserLoggedInNav() {
@@ -25,13 +25,6 @@ export function UserLoggedInNav() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    console.log("userInfo:",userInfo.icon)
-    // const icons = useMemo(() => {
-    //     const result = userInfo["icon"]
-    //         ? "https://i.pravatar.cc/1000/1000"
-    //         : `${DEVELOP_IMAGE_URL}/users/${userInfo.icon}`;
-    //     return result;
-    // }, [userData]);
 
     function logOut() {
         Swal.fire({
@@ -43,18 +36,15 @@ export function UserLoggedInNav() {
                 popup: "animate__animated animate__fadeOutUp",
             },
         }).then(() => navigate("/"));
-        // need to fetch: insert log out time
-        // const logOutTime =  FormatDate(new Date());
-        // const logOutResponse = await dispatch(logOutFetch(logOutTime));
-        // console.log("logOutResponse")
+
         const logOut = createAction("@Account/logOut");
         const action = logOut();
-        // console.log("this is action:", action);
+
         return action;
     }
     if (userInfo) {
         if (isAdmin) {
-            // if admin
+ 
             return (
                 <Menu>
                     <MenuButton>
@@ -71,8 +61,7 @@ export function UserLoggedInNav() {
         }
         // if user
         // useEffect[shopping_cart+userData]: if has item, return number, else return non-number; user data shown
-        console.log(`userInfo["account_name"]:`, userInfo["account_name"]);
-        console.log(`shoppingData:`, shoppingData);
+
         return (
             <Menu>
                 <MenuButton>
@@ -87,7 +76,7 @@ export function UserLoggedInNav() {
                     </Avatar>
                 </MenuButton>
                 <MenuList marginTop={"-20px"} minWidth={{ base: "7em", md: "10em" }}>
-                    {/* href: get user id(req.session?) and go to his profile */}
+                
                     <RouteLink to="/user/profile">
                         <MenuItem>Profile</MenuItem>
                     </RouteLink>
@@ -112,7 +101,7 @@ export function UserLoggedInNav() {
                     <RouteLink to="/setting/user">
                         <MenuItem>Setting</MenuItem>
                     </RouteLink>
-                    {/* change the state -> re-render */}
+               
                     <MenuItem onClick={() => dispatch(logOut())}>Log Out</MenuItem>
                 </MenuList>
             </Menu>

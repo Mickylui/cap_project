@@ -57,7 +57,7 @@ export default function Scroll() {
     const fetchMoreData = () => {
         // a fake async api call like which sends
         // 20 more records in 1.5 secs
-        console.log("fetchMoreData!");
+
         setTimeout(() => {
             setDisplayItems(
                 displayItems.concat(
@@ -65,9 +65,7 @@ export default function Scroll() {
                 )
             );
         }, 1500);
-        console.log("displayItems:", displayItems);
-        console.log("form:", perItems * startingPage);
-        console.log("to:", perItems * (startingPage + 1));
+
         setStartingPage(startingPage + 1);
     };
 
