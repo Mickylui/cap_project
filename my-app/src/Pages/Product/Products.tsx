@@ -34,7 +34,7 @@ export function Products() {
                 <Box
                     key={product.id}
                     // maxW="sm"
-                    background={"#DCDCDC"}
+                    
                     width={"25em"}
                     borderWidth="1px"
                     borderRadius="lg"
@@ -46,7 +46,7 @@ export function Products() {
                     {/* <Image src={product.imageUrl} alt={product.imageAlt} width={"100%"}/> */}
                     
                     <RouteLink to={`/productDetail/${product.id}`} >
-                            <Center >
+                            <Center height={"600px"}>
                                 <Image 
                         src={`${DEVELOP_IMAGE_URL}/products/${product.image}`} 
                         // src="fish.jpg"
@@ -59,7 +59,7 @@ export function Products() {
                         flexWrap={"wrap"}
                         width={"100%"}
                         padding={"0px"}
-                        backgroundColor={'#CDCDCD'}
+                        background={"#DCDCDC"}
 
                     >
                         
