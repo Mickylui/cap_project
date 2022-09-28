@@ -99,7 +99,7 @@ export function InsertTags(props) {
                             setValue(newValue);
                         },
                         onKeyDown: handleKeyDown,
-                        placeholder: "type something",
+                        placeholder: " type something",
                         className: "tags-input",
                     }}
                     highlightFirstSuggestion={true}

@@ -1,5 +1,6 @@
 import { Box, Button } from "@chakra-ui/react";
 import React from "react";
+import { MdPadding } from "react-icons/md";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
@@ -15,7 +16,7 @@ export function ImageUpload(props) {
     };
 
     return (
-        <Box className="fileUpload-box" border={"solid"} width={"25rem"}>
+        <Box className="fileUpload-box" border={"2px solid rgb(120,120,120)"} borderRadius={'3px'} padding={'.5em 0'} width={"345px"} marginTop={"10px"}>
             <ImageUploading
                 multiple
                 value={images}
@@ -88,7 +89,7 @@ export function ImageUpload(props) {
                             </Box>
                         )}
                         <Button
-                            style={isDragging ? { color: "red" } : undefined}
+                            style={isDragging ? { color: "red"} : undefined}
                             onClick={onImageUpload}
                             {...dragProps}
                         >

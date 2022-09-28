@@ -48,7 +48,7 @@ function PostForm() {
     return (
         <div>
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-                <Box rounded={"lg"} boxShadow={"lg"} padding={20}>
+                <Box rounded={"lg"} boxShadow={"lg"} padding={20} background={'#d0d0d0'} width={'500px'} >
                     <BackButton />
                     <form
                         onKeyPress={(e) => {
@@ -174,10 +174,10 @@ function PostForm() {
                         }}
                     >
                         <FormControl isRequired>
-                            <Input placeholder="Title" name="title" required />
+                            <Input placeholder="Title" name="title" style={{background:'white', margin:'0 0 5px 0'}} required />
                         </FormControl>
                         <FormControl isRequired>
-                            <Input placeholder="Write a caption" name="description" required />
+                            <Input placeholder="Write a caption" name="description" style={{background:'white', margin:'0 0 5px 0'}} required />
                         </FormControl>
                         <FormControl as="fieldset">
                             <FormLabel as="legend">Is your post a event?</FormLabel>
@@ -261,10 +261,10 @@ function PostForm() {
                             ""
                         )}
 
-                        <FormLabel>Write your tags with spacing to separate them</FormLabel>
+                        <FormLabel >Write your tags with spacing to separate them</FormLabel>
                         <InsertTags tags={tags} setTags={setTags} />
 
-                        <Stack spacing={10} pt={2}>
+                        <Stack spacing={10} pt={2} >
                             <Button
                                 type="submit"
                                 loadingText="Submitting"

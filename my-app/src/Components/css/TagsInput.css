@@ -1,5 +1,5 @@
 .tags-input-container {
-    border: 2px solid black;
+    border: 2px solid rgb(120,120,120);
     padding: 0.5em;
     border-radius: 3px;
     width: min(80vw, 600px);
@@ -8,6 +8,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: .5em;
+    width: fit-content;
 
 }
 .tag-item{
@@ -21,7 +22,7 @@
     width: 20px;
     background-color: black;
     display: inline-block;
-    color: white;
+    color: rgb(255, 255, 255);
     border-radius: 50%;
     text-align: center;
     display: inline-flex;
@@ -37,4 +38,6 @@
     border: none;
     padding: .5em 0;
     outline: none;
+    width: 325px;
+    border-radius: 5px;
 }
