@@ -79,6 +79,7 @@ function SocialPlatform() {
 
     useMemo(() => {
         if (searchTag !== "") {
+            window.removeEventListener("scroll", handleScroll);
             dispatch(getSearchTagPostFetch({ tag: searchTag }));
             return;
         }
@@ -87,6 +88,7 @@ function SocialPlatform() {
 
     useMemo(() => {
         if (searchContent !== "") {
+            window.removeEventListener("scroll", handleScroll);
             dispatch(getSearchContentPostFetch({ keyword: searchContent }));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
