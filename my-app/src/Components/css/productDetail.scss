@@ -4,12 +4,13 @@
 }
 
 .left-image-like-box{
-    background-color: rgb(175, 175, 175);
     // display: flex;
     min-width:  300px;
 }
 
 .right-information-box{
+    background-color: rgb(220,220,220);
+    border-radius: 0px  10px 10px 0px;
     padding: 20px;
     
 }
@@ -36,6 +37,7 @@
     max-width: 1300PX;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 10px;
 }
 .backButton-box {
     width: 100%;
@@ -115,17 +117,21 @@
 .product-quantity-box {
     width:fit-content;
     margin-top: 10px;   
-        
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #909090;
 }
 
 .product-quantity-box input{
     width:60px;
-    
+    font-weight: 700;
+    border: 2px solid #909090
 }
 
 .product-quantity-box button{
     width:fit-content;
-    background-color: rgb(213, 213, 213);
+    background-color: rgb(198, 198, 198);
     
 }
 .product-size-box {

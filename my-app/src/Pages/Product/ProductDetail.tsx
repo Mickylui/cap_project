@@ -125,7 +125,7 @@ export function ProductDetail() {
                             </div>
 
                             <div className="product-subtitle product-quantity-box">
-                                <HStack maxW="600px" border={"solid 2px #909090"} padding={"5px"}>
+                                <HStack maxW="600px" >
                                     <Button {...getDecrementButtonProps()}>-</Button>
                                     <Input {...getInputProps()} name={"qty"} disabled />
                                     <Button {...getIncrementButtonProps()}>+</Button>
