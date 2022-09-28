@@ -43,7 +43,7 @@ export class PostService {
                         posts.id,
                         users.account_name
                     )
-                ORDER BY posts.display_push DESC
+                ORDER BY posts.display_push DESC, posts.id
                 LIMIT ? OFFSET ?;
                         `,
                     [userId, limit, offset]
@@ -93,7 +93,7 @@ export class PostService {
                         posts.id,
                         users.account_name
                     )
-                ORDER BY posts.display_push DESC;
+                ORDER BY posts.display_push DESC, posts.id
                         `,
                     [userId]
                 )
@@ -144,7 +144,7 @@ export class PostService {
                     LEFT JOIN post_likes ON post_likes.post_id = posts.id
                 WHERE posts.is_delete = false
                 GROUP BY (posts.id, users.account_name)
-                ORDER BY posts.display_push DESC;
+                ORDER BY posts.display_push DESC, posts.id
                         `,
                     [tag, userId]
                 )
@@ -194,7 +194,7 @@ export class PostService {
                         posts.id,
                         users.account_name
                     )
-                ORDER BY posts.display_push DESC;
+                ORDER BY posts.display_push DESC, posts.id
                         `,
                     [userId, `%%${keyword}%%`]
                 )
@@ -591,4 +591,5 @@ export class PostService {
     }
     async reportPost() {}
 }
+
 

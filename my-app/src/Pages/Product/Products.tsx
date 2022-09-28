@@ -45,7 +45,7 @@ export function Products() {
                 >
                     {/* <Image src={product.imageUrl} alt={product.imageAlt} width={"100%"}/> */}
                     
-                    <RouteLink to={`/productDetail/${product.id}`} replace={true}>
+                    <RouteLink to={`/productDetail/${product.id}`} >
                             <Center >
                                 <Image 
                         // src={`${DEVELOP_IMAGE_URL}/products/${product.image}`} 
