@@ -5,7 +5,7 @@ import { getProductFetch, getProductDetailByProductIdFetch } from "../../Api/pro
 
 export interface ProductState {
     id: number;
-    image: String;
+    image: [];
     size: number[];
     name: string;
     description: string;
@@ -24,7 +24,7 @@ export interface IProductListState {
 
 const ProductStateInitialState = {
     id: null,
-    image: null,
+    image: [],
     size: [],
     name: null,
     description: null,

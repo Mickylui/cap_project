@@ -32,10 +32,6 @@ const CreditCard = () => {
 
     const dispatch: AppDispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(clearCartItems({ token }));
-    }, []);
-
     return (
         <>
             <Box p="4rem">

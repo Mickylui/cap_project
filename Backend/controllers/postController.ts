@@ -19,7 +19,6 @@ export class PostController {
         try {
             const userId = req.body.user.id;
             const pageStr = getQueryString(req.query, "page");
-            console.log("getUserPosts c pageStr:", pageStr);
             const LIMIT = 6;
             let pageNumb = 1;
             if (pageStr) {

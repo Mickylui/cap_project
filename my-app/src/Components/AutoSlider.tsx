@@ -49,7 +49,7 @@ export function Slideshow() {
     const timeoutRef: any = React.useRef(null);
     const productList = useSelector((state: RootState) => state.product.list);
 
-    console.log("productList:", productList);
+    // console.log("productList:", productList);
 
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 

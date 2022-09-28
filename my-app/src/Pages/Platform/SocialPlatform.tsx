@@ -47,6 +47,7 @@ function SocialPlatform() {
     const [searchTag, setSearchTag] = useState("");
     const [searchContent, setSearchContent] = useState("");
 
+    console.log("adminList:", adminList);
     useEffect(() => {
         dispatch(getUserPostFetch({ init: true }));
         dispatch(getAdminPostFetch());
@@ -67,6 +68,7 @@ function SocialPlatform() {
     );
 
     useEffect(() => {
+        // if not searching
         if (searchList.length <= 0) {
             window.removeEventListener("scroll", handleScroll);
             window.addEventListener("scroll", handleScroll);
@@ -263,7 +265,7 @@ function SocialPlatform() {
                                                     />
                                                 ) : (
                                                     <Avatar
-                                                        src={"https://i.pravatar.cc/1000/1000"}
+                                                        src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
                                                         size="md"
                                                         name={`${postItem.account_name}`}
                                                         ml={-1}
@@ -274,16 +276,14 @@ function SocialPlatform() {
                                             <h1>{postItem.account_name}</h1>
                                         </div>
                                         <div className="like_button_container">
-                                        <div className="like-button">
-                                            {postItem.is_liked_by_user.includes(true) ? (
-                                                <FaHeart color="red" />
-                                            ) : (
-                                                <FcLikePlaceholder />
-                                            )}
-                                             <div className="like-count">
-                                            {postItem.count}
+                                            <div className="like-button">
+                                                {postItem.is_liked_by_user.includes(true) ? (
+                                                    <FaHeart color="red" />
+                                                ) : (
+                                                    <FcLikePlaceholder />
+                                                )}
+                                                <div className="like-count">{postItem.count}</div>
                                             </div>
-                                        </div>
                                         </div>
                                     </Tag>
                                 </>
@@ -365,7 +365,7 @@ function SocialPlatform() {
                                                 />
                                             ) : (
                                                 <Avatar
-                                                    src={"https://i.pravatar.cc/1000/1000"}
+                                                    src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
                                                     size="md"
                                                     name={`${postItem.account_name}`}
                                                     ml={-1}
@@ -375,16 +375,14 @@ function SocialPlatform() {
                                         </RouteLink>
                                         <h1>{postItem.account_name}</h1>
                                         <div className="like_button_container">
-                                        <div className="like-button">
-                                            {postItem.is_liked_by_user.includes(true) ? (
-                                                <FaHeart color="red" />
-                                            ) : (
-                                                <FcLikePlaceholder />
-                                            )}
-                                            <div className="like-count">
-                                            {postItem.count}
+                                            <div className="like-button">
+                                                {postItem.is_liked_by_user.includes(true) ? (
+                                                    <FaHeart color="red" />
+                                                ) : (
+                                                    <FcLikePlaceholder />
+                                                )}
+                                                <div className="like-count">{postItem.count}</div>
                                             </div>
-                                        </div>
                                         </div>
                                     </Tag>
                                 </>
@@ -457,7 +455,7 @@ function SocialPlatform() {
                                             />
                                         ) : (
                                             <Avatar
-                                                src={"https://i.pravatar.cc/1000/1000"}
+                                                src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
                                                 size="md"
                                                 name={`${postItem.account_name}`}
                                                 ml={-1}
@@ -471,11 +469,10 @@ function SocialPlatform() {
                                             {postItem.is_liked_by_user.includes(true) ? (
                                                 <FaHeart color="red" />
                                             ) : (
-                                                <FcLikePlaceholder  />
+                                                <FcLikePlaceholder />
                                             )}
-                                           
+
                                             <div className="like-count">{postItem.count}</div>
-                                           
                                         </div>
                                     </div>
                                 </Tag>

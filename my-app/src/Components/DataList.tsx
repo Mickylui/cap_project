@@ -33,7 +33,7 @@ export default function DataList(props) {
 
     const pagination = paginationFactory({
         page: 1,
-        sizePerPage: 5,
+        sizePerPage: 15,
         lastPageText: ">>",
         firstPageText: "<<",
         nextPageText: ">",

@@ -2,7 +2,6 @@ import { Button, Divider, Icon, Stack, HStack, Input, useNumberInput } from "@ch
 import { useEffect, useState } from "react";
 import "../../Components/css/productDetail.scss";
 import { BackButton } from "../../Components/BackButton";
-import { FcLikePlaceholder } from "react-icons/fc";
 import { Slideshow } from "../../Components/AutoSlider";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux/store";
@@ -11,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { addToCartFetch, getProductDetailByProductIdFetch } from "../../Api/productFetch";
 import Swal from "sweetalert2";
 
+const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 export function ProductDetail() {
     const productDetail = useSelector((state: RootState) => state.product.productDetail);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
@@ -55,21 +55,14 @@ export function ProductDetail() {
                             <BackButton />
                         </div>
 
-                        <div className="productImage-box" >
+                        <div className="productImage-box">
                             <img
                                 className="productImage"
-                                src={`${process.env.REACT_APP_IMAGE_URL}/${productDetail.image}`}
+                                src={`${DEVELOP_IMAGE_URL}/products/${productDetail.image}`}
                                 alt="skateBoard-product"
                             />
                         </div>
-                        <div className="like-box">
-                            <Icon
-                                className="like"
-                                as={FcLikePlaceholder}
-                                fontSize={{ md: "2rem" }}
-                            />
-                            <div className="product-like">190</div>
-                        </div>
+                        
                     </div>
                     <div className={"right-information-box"}>
                         <div className="product-subtitle product-title-box">
@@ -136,20 +129,22 @@ export function ProductDetail() {
                                     <Button {...getDecrementButtonProps()}>-</Button>
                                     <Input {...getInputProps()} name={"qty"} disabled />
                                     <Button {...getIncrementButtonProps()}>+</Button>
-                                    <Button 
-                                    type="submit"
-                                    onClick={() => 
-                                        Swal.fire({
-                                            title: "Thank You",
-                                            text: "Item added to cart",
-                                            showClass: {
-                                                popup: "animate__animated animate__fadeInDown",
-                                            },
-                                            hideClass: {
-                                                popup: "animate__animated animate__fadeOutUp",
-                                            },
-                                        })}
-                                    >Add to Cart
+                                    <Button
+                                        type="submit"
+                                        onClick={() =>
+                                            Swal.fire({
+                                                title: "Thank You",
+                                                text: "Item added to cart",
+                                                showClass: {
+                                                    popup: "animate__animated animate__fadeInDown",
+                                                },
+                                                hideClass: {
+                                                    popup: "animate__animated animate__fadeOutUp",
+                                                },
+                                            })
+                                        }
+                                    >
+                                        Add to Cart
                                     </Button>
                                 </HStack>
                             </div>

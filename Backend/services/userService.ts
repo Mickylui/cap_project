@@ -68,6 +68,7 @@ export class UserService {
                 posts.is_delete,
                 posts.user_id,
                 users.account_name,
+                json_agg(DISTINCT users.icon) icon,
                 json_agg(DISTINCT post_images.image) image,
                 json_agg(DISTINCT tags.tag) tag,
                 COUNT(DISTINCT post_likes.id)

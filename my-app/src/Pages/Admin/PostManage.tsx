@@ -44,49 +44,40 @@ function PostMange() {
                 {postData.map((postItem) => (
                     <div key={`postItem_${postItem.id}`} className={"post-item"}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
-                            {postItem.image[0] !== null ? (
-                                <>
-                                    <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
+                            <>
+                                <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
+                                    {postItem.image[0] !== null ? (
                                         <Image
                                             src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
                                             alt={`image of postId:${postItem.id}`}
                                             // border="1px"
                                             // borderRadius="lg"
                                         />
-                                    </RouteLink>
-                                    <Box p="6">
-                                        <Box
-                                            // mt="1"
-                                            className="title"
-                                            fontWeight="semibold"
-                                            fontSize={"2em"}
-                                            as="h4"
-                                            lineHeight="tight"
-                                            // noOfLines={1}
-                                            backgroundColor={"white"}
-                                        >
-                                            {postItem.title}
-                                        </Box>
-                                    </Box>
-                                </>
-                            ) : (
-                                <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
-                                    <Box p="6">
-                                        <Box
-                                            // mt="1"
-                                            className="title"
-                                            fontWeight="semibold"
-                                            fontSize={"2em"}
-                                            as="h4"
-                                            lineHeight="tight"
-                                            // noOfLines={1}
-                                            backgroundColor={"white"}
-                                        >
-                                            {postItem.title}
-                                        </Box>
-                                    </Box>
+                                    ) : (
+                                        <Image
+                                            src={"https://random.imagecdn.app/1000/1000"}
+                                            alt={`image of postId:${postItem.id}`}
+                                            // border="1px"
+                                            // borderRadius="lg"
+                                        />
+                                    )}
                                 </RouteLink>
-                            )}
+                                <Box p="6">
+                                    <Box
+                                        // mt="1"
+                                        className="title"
+                                        fontWeight="semibold"
+                                        fontSize={"2em"}
+                                        as="h4"
+                                        lineHeight="tight"
+                                        // noOfLines={1}
+                                        backgroundColor={"white"}
+                                    >
+                                        {postItem.title}
+                                    </Box>
+                                </Box>
+                            </>
+
                             <Box>
                                 {postItem.tag.map((item) => (
                                     <Tag

@@ -43,7 +43,8 @@ export function Products() {
                     display={"flex"}
                     // flexWrap={"wrap"}
                 >
-                                       
+                    {/* <Image src={product.imageUrl} alt={product.imageAlt} width={"100%"}/> */}
+                    
                     <RouteLink to={`/productDetail/${product.id}`} replace={true}>
                             <Center >
                                 <Image 
