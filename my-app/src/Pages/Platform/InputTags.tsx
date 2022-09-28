@@ -30,7 +30,7 @@ export function InsertTags(props) {
     // console.log("setTag:",setTags)
     function handleKeyDown(e) {
         if (e.key !== "Enter") return;
-        const value: string = e.target.value.toLowerCase().replace(/ /g, "");
+        const value: string = e.target.value.toLowerCase();
         // console.log("this is value :", value);
         if (!value.trim()) return;
         const existValue = tags.filter((tag: string) => tag.trim() === value.trim());
@@ -38,16 +38,18 @@ export function InsertTags(props) {
         if (existValue.length > 0) return;
         setTags([...tags, value]);
         console.log("this is e.target.value1 :", e.target.value);
-        e.target.value = "";
+   
         console.log("this is e.target.value2 :", e.target.value);
     }
 
     function handleSelect(e) {
         // console.log("this is value :", e.target.innerHTML);
+        console.log("check event",e)
         let value = e.target.innerHTML;
         setTags([...tags, value]);
-        // console.log("this is value1 :", value);
+        console.log("this is value1 :", value);
         value = "";
+        e.target.innerHTML = "";
         // console.log("this is value2 :", value);
     }
 
@@ -89,7 +91,7 @@ export function InsertTags(props) {
                     // onSuggestionSelected={handleSelect}
                     getSuggestionValue={(suggestion) => suggestion}
                     renderSuggestion={(suggestion) => (
-                        <div className="tag-item" onClick={handleSelect}>
+                        <div className="tag-item" onClick={async(e)=>{await handleSelect(e); setValue("")}}>
                             <span className="text" >{suggestion}</span>
                         </div>
                     )}
@@ -97,6 +99,7 @@ export function InsertTags(props) {
                         value: value,
                         onChange: (_, { newValue, method }) => {
                             setValue(newValue);
+                            console.log("check value",newValue)
                         },
                         onKeyDown: handleKeyDown,
                         placeholder: " type something",

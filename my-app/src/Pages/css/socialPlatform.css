@@ -71,10 +71,27 @@
     display: flex;
     font-size:50px;
     position: relative;
+    justify-content: center;
+    align-items: center;
 }
 
 .title {
     height: max-content;
     text-align: center;
+}
+
+.user_container{
+    flex: display;
+    justify-content: flex-start;
+}
+
+.like-count{
+    font-size: 17px;
+    position: absolute;
+    top: 15px;
+    bottom: auto;
+    margin: auto;
+    left: 0;
+    right: 0;
 }
 
