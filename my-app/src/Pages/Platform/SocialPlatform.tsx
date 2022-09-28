@@ -118,7 +118,7 @@ function SocialPlatform() {
                         </Tag>
                         <h1>,the result is below:</h1>
                     </HStack>
-                    <RouteLink to="/platform/form" replace>
+                    <RouteLink to="/platform/form">
                         <Button size="md" bgColor={buttonColor} marginBottom={"20px"}>
                             <FaPlusCircle />
                         </Button>
@@ -198,7 +198,7 @@ function SocialPlatform() {
                         <div key={`postItem_${postItem.id}`} className={"post-item"}>
                             <Box maxW="sm" borderRadius="lg">
                                 <>
-                                    <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
+                                    <RouteLink to={`/postDetail/${postItem.id}`}>
                                         {postItem.image[0] !== null ? (
                                             <Image
                                                 src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
@@ -253,7 +253,7 @@ function SocialPlatform() {
                                         <div className="user_container">
                                             <RouteLink
                                                 to={`/user/${postItem.user_id}`}
-                                                replace={true}
+                                            
                                             >
                                                 {postItem.is_ordinary ? (
                                                     <Avatar
@@ -300,7 +300,7 @@ function SocialPlatform() {
                         <div key={`postItem_${postItem.id}`} className={"post-item"}>
                             <Box maxW="sm" borderRadius="lg">
                                 <>
-                                    <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
+                                    <RouteLink to={`/postDetail/${postItem.id}`}>
                                         {postItem.image[0] !== null ? (
                                             <div className="post_image_container">
                                                 <Image
@@ -354,7 +354,7 @@ function SocialPlatform() {
                                         borderRadius="full"
                                         className="user-profile"
                                     >
-                                        <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
+                                        <RouteLink to={`/user/${postItem.user_id}`}>
                                             {postItem.is_ordinary ? (
                                                 <Avatar
                                                     backgroundColor={"black"}
@@ -398,7 +398,7 @@ function SocialPlatform() {
                     {userList.map((postItem, index) => (
                         <div key={`postItem_${postItem.id}`} className={"post-item"}>
                             <Box maxW="sm" borderRadius="lg">
-                                <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
+                                <RouteLink to={`/postDetail/${postItem.id}`}>
                                     {postItem.image[0] !== null ? (
                                         <Image
                                             src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
@@ -444,7 +444,7 @@ function SocialPlatform() {
                                     borderRadius="full"
                                     className="user-profile"
                                 >
-                                    <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
+                                    <RouteLink to={`/user/${postItem.user_id}`}>
                                         {postItem.is_ordinary ? (
                                             <Avatar
                                                 backgroundColor={"black"}
