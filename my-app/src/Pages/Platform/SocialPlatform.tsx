@@ -103,10 +103,10 @@ function SocialPlatform() {
 
     return (
         // postList.is_ordinary === true -> admin post
-        <div className={style.background}>
+        <div className={style.background} >
             {searchTag.length > 0 ? (
-                <div>
-                    <HStack spacing={4} className={style.button_area} margin={"20px"}>
+                <div >
+                    <HStack spacing={4} className={style.button_area} margin={"40px"}>
                         <h1>You are searching</h1>
                         <Tag borderRadius="full" variant="solid" backgroundColor={buttonColor}>
                             <TagLabel>{searchTag}</TagLabel>
@@ -127,7 +127,7 @@ function SocialPlatform() {
                     </RouteLink>
                 </div>
             ) : (
-                <form
+                <form 
                     onSubmit={async (e) => {
                         e.preventDefault();
                         const form = e.target;
@@ -141,7 +141,7 @@ function SocialPlatform() {
                         }
                     }}
                 >
-                    <div className={style.button_area}>
+                    <div className={style.button_area} style={{width: '600px'}}>
                         <Input
                             size="lg"
                             htmlSize={70}
@@ -188,14 +188,17 @@ function SocialPlatform() {
                         variant="solid"
                         backgroundColor={buttonColor}
                         width={"fit-content"}
-                        height={50}
-                        margin={10}
+                        height={'40px'}
+                        
+                        margin={'5px'}
                         fontSize={20}
                         className={style.tags}
+                        
                     >
                         <TagLabel
                             onClick={() => setSearchTag(suggestedTag.tag)}
                             width={"fit-content"}
+                            
                         >
                             #{suggestedTag.tag}
                         </TagLabel>
