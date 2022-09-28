@@ -1,6 +1,6 @@
-* {
+/* * {
     border: solid 2px black;
-}
+} */
 .user-profile-container {
     display: flex;
     flex-direction: column;
@@ -11,7 +11,7 @@
     display: flex;
     justify-content: space-around;
     width: 30%;
-       
+    
     
 }
 .user-nav button{
@@ -33,6 +33,7 @@
     width: 100%;
     flex-wrap: wrap;
     justify-content: center;
+    
 }
 .user-point-container {
     position: absolute;
@@ -44,4 +45,5 @@
 }
 .report-container {
     margin-left: 800px;
+   
 }

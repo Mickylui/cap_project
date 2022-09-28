@@ -25,7 +25,7 @@ function UserPost(props) {
     return (
         // postList.is_ordinary === true -> admin post
         <div >
-            <Flex style={{ justifyItems:"center", width:"fit-content", margin:"2rem"}}>
+            <Flex style={{ justifyContent:'center',flexWrap:'wrap',width:"fit-content", margin:"2rem"}}>
                 {postData.map((postItem) => (
                     <div key={`postItem_${postItem.id}`} className={"post-item"}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">

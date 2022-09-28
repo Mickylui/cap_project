@@ -2,9 +2,7 @@
     border: solid 1px black;
 }
 
-.background{
-   
-}
+
 
 .button-area {
     display: flex;
@@ -28,12 +26,13 @@
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
-    
+    margin: 30px;
     align-items: center;
     justify-content: center;
-    width:600px;
-    height:700px;
+    width:450px;
+    height:650px;
     padding:0;
+    
 }
 
 
