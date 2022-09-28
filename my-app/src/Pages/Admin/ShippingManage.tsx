@@ -125,7 +125,7 @@ export function ShippingManage() {
                                         </Box>
                                     </WrapItem>
                                     <WrapItem>
-                                        <Box bg="white" borderRadius="lg">
+                                        <Box bg="white" borderRadius="lg" >
                                             <Box m={8} color="#0B0E3F">
                                                 <VStack spacing={5}>
                                                     <Box
@@ -206,7 +206,9 @@ export function ShippingManage() {
                                 </Wrap>
                             </Box>
                         </Box>
-                        <DataList setOrderId={setOrderId} />
+                        <Box >
+                        <DataList setOrderId={setOrderId}  />
+                        </Box>
                     </Flex>
                 </Container>
             </div>
