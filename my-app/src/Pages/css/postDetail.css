@@ -1,8 +1,15 @@
-@import "~react-image-gallery/styles/css/image-gallery.css";
+@import '~react-image-gallery/styles/css/image-gallery.css';
 
+.image-gallery-box{
+    margin-top: auto;
+    margin-bottom: auto;    
+}
 .image-gallery {
-    width: 50%;
-    height: auto;
+    max-width: 600px;
+    max-height: 600px;
+    width: 600px;
+    height: 600px;
+    overflow: hidden;
 }
 
 .image-gallery-slide img {
@@ -13,7 +20,60 @@
     overflow: hidden;
     object-position: center center;
 }
-
+.post_detail_back_button {
+    position: absolute;
+    top: 20px;
+}
+.post_detail_description {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+        sans-serif;
+    font-size: 1.5rem;
+}
+.post_detail_event_info_container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: fit-content;
+}
+.post_detail_event_info {
+    width: 100%;
+    text-align: start;
+}
+.post_detail_event_info > .event_post_title {
+    background-color: rgb(255, 126, 195);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+.post_detail_event {
+    font-weight: 400;
+}
 .fullscreen .image-gallery-slide img {
     max-height: 100vh;
+}
+.post_detail_user_info{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.post_detail_like_count{
+    font-size: 17px;
+    position: absolute;
+    top: 18px;
+    bottom: auto;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+.post_detail_like_button {
+    display: flex;
+    font-size:50px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+.post_detail_like_button_container {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
 }

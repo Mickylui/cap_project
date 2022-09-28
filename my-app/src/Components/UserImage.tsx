@@ -75,9 +75,6 @@ function UserImage() {
                             <Stat>
                                 <StatLabel fontSize={"20px"}>Point</StatLabel>
                                 <StatNumber>{userData.accumulation}</StatNumber>
-                                <StatHelpText>
-                                    <StatHelpText>{userData.date}</StatHelpText>
-                                </StatHelpText>
                             </Stat>
                         </StatGroup>
                     </Box>

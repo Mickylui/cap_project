@@ -1,4 +1,4 @@
-import { Box, Tag, Avatar, TagLabel, HStack } from "@chakra-ui/react";
+import { Box, Tag, Avatar, TagLabel, HStack, Text, Flex } from "@chakra-ui/react";
 import { useEffect, useMemo, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BackButton } from "../../Components/BackButton";
 import { useParams } from "react-router-dom";
 
-const buttonColor = "rgb(190,162,120)";
+const buttonColor = "rgb(255,20,147)";
 const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 const DEVELOP_HOST = process.env.REACT_APP_API_URL;
 
@@ -66,15 +66,23 @@ function PostDetail() {
         setLike(like - 1);
     };
 
-    
     console.log("postDetail.updated_at:", postDetail.updated_at);
 
     return (
         <div>
-            <Box p="2rem" borderWidth="1px" borderRadius="lg" overflow="hidden" m="4rem">
-                <BackButton />
-                <HStack>
-                    <Box className="image-gallery-box">
+            <Box
+                p="2rem"
+                borderWidth="1px"
+                borderRadius="lg"
+                overflow="hidden"
+                m="4rem"
+                position={"relative"}
+            >
+                <div className="post_detail_back_button">
+                    <BackButton />
+                </div>
+                <HStack marginTop={"50px"}>
+                    <Box paddingLeft="200" className="image-gallery-box">
                         <ImageGallery
                             items={images}
                             showBullets={true}
@@ -84,24 +92,50 @@ function PostDetail() {
                             showPlayButton={false}
                         />
                     </Box>
-                    <Box p="6">
-                        <Box mt="1" fontWeight="bold" as="h4" lineHeight="tight" noOfLines={1}>
+                    <Box paddingLeft="100">
+                        <Box
+                            marginBottom={"10px"}
+                            fontWeight="bold"
+                            as="h4"
+                            lineHeight="tight"
+                            fontSize={"70px"}
+                            textAlign={"start"}
+                        >
                             {postDetail.title}
                         </Box>
                         <HStack>
-                            <Box>{new Date(postDetail.updated_at).toString()}</Box>
+                            <Box>{new Date(postDetail.updated_at).toString().substring(0, 25)}</Box>
                         </HStack>
-                        <Box mt="3rem">{postDetail.description}</Box>
+                        <Text
+                            marginTop={"3em"}
+                            textAlign={"start"}
+                            className={"post_detail_description"}
+                        >
+                            {postDetail.description}
+                        </Text>
                         {postDetail.is_event ? (
-                            <>
-                                <Box mt="3rem">Location: {postDetail.event_location}</Box>
-                                <Box mt="1rem">Time: {postDetail.event_time}</Box>
-                                <Box mt="1rem">contact: {postDetail.contact}</Box>
-                            </>
+                            <div className="post_detail_event_info_container">
+                                <Box mt="1rem" className="post_detail_event_info">
+                                    <span className="event_post_title">Location:</span>{" "}
+                                    <span className="post_detail_event">
+                                        {postDetail.event_location}
+                                    </span>
+                                </Box>
+                                <Box mt="1rem" className="post_detail_event_info">
+                                    <span className="event_post_title">Time:</span>{" "}
+                                    <span className="post_detail_event">
+                                        {postDetail.event_time}
+                                    </span>
+                                </Box>
+                                <Box mt="1rem" className="post_detail_event_info">
+                                    <span className="event_post_title">contact:</span>{" "}
+                                    <span className="post_detail_event">{postDetail.contact}</span>
+                                </Box>
+                            </div>
                         ) : (
                             <></>
                         )}
-                        <Box m="2rem">
+                        <Flex marginTop="2rem" justifyContent={"left"}>
                             {postDetail.tag.map((tagItem) => (
                                 <Tag
                                     key={`${tagItem}`}
@@ -112,9 +146,14 @@ function PostDetail() {
                                     {tagItem}
                                 </Tag>
                             ))}
-                        </Box>
+                        </Flex>
 
-                        <Tag size="lg" colorScheme="none" borderRadius="full">
+                        <Tag
+                            className="post_detail_user_info"
+                            size="lg"
+                            colorScheme="none"
+                            borderRadius="full"
+                        >
                             {postDetail.is_ordinary ? (
                                 <Avatar
                                     backgroundColor={"black"}
@@ -132,13 +171,17 @@ function PostDetail() {
                                     mr={2}
                                 />
                             )}
-                            <TagLabel>{postDetail.account_name}</TagLabel>{" "}
-                            {postDetail.is_liked_by_user.includes(true) ? (
-                                <FaHeart color="red" onClick={() => handleDislike()} />
-                            ) : (
-                                <FcLikePlaceholder onClick={() => handleLike()} />
-                            )}
-                            {postDetail.count}
+                            <TagLabel>{postDetail.account_name}</TagLabel>
+                            <Flex flex={"1"} justifyContent={"flex-end"} className="post_detail_like_button_container">
+                                <div className={"post_detail_like_button"}>
+                                    {postDetail.is_liked_by_user.includes(true) ? (
+                                        <FaHeart color="red" onClick={() => handleDislike()} />
+                                    ) : (
+                                        <FcLikePlaceholder onClick={() => handleLike()} />
+                                    )}
+                                    <div className={"post_detail_like_count"}>{postDetail.count}</div>
+                                </div>
+                            </Flex>
                         </Tag>
                     </Box>
                 </HStack>
