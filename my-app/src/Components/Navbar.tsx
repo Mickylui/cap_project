@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
 import { UserLoggedInNav } from "./LoggedInNav";
 import "../Components/css/navbar.css";
+import { useMemo, useState } from "react";
 
 // default: didn't logIn -> pure component
 // login with user -> user navbar
@@ -28,7 +29,7 @@ import "../Components/css/navbar.css";
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
     let isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
-
+    const [location, setLocation] = useState<String>();
 
     return (
         <Box>
@@ -68,7 +69,7 @@ export default function Navbar() {
                         <Image src="../Logo.png" alt="SkateBoardLogo" />
                     </Box>
 
-                    <Flex marginLeft={"auto"}>
+                    <Flex marginRight={"auto"}>
                         <DesktopNav />
                     </Flex>
                     {isLoggedIn ? (
@@ -123,12 +124,11 @@ const DesktopNav = () => {
         >
             {/* Routes */}
             {NAV_ITEMS.map((navItem) => (
-                <Box key={navItem.label} >
+                <Box key={navItem.label}>
                     <Popover trigger={"hover"} placement={"bottom-end"}>
                         <PopoverTrigger>
                             <Box
                                 display={"flex"}
-                                
                                 as={RouteLink}
                                 to={`${navItem.href}`}
                                 p={5}

@@ -8,69 +8,29 @@ export function LandingPage() {
                 <source src="./landingVideo.mp4" type="video/mp4" />
             </video>
 
-            <div className="features" style={{ marginTop: "55px" }}>
-                <div className="feature">
-                    <i className="fa-solid fa-money-check-dollar" style={{ fontSize: "90px" }}></i>
-                    <span className="featureTitle">FREE SHIPPING</span>
-                    <span className="featureDesc">Free worldwide shipping on all orders.</span>
-                </div>
+            <div className="landing_features" style={{ marginTop: "55px" }}>
                 <div className="feature">
                     <i className="fa-solid fa-trophy" style={{ fontSize: "90px" }}></i>
-                    <span className="featureTitle">30 DAYS RETURN</span>
+                    <span className="featureTitle">HIGH QUALITY</span>
+                    <span className="featureDesc">We provide ONLY high quality skateboard.</span>
+                </div>
+                <div className="feature">
+                    <i className="fa-solid fa-money-check-dollar" style={{ fontSize: "90px" }}></i>
+                    <span className="featureTitle">REWARD</span>
                     <span className="featureDesc">
-                        No question return and easy refund in 14 days.
+                        To promote skateboard culture, we offer reward for our friends and
+                        customers.
                     </span>
                 </div>
                 <div className="feature">
                     <i className="fa-solid fa-truck-fast" style={{ fontSize: "90px" }}></i>
-                    <span className="featureTitle">GIFT CARDS</span>
-                    <span className="featureDesc">Buy gift cards and use coupon codes easily.</span>
+                    <span className="featureTitle">FREE SHIPPING</span>
+                    <span className="featureDesc">Fast shipping on all orders.</span>
                 </div>
             </div>
 
             <div className="product" id="product">
                 <Slideshow />
-                {/* <img src="./skateBoardLogo.png" alt="" className="productImg" />
-                <div className="productDetails">
-                    <h1 className="productTitle">PAIR SKATEBOARD</h1>
-                    <h2 className="productPrice">$199</h2>
-                    <p className="productDesc">
-                        Lorem ipsum dolor sit amet consectetur impal adipisicing elit. Alias
-                        assumenda dolorum doloremque sapiente aliquid aperiam.
-                    </p>
-                    <div className="colors">
-                        <div className="color"></div>
-                        <div className="color"></div>
-                    </div>
-                    <div className="sizes">
-                        <div className="size">42</div>
-                        <div className="size">43</div>
-                        <div className="size">44</div>
-                    </div>
-                    <button className="productButton">BUY NOW!</button>
-                </div> */}
-                {/* <div className="payment">
-                    <h1 className="payTitle">Personal Information</h1>
-                    <label>Name and Surname</label>
-                    <input type="text" placeholder="John Doe" className="payInput" />
-                    <label>Phone Number</label>
-                    <input type="text" placeholder="+1 234 5678" className="payInput" />
-                    <label>Address</label>
-                    <input type="text" placeholder="Elton St 21 22-145" className="payInput" />
-                    <h1 className="payTitle">Card Information</h1>
-                    <div className="cardIcons">
-                        <img src="./img/visa.png" width="40" alt="" className="cardIcon" />
-                        <img src="./img/master.png" alt="" width="40" className="cardIcon" />
-                    </div>
-                    <input type="password" className="payInput" placeholder="Card Number" />
-                    <div className="cardInfo">
-                        <input type="text" placeholder="mm" className="payInput sm" />
-                        <input type="text" placeholder="yyyy" className="payInput sm" />
-                        <input type="text" placeholder="cvv" className="payInput sm" />
-                    </div>
-                    <button className="payButton">Checkout!</button>
-                    <span className="close">X</span>
-                </div> */}
             </div>
             <div className="gallery">
                 <h1 className="galleryTitle">Join Us</h1>

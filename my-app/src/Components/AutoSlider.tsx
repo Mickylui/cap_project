@@ -9,7 +9,6 @@ import "./css/autoSlider.css";
 
 const colors = ["#0088FE", "#00C49F", "#FFBB28"];
 const delay = 5000;
-
 const productItem = [
     {
         id: 1,
@@ -85,14 +84,15 @@ export function Slideshow() {
                         className="slide"
                         key={product.id}
                         align={"center"}
-                        justify={"center"}
+                        justify={"space-around"}
                         height={{ ml: "50em" }}
                     >
-                        <WrapItem className="imageTitle" paddingRight={{ md: "10em" }}>
+                        <WrapItem className="autoSlider_imageTitle">
                             <Image
                                 src={`${DEVELOP_IMAGE_URL}/products/${product.image}`}
                                 alt={product.name}
-                                width={"50em"}
+                                width={"30em"}
+                                className="autoSlider_image"
                             />
                         </WrapItem>
                         <WrapItem
@@ -105,20 +105,20 @@ export function Slideshow() {
                                 className="productTitle"
                                 width={"100%"}
                                 textAlign={"start"}
-                                marginTop={"2em"}
                                 w="30"
+                                marginRight={"20px"}
                             >
                                 {product.name}
                             </Box>
                             <Box className="productPrice" width={"100%"} textAlign={"start"}>
                                 {product.unit_price}
                             </Box>
-                            <Stack className="productIntro" width={{ md: "30vw" }}>
+                            <Stack className="productIntro" width={{md: "30vw" }}>
                                 <Text
                                     noOfLines={[4, 7, 9]}
                                     textAlign={"start"}
-                                    width={{ ml: "40rem" }}
-                                    height={"15em"}
+                                    width={{ml: "40rem" }}
+                                    height={"max-content"}
                                     whiteSpace={"break-spaces"}
                                     marginTop={"20px"}
                                     marginBottom={"20px"}
@@ -126,10 +126,8 @@ export function Slideshow() {
                                     {product.description}
                                 </Text>
                             </Stack>
-                            <Box className="productPrice" width={{ ml: "40rem" }}>
-                                <RouteLink
-                                    to={`/products/productDetail/${product.id}`}
-                                >
+                            <Box className="productBuyButton" width={{ ml: "40rem" }}>
+                                <RouteLink to={`/products/productDetail/${product.id}`}>
                                     <Button className="productButton" backgroundColor={"black"}>
                                         BUY NOW!
                                     </Button>
@@ -141,7 +139,7 @@ export function Slideshow() {
             </Box>
 
             <Box className="slideshowDots">
-                {colors.map((_, idx) => (
+                {productList.map((_, idx) => (
                     <div
                         key={idx}
                         className={`slideshowDot${index === idx ? " active" : ""}`}

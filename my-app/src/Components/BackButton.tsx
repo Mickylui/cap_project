@@ -10,7 +10,8 @@ export function BackButton({ back }: Props) {
     const navigate = useNavigate();
 
     return (
-        <Button onClick={()=> back ? back() : navigate(-1)}>
+     
+        <Button onClick={()=> back ? back() : navigate(-1)} backgroundColor={"rgb(210,210,210)"}>
             <ArrowBackIcon />
         </Button>
     );

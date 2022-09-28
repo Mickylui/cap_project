@@ -24,7 +24,7 @@ import { AppDispatch, RootState } from "../Redux/store";
 import { BackButton } from "./BackButton";
 import Swal from "sweetalert2";
 import { getCartFetch } from "../Api/productFetch";
-import "./css/login.css"
+import "./css/login.css";
 
 export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
@@ -96,11 +96,12 @@ export default function LogInCard() {
             minH={"100vh"}
             align={"center"}
             justify={"center"}
+            position={"relative"}
             bg={"#F5F5F5"}
-
         >
-
-            <BackButton />
+            <div className="log_in_back_button">
+                <BackButton />
+            </div>
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6} className={"abc"}>
                 <Stack align={"center"}>
                     <Heading fontSize={"4xl"} textAlign={"center"} color={"black"}>
