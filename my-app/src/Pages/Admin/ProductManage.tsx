@@ -28,19 +28,21 @@ export function ProductManage() {
                     justifyContent: "center",
                     marginTop: "20px",
                     marginBottom: "20px",
+                    
                 }}
             >
                 {productList.map((product) => (
                     <Box
                         key={product.id}
                         // maxW="sm"
-                        width={"50em"}
+                        width={"500px"}
                         borderWidth="1px"
                         borderRadius="lg"
                         overflow="hidden"
                         style={{ margin: "10px" }}
                         display={"flex"}
                         flexWrap={"wrap"}
+                        background='#DBDBDB'
                     >
                         {/* <Image src={product.imageUrl} alt={product.imageAlt} width={"100%"}/> */}
 
@@ -50,10 +52,13 @@ export function ProductManage() {
                             justifyContent={"center"}
                             flexWrap={"wrap"}
                             width={"100%"}
+                            
+                           
                         >
                             <RouteLink to={`/admin/productDetail/${product.id}`}>
                                 <Image
                                     src={`${DEVELOP_IMAGE_URL}/products/${product.image}`}
+                                    margin='0 auto 0 auto'
                                     // src="./SkateBoardLogo.png"
                                 />
                                 <Box
@@ -64,12 +69,14 @@ export function ProductManage() {
                                     noOfLines={1}
                                     fontSize={{ md: "2rem" }}
                                     width={"100%"}
+                                    marginBottom='20px'
+                                    
                                 >
                                     {product.name}
                                 </Box>
 
                                 <VStack>
-                                    <Box fontSize={{ md: "2rem" }}>
+                                    <Box fontSize={{ md: "1.3rem" }}>
                                         Description: {product.description}
                                     </Box>
                                     <Box fontSize={{ md: "2rem" }}>
