@@ -135,7 +135,7 @@ export function ShippingManage() {
                                                         justifyContent={"space-between"}
                                                     >
                                                         <Heading>Items List</Heading>
-                                                        <CheckIcon
+                                                        <Button
                                                             id={orderDetail.order_id}
                                                             onClick={async (e) => {
                                                                 const orderId = e.target.id;
@@ -160,8 +160,10 @@ export function ShippingManage() {
                                                                     );
                                                                 }
                                                             }}
-                                                        />
-                                                        <MdOutlineCancel
+                                                        >
+                                                            <CheckIcon />
+                                                        </Button>
+                                                        <Button
                                                             id={orderDetail.order_id}
                                                             onClick={async (e) => {
                                                                 const orderId = e.target.id;
@@ -187,7 +189,9 @@ export function ShippingManage() {
                                                                     );
                                                                 }
                                                             }}
-                                                        />
+                                                        >
+                                                            <MdOutlineCancel />
+                                                        </Button>
                                                     </Box>
                                                     {/* need table!! */}
                                                     <table>
