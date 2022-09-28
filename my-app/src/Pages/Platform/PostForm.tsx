@@ -48,7 +48,7 @@ function PostForm() {
     return (
         <div>
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-                <Box rounded={"lg"} boxShadow={"lg"} padding={20} background={'#d0d0d0'} width={'500px'} >
+                <Box rounded={"lg"} boxShadow={"lg"} padding={'40px'} background={'#d0d0d0'} width={'450px'} >
                     <BackButton />
                     <form
                         onKeyPress={(e) => {
@@ -286,3 +286,4 @@ function PostForm() {
 }
 
 export default PostForm;
+// b
