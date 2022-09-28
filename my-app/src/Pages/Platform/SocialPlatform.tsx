@@ -298,6 +298,7 @@ function SocialPlatform() {
                 <></>
             )}
             {adminList.length > 0 ? (
+                <div>
                 <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
                     {adminList.map((postItem) => (
                         <div key={`postItem_${postItem.id}`} className={style.post_item}>
@@ -312,8 +313,7 @@ function SocialPlatform() {
                                                     border="1px"
                                                     borderRadius="lg"
                                                     className={style.post_image} 
-                                                    maxWidth={"400px"}
-                                                    maxHeight={"400px"}
+                                                 
                                                 />
                                             </div>
                                         ) : (
@@ -395,6 +395,7 @@ function SocialPlatform() {
                         </div>
                     ))}
                 </SimpleGrid>
+                </div>
             ) : (
                 <></>
             )}

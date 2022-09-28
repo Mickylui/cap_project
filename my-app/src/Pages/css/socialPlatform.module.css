@@ -27,26 +27,27 @@
     /* border: solid 2px gray; */
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    display: flex;
-    
+    display: flex;  
     align-items: center;
     justify-content: center;
-    width:600px;
+    width:500px;
     height:700px;
     padding:0;
 }
 
 .post_image_container{
-max-width: 400px;
-max-height: 400px;
+   max-width: 400px;
+   max-height: 400px;
    padding:0px;
    width:400px;
    height:400;
-   margin-bottom: 20px;
+   /* margin-bottom: 20px; */
 }
 .post_image{
     object-fit: contain;
     margin: none;
+    max-width:400px;
+    max-height:400px;
 }
 .title{
     margin-top: 60px;
