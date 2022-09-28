@@ -15,7 +15,7 @@ export const getUserPostFetch = createAsyncThunk<ICarriage, any, { rejectValue: 
     "@User/getUserPost" as const,
     async (userId, thunkAPI) => {
         try {
-            console.log("getUserPostFetch!")
+
             const resp = await fetch(`${DEVELOP_HOST}/user/getUserPost/${userId}`)
             const result = await resp.json();
             return result;
@@ -31,7 +31,7 @@ export const getUserLikePostFetch = createAsyncThunk<ICarriage, any, { rejectVal
     "@User/getUserLikePost" as const,
     async (userId, thunkAPI) => {
         try {
-            console.log("getUserLikePost!")
+
             const resp = await fetch(`${DEVELOP_HOST}/user/getUserLikePost/${userId}`)
             const result = await resp.json();
             return result;

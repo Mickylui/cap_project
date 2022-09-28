@@ -56,7 +56,7 @@ export default function Navbar() {
                         aria-label={"Toggle Navigation"}
                     />
                 </Flex>
-                {/* navbar */}
+                
                 <Flex justifyContent={"start"} width={"100%"} h="55px">
                     <Box
                         as={RouteLink}
@@ -120,8 +120,7 @@ const DesktopNav = () => {
         // nav bar width
         <Stack
             direction={"row"}
-            // display={"flex"}
-            // justifyContent={"space-between"}
+           
         >
             {/* Routes */}
             {NAV_ITEMS.map((navItem) => (

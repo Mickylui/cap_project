@@ -47,7 +47,7 @@ export function ProductDetail() {
 
     return (
         <>
-            <Slideshow />
+           
             <Stack>
                 <div className="product-single">
                     <div className={"left-image-like-box"}>

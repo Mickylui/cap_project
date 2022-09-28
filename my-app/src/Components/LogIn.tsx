@@ -97,7 +97,6 @@ export default function LogInCard() {
             align={"center"}
             justify={"center"}
             position={"relative"}
-            // bg={useColorModeValue("gray.50", "gray.800")}
             bg={"#F5F5F5"}
         >
             <div className="log_in_back_button">

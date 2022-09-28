@@ -20,30 +20,14 @@ import {
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../Redux/store";
-import { SmallAddIcon, WarningTwoIcon } from "@chakra-ui/icons";
-import { Link as RouteLink, Outlet, useLocation } from "react-router-dom";
+
 import "./css/userImage.css";
 
-// const data = {
-//     _id: "ats1999",
-//     pic: "https://bit.ly/sage-adebayo",
-//     name: "Jason",
-//     profileTagLine: "Fullstack",
-//     location: "Tsuen Wan",
-//     bio: "I Love basketball, skateboard and swimming",
-//     skills: ["nodejs", "reactjs", "java", "c++"],
-//     socialProfiles: {
-//         Linkedin: "https://www.linkedin.com/in/rahul-kumar-36b05a189",
-//         Github: "https://github.com/ats1999",
-//         Website: "https://dsabyte.com",
-//     },
-// };
 const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 function UserImage() {
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const combineUserData = useSelector((state: RootState) => state.account.combineUserData);
-    console.log("combineUserData", combineUserData);
-    console.log("accu", combineUserData[0].accumulation);
+
     const userData = combineUserData[0];
     if (isAdmin) {
         return (
@@ -58,17 +42,7 @@ function UserImage() {
                 <div className="user-image-container">
                     <Avatar name={`${userData.account_name}`} src={`${DEVELOP_IMAGE_URL}/users/${userData.icon}`} size="2xl" />
                 </div>
-                {/* <Image
-                    src={
-                        data.pic ||
-                        "https://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
-                    }
-                    alt={data.name}
-                    boxSize="200px"
-                    borderRadius="full"
-                    fallbackSrc="hhttps://res.cloudinary.com/dsabyte/image/upload/v1630411853/users/user-svgrepo-com_vdq4rw.svg"
-                    mx="auto"
-                /> */}
+
                 <Center>
                     <Box className="user-point-container">
                         <StatGroup className="user-point">
@@ -83,19 +57,9 @@ function UserImage() {
                     </Box>
                     <VStack className="user-data-container">
                         <Heading>{userData.account_name}</Heading>
-                        {/* <Text color="gray">
-                            {userData.profileTagLine} {", "} {data.location}
-                        </Text> */}
-                        {/* <SocialProfiles data={data.socialProfiles} /> */}
+   
                         <Text>{userData.slogan}</Text>
-                        {/* <HStack>
-            {data.skills.map(skill => (
-              <Tag colorScheme="blue" key={skill}>
-                {skill}
-              </Tag>
-            ))}
 
-          </HStack> */}
                     </VStack>
                 </Center>
             </Container>
