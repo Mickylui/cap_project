@@ -48,8 +48,8 @@ export function Products() {
                     <RouteLink to={`/productDetail/${product.id}`} >
                             <Center >
                                 <Image 
-                        // src={`${DEVELOP_IMAGE_URL}/products/${product.image}`} 
-                        src="fish.jpg"
+                        src={`${DEVELOP_IMAGE_URL}/products/${product.image}`} 
+                        // src="fish.jpg"
                         />
                             </Center>
                     <Box 
