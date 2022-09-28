@@ -5,7 +5,9 @@
     overflow: hidden;
     max-width: 100%;
 }
-
+.autoSlider_image{
+    width: 700px;
+}
 .slideshowSlider {
     white-space: nowrap;
     transition: ease 2000ms;
