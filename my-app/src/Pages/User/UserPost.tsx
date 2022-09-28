@@ -25,7 +25,7 @@ function UserPost(props) {
     return (
         // postList.is_ordinary === true -> admin post
         <div >
-            <Flex style={{ justifyItems:"center", width:"fit-content", margin:"2rem"}}>
+            <Flex style={{ justifyContent:'center',flexWrap:'wrap',width:"fit-content", margin:"2rem"}}>
                 {postData.map((postItem) => (
                     <div key={`postItem_${postItem.id}`} className={"post-item"}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
@@ -35,6 +35,7 @@ function UserPost(props) {
                                         <Image
                                             src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
                                             alt={`image of postId:${postItem.id}`}
+                                            maxHeight ='300px'
                                             // border="1px"
                                             // borderRadius="lg"
                                         />
@@ -42,6 +43,7 @@ function UserPost(props) {
                                         <Image
                                             src={"https://random.imagecdn.app/1000/1000"}
                                             alt={`image of postId:${postItem.id}`}
+                                            maxHeight ='300px'
                                             // border="1px"
                                             // borderRadius="lg"
                                         />

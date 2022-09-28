@@ -24,16 +24,17 @@ function UserLikePost(props) {
     return (
         // postList.is_ordinary === true -> admin post
         <div>
-            <Flex style={{ display:"flex",flexWrap:"wrap" ,justifyItems:"center", width:"fit-content", margin:"2rem"}}>
+            <Flex style={{ flexWrap:"wrap" ,justifyContent:"center", width:"fit-content", margin:"2rem"}}>
                 {likeData.map((postItem) => (
                     <div key={`postItem_${postItem.id}`} className={"post-item"}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
                             <>
-                                <RouteLink to={`/postDetail/${postItem.id}`}>
+                                <RouteLink to={`/postDetail/${postItem.id}`} >
                                     {postItem.image[0] !== null ? (
                                         <Image
                                             src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
                                             alt={`image of postId:${postItem.id}`}
+                                            maxHeight ='300px'
                                             // border="1px"
                                             // borderRadius="lg"
                                         />
@@ -41,6 +42,7 @@ function UserLikePost(props) {
                                         <Image
                                             src={"https://random.imagecdn.app/1000/1000"}
                                             alt={`image of postId:${postItem.id}`}
+                                            maxHeight ='300px'
                                             // border="1px"
                                             // borderRadius="lg"
                                         />
@@ -78,6 +80,7 @@ function UserLikePost(props) {
                                 size="lg"
                                 colorScheme="none"
                                 borderRadius="full"
+                                justifyContent={'center'}
                                 className="user-profile"
                             >
                                 <RouteLink to={`/user/${postItem.user_id}`}>
