@@ -82,6 +82,7 @@ function UserPost(props) {
                                 colorScheme="none"
                                 borderRadius="full"
                                 className="user-profile"
+                                justifyContent={'center'}
                             >
                                 <RouteLink to={`/user/${postItem.user_id}`}>
                                     <Avatar
