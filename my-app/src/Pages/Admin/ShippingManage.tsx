@@ -30,13 +30,14 @@ export function ShippingManage() {
     let products = [];
 
     useEffect(() => {
-        console.log("shipping useEffect")
+        console.log("shipping useEffect");
         dispatch(getOrderFetch());
     }, [dispatch]);
 
     console.log("this is orderData:", orderData);
     const orderDetailArr = useMemo(
-        () => orderData.filter((orderDetail) => orderId ? orderDetail.order_id === orderId : true),
+        () =>
+            orderData.filter((orderDetail) => (orderId ? orderDetail.order_id === orderId : true)),
         [orderId, orderData]
     );
     console.log("orderDetailArr:", orderDetailArr);
@@ -125,7 +126,7 @@ export function ShippingManage() {
                                         </Box>
                                     </WrapItem>
                                     <WrapItem>
-                                        <Box bg="white" borderRadius="lg" >
+                                        <Box bg="white" borderRadius="lg">
                                             <Box m={8} color="#0B0E3F">
                                                 <VStack spacing={5}>
                                                     <Box
@@ -151,8 +152,12 @@ export function ShippingManage() {
                                                                         hideClass: {
                                                                             popup: "animate__animated animate__fadeOutUp",
                                                                         },
-                                                                    });
-                                                                    await dispatch(getOrderFetch());
+                                                                    }).then(
+                                                                        async () =>
+                                                                            await dispatch(
+                                                                                getOrderFetch()
+                                                                            )
+                                                                    );
                                                                 }
                                                             }}
                                                         />
@@ -174,8 +179,12 @@ export function ShippingManage() {
                                                                         hideClass: {
                                                                             popup: "animate__animated animate__fadeOutUp",
                                                                         },
-                                                                    });
-                                                                    await dispatch(getOrderFetch());
+                                                                    }).then(
+                                                                        async () =>
+                                                                            await dispatch(
+                                                                                getOrderFetch()
+                                                                            )
+                                                                    );
                                                                 }
                                                             }}
                                                         />
@@ -206,8 +215,8 @@ export function ShippingManage() {
                                 </Wrap>
                             </Box>
                         </Box>
-                        <Box >
-                        <DataList setOrderId={setOrderId}  />
+                        <Box>
+                            <DataList setOrderId={setOrderId} />
                         </Box>
                     </Flex>
                 </Container>
