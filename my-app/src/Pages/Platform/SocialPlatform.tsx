@@ -1,4 +1,4 @@
-import { Button, HStack, Input, TagCloseButton } from "@chakra-ui/react";
+import { Button, Flex, HStack, Input, TagCloseButton } from "@chakra-ui/react";
 import { Box, Image, SimpleGrid, Tag, TagLabel, Avatar } from "@chakra-ui/react";
 import { FaHeart, FaPlusCircle } from "react-icons/fa";
 import { Link as RouteLink } from "react-router-dom";
@@ -16,7 +16,7 @@ import { AppDispatch, RootState } from "../../Redux/store";
 import { useSelector } from "react-redux";
 import { FcLikePlaceholder } from "react-icons/fc";
 import style from "../css/socialPlatform.module.css";
-
+import { url } from "inspector";
 
 const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 
@@ -133,7 +133,7 @@ function SocialPlatform() {
                         e.preventDefault();
                         const form = e.target;
                         const keyword = form.searchContent.value;
-                        console.log(keyword)
+                        console.log(keyword);
                         if (keyword.length > 0) {
                             setSearchContent(keyword);
                         } else {
@@ -146,7 +146,7 @@ function SocialPlatform() {
                         <Input
                             size="lg"
                             htmlSize={70}
-                            width="80%"
+                            width="100%"
                             marginLeft={"20px"}
                             marginRight={"10px"}
                             outline={"dashed black"}
@@ -154,9 +154,12 @@ function SocialPlatform() {
                             type="text"
                             name="searchContent"
                             list="tagInput"
+                            className={style.search_area}
                         />
                         <datalist id="tagInput">
-                            {suggestedTags.map(item => (<option key={item.tag} value={item.tag}></option>))}
+                            {suggestedTags.map((item) => (
+                                <option key={item.tag} value={item.tag}></option>
+                            ))}
                         </datalist>
                         <Button
                             bgColor={"gray.700"}
@@ -164,12 +167,13 @@ function SocialPlatform() {
                             size="md"
                             type="submit"
                             marginRight={"20px"}
+                           
                         >
                             Search
                         </Button>
                         <RouteLink to="/platform/form">
                             <Button size="md" bgColor={"gray.700"} color={"white"}>
-                                <FaPlusCircle />
+                                Add Post
                             </Button>
                         </RouteLink>
                     </div>
@@ -188,6 +192,7 @@ function SocialPlatform() {
                         height={50}
                         margin={10}
                         fontSize={20}
+                        className={style.tags}
                     >
                         <TagLabel
                             onClick={() => setSearchTag(suggestedTag.tag)}
@@ -232,7 +237,8 @@ function SocialPlatform() {
                                             lineHeight="tight"
                                             // noOfLines={1}
                                             backgroundColor={"white"}
-                                            className={style.title}
+              
+                                            className={style.admin_title}
                                             sx={{}}
                                         >
                                             {postItem.title}
@@ -285,7 +291,9 @@ function SocialPlatform() {
                                                 ) : (
                                                     <FcLikePlaceholder />
                                                 )}
-                                                <div className={style.like_count}>{postItem.count}</div>
+                                                <div className={style.like_count}>
+                                                    {postItem.count}
+                                                </div>
                                             </div>
                                         </div>
                                     </Tag>
@@ -298,20 +306,30 @@ function SocialPlatform() {
                 <></>
             )}
             {adminList.length > 0 ? (
-                <div>
-                <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
+                <Flex className={style.admin_post_container} p="40px" margin="5rem">
                     {adminList.map((postItem) => (
                         <div key={`postItem_${postItem.id}`} className={style.post_item}>
                             <Box maxW="sm" borderRadius="lg">
                                 <>
                                     <RouteLink to={`/postDetail/${postItem.id}`}>
+                                        {/* {postItem.image[0] !== null ? (
+                                            <div
+                                                className={style.post_image_container}
+                                                style={`background-image:url(${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
+                                            ></div>
+                                        ) : (
+                                            <div
+                                                className={style.post_image_container}
+                                                background-image={`https://random.imagecdn.app/1000/1000`}
+                                            ></div>
+                                        )} */}
                                         {postItem.image[0] !== null ? (
                                             <div className={style.post_image_container}>
                                                 <Image
                                                     src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
                                                     alt={`image of postId:${postItem.id}`}
-                                                    border="1px"
-                                                    borderRadius="lg"
+                                                    // border="1px"
+                                                    // borderRadius="lg"
                                                     className={style.post_image} 
                                                  
                                                 />
@@ -321,8 +339,8 @@ function SocialPlatform() {
                                                 <Image
                                                     src={"https://random.imagecdn.app/1000/1000"}
                                                     alt={`image of postId:${postItem.id}`}
-                                                    border="1px"
-                                                    borderRadius="lg"
+                                                    // border="1px"
+                                                    // borderRadius="lg"
                                                     className={style.post_image} 
                                                 />
                                             </div>
@@ -331,13 +349,16 @@ function SocialPlatform() {
                                     <Box p="6">
                                         <Box
                                             // mt="1"
+                                            className={style.user_title}
                                             fontWeight="semibold"
-                                            fontSize={"2em"}
+                                            fontSize={"30px"}
                                             as="h4"
                                             lineHeight="tight"
                                             // noOfLines={1}
-                                            backgroundColor={"white"}
-                                            className={style.title}
+                                            // backgroundColor={"white"}
+                                            fontFamily={"fantasy"}
+                        
+                                          
                                         >
                                             {postItem.title}
                                         </Box>
@@ -349,6 +370,8 @@ function SocialPlatform() {
                                                 setSearchTag(e.target.innerHTML);
                                             }}
                                             className={style.tags}
+                                            fontSize={"20px"}
+                                            backgroundColor={"pink"}
                                         >
                                             {item}
                                         </Tag>
@@ -386,7 +409,9 @@ function SocialPlatform() {
                                                 ) : (
                                                     <FcLikePlaceholder />
                                                 )}
-                                                <div className={style.like_count}>{postItem.count}</div>
+                                                <div className={style.like_count}>
+                                                    {postItem.count}
+                                                </div>
                                             </div>
                                         </div>
                                     </Tag>
@@ -394,27 +419,25 @@ function SocialPlatform() {
                             </Box>
                         </div>
                     ))}
-                </SimpleGrid>
-                </div>
+                </Flex>
             ) : (
                 <></>
             )}
             {userList.length > 0 ? (
-                <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
+                <Flex className={style.user_post_container} p="40px" margin="5rem">
                     {userList.map((postItem, index) => (
                         <div key={`postItem_${postItem.id}`} className={style.post_item}>
                             <Box maxW="sm" borderRadius="lg">
                                 <RouteLink to={`/postDetail/${postItem.id}`}>
                                     {postItem.image[0] !== null ? (
-                                        <div className="post_image_container">
+                                        <div className={style.post_image_container}>
                                             <Image
                                                 src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
                                                 alt={`image of postId:${postItem.id}`}
-                                                border="1px"
-                                                borderRadius="lg"
+                                                // border="1px"
+                                                // borderRadius="lg"
                                                 className={style.post_image}
-                                                maxWidth={"400px"}
-                                                maxHeight={"400px"}
+                                                
                                             />
                                         </div>
                                     ) : (
@@ -422,8 +445,8 @@ function SocialPlatform() {
                                             <Image
                                                 src={`https://random.imagecdn.app/1000/1000`}
                                                 alt={`image of postId:${postItem.id}`}
-                                                border="1px"
-                                                borderRadius="lg"
+                                                // border="1px"
+                                                // borderRadius="lg"
                                                 className={style.post_image}
                                             />
                                         </div>
@@ -495,7 +518,7 @@ function SocialPlatform() {
                             </Box>
                         </div>
                     ))}
-                </SimpleGrid>
+                </Flex>
             ) : (
                 <></>
             )}
