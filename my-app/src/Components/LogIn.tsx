@@ -96,7 +96,6 @@ export default function LogInCard() {
             minH={"100vh"}
             align={"center"}
             justify={"center"}
-            // bg={useColorModeValue("gray.50", "gray.800")}
             bg={"#F5F5F5"}
 
         >

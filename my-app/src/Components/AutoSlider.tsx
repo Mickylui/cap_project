@@ -1,7 +1,5 @@
 import { Box, Button, Flex, Image, Wrap, WrapItem, Text, Stack } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
-import { createRoot } from "react-dom/client";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getProductFetch } from "../Api/productFetch";
@@ -48,8 +46,6 @@ export function Slideshow() {
     const [index, setIndex] = React.useState(0);
     const timeoutRef: any = React.useRef(null);
     const productList = useSelector((state: RootState) => state.product.list);
-
-    // console.log("productList:", productList);
 
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
 

@@ -17,7 +17,7 @@ export const getUserPostFetch = createAsyncThunk<
     { rejectValue: Error; state: RootState }
 >("@posts/getUserPost", async ({ init }, thunkAPI) => {
     try {
-        console.log("getUserPost:", thunkAPI.getState().platform.pageNum);
+
         const page = init ? 1 : thunkAPI.getState().platform.pageNum+1;
         const token = window.localStorage.getItem("token");
         const res = await fetch(`${DEVELOP_HOST}/posts/userPost?page=${page}`, {
@@ -105,7 +105,7 @@ export const getSearchContentPostFetch = createAsyncThunk<ICarriage, any, { reje
     "@posts/getSearchContentPost",
     async ({ keyword }, thunkAPI) => {
         try {
-            console.log("getSearchContentPostFetch")
+
             const token = window.localStorage.getItem("token");
             const res = await fetch(
                 `${DEVELOP_HOST}/posts/getSearchContentPost?keyword=${keyword}`,

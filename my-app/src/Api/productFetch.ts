@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { CartItemState } from "../Redux/Slice/cartSlice";
 import { ProductState } from "../Redux/Slice/productSlice";
-import Swal from "sweetalert2";
 
 interface ICarriage<T = unknown> {
     success: boolean;
@@ -89,7 +88,7 @@ export const removeCartItem = createAsyncThunk<
     { token: string | null; product_id: number },
     { rejectValue: Error }
 >("@cart/remove", async ({ token, product_id }, thunkAPI) => {
-    console.log("check remove thunk", product_id);
+
     try {
         const res = await fetch(`${DEVELOP_HOST}/products/cart/remove`, {
             method: "DELETE",
@@ -101,26 +100,7 @@ export const removeCartItem = createAsyncThunk<
         });
 
         return res.json();
-        // const deleteResult = await res.json();
-        // if (deleteResult.success === true) {
-        //     Swal.fire({
-        //         title: 'Are you sure?',
-        //         text: "You won't be able to revert this!",
-        //         icon: 'warning',
-        //         showCancelButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         cancelButtonColor: '#d33',
-        //         confirmButtonText: 'Yes, remove it!'
-        //       }).then((result) => {
-        //         if (result.isConfirmed) {
-        //           Swal.fire(
-        //             'Removed!',
-        //             'Your item has been removed.',
-        //             'success'
-        //           )
-        //         }
-        //       });
-        // }
+      
     } catch {
         return thunkAPI.rejectWithValue({ error: "Failed to remove item" } as Error);
     }

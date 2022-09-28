@@ -47,20 +47,3 @@ export const getUserDataJWTFetch = createAsyncThunk<ICarriage, any, { rejectValu
         return result;
     }
 );
-
-// export const logOutFetch = createAsyncThunk<ICarriage, any, { rejectValue: Error }>(
-//     "@Account/logOut" as const,
-//     async (_, thunkAPI) => {
-//         try {
-//             const resp = await fetch(`${DEVELOP_HOST}/account/logOut`);
-//             const result = await resp.json();
-//             return result;
-//         } catch (e) {
-//             return thunkAPI.rejectWithValue({
-//                 error: "Failed to logOut.",
-//             } as Error);
-//         }
-//     }
-// );
-
-
