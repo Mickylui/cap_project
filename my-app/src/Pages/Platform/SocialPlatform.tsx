@@ -161,7 +161,7 @@ function SocialPlatform() {
                         >
                             Search
                         </Button>
-                        <RouteLink to="/platform/form" replace={true}>
+                        <RouteLink to="/platform/form">
                             <Button size="md" bgColor={"gray.700"} color={"white"}>
                                 <FaPlusCircle />
                             </Button>
