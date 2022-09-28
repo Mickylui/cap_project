@@ -192,35 +192,38 @@ function PostForm() {
                             <ImageUpload images={images} setImages={setImages} />
                         </FormControl>
                         {isEvent ? (
-                            <Box className="event-info">
+                            <Box className="event-info" >
                                 <FormControl>
-                                    <HStack spacing="12px">
+                                    <HStack spacing="12px" margin={"10px 0px 10px 0px"}>
                                         <FormLabel>Location</FormLabel>
                                         <Input
                                             type="text"
                                             placeholder="eventLocation"
                                             name="eventLocation"
+                                            background='white'
+                                           
                                             required
                                         />
                                     </HStack>
                                 </FormControl>
                                 <FormControl>
-                                    <HStack spacing="12px">
+                                    <HStack spacing="12px" margin={"10px 0px 10px 0px"}>
                                         <FormLabel>Date</FormLabel>
                                         <Input
                                             type="date"
                                             id="eventDate"
                                             name="eventDate"
+                                            background='white'
                                             required
                                         />
                                     </HStack>
                                 </FormControl>
                                 <FormControl>
-                                    <HStack spacing="12px">
+                                    <HStack spacing="12px" margin={"10px 0px 10px 0px"}>
                                         <FormLabel>Time</FormLabel>
-                                        <Input type="time" id="time" name="startingTime" required />
+                                        <Input type="time" id="time" name="startingTime" background='white' required />
                                         <Text>to</Text>
-                                        <Input type="time" id="time" name="endingTime" required />
+                                        <Input type="time" id="time" name="endingTime" background='white' required />
                                     </HStack>
                                 </FormControl>{" "}
                                 <FormControl>
@@ -233,6 +236,7 @@ function PostForm() {
                                                 <Input
                                                     placeholder="eventContact"
                                                     name="eventContact"
+                                                    background='white'
                                                     required
                                                 />
                                             )}
@@ -240,11 +244,13 @@ function PostForm() {
                                                 <Input
                                                     placeholder="eventContact"
                                                     name="eventContact"
+                                                    background='white'
                                                 />
                                             ) : (
                                                 <Checkbox
                                                     defaultChecked
                                                     name="useDefaultContact"
+                                                    margin={"0px 0px 10px 0px"}
                                                     onChange={() =>
                                                         setIsDefaultContact(!isDefaultContact)
                                                     }
