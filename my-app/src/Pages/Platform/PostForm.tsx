@@ -133,7 +133,7 @@ function PostForm() {
                                         title: "Your Post has posted",
                                         showConfirmButton: false,
                                         timer: 1500,
-                                    }).then(() => navigate("/platform/posts", {replace:true}));
+                                    }).then(() => navigate("/platform/posts"));
                                 } else {
                                     Swal.fire({
                                         position: "center",
@@ -160,7 +160,7 @@ function PostForm() {
                                     showConfirmButton: false,
                                     timer: 1500,
                                 }).then(() => {
-                                    navigate("/platform/posts", {replace:true});
+                                    navigate("/platform/posts");
                                 });
                             } else {
                                 Swal.fire({

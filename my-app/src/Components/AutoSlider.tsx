@@ -133,7 +133,6 @@ export function Slideshow() {
                             <Box className="productPrice" width={{ ml: "40rem" }}>
                                 <RouteLink
                                     to={`/products/productDetail/${product.id}`}
-                                    replace={true}
                                 >
                                     <Button className="productButton" backgroundColor={"black"}>
                                         BUY NOW!

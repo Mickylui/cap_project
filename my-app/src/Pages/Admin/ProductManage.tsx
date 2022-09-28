@@ -51,7 +51,7 @@ export function ProductManage() {
                             flexWrap={"wrap"}
                             width={"100%"}
                         >
-                            <RouteLink to={`/admin/productDetail/${product.id}`} replace={true}>
+                            <RouteLink to={`/admin/productDetail/${product.id}`}>
                                 <Image
                                     src={`${DEVELOP_IMAGE_URL}/products/${product.image}`}
                                     // src="./SkateBoardLogo.png"

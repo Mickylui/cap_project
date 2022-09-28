@@ -29,7 +29,7 @@ function UserLikePost(props) {
                     <div key={`postItem_${postItem.id}`} className={"post-item"}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
                             <>
-                                <RouteLink to={`/postDetail/${postItem.id}`} replace={true}>
+                                <RouteLink to={`/postDetail/${postItem.id}`}>
                                     {postItem.image[0] !== null ? (
                                         <Image
                                             src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
@@ -80,7 +80,7 @@ function UserLikePost(props) {
                                 borderRadius="full"
                                 className="user-profile"
                             >
-                                <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
+                                <RouteLink to={`/user/${postItem.user_id}`}>
                                     <Avatar
                                         src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon[0]}`}
                                         size="md"
