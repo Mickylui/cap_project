@@ -24,7 +24,7 @@ import { AppDispatch, RootState } from "../Redux/store";
 import { BackButton } from "./BackButton";
 import Swal from "sweetalert2";
 import { getCartFetch } from "../Api/productFetch";
-import "./css/login.css"
+import "./css/login.css";
 
 export default function LogInCard() {
     const [showPassword, setShowPassword] = useState(false);
@@ -96,12 +96,13 @@ export default function LogInCard() {
             minH={"100vh"}
             align={"center"}
             justify={"center"}
+            position={"relative"}
             // bg={useColorModeValue("gray.50", "gray.800")}
             bg={"#F5F5F5"}
-
         >
-
-            <BackButton />
+            <div className="log_in_back_button">
+                <BackButton />
+            </div>
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6} className={"abc"}>
                 <Stack align={"center"}>
                     <Heading fontSize={"4xl"} textAlign={"center"} color={"black"}>
@@ -123,14 +124,14 @@ export default function LogInCard() {
                         <Stack spacing={7}>
                             <FormControl isRequired>
                                 <FormLabel>Email address</FormLabel>
-                                <Input type="email" name="email" id="email" outline={'2px solid'}/>
+                                <Input type="email" name="email" id="email" outline={"2px solid"} />
                                 <FormLabel>Password</FormLabel>
                                 <InputGroup>
                                     <Input
                                         type={showPassword ? "text" : "password"}
                                         name="password"
                                         id="password"
-                                        outline={'2px solid'}
+                                        outline={"2px solid"}
                                     />
                                     <InputRightElement h={"full"}>
                                         <Button
@@ -152,7 +153,6 @@ export default function LogInCard() {
                                         emptyColor="gray.200"
                                         color="gray.500"
                                         size="xl"
-                                    
                                     />
                                 ) : (
                                     <Button
@@ -165,8 +165,6 @@ export default function LogInCard() {
                                         _hover={{
                                             bg: "gray.500",
                                         }}
-                            
-                        
                                     >
                                         Log In
                                     </Button>

@@ -14,7 +14,7 @@ export function BackButton({ back }: Props) {
         // <Button onClick={() => navigate(-1)}>
         //     <ArrowBackIcon />
         // </Button>
-        <Button onClick={()=> back ? back() : navigate(-1)}>
+        <Button onClick={()=> back ? back() : navigate(-1)} backgroundColor={"rgb(210,210,210)"}>
             <ArrowBackIcon />
         </Button>
     );
