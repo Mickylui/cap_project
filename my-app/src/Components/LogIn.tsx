@@ -120,18 +120,19 @@ export default function LogInCard() {
                     width={450}
                     height={450}
                 >
-                    <form onSubmit={logInSubmit}>
-                        <Stack spacing={7}>
+                    <form onSubmit={logInSubmit}  >
+                        <Stack spacing={7} >
                             <FormControl isRequired>
                                 <FormLabel>Email address</FormLabel>
-                                <Input type="email" name="email" id="email" outline={"2px solid"} />
+                                <Input type="email" name="email" id="email" background='white' outline={'2px solid'}/>
                                 <FormLabel>Password</FormLabel>
                                 <InputGroup>
                                     <Input
                                         type={showPassword ? "text" : "password"}
                                         name="password"
                                         id="password"
-                                        outline={"2px solid"}
+                                        outline={'2px solid'}
+                                        background='white'
                                     />
                                     <InputRightElement h={"full"}>
                                         <Button
@@ -153,6 +154,8 @@ export default function LogInCard() {
                                         emptyColor="gray.200"
                                         color="gray.500"
                                         size="xl"
+                                        
+                                    
                                     />
                                 ) : (
                                     <Button
@@ -165,6 +168,10 @@ export default function LogInCard() {
                                         _hover={{
                                             bg: "gray.500",
                                         }}
+                                        margin='0px auto 0px auto'
+                                        
+                            
+                        
                                     >
                                         Log In
                                     </Button>

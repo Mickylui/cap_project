@@ -16,7 +16,7 @@ export function FileUpload() {
     };
 
     return (
-        <Box className="fileUpload-box" border={"solid"} width={"25rem"}>
+        <Box className="fileUpload-box" border={"2px solid"} borderRadius='5px' height={'60px'} width={"25rem"}>
             <ImageUploading
                 multiple
                 value={images}
@@ -96,7 +96,7 @@ export function FileUpload() {
                             Click or Drop here
                         </Button>
                         &nbsp;
-                        <Button onClick={onImageRemoveAll}>Remove all images</Button>
+                        <Button margin={'8px'} onClick={onImageRemoveAll}>Remove all images</Button>
                     </div>
                 )}
             </ImageUploading>
