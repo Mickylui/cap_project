@@ -10,6 +10,7 @@ export class ProductService {
     SELECT products.id,
         products.name,
         products.description,
+        products.unit_price,
         json_agg(DISTINCT product_images.image) image
     FROM products
         LEFT JOIN product_images ON product_images.product_id = products.id
