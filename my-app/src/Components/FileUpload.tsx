@@ -10,13 +10,12 @@ export function FileUpload() {
     const [images, setImages] = useState([]);
 
     const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
-        // data for submit
-        // console.log(imageList, addUpdateIndex);
+
         setImages(imageList as never[]);
     };
 
     return (
-        <Box className="fileUpload-box" border={"solid"} width={"25rem"}>
+        <Box className="fileUpload-box" border={"2px solid"} borderRadius='5px' height={'60px'} width={"25rem"}>
             <ImageUploading
                 multiple
                 value={images}
@@ -36,24 +35,7 @@ export function FileUpload() {
                     isDragging,
                     dragProps,
                 }) => (
-                    // write your building UI
-                    // <Slide>
-                    //     <div className="each-slide-effect">
-                    //         <div style={{ backgroundImage: `url(${images[0]})` }}>
-                    //             <span>Slide 1</span>
-                    //         </div>
-                    //     </div>
-                    //     <div className="each-slide-effect">
-                    //         <div style={{ backgroundImage: `url(${images[1]})` }}>
-                    //             <span>Slide 2</span>
-                    //         </div>
-                    //     </div>
-                    //     <div className="each-slide-effect">
-                    //         <div style={{ backgroundImage: `url(${images[2]})` }}>
-                    //             <span>Slide 3</span>
-                    //         </div>
-                    //     </div>
-                    // </Slide>
+                    
                     <div className="upload__image-wrapper">
                         {imageList.length > 0 ? (
                             <Slide>
@@ -96,7 +78,7 @@ export function FileUpload() {
                             Click or Drop here
                         </Button>
                         &nbsp;
-                        <Button onClick={onImageRemoveAll}>Remove all images</Button>
+                        <Button margin={'8px'} onClick={onImageRemoveAll}>Remove all images</Button>
                     </div>
                 )}
             </ImageUploading>

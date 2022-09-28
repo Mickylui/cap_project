@@ -54,9 +54,6 @@ function PostDetail() {
         [postDetail]
     );
 
-    console.log("icon:", postDetail["icon"]);
-
-
     const handleLike = async () => {
         console.log("like!");
         await fetch(`${DEVELOP_HOST}/posts/likePost?postId=${postId}&userId=${userId}`);
@@ -68,6 +65,9 @@ function PostDetail() {
         await fetch(`${DEVELOP_HOST}/posts/dislikePost?postId=${postId}&userId=${userId}`);
         setLike(like - 1);
     };
+
+    
+    console.log("postDetail.updated_at:", postDetail.updated_at);
 
     return (
         <div>
@@ -89,7 +89,7 @@ function PostDetail() {
                             {postDetail.title}
                         </Box>
                         <HStack>
-                            <Box>{postDetail.updated_at}</Box>
+                            <Box>{new Date(postDetail.updated_at).toString()}</Box>
                         </HStack>
                         <Box mt="3rem">{postDetail.description}</Box>
                         {postDetail.is_event ? (

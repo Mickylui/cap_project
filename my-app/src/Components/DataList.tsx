@@ -22,12 +22,16 @@ export default function DataList(props) {
             text: "Id",
             sort: true,
             filter: textFilter(),
+            
+            
         },
         {
             dataField: "account_name",
             text: "Username",
             sort: true,
             filter: textFilter(),
+            
+
         },
     ];
 
@@ -38,8 +42,11 @@ export default function DataList(props) {
         firstPageText: "<<",
         nextPageText: ">",
         prePageText: "<",
-        showTotal: true,
+        showTotal: false,
+        paginationSize:7,
         alwaysShowAllBtns: true,
+        hideSizePerPage:true,
+        
         onPageChange: function (page, sizePerPage) {
             // console.log("page", page);
             // console.log("sizePerPage", sizePerPage);
@@ -61,7 +68,7 @@ export default function DataList(props) {
         setUserList(orderData);
     }, []);
     return (
-        <div>
+        <div >
             {/* <ToolkitProvider bootstrap4 keyField="id" data={userList} columns={columns} exportCSV>
                 {(props) => (
                     <React.Fragment>
@@ -79,16 +86,17 @@ export default function DataList(props) {
                 )}
             </ToolkitProvider> */}
 
-            <BootstrapTable
+            <div style={{margin:'0px 0px 0px 100px', display:'flex',flexDirection:'column',justifyContent:'center', width:'400px' }}><BootstrapTable
+                
                 bootstrap4
                 keyField="id"
                 columns={columns}
                 data={userList}
-                pagination={pagination}
+                pagination={pagination}               
                 filter={filterFactory()}
                 rowEvents={rowEvents}
                 // {...props.baseProps}
-            />
+            /></div>
         </div>
     );
 }

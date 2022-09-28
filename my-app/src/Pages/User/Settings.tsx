@@ -117,8 +117,9 @@ function Settings() {
         );
     }
     return (
-        <div>
-            <Box p="2rem" border="2px solid black" borderRadius="lg" overflow="hidden" m="4rem" background={"#DBDBDB"}>
+        <div style={{display:'flex' ,justifyContent:'center' }}>
+            
+            <Box p="2rem" border="2px solid black" width='650px' borderRadius="lg" overflow="hidden" m="4rem" background={"#DBDBDB"}>
                 <Box mb="2rem" fontWeight="bold" fontSize="2rem">
                     Settings
                 </Box>
@@ -137,55 +138,55 @@ function Settings() {
                 <FormControl>
                    
                         <FormLabel>Username:</FormLabel>
-                        <Input type="string"  isReadOnly borderColor="black" />
+                        <Input type="string"  isReadOnly borderColor="black"  background={'white'}/>
                   
                 </FormControl>
                 <FormControl>
                     
                         <FormLabel mt="1rem">First Name:</FormLabel>
-                        <Input type="string" isReadOnly borderColor="black"/>
+                        <Input type="string" isReadOnly borderColor="black" background={'white'}/>
                     
                 </FormControl>
                 <FormControl>
                     
                         <FormLabel mt="1rem">Last Name:</FormLabel>
-                        <Input type="string"  isReadOnly borderColor="black"/>
+                        <Input type="string"  isReadOnly borderColor="black" background={'white'}/>
                   
                 </FormControl>
                 <FormControl>
                     
                         <FormLabel mt="1rem">Bio:</FormLabel>
-                        <Input type="string"isReadOnly borderColor="black"/>
+                        <Input type="string"isReadOnly borderColor="black" background={'white'}/>
                  
                 </FormControl>
                 <FormControl>
                     
                         <FormLabel mt="1rem">Email:</FormLabel>
-                        <Input type="string" isReadOnly borderColor="black"/>
+                        <Input type="string" isReadOnly borderColor="black" background={'white'}/>
                  
                 </FormControl>
                 <FormControl>
                     
                         <FormLabel mt="1rem">Password:</FormLabel>
-                        <Input type="string" isReadOnly borderColor="black"/>
+                        <Input type="string" isReadOnly borderColor="black" background={'white'}/>
                    
                 </FormControl>
                 <FormControl>
                    
                         <FormLabel mt="1rem">Confirm Password</FormLabel>
-                        <Input type="string" isReadOnly borderColor="black"/>
+                        <Input type="string" isReadOnly borderColor="black" background={'white'}/>
                   
                 </FormControl>
                 <FormControl>
                     
                         <FormLabel mt="1rem">Address</FormLabel>
-                        <Input type="string" isReadOnly borderColor="black"/>
+                        <Input type="string" isReadOnly borderColor="black" background={'white'}/>
                    
                 </FormControl>
                 <FormControl>
                     
                         <FormLabel mt="1rem">Contact</FormLabel>
-                        <Input type="string" isReadOnly borderColor="black"/>
+                        <Input type="string" isReadOnly borderColor="black" background={'white'}/>
                     
                 </FormControl>
                 <FormControl mt='2rem'>
@@ -194,9 +195,10 @@ function Settings() {
                         <FileUpload />
                     </HStack>
                 </FormControl>
-            </Box>
-            {isEditable === true ? (
+                <FormControl mt='2rem'>
+                 {isEditable === true ? (
                 <IconButton
+                marginTop={'30px'}
                     size="sm"
                     icon={<CloseIcon />}
                     onClick={() => setEditable(false)}
@@ -206,6 +208,11 @@ function Settings() {
                 <></>
             )}
             <Button>Save</Button>
+            </FormControl>
+            </Box >
+            
+           
+            
         </div>
     );
 }

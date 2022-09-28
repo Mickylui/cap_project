@@ -47,7 +47,7 @@ export function ProductDetail() {
 
     return (
         <>
-            <Slideshow />
+           
             <Stack>
                 <div className="product-single">
                     <div className={"left-image-like-box"}>
@@ -62,7 +62,6 @@ export function ProductDetail() {
                                 alt="skateBoard-product"
                             />
                         </div>
-                        
                     </div>
                     <div className={"right-information-box"}>
                         <div className="product-subtitle product-title-box">
@@ -125,7 +124,7 @@ export function ProductDetail() {
                             </div>
 
                             <div className="product-subtitle product-quantity-box">
-                                <HStack maxW="600px" >
+                                <HStack maxW="600px">
                                     <Button {...getDecrementButtonProps()}>-</Button>
                                     <Input {...getInputProps()} name={"qty"} disabled />
                                     <Button {...getIncrementButtonProps()}>+</Button>
@@ -149,9 +148,6 @@ export function ProductDetail() {
                                 </HStack>
                             </div>
                         </form>
-                        <div className="product-subtitle product-share-line-box">
-                            <button>Copy Link</button>
-                        </div>
                     </div>
                 </div>
             </Stack>

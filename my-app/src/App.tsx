@@ -82,8 +82,8 @@ function App() {
                         <Route path="user" element={<Settings />} />
                     </Route>
 
-                    <Route path="setting" element={<PrivateRoute />}>
-                        <Route path="productDetail/:productId" element={<ProductDetail />} />
+                    <Route path="productDetail" element={<PrivateRoute />}>
+                        <Route path=":productId" element={<ProductDetail />} />
                     </Route>
 
                     {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}

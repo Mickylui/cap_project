@@ -50,7 +50,7 @@ export default function SignUpCard() {
                     boxShadow={"lg"}
                     padding={10}
                     width={450}
-                    height={550}
+                    height={500}
                     // p={8}
                 >
                     <Stack spacing={7}>
@@ -67,7 +67,7 @@ export default function SignUpCard() {
                                 const accountName = form.accountName.value;
                                 const email = form.email.value;
                                 const password = form.password.value;
-                                // console.log("this is data:", accountName, email, password);
+        
 
                                 const resp = await fetch(`${DEVELOP_HOST}/account/signUp`, {
                                     method: "POST",
@@ -77,7 +77,7 @@ export default function SignUpCard() {
                                     body: JSON.stringify({ accountName, email, password }),
                                 });
                                 const signUpResult = await resp.json();
-                                // console.log("this is signUpResult:", signUpResult);
+
                                 if (signUpResult.success === true) {
                                     Swal.fire({
                                         title: "Good Decision, Welcome To Our Family",
@@ -104,27 +104,14 @@ export default function SignUpCard() {
                                 }
                             }}
                         >
-                            {/* <HStack>
-                                <Box>
-                                    <FormControl isRequired>
-                                        <FormLabel>First Name</FormLabel>
-                                        <Input type="text" id="firstName" name="firstName" />
-                                    </FormControl>
-                                </Box>
-                                <Box>
-                                    <FormControl>
-                                        <FormLabel>Last Name</FormLabel>
-                                        <Input type="text" id="lastName" name="lastName" />
-                                    </FormControl>
-                                </Box>
-                            </HStack> */}
+                 
                             <FormControl isRequired>
                                 <FormLabel>Username</FormLabel>
-                                <Input type="text" id="accountName" name="accountName" width={350} outline={'2px solid'} />
+                                <Input type="text" id="accountName" name="accountName" background='white' width={350} outline={'2px solid'} />
                             </FormControl>
                             <FormControl isRequired>
                                 <FormLabel>Email address</FormLabel>
-                                <Input type="email" id="email" name="email" outline={'2px solid'}/>
+                                <Input type="email" id="email" name="email" background='white' outline={'2px solid'}/>
                             </FormControl>
                             <FormControl isRequired>
                                 <FormLabel>Password</FormLabel>
@@ -134,6 +121,7 @@ export default function SignUpCard() {
                                         id="password"
                                         name="password"
                                         outline={'2px solid'}
+                                        background='white'
                                     />
                                     <InputRightElement h={"full"}>
                                         <Button
@@ -155,6 +143,7 @@ export default function SignUpCard() {
                                         id="confirmPassword"
                                         name="confirmPassword"
                                         outline={'2px solid'}
+                                        background='white'
                                     />
                                     <InputRightElement h={"full"}>
                                         <Button
@@ -179,6 +168,7 @@ export default function SignUpCard() {
                                         bg: "blue.500",
                                     }}
                                     width={"20"}
+                                    margin='0px auto 0px auto'
                                 >
                                     Sign up
                                 </Button>

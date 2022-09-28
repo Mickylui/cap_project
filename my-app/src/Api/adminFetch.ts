@@ -15,7 +15,7 @@ export const getOrderFetch = createAsyncThunk<ICarriage, void, { rejectValue: Er
     "@Admin/getOrder" as const,
     async (_, thunkAPI) => {
         try {
-            console.log("getOrderFetch!!!!");
+
             const resp = await fetch(`${DEVELOP_HOST}/admin/getOrder`);
             const result = await resp.json();
             return result;
@@ -31,7 +31,7 @@ export const shipOrderFetch = createAsyncThunk<ICarriage, any, { rejectValue: Er
     "@Admin/shipOrder" as const,
     async (orderId, thunkAPI) => {
         try {
-            console.log("shipOrderFetch!");
+
             const resp = await fetch(`${DEVELOP_HOST}/admin/shipOrder?orderId=${orderId}`);
             const result = await resp.json();
             return result;
@@ -46,7 +46,7 @@ export const cancelOrderFetch = createAsyncThunk<ICarriage, any, { rejectValue: 
     "@Admin/cancelOrder" as const,
     async (orderId, thunkAPI) => {
         try {
-            console.log("cancelOrderFetch!");
+
             const resp = await fetch(`${DEVELOP_HOST}/admin/cancelOrder?orderId=${orderId}`);
             const result = await resp.json();
             return result;

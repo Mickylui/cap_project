@@ -22,19 +22,13 @@ const companies: string[] = [
 
 const lowerCasedCompanies = companies.map((language) => language.toLowerCase());
 export function InsertTags(props) {
-    // bug: clear input after insertTags & selected, seconde selection will have a dot in front of
-    // const [tags, setTags] = useState([]);
     const tags = props.tags;
     const setTags = props.setTags;
-    // console.log("tags:",tags)
-    // console.log("setTag:",setTags)
     function handleKeyDown(e) {
         if (e.key !== "Enter") return;
         const value: string = e.target.value.toLowerCase();
-        // console.log("this is value :", value);
         if (!value.trim()) return;
         const existValue = tags.filter((tag: string) => tag.trim() === value.trim());
-        // console.log("existValue:",existValue)
         if (existValue.length > 0) return;
         setTags([...tags, value]);
         console.log("this is e.target.value1 :", e.target.value);
@@ -88,7 +82,6 @@ export function InsertTags(props) {
                         setValue(value);
                         setSuggestions(getSuggestions(value));
                     }}
-                    // onSuggestionSelected={handleSelect}
                     getSuggestionValue={(suggestion) => suggestion}
                     renderSuggestion={(suggestion) => (
                         <div className="tag-item" onClick={async(e)=>{await handleSelect(e); setValue("")}}>
@@ -108,54 +101,6 @@ export function InsertTags(props) {
                     highlightFirstSuggestion={true}
                 />
             </div>
-            {/* <input
-                onKeyDown={handleKeyDown}
-                type="text"
-                placeholder="Tag something"
-                className="tags-input"
-            /> */}
         </div>
     );
 }
-
-// suggestion
-
-// const companies: string[] = ["Company1", "Company2", "Big Corp", "Happy Toy Company"];
-
-// const lowerCasedCompanies = companies.map((language) => language.toLowerCase());
-
-// const TagsSuggestion: React.FC = () => {
-//     const [value, setValue] = useState("");
-//     const [suggestions, setSuggestions] = useState<string[]>([]);
-
-//     function getSuggestions(value: string): string[] {
-//         return lowerCasedCompanies.filter((language) =>
-//             language.startsWith(value.trim().toLowerCase())
-//         );
-//     }
-//     return (
-//         <div>
-//             <Autosuggest
-//                 suggestions={suggestions}
-//                 onSuggestionsClearRequested={() => setSuggestions([])}
-//                 onSuggestionsFetchRequested={({ value }) => {
-//                     setValue(value);
-//                     setSuggestions(getSuggestions(value));
-//                 }}
-//                 onSuggestionSelected={(_, { suggestionValue }) =>
-//                     console.log("Selected: " + suggestionValue)
-//                 }
-//                 getSuggestionValue={(suggestion) => suggestion}
-//                 renderSuggestion={(suggestion) => <span>{suggestion}</span>}
-//                 inputProps={{
-//                     placeholder: "Type 'c'",
-//                     value: value,
-//                     onChange: (_, { newValue, method }) => {
-//                         setValue(newValue);
-//                     },
-//                 }}
-//                 highlightFirstSuggestion={true}
-//             />
-//         </div>
-//     );
-// };
