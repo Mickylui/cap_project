@@ -16,18 +16,8 @@ export function AdminSystem() {
         <>
             <div className="admin-profile-container">
                 <UserImage />
-                {/* <Box
-                // as={ReachLink}
-                // to="posts"
-                margin="20px"
-                fontSize="1.5rem"
-                onClick={() => switchAdminLink("users")}
-            >
-                Users
-            </Box> */}
+
                 <Box
-                    // as={ReachLink}
-                    // to="likes"
                     margin="20px"
                     fontSize="1.5rem"
                     onClick={() => switchAdminLink("products")}
@@ -35,41 +25,23 @@ export function AdminSystem() {
                     Products
                 </Box>
                 <Box
-                    // as={ReachLink}
-                    // to="likes"
+
                     margin="20px"
                     fontSize="1.5rem"
                     onClick={() => switchAdminLink("shipping")}
                 >
                     Shipping
                 </Box>
-                {/* <Box
-                // as={ReachLink}
-                // to="likes"
-                margin="20px"
-                fontSize="1.5rem"
-                onClick={() => switchAdminLink("platform")}
-            >
-                Platform
-            </Box> */}
+
                 <Box
-                    // as={ReachLink}
-                    // to="likes"
+
                     margin="20px"
                     fontSize="1.5rem"
                     onClick={() => switchAdminLink("posts")}
                 >
                     Posts
                 </Box>
-                {/* <Box
-                // as={ReachLink}
-                // to="likes"
-                margin="20px"
-                fontSize="1.5rem"
-                onClick={() => switchAdminLink("banners")}
-            >
-                Banners
-            </Box> */}
+    
             </div>
             <main>
                 {adminLink === "products" ? <ProductManage /> : <></>}
