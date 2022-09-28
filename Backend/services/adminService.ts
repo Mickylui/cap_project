@@ -4,17 +4,6 @@ import { winstonLogger } from "../utils/winstonLogger";
 export class AdminService {
     constructor(private knex: Knex) {}
 
-    // async getReportedUser() {
-    //     //get user data & complaint reason
-    // }
-    // async changeUsersAccess() {}
-    // async getAllProduct() {}
-    // async createProduct() {}
-    // async deleteProduct() {}
-    // async editProduct() {}
-    // async deleteProductSize() {}
-    // async searchProduct() {}
-
     async getOrder() {
         try {
             const OrderData = (
@@ -38,7 +27,7 @@ export class AdminService {
                     users.id,
                     users.account_name
                 )
-            ORDER BY order_history.created_at DESC`)
+            ORDER BY order_history.created_at ASC`)
             ).rows;
             console.log("OrderData:", OrderData);
             return OrderData;
@@ -82,13 +71,4 @@ export class AdminService {
             return;
         }
     }
-
-    // async addPost() {}
-    // async editPost() {}
-    // async getAdminPost() {}
-    // async deleteAdminPost() {}
-    // async getReportedPost() {}
-    // async deleteUserPost() {}
-    // async createBanner() {}
-    // async getAllBanner() {}
 }

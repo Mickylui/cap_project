@@ -45,12 +45,6 @@ function UserImage() {
     console.log("combineUserData", combineUserData);
     console.log("accu", combineUserData[0].accumulation);
     const userData = combineUserData[0];
-    const icons = useMemo(() => {
-        const result = userData["icon"]
-            ? "https://i.pravatar.cc/1000/1000"
-            : `${DEVELOP_IMAGE_URL}/users/${userData.icon}`;
-        return result;
-    }, [userData]);
     if (isAdmin) {
         return (
             <div className="user-image-container">
@@ -62,7 +56,7 @@ function UserImage() {
         <div className="user-container">
             <Container mt={4} className="user-info-container">
                 <div className="user-image-container">
-                    <Avatar name={`${userData.account_name}`} src={icons} size="2xl" />
+                    <Avatar name={`${userData.account_name}`} src={`${DEVELOP_IMAGE_URL}/users/${userData.icon}`} size="2xl" />
                 </div>
                 {/* <Image
                     src={

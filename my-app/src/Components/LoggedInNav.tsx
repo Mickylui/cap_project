@@ -1,12 +1,8 @@
 import {
-    Stack,
     Avatar,
     AvatarBadge,
-    LinkBox,
-    LinkOverlay,
     Menu,
     MenuButton,
-    Button,
     MenuList,
     MenuItem,
     Box,
@@ -15,9 +11,7 @@ import { createAction } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
-import { logOutFetch } from "../Api/accountFetch";
 import { RootState } from "../Redux/store";
-import { FormatDate } from "../Utils/timeStamp";
 import Swal from "sweetalert2";
 import { useMemo } from "react";
 
@@ -26,17 +20,18 @@ export function UserLoggedInNav() {
     // useSelector: if isAdmin true, return admin; else return user/
     const isAdmin = useSelector((state: RootState) => state.account.isAdmin);
     const userData = useSelector((state: RootState) => state.account.combineUserData);
-    const shoppingData = useSelector((state: RootState) => state.account.shoppingData);
+    const shoppingData = useSelector((state: RootState) => state.cart.product);
     const userInfo = userData[0];
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const icons = useMemo(() => {
-        const result = userInfo["icon"]
-            ? "https://i.pravatar.cc/1000/1000"
-            : `${DEVELOP_IMAGE_URL}/users/${userInfo.icon}`;
-        return result;
-    }, [userData]);
+    console.log("userInfo:",userInfo.icon)
+    // const icons = useMemo(() => {
+    //     const result = userInfo["icon"]
+    //         ? "https://i.pravatar.cc/1000/1000"
+    //         : `${DEVELOP_IMAGE_URL}/users/${userInfo.icon}`;
+    //     return result;
+    // }, [userData]);
 
     function logOut() {
         Swal.fire({
@@ -81,7 +76,7 @@ export function UserLoggedInNav() {
         return (
             <Menu>
                 <MenuButton>
-                    <Avatar name={`${userInfo["account_name"]}`} src={icons}>
+                    <Avatar name={`${userInfo["account_name"]}`} src={`${DEVELOP_IMAGE_URL}/users/${userInfo.icon}`}>
                         {shoppingData.length > 0 ? (
                             <AvatarBadge boxSize="1.25em" bg="green.500" textColor={"white"}>
                                 {shoppingData.length}

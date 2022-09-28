@@ -2,6 +2,10 @@
     border: solid 1px black;
 }
 
+.background{
+   
+}
+
 .button-area {
     display: flex;
     align-items: center;
@@ -10,37 +14,65 @@
 .tags-area {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: space-around;
     margin-left: 20px;
     margin-right: 20px;
     height: 70px;
+    margin-bottom: 150px;
     align-items: center;
+    padding-left: 200px;
+    padding-right: 200px;
 }
 .post-item {
     /* border: solid 2px gray; */
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     display: flex;
+    
     align-items: center;
     justify-content: center;
+    width:600px;
+    height:700px;
+    padding:0;
 }
+
+
+.post_image_container{
+   padding:0px;
+   width:400px;
+   height:300px;
+   margin-bottom: 20px;
+}
+.post_image{
+    object-fit: contain;
+    margin: none;
+}
+.title{
+    margin-top: 60px;
+}
+
 .tags {
-    /* margin: 5px;
+    /* margin: 5px; */
     width:fit-content;
-    height: 150px; */
 }
 .user-profile {
-    display: flex;
     width: 100%;
     padding: 20px;
-    justify-content: space-around;
 }
 .user-name {
     margin-left: 10px;
 }
+.like_button_container {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+}
 .like-button {
     display: flex;
+    font-size:50px;
+    position: relative;
 }
+
 .title {
     height: max-content;
     text-align: center;

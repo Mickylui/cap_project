@@ -54,12 +54,8 @@ function PostDetail() {
         [postDetail]
     );
 
-    const icons = useMemo(() => {
-        const result = postDetail["icon"]
-            ? "https://i.pravatar.cc/1000/1000"
-            : `${DEVELOP_IMAGE_URL}/users/${postDetail.icon}`;
-        return result;
-    }, [postDetail]);
+    console.log("icon:", postDetail["icon"]);
+
 
     const handleLike = async () => {
         console.log("like!");
@@ -129,7 +125,7 @@ function PostDetail() {
                                 />
                             ) : (
                                 <Avatar
-                                    src={icons}
+                                    src={`${DEVELOP_IMAGE_URL}/users/${postDetail.icon}`}
                                     size="md"
                                     name={`${postDetail.account_name}`}
                                     ml={-1}

@@ -180,3 +180,11 @@ WHERE condition;
 UPDATE order_history
 SET status = 'success'
 WHERE order_history.id = '6';
+
+    SELECT products.id,
+        products.name,
+        products.description,
+        json_agg(DISTINCT product_images.image) image
+    FROM products
+        LEFT JOIN product_images ON product_images.product_id = products.id
+    GROUP BY products.id

@@ -3,24 +3,14 @@ import {
     Flex,
     Box,
     Heading,
-    Text,
-    IconButton,
     Button,
     VStack,
-    HStack,
     Wrap,
     WrapItem,
-    FormControl,
-    FormLabel,
-    Input,
-    InputGroup,
-    InputLeftElement,
-    Textarea,
     Image,
     Center,
 } from "@chakra-ui/react";
-import { MdPhone, MdEmail, MdLocationOn, MdFacebook, MdOutlineEmail } from "react-icons/md";
-import { BsGithub, BsDiscord, BsPerson } from "react-icons/bs";
+import { MdPhone, MdLocationOn } from "react-icons/md";
 import { CheckIcon } from "@chakra-ui/icons";
 import { MdOutlineCancel } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -36,33 +26,21 @@ export function ShippingManage() {
     // fetch order data
     const dispatch: AppDispatch = useDispatch();
     const orderData = useSelector((state: RootState) => state.admin.orderData);
-    // const [];
-    const [orderId, setOrderId] = useState("");
-    // console.log("this is orderId:", orderId);
+    const [orderId, setOrderId] = useState<string>();
     let products = [];
+
     useEffect(() => {
+        console.log("shipping useEffect")
         dispatch(getOrderFetch());
     }, [dispatch]);
 
     console.log("this is orderData:", orderData);
     const orderDetailArr = useMemo(
-        () => orderData.filter((orderDetail) => orderDetail.order_id === orderId),
-        [orderId]
+        () => orderData.filter((orderDetail) => orderId ? orderDetail.order_id === orderId : true),
+        [orderId, orderData]
     );
     console.log("orderDetailArr:", orderDetailArr);
     const DEVELOP_IMAGE_URL = process.env.REACT_APP_IMAGE_URL;
-
-    // const handleShipping = async (e) => {
-    //     const orderId = e.target.id;
-    //     // console.log("orderId:", orderId);
-    //     await dispatch(shipOrderFetch(orderId));
-    // };
-
-    // const handleCancel = async (e) => {
-    //     const orderId = e.target.id;
-    //     // console.log("orderId:", orderId);
-    //     await dispatch(cancelOrderFetch(orderId));
-    // };
 
     if (orderDetailArr.length > 0) {
         products = [];

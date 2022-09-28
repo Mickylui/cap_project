@@ -1,5 +1,5 @@
 import { Button, Center, HStack, Input, TagCloseButton } from "@chakra-ui/react";
-import { Box, Image, SimpleGrid, Tag, TagLabel, Avatar } from "@chakra-ui/react";
+import { Box, Image, Flex, Tag, TagLabel, Avatar } from "@chakra-ui/react";
 import { FaHeart, FaPlusCircle } from "react-icons/fa";
 import { Link as RouteLink } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -24,8 +24,8 @@ function UserPost(props) {
     }
     return (
         // postList.is_ordinary === true -> admin post
-        <div>
-            <SimpleGrid columns={[2, null, 3]} spacing="40px" margin="5rem">
+        <div >
+            <Flex style={{ justifyItems:"center", width:"fit-content", margin:"2rem"}}>
                 {postData.map((postItem) => (
                     <div key={`postItem_${postItem.id}`} className={"post-item"}>
                         <Box maxW="sm" borderRadius="lg" overflow="hidden">
@@ -83,7 +83,7 @@ function UserPost(props) {
                             >
                                 <RouteLink to={`/user/${postItem.user_id}`} replace={true}>
                                     <Avatar
-                                        src="https://i.pravatar.cc/1000/1000"
+                                        src={`${DEVELOP_IMAGE_URL}/users/${postItem.icon}`}
                                         size="md"
                                         name={`${postItem.account_name}`}
                                         ml={-1}
@@ -108,7 +108,7 @@ function UserPost(props) {
                         </Box>
                     </div>
                 ))}
-            </SimpleGrid>
+            </Flex>
             <ScrollToTopButton />
         </div>
     );
