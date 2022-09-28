@@ -5,7 +5,6 @@ import {
     FormLabel,
     Input,
     InputGroup,
-    HStack,
     InputRightElement,
     Stack,
     Button,
@@ -17,14 +16,12 @@ import {
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { BackButton } from "./BackButton";
 
 export default function SignUpCard() {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
-    // const dispatch = useDispatch();
 
     const DEVELOP_HOST = process.env.REACT_APP_API_URL;
     return (
@@ -57,10 +54,8 @@ export default function SignUpCard() {
                         <form
                             onSubmit={async (e) => {
                                 e.preventDefault();
-                                const form = e.target;
-                                //need some checking...name, phoneNumb
+                                const form = e.target;     
                                 if (form.password.value !== form.confirmPassword.value) {
-                                    //need sweetAlert!
                                     alert("passwords are not the same!!");
                                     return;
                                 }

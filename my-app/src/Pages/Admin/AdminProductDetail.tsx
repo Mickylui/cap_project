@@ -61,10 +61,7 @@ export function AdminProductDetail() {
     const handleDeletedSize = (size) => {
         console.log("handleDeletedSize:", size);
     };
-    // const handleDeletedAddButton = () => {
 
-    //     setSizeButton([...sizeButton, 1]);
-    // };
     return (
         <>
             <Slideshow />
@@ -144,17 +141,7 @@ export function AdminProductDetail() {
                             <div className="product-subtitle product-size-box">
                                 <span className="product-size">
                                     <p className="product-key product-size-key">Size</p>
-                                    {/* <IconButton
-                                        icon={<SmallAddIcon />}
-                                        aria-label={"Adding Size button"}
-                                        onClick={() => handleAddSize}
-                                    />
-                                    {sizeButton.map((item, index) => {
-                                        <Button key={index} className="product-value product-sizes">
-                                            <Input />
-                                            <CloseButton></CloseButton>
-                                        </Button>;
-                                    })} */}
+
                                     {productDetail.size.map((size) => (
                                         <Button
                                             key={size}

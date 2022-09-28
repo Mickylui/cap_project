@@ -40,18 +40,25 @@ function PostMange() {
     return (
         // postList.is_ordinary === true -> admin post
         <div>
-            <Flex style={{ justifyContent:'center',flexWrap:'wrap',width:"100%", margin:"2rem"}}>
+            <Flex
+                style={{
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                    width: "100%",
+                    margin: "2rem",
+                }}
+            >
                 {postData.map((postItem) => (
                     <div key={`postItem_${postItem.id}`} className={"post-item"}>
-                        <Box maxW="sm" borderRadius="lg" overflow="hidden" >
+                        <Box maxW="sm" borderRadius="lg" overflow="hidden">
                             <>
                                 <RouteLink to={`/postDetail/${postItem.id}`}>
                                     {postItem.image[0] !== null ? (
                                         <Image
                                             src={`${DEVELOP_IMAGE_URL}/posts/${postItem.image[0]}`}
                                             alt={`image of postId:${postItem.id}`}
-                                            maxHeight='350px'
-                                            
+                                            maxHeight="350px"
+
                                             // border="1px"
                                             // borderRadius="lg"
                                         />
@@ -59,8 +66,8 @@ function PostMange() {
                                         <Image
                                             src={"https://random.imagecdn.app/1000/1000"}
                                             alt={`image of postId:${postItem.id}`}
-                                            maxHeight='350px'
-                                            
+                                            maxHeight="350px"
+
                                             // border="1px"
                                             // borderRadius="lg"
                                         />
@@ -89,7 +96,7 @@ function PostMange() {
                                             setSearchTag(e.target.innerHTML);
                                         }}
                                         className="tags"
-                                        justifyContent={'center'}
+                                        justifyContent={"center"}
                                     >
                                         {item}
                                     </Tag>
@@ -100,7 +107,7 @@ function PostMange() {
                                 colorScheme="none"
                                 borderRadius="full"
                                 className="user-profile"
-                                justifyContent={'center'}
+                                justifyContent={"center"}
                             >
                                 <RouteLink to={`/user/${postItem.user_id}`}>
                                     <Avatar
@@ -112,19 +119,16 @@ function PostMange() {
                                     />
                                 </RouteLink>
                                 <h1 className="user-name">{postItem.account_name}</h1>
-                                <div className="like-button">
-                                    {postItem.is_liked_by_user.includes(true) ? (
-                                        <FaHeart color="red" />
-                                    ) : (
-                                        <FcLikePlaceholder />
-                                    )}
-                                    {postItem.count}
+                                <div className="like_button_container">
+                                    <div className="like-button">
+                                        {postItem.is_liked_by_user.includes(true) ? (
+                                            <FaHeart color="red" />
+                                        ) : (
+                                            <FcLikePlaceholder />
+                                        )}
+                                        {postItem.count}
+                                    </div>
                                 </div>
-                                <RouteLink to="reportPost">
-                                    <Button className="user-profile-button">
-                                        <WarningTwoIcon />
-                                    </Button>
-                                </RouteLink>
                             </Tag>
                         </Box>
                     </div>
