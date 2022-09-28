@@ -9,8 +9,6 @@ interface Props {
 
 export function BackButton({ back }: Props) {
     const navigate = useNavigate();
-    // const location = useLocation();
-    // console.log("this is location:", location.pathname)
 
     return (
         // <Button onClick={() => navigate(-1)}>
