@@ -70,7 +70,7 @@ function App() {
                         <Route path="form" element={<PostForm />} />
                     </Route>
                     <Route path="products" element={<Products />} />
-                    <Route path="productDetail/:productId" element={<ProductDetail />} />
+                    
                     <Route path="cart" element={<PrivateRoute />}>
                         <Route path="data" element={<ShoppingCart />} />
                         <Route path="payment" element={<Payment />} />
@@ -80,6 +80,10 @@ function App() {
 
                     <Route path="setting" element={<PrivateRoute />}>
                         <Route path="user" element={<Settings />} />
+                    </Route>
+
+                    <Route path="setting" element={<PrivateRoute />}>
+                        <Route path="productDetail/:productId" element={<ProductDetail />} />
                     </Route>
 
                     {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
