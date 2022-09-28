@@ -9,9 +9,6 @@ export class AccountController {
         try {
             const { accountName, email, password } = req.body;
             const hashedPassword = await hashPassword(password);
-            // console.log("(AccountController)this is accountName:", accountName);
-            // console.log("(AccountController)this is email:", email);
-            // console.log("(AccountController)this is password:", hashedPassword);
             const result = await this.accountService.signUp(accountName, email, hashedPassword);
             if (result["success"] === false) {
                 res.status(400).json(result);

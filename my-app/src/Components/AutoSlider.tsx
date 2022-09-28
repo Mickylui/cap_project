@@ -12,37 +12,6 @@ import "./css/autoSlider.css";
 const colors = ["#0088FE", "#00C49F", "#FFBB28"];
 const delay = 5000;
 
-const productItem = [
-    {
-        id: 1,
-        imageUrl: "./SkateBoardLogo.png",
-        imageAlt: "SkateBoardLogo",
-        title: "Airwind",
-        formattedPrice: "$190",
-    },
-    {
-        id: 2,
-        imageUrl: "./SkateBoardLogo.png",
-        imageAlt: "SkateBoardLogo",
-        title: "Airwind",
-        formattedPrice: "$190",
-    },
-    {
-        id: 3,
-        imageUrl: "./SkateBoardLogo.png",
-        imageAlt: "SkateBoardLogo",
-        title: "Airwind",
-        formattedPrice: "$190",
-    },
-    {
-        id: 4,
-        imageUrl: "./SkateBoardLogo.png",
-        imageAlt: "SkateBoardLogo",
-        title: "Airwind",
-        formattedPrice: "$190",
-    },
-];
-
 export function Slideshow() {
     const dispatch: AppDispatch = useDispatch();
     const [index, setIndex] = React.useState(0);
@@ -122,7 +91,7 @@ export function Slideshow() {
                                     noOfLines={[4, 7, 9]}
                                     textAlign={"start"}
                                     width={{ ml: "40rem" }}
-                                    height={"15em"}
+                                    height={"max-content"}
                                     whiteSpace={"break-spaces"}
                                     marginTop={"20px"}
                                     marginBottom={"20px"}
@@ -130,7 +99,7 @@ export function Slideshow() {
                                     {product.description}
                                 </Text>
                             </Stack>
-                            <Box className="productPrice" width={{ ml: "40rem" }}>
+                            <Box className="productBuyButton" width={{ ml: "40rem" }}>
                                 <RouteLink
                                     to={`/products/productDetail/${product.id}`}
                                 >
@@ -145,7 +114,7 @@ export function Slideshow() {
             </Box>
 
             <Box className="slideshowDots">
-                {colors.map((_, idx) => (
+                {productList.map((_, idx) => (
                     <div
                         key={idx}
                         className={`slideshowDot${index === idx ? " active" : ""}`}
