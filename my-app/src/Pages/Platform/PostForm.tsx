@@ -48,7 +48,7 @@ function PostForm() {
     return (
         <div>
             <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-                <Box rounded={"lg"} boxShadow={"lg"} padding={20}>
+                <Box rounded={"lg"} boxShadow={"lg"} padding={'40px'} background={'#d0d0d0'} width={'450px'} >
                     <BackButton />
                     <form
                         onKeyPress={(e) => {
@@ -174,10 +174,10 @@ function PostForm() {
                         }}
                     >
                         <FormControl isRequired>
-                            <Input placeholder="Title" name="title" required />
+                            <Input placeholder="Title" name="title" style={{background:'white', margin:'0 0 5px 0'}} required />
                         </FormControl>
                         <FormControl isRequired>
-                            <Input placeholder="Write a caption" name="description" required />
+                            <Input placeholder="Write a caption" name="description" style={{background:'white', margin:'0 0 5px 0'}} required />
                         </FormControl>
                         <FormControl as="fieldset">
                             <FormLabel as="legend">Is your post a event?</FormLabel>
@@ -192,35 +192,38 @@ function PostForm() {
                             <ImageUpload images={images} setImages={setImages} />
                         </FormControl>
                         {isEvent ? (
-                            <Box className="event-info">
+                            <Box className="event-info" >
                                 <FormControl>
-                                    <HStack spacing="12px">
+                                    <HStack spacing="12px" margin={"10px 0px 10px 0px"}>
                                         <FormLabel>Location</FormLabel>
                                         <Input
                                             type="text"
                                             placeholder="eventLocation"
                                             name="eventLocation"
+                                            background='white'
+                                           
                                             required
                                         />
                                     </HStack>
                                 </FormControl>
                                 <FormControl>
-                                    <HStack spacing="12px">
+                                    <HStack spacing="12px" margin={"10px 0px 10px 0px"}>
                                         <FormLabel>Date</FormLabel>
                                         <Input
                                             type="date"
                                             id="eventDate"
                                             name="eventDate"
+                                            background='white'
                                             required
                                         />
                                     </HStack>
                                 </FormControl>
                                 <FormControl>
-                                    <HStack spacing="12px">
+                                    <HStack spacing="12px" margin={"10px 0px 10px 0px"}>
                                         <FormLabel>Time</FormLabel>
-                                        <Input type="time" id="time" name="startingTime" required />
+                                        <Input type="time" id="time" name="startingTime" background='white' required />
                                         <Text>to</Text>
-                                        <Input type="time" id="time" name="endingTime" required />
+                                        <Input type="time" id="time" name="endingTime" background='white' required />
                                     </HStack>
                                 </FormControl>{" "}
                                 <FormControl>
@@ -233,6 +236,7 @@ function PostForm() {
                                                 <Input
                                                     placeholder="eventContact"
                                                     name="eventContact"
+                                                    background='white'
                                                     required
                                                 />
                                             )}
@@ -240,11 +244,13 @@ function PostForm() {
                                                 <Input
                                                     placeholder="eventContact"
                                                     name="eventContact"
+                                                    background='white'
                                                 />
                                             ) : (
                                                 <Checkbox
                                                     defaultChecked
                                                     name="useDefaultContact"
+                                                    margin={"0px 0px 10px 0px"}
                                                     onChange={() =>
                                                         setIsDefaultContact(!isDefaultContact)
                                                     }
@@ -261,10 +267,10 @@ function PostForm() {
                             ""
                         )}
 
-                        <FormLabel>Write your tags with spacing to separate them</FormLabel>
+                        <FormLabel >Write your tags with spacing to separate them</FormLabel>
                         <InsertTags tags={tags} setTags={setTags} />
 
-                        <Stack spacing={10} pt={2}>
+                        <Stack spacing={10} pt={2} >
                             <Button
                                 type="submit"
                                 loadingText="Submitting"
@@ -286,3 +292,4 @@ function PostForm() {
 }
 
 export default PostForm;
+// b
