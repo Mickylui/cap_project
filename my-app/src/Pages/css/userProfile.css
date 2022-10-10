@@ -1,0 +1,49 @@
+/* * {
+    border: solid 2px black;
+} */
+.user-profile-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.user-nav {
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+    
+    
+}
+.user-nav button{
+
+    width: 100%;
+    background:#DFDFDF;
+    font-size: large;
+    font-weight: 900;
+}
+
+
+.user-container {
+    width: 100%;
+    position: relative;
+}
+
+.user-info-container {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+.user-point-container {
+    position: absolute;
+    left: 50px;
+    width: fit-content;
+}
+.user-image-container {
+    width: 100%;
+}
+.report-container {
+    margin-left: 800px;
+   
+}

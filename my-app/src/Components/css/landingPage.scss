@@ -1,0 +1,177 @@
+
+.landing_features {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10rem;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.featureIcon {
+    width: 50px;
+    height: 50px;
+}
+
+.featureTitle {
+    font-size: 40px;
+    font-weight: 600;
+    margin: 17px;
+}
+
+.featureDesc {
+    color: gray;
+    width: 50%;
+    height: 100px;
+}
+
+.product {
+    width: 100%;
+    height: fit-content;
+    background-color: whitesmoke;
+    position: relative;
+    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+.gallery {
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.galleryTitle {
+    font-size: 5em;
+    width: 100%;
+}
+
+.galleryImg {
+    width: 300px;
+    height: 800px;
+    object-fit: cover;
+}
+
+.galleryItem {
+    flex: 1;
+    margin: 50px;
+    position: relative;
+}
+.galleryItem:hover {
+    .gallerySubTitle{
+        opacity: 1;
+        transition: .5s ease;
+    }
+    .galleryImg {
+        opacity: 0.3;
+        transition: .5s ease;
+    }
+}
+
+.gallerySubTitle-box {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    height: 15%;
+    top: 45%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.gallerySubTitle{
+  text-align: center;
+  width: 70%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  opacity: 0;
+  font-size: 2rem;
+  background-color: white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border-radius: 10px;
+}
+.gallerySubTitle:hover{
+    width: 60%;
+    background-color:black;
+    color: white;
+}
+.galleryImg {
+    width: 100%;
+}
+
+.newSeason {
+    display: flex;
+    height: 65em;
+}
+
+.nsItem {
+    font-size: 1.25rem;
+    flex: 1;
+    font-weight: 700;
+    background-color: black;
+    color: rgb(137, 189, 234);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.nsImg {
+    width: 100%;
+    height: 100%;
+}
+
+.nsTitle {
+    font-size: 40px;
+}
+
+.nsButton {
+    margin-top: 20px;
+    padding: 7px;
+    font-weight: 600;
+    background-color: rgb(114, 155, 192);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+   
+
+    .features {
+        flex-direction: column;
+    }
+
+    .product {
+        clip-path: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gallery{
+      display: block;
+      padding: 0;
+      /* width: 100%; */
+    }
+    .galleryItem {
+      flex: none;
+      margin: 50px;
+      position: relative;
+  }
+    .newSeason {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .nsItem:nth-child(2) {
+        padding: 50px;
+    }
+}

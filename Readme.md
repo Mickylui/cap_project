@@ -9,7 +9,6 @@ Group Member : Tina, Harry, Jade, Micky
 ├── README.md
 ├── .github/workflows
 │   └── cicd.yml
-├── DAE
 ├── Project_Info
 ├── .gitignore
 ├── .dockerignore
@@ -48,23 +47,23 @@ Group Member : Tina, Harry, Jade, Micky
     │   ├── App.css
     │   ├── index.css
     │   ├── index.tsx
-    │   ├── test
+    │   ├── Test
     │   │   └── App.test.tsx
-    │   ├── api
-    │   │   ├── utils.ts
-    │   │   └── user.ts
-    │   ├── component
+    │   ├── Api
+    │   │   ├── Utils.ts
+    │   │   └── User.ts
+    │   ├── Component
     │   │   ├── Navbar.tsx
-    │   │   └── footer.tsx
-    │   └── pages
-    │        ├── User.tsx
-    │        └── Admin.tsx
-    ├── redux
-    │   ├── store.ts
-    │   └── user
-    │        ├── actions.ts
-    │        ├── reducer.ts
-    │        └── state.ts
+    │   │   └── Footer.tsx
+    │   ├── Pages
+    │   │    ├── User.tsx
+    │   │    └── Admin.tsx
+    │   └── Redux
+    │        ├── Store.ts
+    │        └── User
+    │             ├── Actions.ts
+    │             ├── Reducer.ts
+    │             └── State.ts
     ├── docker-compose.yml
     ├── Dockerfile
     └── yarn.lock
@@ -109,6 +108,7 @@ Group Member : Tina, Harry, Jade, Micky
 - [ ] yarn add map.prototype.tojson
 - [ ] yarn add jwt-simple @types/jwt-simple permit @types/permit
 - [ ] yarn add react-facebook-login @types/react-facebook-login
+- [ ] yarn add @chakra-ui/react @emotion/react @emotion/styled framer-motion
     
 ## Configs
 ### Prettier
@@ -199,3 +199,5 @@ https://miro.com/app/board/uXjVPbXflLo=/
 
 === ERD Diagram ===
 https://app.diagrams.net/#G1pCRSAkFpTMYU-rSwU2GJgvwTb9xjt_3C
+
+

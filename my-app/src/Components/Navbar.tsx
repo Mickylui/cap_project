@@ -1,4 +1,5 @@
-import { Image } from "@chakra-ui/react";
+import { Grid, Image } from "@chakra-ui/react";
+
 import {
     Box,
     Flex,
@@ -8,28 +9,34 @@ import {
     Stack,
     Collapse,
     Icon,
-    Link,
     Popover,
     PopoverTrigger,
     PopoverContent,
     useColorModeValue,
-    useBreakpointValue,
     useDisclosure,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { Link as RouteLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../Redux/store";
+import { UserLoggedInNav } from "./LoggedInNav";
+import "../Components/css/navbar.css";
+import { useMemo, useState } from "react";
 
 // default: didn't logIn -> pure component
 // login with user -> user navbar
 // login with admin -> admin navbar
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
+    let isLoggedIn = useSelector((state: RootState) => state.account.isLoggedIn);
+    const [location, setLocation] = useState<String>();
 
     return (
         <Box>
             <Flex
                 bg={useColorModeValue("white", "gray.800")}
                 color={useColorModeValue("gray.600", "white")}
-                minH={"60px"}
+                minH={"45px"}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
                 borderBottom={1}
@@ -49,40 +56,52 @@ export default function Navbar() {
                         aria-label={"Toggle Navigation"}
                     />
                 </Flex>
-                <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-                    <Box boxSize="50px">
-                        <Image src="https://bit.ly/dan-abramov" alt="Dan Abramov" />
+                
+                <Flex justifyContent={"start"} width={"100%"} h="55px">
+                    <Box
+                        as={RouteLink}
+                        to="/"
+                        boxSize={{ ml: "6vw" }}
+                        minWidth={"80px"}
+                        width={{ base: "3rem" }}
+                        display={{ base: "none", md: "flex" }}
+                    >
+                        <Image src="../Logo.png" alt="SkateBoardLogo" />
                     </Box>
-                    {/* <Text
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              fontFamily={'heading'}
-              color={useColorModeValue('gray.800', 'white')}>
-              Logo
-            </Text> */}
 
-                    <Flex display={{ base: "none", md: "flex" }} ml={10}>
+                    <Flex marginRight={"auto"}>
                         <DesktopNav />
                     </Flex>
+                    {isLoggedIn ? (
+                        <UserLoggedInNav />
+                    ) : (
+                        <Stack direction={"row"} spacing={6}>
+                            <RouteLink to="/logIn" style={{ display: "flex" }}>
+                                <Button fontSize={"sm"} fontWeight={400} variant={"link"}>
+                                    Log In
+                                </Button>
+                            </RouteLink>
+                            <RouteLink
+                                to="/signUp"
+                                style={{ display: "flex", alignItems: "center" }}
+                            >
+                                <Button
+                                    display={{ base: "none", md: "inline-flex" }}
+                                    fontSize={"sm"}
+                                    fontWeight={600}
+                                    color={"white"}
+                                    bg={"pink.400"}
+                                    // href={"signup"}
+                                    _hover={{
+                                        bg: "pink.300",
+                                    }}
+                                >
+                                    Sign Up
+                                </Button>
+                            </RouteLink>
+                        </Stack>
+                    )}
                 </Flex>
-
-                <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
-                    <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"} href={"#"}>
-                        Sign In
-                    </Button>
-                    <Button
-                        display={{ base: "none", md: "inline-flex" }}
-                        fontSize={"sm"}
-                        fontWeight={600}
-                        color={"white"}
-                        bg={"pink.400"}
-                        href={"#"}
-                        _hover={{
-                            bg: "pink.300",
-                        }}
-                    >
-                        Sign Up
-                    </Button>
-                </Stack>
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
@@ -98,15 +117,22 @@ const DesktopNav = () => {
     const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
     return (
-        <Stack direction={"row"} spacing={4}>
+        // nav bar width
+        <Stack
+            direction={"row"}
+           
+        >
+            {/* Routes */}
             {NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label}>
-                    <Popover trigger={"hover"} placement={"bottom-start"}>
+                    <Popover trigger={"hover"} placement={"bottom-end"}>
                         <PopoverTrigger>
-                            <Link
-                                p={2}
-                                href={navItem.href ?? "#"}
-                                fontSize={"sm"}
+                            <Box
+                                display={"flex"}
+                                as={RouteLink}
+                                to={`${navItem.href}`}
+                                p={5}
+                                fontSize={"1.5em"}
                                 fontWeight={500}
                                 color={linkColor}
                                 _hover={{
@@ -114,8 +140,8 @@ const DesktopNav = () => {
                                     color: linkHoverColor,
                                 }}
                             >
-                                {navItem.label}
-                            </Link>
+                                <Text letterSpacing={"1px"}>{navItem.label}</Text>
+                            </Box>
                         </PopoverTrigger>
 
                         {navItem.children && (
@@ -127,7 +153,7 @@ const DesktopNav = () => {
                                 rounded={"xl"}
                                 minW={"sm"}
                             >
-                                <Stack>
+                                <Stack display={"flex"} justifyContent={"flex-start"}>
                                     {navItem.children.map((child) => (
                                         <DesktopSubNav key={child.label} {...child} />
                                     ))}
@@ -143,8 +169,9 @@ const DesktopNav = () => {
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
     return (
-        <Link
-            href={href}
+        <Box
+            as={RouteLink}
+            to={`${href}`}
             role={"group"}
             display={"block"}
             p={2}
@@ -174,13 +201,21 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
                     <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
                 </Flex>
             </Stack>
-        </Link>
+        </Box>
     );
 };
 
 const MobileNav = () => {
     return (
         <Stack bg={useColorModeValue("white", "gray.800")} p={4} display={{ md: "none" }}>
+            <Box as={RouteLink} to="/">
+                <Image
+                    src="../SkateBoardLogo.png"
+                    alt="SkateBoardLogo"
+                    width={"20vw"}
+                    minWidth={"60px"}
+                />
+            </Box>
             {NAV_ITEMS.map((navItem) => (
                 <MobileNavItem key={navItem.label} {...navItem} />
             ))}
@@ -193,29 +228,29 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 
     return (
         <Stack spacing={4} onClick={children && onToggle}>
-            <Flex
-                py={2}
-                as={Link}
-                href={href ?? "#"}
-                justify={"space-between"}
-                align={"center"}
-                _hover={{
-                    textDecoration: "none",
-                }}
-            >
-                <Text fontWeight={600} color={useColorModeValue("gray.600", "gray.200")}>
-                    {label}
-                </Text>
-                {children && (
-                    <Icon
-                        as={ChevronDownIcon}
-                        transition={"all .25s ease-in-out"}
-                        transform={isOpen ? "rotate(180deg)" : ""}
-                        w={6}
-                        h={6}
-                    />
-                )}
-            </Flex>
+            <RouteLink to={`${href}`}>
+                <Flex
+                    py={2}
+                    justify={"space-between"}
+                    align={"center"}
+                    _hover={{
+                        textDecoration: "none",
+                    }}
+                >
+                    <Text fontWeight={600} color={useColorModeValue("gray.600", "gray.200")}>
+                        {label}
+                    </Text>
+                    {children && (
+                        <Icon
+                            as={ChevronDownIcon}
+                            transition={"all .25s ease-in-out"}
+                            transform={isOpen ? "rotate(180deg)" : ""}
+                            w={6}
+                            h={6}
+                        />
+                    )}
+                </Flex>
+            </RouteLink>
 
             <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
                 <Stack
@@ -228,9 +263,9 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                 >
                     {children &&
                         children.map((child) => (
-                            <Link key={child.label} py={2} href={child.href}>
+                            <Box as={RouteLink} to={`${child.href}`} key={child.label} py={2}>
                                 {child.label}
-                            </Link>
+                            </Box>
                         ))}
                 </Stack>
             </Collapse>
@@ -246,42 +281,12 @@ interface NavItem {
 }
 
 const NAV_ITEMS: Array<NavItem> = [
-    // {
-    //     label: "Inspiration",
-    //     children: [
-    //         {
-    //             label: "Explore Design Work",
-    //             subLabel: "Trending Design to inspire you",
-    //             href: "#",
-    //         },
-    //         {
-    //             label: "New & Noteworthy",
-    //             subLabel: "Up-and-coming Designers",
-    //             href: "#",
-    //         },
-    //     ],
-    // },
-    // {
-    //     label: "Find Work",
-    //     children: [
-    //         {
-    //             label: "Job Board",
-    //             subLabel: "Find your dream design job",
-    //             href: "#",
-    //         },
-    //         {
-    //             label: "Freelance Projects",
-    //             subLabel: "An exclusive list for contract work",
-    //             href: "#",
-    //         },
-    //     ],
-    // },
     {
         label: "Products",
-        href: "#",
+        href: "/products",
     },
     {
         label: "Activity Platform",
-        href: "#",
+        href: "/platform/posts",
     },
 ];
