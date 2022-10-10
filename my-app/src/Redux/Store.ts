@@ -10,14 +10,14 @@ import userReducer from "./Slice/userSlice";
 import adminReducer from "./Slice/adminSlice";
 
 export const store = configureStore({
-    reducer: {
-        account: accountReducer,
-        platform: postsReducer,
-        product: productsReducer,
-        user: userReducer,
-        cart: cartReducer,
-        admin: adminReducer
-    },
+  reducer: {
+    account: accountReducer,
+    platform: postsReducer,
+    product: productsReducer,
+    user: userReducer,
+    cart: cartReducer,
+    admin: adminReducer,
+  },
 });
 export type RootState = ReturnType<typeof store.getState>;
 

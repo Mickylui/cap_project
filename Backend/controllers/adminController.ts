@@ -30,6 +30,7 @@ export class AdminController {
     };
     shipping = async (req: Request, res: Response) => {
         try {
+            // params
             const orderId = req.query.orderId as string;
             const shippingResp = (await this.adminService.shipping(orderId)) as [];
             if (shippingResp) {

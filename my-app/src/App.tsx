@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./Redux/store";
+import { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "./Redux/store";
 import "./App.css";
 
 import { LogIn, SignUp } from "./Pages/Account";
@@ -10,7 +10,6 @@ import { Products } from "./Pages/Product/Products";
 import LandingPage from "./Pages/LandingPage";
 import SocialPlatform from "./Pages/Platform/SocialPlatform";
 import Profile from "./Pages/User/Profile";
-import AdminProfile from "./Pages/Admin/UserManage";
 import CompleteForm from "./Pages/User/CompleteForm";
 import ReportUser from "./Pages/User/ReportUser";
 
@@ -24,7 +23,6 @@ import NotFound from "./Pages/NotFound";
 import { ImageUpload } from "./Components/ImageUpload";
 import DeliveryAddress from "./Pages/User/DeliveryAddress";
 import ShoppingCart from "./Pages/User/ShoppingCart";
-import PayWithPoints from "./Pages/User/PayWithPoints";
 import PostForm from "./Pages/Platform/PostForm";
 import { InsertTags } from "./Pages/Platform/InputTags";
 import ReportPost from "./Pages/Platform/ReportPost";
@@ -40,76 +38,79 @@ import { AdminSystem } from "./Pages/Admin/AdminSystem";
 import AdminProductDetail from "./Pages/Admin/AdminProductDetail";
 
 function App() {
-    const dispatch: AppDispatch = useDispatch();
-    useEffect(() => {
-        const token = window.localStorage.getItem("token");
-        dispatch(getUserDataJWTFetch({ token }))
-            .unwrap()
-            .then(() => dispatch(getCartFetch({ token })));
-    }, [dispatch]);
+  const dispatch: AppDispatch = useDispatch();
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    dispatch(getUserDataJWTFetch({ token }))
+      .unwrap()
+      .then(() => dispatch(getCartFetch({ token })));
+  }, [dispatch]);
 
-    return (
-        <div className="App">
-            <Router>
-                <Navbar />
-                <Routes>
-                    <Route index element={<LandingPage />} />
-                    <Route path="logIn" element={<LogIn />} />
-                    <Route path="signUp" element={<SignUp />} />
-                    <Route path="user" element={<PrivateRoute />}>
-                        <Route path="profile" element={<Profile />} />
-                        <Route path="profile/form" element={<CompleteForm />} />
-                        <Route path="profile/report" element={<ReportUser />} />
-                    </Route>
-                    <Route path="user/:userId" element={<OtherUserProfile />} />
-                    <Route path="admin" element={<PrivateRoute />}>
-                        <Route path="manage" element={<AdminSystem />} />
-                        <Route path="productDetail/:productId" element={<AdminProductDetail />} />
-                    </Route>
-                    <Route path="platform" element={<PrivateRoute />}>
-                        <Route path="form" element={<PostForm />} />
-                    </Route>
-                    <Route path="products" element={<Products />} />
-                    
-                    <Route path="cart" element={<PrivateRoute />}>
-                        <Route path="data" element={<ShoppingCart />} />
-                        <Route path="payment" element={<Payment />} />
-                        <Route path="payment/promotion" element={<Promotion />} />
-                        <Route path="contact" element={<DeliveryAddress />} />
-                    </Route>
+  return (
+    <div className="App">
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route index element={<LandingPage />} />
+          <Route path="logIn" element={<LogIn />} />
+          <Route path="signUp" element={<SignUp />} />
+          <Route path="user" element={<PrivateRoute />}>
+            <Route path="profile" element={<Profile />} />
+            <Route path="profile/form" element={<CompleteForm />} />
+            <Route path="profile/report" element={<ReportUser />} />
+          </Route>
+          <Route path="user/:userId" element={<OtherUserProfile />} />
+          <Route path="admin" element={<PrivateRoute />}>
+            <Route path="manage" element={<AdminSystem />} />
+            <Route
+              path="productDetail/:productId"
+              element={<AdminProductDetail />}
+            />
+          </Route>
+          <Route path="platform" element={<PrivateRoute />}>
+            <Route path="form" element={<PostForm />} />
+          </Route>
+          <Route path="products" element={<Products />} />
 
-                    <Route path="setting" element={<PrivateRoute />}>
-                        <Route path="user" element={<Settings />} />
-                    </Route>
+          <Route path="cart" element={<PrivateRoute />}>
+            <Route path="data" element={<ShoppingCart />} />
+            <Route path="payment" element={<Payment />} />
+            <Route path="payment/promotion" element={<Promotion />} />
+            <Route path="contact" element={<DeliveryAddress />} />
+          </Route>
 
-                    <Route path="productDetail" element={<PrivateRoute />}>
-                        <Route path=":productId" element={<ProductDetail />} />
-                    </Route>
+          <Route path="setting" element={<PrivateRoute />}>
+            <Route path="user" element={<Settings />} />
+          </Route>
 
-                    {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
-                    <Route path="platform" element={<PrivateRoute />}>
-                        <Route path="posts" element={<SocialPlatform />} />
-                    </Route>
-                    <Route path="postDetail/:postId" element={<PostDetail />} />
-                    {/* <Route path="postDetail/:postId" element={<PostDetail />} /> */}
+          <Route path="productDetail" element={<PrivateRoute />}>
+            <Route path=":productId" element={<ProductDetail />} />
+          </Route>
 
-                    <Route path="posts" element={<PrivateRoute />}>
-                        <Route path="reportPost" element={<ReportPost />} />
-                    </Route>
+          {/* <Route path="cart/contact/usePoints" element={<PayWithPoints />} /> */}
+          <Route path="platform" element={<PrivateRoute />}>
+            <Route path="posts" element={<SocialPlatform />} />
+          </Route>
+          <Route path="postDetail/:postId" element={<PostDetail />} />
+          {/* <Route path="postDetail/:postId" element={<PostDetail />} /> */}
 
-                    {/* temp route */}
-                    <Route path="slider" element={<Slideshow />} />
-                    {/* <Route path="table" element={<Table />} /> */}
-                    <Route path="upload" element={<ImageUpload />} />
-                    <Route path="tags" element={<InsertTags />} />
-                    <Route path="scroll" element={<Scroll />} />
+          <Route path="posts" element={<PrivateRoute />}>
+            <Route path="reportPost" element={<ReportPost />} />
+          </Route>
 
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-                <Footer />
-            </Router>
-        </div>
-    );
+          {/* temp route */}
+          <Route path="slider" element={<Slideshow />} />
+          {/* <Route path="table" element={<Table />} /> */}
+          <Route path="upload" element={<ImageUpload />} />
+          <Route path="tags" element={<InsertTags />} />
+          <Route path="scroll" element={<Scroll />} />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </div>
+  );
 }
 
 export default App;

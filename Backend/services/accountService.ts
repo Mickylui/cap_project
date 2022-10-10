@@ -24,15 +24,11 @@ export class AccountService {
                 is_admin: false,
                 default_contact: email,
             });
-            // console.log("AccountService-- this is accountName:", accountName);
-            // console.log("AccountService-- this is email:", email);
-            // console.log("AccountService-- this is password:", password);
             await txn.commit();
             return { success: true };
         } catch (error) {
             await txn.rollback();
-            winstonLogger.error(error.toString());
-            return { success: false, message: "error" };
+            throw error;
         }
     }
     async logIn(email: string, password: string) {
@@ -40,8 +36,8 @@ export class AccountService {
         try {
             // console.log("AccountService-- this is email:", email);
             // console.log("AccountService-- this is password:", password);
-            const existUserData = await txn("users").select("*").where("email", email).first();
-            // console.log("AccountService--this is userData:", existUserData);            
+            const existUserData = await txn("users123").select("*").where("email", email).first();
+            // console.log("AccountService--this is userData:", existUserData);
             if (!existUserData) {
                 // console.log("Invalid email");
                 return { success: false, message: "Invalid email" };
@@ -94,8 +90,7 @@ export class AccountService {
             return { success: true, body: { token, combineUserData, userShoppingDataArr } };
         } catch (error) {
             await txn.rollback();
-            winstonLogger.error(error.toString());
-            return { success: false, message: "Internal Server Error" };
+            throw error;
         }
     }
     async userDataJWT(tokenId: number) {
